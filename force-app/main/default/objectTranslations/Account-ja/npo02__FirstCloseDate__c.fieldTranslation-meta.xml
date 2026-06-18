@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>この取引先に関連する、金額が 0 より大きい成立商談が最初に行われた日 (完了日)。</help>
+    <label><!-- First Gift Date --></label>
+    <name>npo02__FirstCloseDate__c</name>
+</CustomFieldTranslation>

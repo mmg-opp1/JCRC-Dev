@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>この取引先責任者を個人の取引先の処理から除外します。[取引先] 項目を空白にすると、空白のままになります。</help>
+    <label><!-- Private --></label>
+    <name>npe01__Private__c</name>
+</CustomFieldTranslation>

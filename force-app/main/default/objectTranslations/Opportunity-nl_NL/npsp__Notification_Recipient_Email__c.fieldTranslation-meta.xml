@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Het e-mailadres van de persoon die wordt gehonoreerd en daarover een kennisgeving ontvangt.</help>
+    <label><!-- Notification Recipient Email --></label>
+    <name>npsp__Notification_Recipient_Email__c</name>
+</CustomFieldTranslation>

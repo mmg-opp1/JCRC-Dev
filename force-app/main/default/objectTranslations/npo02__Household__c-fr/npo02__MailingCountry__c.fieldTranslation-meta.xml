@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Défini par le contact d’origine qui a créé ce foyer. Peut être mis à jour dans la page Modification du foyer mais ne met pas à jour le contact sauf si le bouton « Copier une adresse de domicile dans les contacts » est activé.</help>
+    <label><!-- Mailing Country --></label>
+    <name>npo02__MailingCountry__c</name>
+</CustomFieldTranslation>

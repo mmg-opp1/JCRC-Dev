@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Défini par le contact d’origine qui a créé ce foyer. Peut être modifié dans Foyer, mais ne met pas à jour le contact.</help>
+    <label><!-- Household Phone --></label>
+    <name>npo02__HouseholdPhone__c</name>
+</CustomFieldTranslation>

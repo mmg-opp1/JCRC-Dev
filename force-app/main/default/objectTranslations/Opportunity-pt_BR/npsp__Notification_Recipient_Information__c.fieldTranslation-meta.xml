@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Digite as informações de contato, como endereço, telefone ou email que o doador forneceu para o destinatário da notificação.</help>
+    <label><!-- Notification Recipient Information --></label>
+    <name>npsp__Notification_Recipient_Information__c</name>
+</CustomFieldTranslation>

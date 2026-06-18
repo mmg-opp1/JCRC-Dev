@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>The number of won Opportunities with Close Date in the last year related to this Household via related Contacts with primary Contact Role.</help>
+    <label><!-- Number of Gifts Last Year --></label>
+    <name>npo02__OppsClosedLastYear__c</name>
+</CustomFieldTranslation>

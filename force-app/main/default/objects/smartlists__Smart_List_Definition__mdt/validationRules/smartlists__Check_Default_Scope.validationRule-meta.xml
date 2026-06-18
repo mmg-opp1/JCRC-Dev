@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>smartlists__Check_Default_Scope</fullName>
+    <active>true</active>
+    <errorConditionFormula>(ISPICKVAL(smartlists__SOQL_Default_Scope__c, &apos;everything&apos;) &amp;&amp; ! smartlists__SOQL_Scope_All__c) || (ISPICKVAL(smartlists__SOQL_Default_Scope__c, &apos;mine&apos;) &amp;&amp; ! smartlists__SOQL_Scope_My__c) || (ISPICKVAL(smartlists__SOQL_Default_Scope__c, &apos;team&apos;) &amp;&amp; ! smartlists__SOQL_Scope_My_Team__c) || (ISPICKVAL(smartlists__SOQL_Default_Scope__c, &apos;subordinates&apos;) &amp;&amp; ! smartlists__SOQL_Scope_My_Subordinates__c )</errorConditionFormula>
+    <errorDisplayField>smartlists__SOQL_Default_Scope__c</errorDisplayField>
+    <errorMessage>The default filter is not one of the selected filters</errorMessage>
+</ValidationRule>

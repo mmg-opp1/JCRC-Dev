@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>&quot;Origen&quot; de afiliación (nuevo, renovación...) procedente de la Oportunidad de afiliación (por Tipo de registro) ganada más reciente (por Fecha de cierre) relacionado con esta cuenta.</help>
+    <label><!-- Last Membership Origin --></label>
+    <name>npo02__LastMembershipOrigin__c</name>
+</CustomFieldTranslation>

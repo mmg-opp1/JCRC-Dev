@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>האם הסכום משמש עבור כל תשלום (מכפלה), או מפוצל בין תשלומים (חלוקה).  משמש רק עבור תרומות חוזרות ללא סיום פתוח.</help>
+    <label><!-- Schedule Type --></label>
+    <name>npe03__Schedule_Type__c</name>
+    <picklistValues>
+        <masterLabel>Divide By</masterLabel>
+        <translation><!-- Divide By --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Multiply By</masterLabel>
+        <translation><!-- Multiply By --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

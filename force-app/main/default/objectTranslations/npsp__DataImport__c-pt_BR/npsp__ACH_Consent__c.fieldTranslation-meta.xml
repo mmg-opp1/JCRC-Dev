@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>A mensagem de autorização da Página de doação do Elevate que o doador aceitou.</help>
+    <label><!-- Payment ACH Consent Message --></label>
+    <name>npsp__ACH_Consent__c</name>
+</CustomFieldTranslation>

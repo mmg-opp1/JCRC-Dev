@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Ingesteld door de oorspronkelijke contactpersoon die dit huishouden heeft gemaakt. Kan worden bijgewerkt via pagina Bewerking van huishouden, maar werkt Contactpersoon niet bij, tenzij &quot;Adres van huishouden kopiëren naar Contactpersonen&quot; wordt gebruikt.</help>
+    <label><!-- Mailing Street --></label>
+    <name>npo02__MailingStreet__c</name>
+</CustomFieldTranslation>

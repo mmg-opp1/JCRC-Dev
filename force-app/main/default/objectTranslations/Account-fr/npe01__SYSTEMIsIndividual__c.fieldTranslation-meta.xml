@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Indique si ce compte est spécial pour les contacts (foyer, un-à-un, individuel) par rapport à un compte normal.</help>
+    <label><!-- _SYSTEM: IsIndividual --></label>
+    <name>npe01__SYSTEMIsIndividual__c</name>
+</CustomFieldTranslation>

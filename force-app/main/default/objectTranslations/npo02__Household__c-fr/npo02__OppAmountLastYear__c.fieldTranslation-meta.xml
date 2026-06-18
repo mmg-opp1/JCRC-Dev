@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Total des dons l’année dernière d’un foyer par contact et rôle de contact d’opportunité principal.</help>
+    <label><!-- Total Gifts Last Year --></label>
+    <name>npo02__OppAmountLastYear__c</name>
+</CustomFieldTranslation>

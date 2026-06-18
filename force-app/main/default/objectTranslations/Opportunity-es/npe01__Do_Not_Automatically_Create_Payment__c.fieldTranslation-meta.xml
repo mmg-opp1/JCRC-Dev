@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Si los pagos están activos y este campo está seleccionado, no se creará un nuevo pago automáticamente para esta oportunidad.</help>
+    <label><!-- Do Not Automatically Create Payment --></label>
+    <name>npe01__Do_Not_Automatically_Create_Payment__c</name>
+</CustomFieldTranslation>

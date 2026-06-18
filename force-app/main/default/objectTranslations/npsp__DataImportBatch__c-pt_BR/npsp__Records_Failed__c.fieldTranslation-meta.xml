@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Mostra o número de registros que não foram processados com sucesso na data listada no campo Último processamento em.</help>
+    <label><!-- Records Failed --></label>
+    <name>npsp__Records_Failed__c</name>
+</CustomFieldTranslation>

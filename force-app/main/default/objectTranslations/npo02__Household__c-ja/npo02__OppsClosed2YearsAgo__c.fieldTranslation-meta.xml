@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>主商談取引先責任者の役割が設定されている関連取引先責任者による、この世帯に関連する成立商談で、完了日が過去 2 年間であるものの回数。</help>
+    <label><!-- Number of Gifts Two Years Ago --></label>
+    <name>npo02__OppsClosed2YearsAgo__c</name>
+</CustomFieldTranslation>

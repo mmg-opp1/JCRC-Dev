@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Bepaalt de volgorde waarin namen van Contactpersonen worden gebruikt worden om de naam van een huishouden te genereren.</help>
+    <label><!-- Household Naming Order --></label>
+    <name>npo02__Household_Naming_Order__c</name>
+</CustomFieldTranslation>

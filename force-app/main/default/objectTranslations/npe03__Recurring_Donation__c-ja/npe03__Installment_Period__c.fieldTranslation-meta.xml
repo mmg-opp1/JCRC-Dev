@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>割賦の間隔を設定します。警告: 既存の継続支援の間隔を変更すると、進行中の商談が削除されて再作成される可能性があります。その場合、関連付けられているデータは保持されません。</help>
+    <label><!-- Installment Period --></label>
+    <name>npe03__Installment_Period__c</name>
+    <picklistValues>
+        <masterLabel>1st and 15th</masterLabel>
+        <translation>1 日と 15 日</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Monthly</masterLabel>
+        <translation>毎月</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Quarterly</masterLabel>
+        <translation>毎四半期</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Weekly</masterLabel>
+        <translation>毎週</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Yearly</masterLabel>
+        <translation>毎年</translation>
+    </picklistValues>
+</CustomFieldTranslation>

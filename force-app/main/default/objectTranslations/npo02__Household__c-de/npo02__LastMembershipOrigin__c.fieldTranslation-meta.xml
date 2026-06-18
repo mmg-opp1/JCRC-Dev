@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Der Ursprung (neu, verlängert...) der zuletzt für diesen Haushalt über verbundene Kontakte mit primärer Opportunity-Kontaktrolle gewonnenen Mitgliedschaft-Opportunity.</help>
+    <label><!-- Last Membership Origin --></label>
+    <name>npo02__LastMembershipOrigin__c</name>
+</CustomFieldTranslation>

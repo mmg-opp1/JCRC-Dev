@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>El año del importe total más grande de oportunidades ganadas relacionadas con esta cuenta por función de contacto principal. Consulte también Total en año de mejor donación.</help>
+    <label><!-- Best Gift Year --></label>
+    <name>npo02__Best_Gift_Year__c</name>
+</CustomFieldTranslation>

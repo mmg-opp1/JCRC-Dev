@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Das Beitrittsdatum der ältesten (Schlusstermin) Mitgliedschaft-Opportunity (Datensatztyp) in Verbindung mit diesem Kontakt nach primärer Opportunity-Kontaktrolle.</help>
+    <label><!-- Membership Join Date --></label>
+    <name>npo02__MembershipJoinDate__c</name>
+</CustomFieldTranslation>

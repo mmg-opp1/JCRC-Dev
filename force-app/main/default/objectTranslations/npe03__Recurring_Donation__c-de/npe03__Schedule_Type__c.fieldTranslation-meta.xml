@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Gibt Salesforce an, wie der Betrag für die einzelnen untergeordneten Opportunities auf der Grundlage dessen, was Sie in das Betragsfeld eingegeben haben, berechnet werden soll. Nur für Wiederkehrende Spenden mit fester Dauer.</help>
+    <label><!-- Schedule Type --></label>
+    <name>npe03__Schedule_Type__c</name>
+    <picklistValues>
+        <masterLabel>Divide By</masterLabel>
+        <translation>Dividieren durch</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Multiply By</masterLabel>
+        <translation>Multiplizieren mit</translation>
+    </picklistValues>
+</CustomFieldTranslation>

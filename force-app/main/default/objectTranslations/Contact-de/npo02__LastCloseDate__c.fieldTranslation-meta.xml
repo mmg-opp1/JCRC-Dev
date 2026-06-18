@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Der Schlusstermin der letzten in Verbindung mit diesem Kontakt nach primärer Opportunity-Kontaktrolle gewonnenen Opportunity.</help>
+    <label><!-- Last Gift Date --></label>
+    <name>npo02__LastCloseDate__c</name>
+</CustomFieldTranslation>

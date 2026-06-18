@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>De datum waarop deze terugkerende donatie is gesloten.</help>
+    <label><!-- End Date --></label>
+    <name>npsp__EndDate__c</name>
+</CustomFieldTranslation>

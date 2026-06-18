@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Die Gesamtzahl der in Verbindung mit diesem Account gewonnenen Opportunities mit einem Betrag über null, die im letzten Jahr oder Geschäftsjahr geschlossen wurden (siehe Haushalt-Einstellungen).</help>
+    <label><!-- Number of Gifts Last Year --></label>
+    <name>npo02__OppsClosedLastYear__c</name>
+</CustomFieldTranslation>

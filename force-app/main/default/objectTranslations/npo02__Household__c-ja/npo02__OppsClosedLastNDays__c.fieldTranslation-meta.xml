@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>主商談取引先責任者の役割が設定されている関連取引先責任者による、この世帯に関連する成立商談で、完了日が過去 N 日間 (世帯設定) であるものの回数。</help>
+    <label><!-- Number of Gifts Last N Days --></label>
+    <name>npo02__OppsClosedLastNDays__c</name>
+</CustomFieldTranslation>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>El importe total de oportunidades ganadas relacionadas con este contacto por función de contacto de oportunidad principal, cerradas en el último número de días definido en Configuración de Hogar.</help>
+    <label><!-- Total Gifts Last N Days --></label>
+    <name>npo02__OppAmountLastNDays__c</name>
+</CustomFieldTranslation>

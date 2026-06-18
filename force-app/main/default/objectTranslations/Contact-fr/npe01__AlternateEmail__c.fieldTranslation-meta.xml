@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Autre e-mail est un quatrième e-mail facultatif : en plus du personnel, préféré ou professionnel.</help>
+    <label><!-- Alternate Email --></label>
+    <name>npe01__AlternateEmail__c</name>
+</CustomFieldTranslation>

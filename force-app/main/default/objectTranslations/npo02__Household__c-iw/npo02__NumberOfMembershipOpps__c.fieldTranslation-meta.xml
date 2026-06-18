@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- The total amount of won Membership Opportunities (Record Type) related to this Household by Contact and primary Opportunity Contact Role. --></help>
+    <label><!-- Number of Memberships --></label>
+    <name>npo02__NumberOfMembershipOpps__c</name>
+</CustomFieldTranslation>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Alternatief e-mailadres is een optioneel vierde e-mailadres: niet het persoonlijke e-mailadres, het voorkeuradres of het e-mailadres voor werk.</help>
+    <label><!-- Alternate Email --></label>
+    <name>npe01__AlternateEmail__c</name>
+</CustomFieldTranslation>

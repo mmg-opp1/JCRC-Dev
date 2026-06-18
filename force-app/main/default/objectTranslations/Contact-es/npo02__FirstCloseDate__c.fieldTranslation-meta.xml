@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>La fecha de cierre más antigua de una oportunidad ganada con un importe superior a cero relacionada con este contacto por función de contacto de oportunidad principal.</help>
+    <label><!-- First Gift Date --></label>
+    <name>npo02__FirstCloseDate__c</name>
+</CustomFieldTranslation>

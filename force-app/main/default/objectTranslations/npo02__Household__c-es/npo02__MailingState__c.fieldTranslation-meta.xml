@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Establecido por el contacto original que creó este hogar. Puede actualizarse en la página Modificación de hogar pero no actualiza contactos hasta que se pulse el botón &quot;Copiar dirección del hogar en contactos&quot;.</help>
+    <label><!-- Mailing State/Province --></label>
+    <name>npo02__MailingState__c</name>
+</CustomFieldTranslation>

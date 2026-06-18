@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Wenn diese Option aktiviert ist, wird die Adresse dieses Kontakts nicht mit dem Standardhaushalt oder der saisonalen Adresse synchronisiert. Auf diese Weise erhalten Sie eine separate Postanschrift für diesen speziellen Kontakt.</help>
+    <label><!-- Address Override --></label>
+    <name>npsp__is_Address_Override__c</name>
+</CustomFieldTranslation>

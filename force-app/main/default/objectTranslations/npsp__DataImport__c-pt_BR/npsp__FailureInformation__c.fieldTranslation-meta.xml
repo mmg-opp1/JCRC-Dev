@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Descrição do que fez com que o registro de importação de dados não fosse importado.</help>
+    <label><!-- Failure Information --></label>
+    <name>npsp__FailureInformation__c</name>
+</CustomFieldTranslation>

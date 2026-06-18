@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Zur Einstellung des Haushalt-Namens und anderer Felder unter Verwendung anonymer Informationen.</help>
+    <label><!-- Always Anonymous --></label>
+    <name>npo02__Always_Anonymous__c</name>
+</CustomFieldTranslation>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>De herkomst (nieuw, verlenging, opnieuw verwerven, ...) van de recentste gewonnen Opportunity van lidmaatschap (op Recordtype), die is gerelateerd aan deze contactpersoon, op primaire Opportunitycontactpersoonsrol.</help>
+    <label><!-- Last Membership Origin --></label>
+    <name>npo02__LastMembershipOrigin__c</name>
+</CustomFieldTranslation>

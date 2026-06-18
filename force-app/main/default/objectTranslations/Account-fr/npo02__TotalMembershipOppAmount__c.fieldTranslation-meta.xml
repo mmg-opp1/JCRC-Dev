@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Le montant total d’opportunités d’adhésion gagnées (par type d&apos;enregistrement) associées à ce compte.</help>
+    <label><!-- Total Membership Amount --></label>
+    <name>npo02__TotalMembershipOppAmount__c</name>
+</CustomFieldTranslation>

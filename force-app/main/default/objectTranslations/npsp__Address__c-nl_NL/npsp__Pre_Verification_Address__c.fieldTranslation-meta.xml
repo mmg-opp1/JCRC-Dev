@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Bewaart het Adres zoals het was vóór de verificatie door een externe dienst, voor het geval er informatie verloren gaat tijdens het verificatieproces.</help>
+    <label><!-- Pre-Verification Address --></label>
+    <name>npsp__Pre_Verification_Address__c</name>
+</CustomFieldTranslation>

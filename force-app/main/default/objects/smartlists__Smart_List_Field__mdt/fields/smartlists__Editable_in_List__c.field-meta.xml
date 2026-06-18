@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>smartlists__Editable_in_List__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>If checked, the field is editable if the running user has the edit right on the field and the field data type is editable</description>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Inline Edit</label>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Terugkerende donatie</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Terugkerende donaties</value>
+    </caseValues>
+    <fieldSets>
+        <label><!-- Recurring Donations Entry Form Custom Fields --></label>
+        <name>npsp__RD2_Entry_Form_Custom_Fields</name>
+    </fieldSets>
+    <gender>Feminine</gender>
+    <nameFieldLabel>Naam van terugkerende donatie</nameFieldLabel>
+    <webLinks>
+        <label><!-- New_Recurring_Acct_Donation --></label>
+        <name>npe03__New_Recurring_Acct_Donation</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- New_Recurring_Donation_Pledge_Account --></label>
+        <name>npe03__New_Recurring_Donation_Pledge_Account</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Refresh_Opportunities --></label>
+        <name>npe03__Refresh_Opportunities</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Recalculate_Rollups --></label>
+        <name>npsp__Recalculate_Rollups</name>
+    </webLinks>
+</CustomObjectTranslation>

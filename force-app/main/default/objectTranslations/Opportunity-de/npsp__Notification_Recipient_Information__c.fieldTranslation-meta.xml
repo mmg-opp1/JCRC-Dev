@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Geben Sie hier die Kontaktinformationen, wie Adresse, Telefonnummer oder E-Mail-Adresse ein, die der Spender für den Benachrichtigungsempfänger angenommen hat.</help>
+    <label><!-- Notification Recipient Information --></label>
+    <name>npsp__Notification_Recipient_Information__c</name>
+</CustomFieldTranslation>

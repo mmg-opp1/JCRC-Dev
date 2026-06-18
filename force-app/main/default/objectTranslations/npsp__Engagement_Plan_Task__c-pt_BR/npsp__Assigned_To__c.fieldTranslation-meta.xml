@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Procure o Usuário ao qual deseja atribuir a tarefa. Se você deixar este campo em branco, o NPSP atribuirá a tarefa com base no Atribuído padrão do modelo do plano de interação.</help>
+    <label><!-- Assigned To --></label>
+    <name>npsp__Assigned_To__c</name>
+    <relationshipLabel><!-- Engagement Plan Tasks --></relationshipLabel>
+</CustomFieldTranslation>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Definido pelo Contato original que criou esta Família. Pode ser atualizado na página de edição da família, mas não atualiza o Contato, a menos que o botão &quot;Copiar endereço de família para contatos&quot; seja pressionado.</help>
+    <label><!-- Mailing Street --></label>
+    <name>npo02__MailingStreet__c</name>
+</CustomFieldTranslation>

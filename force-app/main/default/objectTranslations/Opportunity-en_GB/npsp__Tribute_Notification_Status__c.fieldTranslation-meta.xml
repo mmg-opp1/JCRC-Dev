@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Tribute Notification Status --></label>
+    <name>npsp__Tribute_Notification_Status__c</name>
+    <picklistValues>
+        <masterLabel>Notified</masterLabel>
+        <translation>Notified</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>To Be Notified</masterLabel>
+        <translation>To Be Notified</translation>
+    </picklistValues>
+</CustomFieldTranslation>

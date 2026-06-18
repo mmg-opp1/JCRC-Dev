@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>La suma de los importes de oportunidades de créditos blandos el año pasado determinado por Función de contacto de oportunidad y filtrada por funciones en Configuración de Hogar.</help>
+    <label><!-- Soft Credit Last Year --></label>
+    <name>npo02__Soft_Credit_Last_Year__c</name>
+</CustomFieldTranslation>

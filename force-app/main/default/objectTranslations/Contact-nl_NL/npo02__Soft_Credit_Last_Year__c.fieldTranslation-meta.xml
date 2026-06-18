@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>De som van &quot;soft credit&quot;-bedragen voor Opportunity vorig jaar, die is bepaald op Opportunitycontactpersoonsrol en gefilterd op Rollen in Instellingen voor huishouden.</help>
+    <label><!-- Soft Credit Last Year --></label>
+    <name>npo02__Soft_Credit_Last_Year__c</name>
+</CustomFieldTranslation>

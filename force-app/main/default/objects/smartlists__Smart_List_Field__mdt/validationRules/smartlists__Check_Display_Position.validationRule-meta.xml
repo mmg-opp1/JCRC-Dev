@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>smartlists__Check_Display_Position</fullName>
+    <active>true</active>
+    <errorConditionFormula>smartlists__List_Field__c == true &amp;&amp; ISBLANK(smartlists__Display_Position__c)</errorConditionFormula>
+    <errorDisplayField>smartlists__Display_Position__c</errorDisplayField>
+    <errorMessage>Display Position is required for List fields</errorMessage>
+</ValidationRule>

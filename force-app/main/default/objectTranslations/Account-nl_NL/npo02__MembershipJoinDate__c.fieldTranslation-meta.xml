@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Lidmaatschapsniveau van de recentste (op Sluitingsdatum) gewonnen Opportunity van lidmaatschap (op Recordtype), die is gerelateerd aan deze account.</help>
+    <label><!-- Membership Join Date --></label>
+    <name>npo02__MembershipJoinDate__c</name>
+</CustomFieldTranslation>

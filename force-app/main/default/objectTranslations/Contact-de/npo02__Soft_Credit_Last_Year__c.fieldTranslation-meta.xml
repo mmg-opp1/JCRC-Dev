@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Die Summe der nach Opportunity-Kontaktrolle festgelegten und nach Rollen in den Haushalt-Einstellungen gefilterten Soft Credit-Opportunity-Beträge im letzten Jahr.</help>
+    <label><!-- Soft Credit Last Year --></label>
+    <name>npo02__Soft_Credit_Last_Year__c</name>
+</CustomFieldTranslation>

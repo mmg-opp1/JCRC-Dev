@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>選択されている場合は、この世帯のすべてのメンバーが死亡していることになります。この項目を手動で更新しないでください。世帯メンバーである取引先責任者の [死亡] チェックボックスの更新に伴って自動的に更新されます。</help>
+    <label><!-- All Household Members Deceased --></label>
+    <name>npsp__All_Members_Deceased__c</name>
+</CustomFieldTranslation>

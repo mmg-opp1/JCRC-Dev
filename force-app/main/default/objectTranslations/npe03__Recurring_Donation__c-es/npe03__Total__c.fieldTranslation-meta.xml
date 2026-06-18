@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Para donaciones recurrentes sin finalización definida, es el importe total de todas las oportunidades.</help>
+    <label><!-- Total --></label>
+    <name>npe03__Total__c</name>
+</CustomFieldTranslation>

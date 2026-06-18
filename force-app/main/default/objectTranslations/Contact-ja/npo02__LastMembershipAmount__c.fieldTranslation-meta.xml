@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>この取引先責任者 (主商談取引先責任者の役割) に関連する最も新しい (完了日) 成立会費 (レコードタイプ) 商談の金額。</help>
+    <label><!-- Last Membership Amount --></label>
+    <name>npo02__LastMembershipAmount__c</name>
+</CustomFieldTranslation>

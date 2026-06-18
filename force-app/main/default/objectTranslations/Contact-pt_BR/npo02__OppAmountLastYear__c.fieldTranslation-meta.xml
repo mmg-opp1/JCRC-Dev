@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>O valor total de Oportunidades ganhas relacionadas a este Contato por Função de contato de oportunidade primária fechadas ano passado.</help>
+    <label><!-- Total Gifts Last Year --></label>
+    <name>npo02__OppAmountLastYear__c</name>
+</CustomFieldTranslation>

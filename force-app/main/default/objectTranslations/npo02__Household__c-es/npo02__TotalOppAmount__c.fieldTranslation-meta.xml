@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>La suma de importes de oportunidades ganadas relacionadas con este hogar por un contacto y una función del contacto de oportunidad principal.</help>
+    <label><!-- Total Gifts --></label>
+    <name>npo02__TotalOppAmount__c</name>
+</CustomFieldTranslation>

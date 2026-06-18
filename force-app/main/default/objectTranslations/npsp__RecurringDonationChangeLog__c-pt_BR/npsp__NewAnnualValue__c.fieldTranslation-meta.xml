@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>O novo valor anual para esta doação recorrente, com base no valor e na agenda.</help>
+    <label><!-- New Annual Value --></label>
+    <name>npsp__NewAnnualValue__c</name>
+</CustomFieldTranslation>

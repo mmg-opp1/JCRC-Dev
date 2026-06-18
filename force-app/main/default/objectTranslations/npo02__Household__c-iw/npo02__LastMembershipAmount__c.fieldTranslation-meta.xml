@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- The most recent won Membership Opportunity (Record Type) amount for this Household via related Contacts with primary Opportunity Contact Role. --></help>
+    <label><!-- Last Membership Amount --></label>
+    <name>npo02__LastMembershipAmount__c</name>
+</CustomFieldTranslation>

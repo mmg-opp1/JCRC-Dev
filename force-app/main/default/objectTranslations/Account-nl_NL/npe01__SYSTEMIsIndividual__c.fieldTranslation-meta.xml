@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Geeft aan of deze account al of niet speciaal is voor Contactpersonen (Huishouden, Eén-op-één, Individu) in tegenstelling tot een normale account.</help>
+    <label><!-- _SYSTEM: IsIndividual --></label>
+    <name>npe01__SYSTEMIsIndividual__c</name>
+</CustomFieldTranslation>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Le nombre d’opportunités gagnées avec une date de fermeture cette année associées à ce foyer via les contacts associés avec un rôle de contact d’opportunité principal.</help>
+    <label><!-- Number of Gifts This Year --></label>
+    <name>npo02__OppsClosedThisYear__c</name>
+</CustomFieldTranslation>

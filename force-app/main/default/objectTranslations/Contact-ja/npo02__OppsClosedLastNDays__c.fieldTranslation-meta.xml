@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>この取引先責任者 (主商談取引先責任者の役割) に関連する、金額が 0 より大きい成立商談で、[世帯設定] に定義されている過去の日数の間に完了したものの合計回数。</help>
+    <label><!-- Number of Gifts Last N Days --></label>
+    <name>npo02__OppsClosedLastNDays__c</name>
+</CustomFieldTranslation>

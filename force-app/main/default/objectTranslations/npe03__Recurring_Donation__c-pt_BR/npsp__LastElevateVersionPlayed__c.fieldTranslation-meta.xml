@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>N.º inteiro que representa a última versão do evento Elevate reproduzido resultando em atualiz. desta doação. Incrementado autom. após cada cham. à API do Elevate. Evita atualiz. circulares e garante que a versão mais recente nunca será substituída.</help>
+    <label><!-- Last Elevate Version Played --></label>
+    <name>npsp__LastElevateVersionPlayed__c</name>
+</CustomFieldTranslation>

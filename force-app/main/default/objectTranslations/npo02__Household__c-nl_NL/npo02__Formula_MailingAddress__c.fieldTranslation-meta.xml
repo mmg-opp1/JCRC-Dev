@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Formule: aaneenvoeging van andere velden voor Postadres voor dit Huishouden. Kan worden bijgewerkt op de pagina Bewerking van huishouden, maar werkt Contactpersoon niet bij, tenzij &quot;Adres van huishouden kopiëren naar Contactpersonen&quot; wordt gebruikt.</help>
+    <label><!-- Mailing Address --></label>
+    <name>npo02__Formula_MailingAddress__c</name>
+</CustomFieldTranslation>

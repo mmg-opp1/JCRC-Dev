@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>O valor total de Oportunidades ganhas relacionadas a esta família, fechadas na quantidade de dias definida em Configurações da família, relacionadas por Contato e Função de contato de oportunidade primária.</help>
+    <label><!-- Total Gifts Last N Days --></label>
+    <name>npo02__OppAmountLastNDays__c</name>
+</CustomFieldTranslation>

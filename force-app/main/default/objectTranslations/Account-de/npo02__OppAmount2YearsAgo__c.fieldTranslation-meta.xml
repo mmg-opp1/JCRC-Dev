@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Der Gesamtbetrag der in Verbindung mit diesem Account gewonnenen Opportunities, die in dem Jahr oder Geschäftsjahr vor dem letzten Jahr geschlossen wurden (siehe Haushalt-Einstellungen).</help>
+    <label><!-- Total Gifts Two Years Ago --></label>
+    <name>npo02__OppAmount2YearsAgo__c</name>
+</CustomFieldTranslation>

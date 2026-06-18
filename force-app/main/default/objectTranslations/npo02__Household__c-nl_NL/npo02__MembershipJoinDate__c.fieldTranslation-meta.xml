@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>De vroegste Datum van lid worden van lidmaatschap van de oudste Opportunity van lidmaatschap (op Sluitingsdatum, Recordtype) voor dit Huishouden via gerelateerde Contactpersonen met primaire Opportunitycontactpersoonsrol.</help>
+    <label><!-- Membership Join Date --></label>
+    <name>npo02__MembershipJoinDate__c</name>
+</CustomFieldTranslation>

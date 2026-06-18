@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Total Gifts Two Years Ago on Household by Contact and primary Opportunity Contact Role. --></help>
+    <label><!-- Total Gifts Two Years Ago --></label>
+    <name>npo02__OppAmount2YearsAgo__c</name>
+</CustomFieldTranslation>

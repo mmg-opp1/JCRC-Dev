@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Champ système qui indique si cette relation a été automatiquement créée en tant que relation réciproque d’une autre relation.</help>
+    <label><!-- _SYSTEM: SystemCreated --></label>
+    <name>npe4__SYSTEM_SystemCreated__c</name>
+</CustomFieldTranslation>

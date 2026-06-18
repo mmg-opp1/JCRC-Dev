@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Le nombre total d’opportunités gagnées avec un montant supérieur à zéro associées à ce compte, fermées au cours de l’année ou de l’exercice fiscal précédent (voir Paramètres de foyer).</help>
+    <label><!-- Number of Gifts Last Year --></label>
+    <name>npo02__OppsClosedLastYear__c</name>
+</CustomFieldTranslation>

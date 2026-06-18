@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Het totale aantal gewonnen Opportunities met een bedrag groter dan nul, dat is gerelateerd aan deze account en dat is gesloten binnen het jaar of fiscale jaar dat voorafging aan afgelopen jaar.</help>
+    <label><!-- Number of Gifts Two Years Ago --></label>
+    <name>npo02__OppsClosed2YearsAgo__c</name>
+</CustomFieldTranslation>

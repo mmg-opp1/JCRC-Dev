@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>De primaire contactpersoon voor de account of de contactpersoon voor One2One voor een One2One-account.</help>
+    <label><!-- Primary Contact --></label>
+    <name>npe01__One2OneContact__c</name>
+    <relationshipLabel><!-- Account --></relationshipLabel>
+</CustomFieldTranslation>

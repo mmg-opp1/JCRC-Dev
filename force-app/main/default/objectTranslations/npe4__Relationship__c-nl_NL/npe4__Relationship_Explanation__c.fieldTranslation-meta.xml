@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Tekstformule die een zin samenstelt, die de relatie uitlegt tussen twee contactpersonen.</help>
+    <label><!-- Relationship Explanation --></label>
+    <name>npe4__Relationship_Explanation__c</name>
+</CustomFieldTranslation>

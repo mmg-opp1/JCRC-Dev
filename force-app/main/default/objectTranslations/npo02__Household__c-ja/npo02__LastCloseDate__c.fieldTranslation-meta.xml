@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>主取引先責任者の役割が設定されている関連取引先責任者による、この世帯の成立商談の最も新しい完了日。</help>
+    <label><!-- Last Gift Date --></label>
+    <name>npo02__LastCloseDate__c</name>
+</CustomFieldTranslation>

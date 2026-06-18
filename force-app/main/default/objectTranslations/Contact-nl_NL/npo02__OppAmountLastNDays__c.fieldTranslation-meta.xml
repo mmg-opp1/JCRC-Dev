@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Het totaalbedrag van gewonnen Opportunities, dat is gerelateerd aan deze contactpersoon, op primaire Opportunitycontactpersoonsrol, en is gesloten in het laatste dagen zoals gedefinieerd in Instellingen voor huishouden.</help>
+    <label><!-- Total Gifts Last N Days --></label>
+    <name>npo02__OppAmountLastNDays__c</name>
+</CustomFieldTranslation>

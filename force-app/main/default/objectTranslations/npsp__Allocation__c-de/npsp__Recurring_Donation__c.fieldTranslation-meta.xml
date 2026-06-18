@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Die wiederkehrende Spende, der diese Zuweisung zugeordnet ist. NPSP ordnet automatisch alle mit der wiederkehrenden Spende verbundenen neuen Opportunities in derselben Weise zu.</help>
+    <label><!-- Recurring Donation --></label>
+    <name>npsp__Recurring_Donation__c</name>
+    <relationshipLabel><!-- GAU Allocations --></relationshipLabel>
+</CustomFieldTranslation>

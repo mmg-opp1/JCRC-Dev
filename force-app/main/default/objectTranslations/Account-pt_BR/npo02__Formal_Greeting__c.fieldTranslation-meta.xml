@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Para Contas de família, utiliza campos de Contatos relacionados não excluídos e ordenados. Gerado automaticamente.</help>
+    <label><!-- Formal Greeting --></label>
+    <name>npo02__Formal_Greeting__c</name>
+</CustomFieldTranslation>

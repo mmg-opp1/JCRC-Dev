@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Formule: &quot;Individu&quot; of &quot;Organisatie&quot;, afhankelijk van de instelling voor Account.</help>
+    <label><!-- Type of Account --></label>
+    <name>npe01__Type_of_Account__c</name>
+</CustomFieldTranslation>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Indica se uma notificação por email foi enviada a respeito desse erro.</help>
+    <label><!-- Email Sent --></label>
+    <name>npsp__Email_Sent__c</name>
+</CustomFieldTranslation>

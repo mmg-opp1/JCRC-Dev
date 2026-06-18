@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>La fecha de incorporación de afiliación más reciente de la oportunidad de afiliación más antigua (Fecha de cierre, Tipo de registro) para este hogar a través de contactos relacionados con función de contacto de oportunidad principal.</help>
+    <label><!-- Membership Join Date --></label>
+    <name>npo02__MembershipJoinDate__c</name>
+</CustomFieldTranslation>

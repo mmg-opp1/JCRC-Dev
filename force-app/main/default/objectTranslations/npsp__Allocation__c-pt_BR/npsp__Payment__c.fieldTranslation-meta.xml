@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Atribui alocações a um pagamento.</help>
+    <label><!-- Payment --></label>
+    <name>npsp__Payment__c</name>
+    <relationshipLabel><!-- Payment Allocations --></relationshipLabel>
+</CustomFieldTranslation>

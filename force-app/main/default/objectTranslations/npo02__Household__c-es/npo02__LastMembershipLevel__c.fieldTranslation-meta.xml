@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>El nivel de afiliación de la oportunidad de afiliación más reciente ganada para este hogar a través de contactos relacionados con función de contacto de oportunidad principal.</help>
+    <label><!-- Last Membership Level --></label>
+    <name>npo02__LastMembershipLevel__c</name>
+</CustomFieldTranslation>

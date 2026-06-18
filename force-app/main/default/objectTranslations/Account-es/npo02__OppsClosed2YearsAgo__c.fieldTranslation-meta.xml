@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>El número total de oportunidades ganadas con un importe superior a cero relacionadas con esta cuenta, cerradas dentro del año o año fiscal anterior al último año.</help>
+    <label><!-- Number of Gifts Two Years Ago --></label>
+    <name>npo02__OppsClosed2YearsAgo__c</name>
+</CustomFieldTranslation>

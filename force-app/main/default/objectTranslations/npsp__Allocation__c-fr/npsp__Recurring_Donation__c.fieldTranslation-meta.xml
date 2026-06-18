@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Le don régulier auquel cette affectation est attribuée. NPSP alloue automatiquement toutes les nouvelles opportunités associées au don régulier de la même manière.</help>
+    <label><!-- Recurring Donation --></label>
+    <name>npsp__Recurring_Donation__c</name>
+    <relationshipLabel><!-- GAU Allocations --></relationshipLabel>
+</CustomFieldTranslation>

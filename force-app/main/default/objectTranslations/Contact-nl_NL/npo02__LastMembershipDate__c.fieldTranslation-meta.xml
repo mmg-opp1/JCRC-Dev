@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>De recentste Sluitingsdatum van een gewonnen Opportunity van lidmaatschap (op Recordtype), dat is gerelateerd aan deze contactpersoon, op primaire Opportunitycontactpersoonsrol.</help>
+    <label><!-- Last Membership Date --></label>
+    <name>npo02__LastMembershipDate__c</name>
+</CustomFieldTranslation>

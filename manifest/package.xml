@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Comprehensive Package.xml for Full Org Metadata Retrieval
+
+    Description: This manifest retrieves all major metadata types from a Salesforce org.
+                 Use this for initial org pulls, syncing changes between sessions,
+                 or migrating metadata between orgs.
+
+    Author: Jason Ott
+    Created: 2026-01-30
+
+    Usage:
+        sf project retrieve start -x manifest/package.xml -o <org-alias>
+
+    Change Log:
+    -----------
+    2026-01-30 - Initial creation with comprehensive metadata types
+    2026-06-10 - Jason Ott - Removed SharingSet (entity type not available in this org)
+                 and ConnectedApp (managed CPQIntegrationUserApp throws a server-side
+                 "Load of metadata from db failed" error that aborts the entire retrieve).
+                 Both caused partial retrieves where Apex/Flow/etc. silently returned nothing.
+-->
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+
+    <!-- ============================================== -->
+    <!-- APEX CODE & DEVELOPMENT                        -->
+    <!-- ============================================== -->
+
+    <!-- Apex Classes -->
+    <types>
+        <members>*</members>
+        <name>ApexClass</name>
+    </types>
+
+    <!-- Apex Triggers -->
+    <types>
+        <members>*</members>
+        <name>ApexTrigger</name>
+    </types>
+
+    <!-- Visualforce Pages -->
+    <types>
+        <members>*</members>
+        <name>ApexPage</name>
+    </types>
+
+
+    <!-- Aura/Lightning Components -->
+    <types>
+        <members>*</members>
+        <name>AuraDefinitionBundle</name>
+    </types>
+
+    <!-- Lightning Web Components -->
+    <types>
+        <members>*</members>
+        <name>LightningComponentBundle</name>
+    </types>
+
+    <!-- Static Resources -->
+    <types>
+        <members>*</members>
+        <name>StaticResource</name>
+    </types>
+
+    <!-- ============================================== -->
+    <!-- OBJECTS, FIELDS & SCHEMA                       -->
+    <!-- ============================================== -->
+
+    <!-- Custom and Standard Objects (includes fields, record types, validation rules, etc.) -->
+    <types>
+        <members>*</members>
+        <name>CustomObject</name>
+    </types>
+
+    <!-- Custom Metadata Types -->
+    <types>
+        <members>*</members>
+        <name>CustomMetadata</name>
+    </types>
+
+    <!-- Global Value Sets (Global Picklists) -->
+    <types>
+        <members>*</members>
+        <name>GlobalValueSet</name>
+    </types>
+
+
+    <!-- ============================================== -->
+    <!-- PAGE LAYOUTS & USER INTERFACE                  -->
+    <!-- ============================================== -->
+
+    <!-- Page Layouts -->
+    <types>
+        <members>*</members>
+        <name>Layout</name>
+    </types>
+
+    <!-- Lightning Record Pages, App Pages, Home Pages -->
+    <types>
+        <members>*</members>
+        <name>FlexiPage</name>
+    </types>
+
+    <!-- Compact Layouts -->
+    <types>
+        <members>*</members>
+        <name>CompactLayout</name>
+    </types>
+
+    <!-- Home Page Components (Classic) -->
+    <types>
+        <members>*</members>
+        <name>HomePageComponent</name>
+    </types>
+
+    <!-- Home Page Layouts (Classic) -->
+    <types>
+        <members>*</members>
+        <name>HomePageLayout</name>
+    </types>
+
+    <!-- Custom Tabs -->
+    <types>
+        <members>*</members>
+        <name>CustomTab</name>
+    </types>
+
+    <!-- ============================================== -->
+    <!-- APPLICATIONS                                   -->
+    <!-- ============================================== -->
+
+    <!-- Custom Applications -->
+    <types>
+        <members>*</members>
+        <name>CustomApplication</name>
+    </types>
+
+
+    <!-- Connected Apps -->
+    <!-- REMOVED 2026-06-10 (Jason Ott): managed CPQIntegrationUserApp throws a
+         server-side "Load of metadata from db failed" error that aborts the whole
+         retrieve. Managed connected apps cannot be retrieved anyway. -->
+
+    <!-- ============================================== -->
+    <!-- ACTIONS & BUTTONS                              -->
+    <!-- ============================================== -->
+
+    <!-- Quick Actions (Object-specific and Global) -->
+    <types>
+        <members>*</members>
+        <name>QuickAction</name>
+    </types>
+
+    <!-- Custom Buttons & Links (WebLinks) -->
+    <types>
+        <members>*</members>
+        <name>WebLink</name>
+    </types>
+
+    <!-- ============================================== -->
+    <!-- AUTOMATION                                     -->
+    <!-- ============================================== -->
+
+    <!-- Flows (Process Builder, Screen Flows, Autolaunched Flows, etc.) -->
+    <types>
+        <members>*</members>
+        <name>Flow</name>
+    </types>
+
+    <!-- Flow Definitions -->
+    <types>
+        <members>*</members>
+        <name>FlowDefinition</name>
+    </types>
+
+    <!-- Workflow Rules -->
+    <types>
+        <members>*</members>
+        <name>Workflow</name>
+    </types>
+
+    <!-- Approval Processes -->
+    <types>
+        <members>*</members>
+        <name>ApprovalProcess</name>
+    </types>
+
+
+    <!-- ============================================== -->
+    <!-- DATA QUALITY                                   -->
+    <!-- ============================================== -->
+
+    <!-- Duplicate Rules -->
+    <types>
+        <members>*</members>
+        <name>DuplicateRule</name>
+    </types>
+
+    <!-- Matching Rules -->
+    <types>
+        <members>*</members>
+        <name>MatchingRules</name>
+    </types>
+
+    <!-- ============================================== -->
+    <!-- SECURITY & ACCESS                              -->
+    <!-- ============================================== -->
+
+    <!-- Profiles -->
+    <types>
+        <members>*</members>
+        <name>Profile</name>
+    </types>
+
+    <!-- Permission Sets -->
+    <types>
+        <members>*</members>
+        <name>PermissionSet</name>
+    </types>
+
+    <!-- Permission Set Groups -->
+    <types>
+        <members>*</members>
+        <name>PermissionSetGroup</name>
+    </types>
+
+
+    <!-- Roles -->
+    <types>
+        <members>*</members>
+        <name>Role</name>
+    </types>
+
+    <!-- Public Groups -->
+    <types>
+        <members>*</members>
+        <name>Group</name>
+    </types>
+
+
+    <!-- ============================================== -->
+    <!-- SHARING                                        -->
+    <!-- ============================================== -->
+
+    <!-- Sharing Rules (Owner-based) -->
+    <types>
+        <members>*</members>
+        <name>SharingOwnerRule</name>
+    </types>
+
+    <!-- Sharing Rules (Criteria-based) -->
+    <types>
+        <members>*</members>
+        <name>SharingCriteriaRule</name>
+    </types>
+
+    <!-- Sharing Sets -->
+    <!-- REMOVED 2026-06-10 (Jason Ott): "Entity type 'SharingSet' is not available
+         in this organization" - the error contributed to partial retrieves. -->
+
+    <!-- Sharing Rules -->
+    <types>
+        <members>*</members>
+        <name>SharingRules</name>
+    </types>
+
+    <!-- ============================================== -->
+    <!-- COMMUNICATION                                  -->
+    <!-- ============================================== -->
+
+    <!-- Email Templates -->
+    <types>
+        <members>*</members>
+        <name>EmailTemplate</name>
+    </types>
+
+
+    <!-- Custom Labels -->
+    <types>
+        <members>*</members>
+        <name>CustomLabel</name>
+    </types>
+
+    <!-- Custom Labels (container) -->
+    <types>
+        <members>*</members>
+        <name>CustomLabels</name>
+    </types>
+
+    <!-- Record Types -->
+    <types>
+        <members>*</members>
+        <name>RecordType</name>
+    </types>
+
+    <!-- Installed Packages (Managed Package info) -->
+    <types>
+        <members>*</members>
+        <name>InstalledPackage</name>
+    </types>
+
+    <!-- API Version -->
+    <version>62.0</version>
+</Package>

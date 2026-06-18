@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>A soma dos valores de Oportunidade de crédito indireto no ano passado determinada pela Função de contato de oportunidade e filtrada por Funções nas Configurações da família.</help>
+    <label><!-- Soft Credit Last Year --></label>
+    <name>npo02__Soft_Credit_Last_Year__c</name>
+</CustomFieldTranslation>

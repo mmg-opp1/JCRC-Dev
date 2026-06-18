@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Indique le modèle de compte auquel ce compte est destiné : foyer, un-à-un ou individuel (à compartiments).</help>
+    <label><!-- _SYSTEM: AccountType --></label>
+    <name>npe01__SYSTEM_AccountType__c</name>
+</CustomFieldTranslation>

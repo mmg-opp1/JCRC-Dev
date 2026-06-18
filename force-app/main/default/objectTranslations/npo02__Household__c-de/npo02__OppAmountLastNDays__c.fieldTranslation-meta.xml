@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Der Gesamtbetrag der in Verbindung mit diesem Haushalt, in den letzten in den Haushalt-Einstellungen definierten N Tagen nach Kontakt und primärer Opportunity-Kontaktrolle gewonnenen Opportunities.</help>
+    <label><!-- Total Gifts Last N Days --></label>
+    <name>npo02__OppAmountLastNDays__c</name>
+</CustomFieldTranslation>

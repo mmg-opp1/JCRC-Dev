@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Ingesteld door de oorspronkelijke contactpersoon die dit huishouden heeft gemaakt. Kan wel worden bewerkt in Huishouden, maar werkt Contactpersoon niet bij.</help>
+    <label><!-- Household Email --></label>
+    <name>npo02__HouseholdEmail__c</name>
+</CustomFieldTranslation>

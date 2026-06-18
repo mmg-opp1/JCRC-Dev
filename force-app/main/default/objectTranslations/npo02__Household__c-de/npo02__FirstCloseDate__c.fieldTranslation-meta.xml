@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Der früheste Schlusstermin einer in Verbindung mit diesem Haushalt über Kontakte mit primärer Kontaktrolle gewonnenen Opportunity.</help>
+    <label><!-- First Gift Date --></label>
+    <name>npo02__FirstCloseDate__c</name>
+</CustomFieldTranslation>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Het totale aantal gewonnen Opportunities met een bedrag groter dan nul, dat is gerelateerd aan deze contactpersoon, op primaire Opportunitycontactpersoonsrol, en dit jaar is gesloten.</help>
+    <label><!-- Number of Gifts This Year --></label>
+    <name>npo02__OppsClosedThisYear__c</name>
+</CustomFieldTranslation>

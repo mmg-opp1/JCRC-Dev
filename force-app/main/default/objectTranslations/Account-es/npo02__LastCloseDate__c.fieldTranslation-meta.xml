@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>La Fecha de cierre más reciente de una oportunidad ganada relacionada con esta cuenta con un importe superior a cero.</help>
+    <label><!-- Last Gift Date --></label>
+    <name>npo02__LastCloseDate__c</name>
+</CustomFieldTranslation>

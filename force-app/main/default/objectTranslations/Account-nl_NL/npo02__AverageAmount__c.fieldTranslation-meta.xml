@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Bedrag van Gemiddelde gewonnen opportunity, dat is gerelateerd aan deze account. Wordt automatisch bijgewerkt.</help>
+    <label><!-- Average Gift --></label>
+    <name>npo02__AverageAmount__c</name>
+</CustomFieldTranslation>

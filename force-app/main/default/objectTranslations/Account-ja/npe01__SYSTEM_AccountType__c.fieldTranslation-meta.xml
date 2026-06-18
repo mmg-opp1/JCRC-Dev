@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>この取引先が、世帯取引先、1 対 1、個人 (バケット) のうち、どの取引先モデルのものであるかを示します。</help>
+    <label><!-- _SYSTEM: AccountType --></label>
+    <name>npe01__SYSTEM_AccountType__c</name>
+</CustomFieldTranslation>

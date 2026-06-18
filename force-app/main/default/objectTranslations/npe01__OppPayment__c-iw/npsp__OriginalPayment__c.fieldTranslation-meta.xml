@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- The original payment transaction associated with this record. --></help>
+    <label><!-- Original Payment --></label>
+    <name>npsp__OriginalPayment__c</name>
+    <relationshipLabel><!-- Refunds --></relationshipLabel>
+</CustomFieldTranslation>

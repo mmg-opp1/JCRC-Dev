@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>O tipo de página de introdução (Administrador ou Usuário final) onde esta seção aparecerá.</help>
+    <label><!-- Page Type --></label>
+    <name>npsp__Page_Type__c</name>
+    <picklistValues>
+        <masterLabel>Admin</masterLabel>
+        <translation>Administrador</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>End User</masterLabel>
+        <translation>Usuário final</translation>
+    </picklistValues>
+</CustomFieldTranslation>

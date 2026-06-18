@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Total donado hace dos años en el hogar por contacto y función de contacto de oportunidad principal.</help>
+    <label><!-- Total Gifts Two Years Ago --></label>
+    <name>npo02__OppAmount2YearsAgo__c</name>
+</CustomFieldTranslation>

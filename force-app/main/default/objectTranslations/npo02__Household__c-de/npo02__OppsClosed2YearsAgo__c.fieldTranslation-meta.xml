@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Die Anzahl der mit Schlusstermin in den letzten 2 Jahren in Verbindung mit diesem Haushalt per verbundenen Kontakten mit primärer Opportunity-Kontaktrolle gewonnenen Opportunities.</help>
+    <label><!-- Number of Gifts Two Years Ago --></label>
+    <name>npo02__OppsClosed2YearsAgo__c</name>
+</CustomFieldTranslation>

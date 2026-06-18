@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>A data de fechamento da oportunidade de associação (por Tipo de registro) mais recente ganha relacionada a esta Conta.</help>
+    <label><!-- Last Membership Date --></label>
+    <name>npo02__LastMembershipDate__c</name>
+</CustomFieldTranslation>

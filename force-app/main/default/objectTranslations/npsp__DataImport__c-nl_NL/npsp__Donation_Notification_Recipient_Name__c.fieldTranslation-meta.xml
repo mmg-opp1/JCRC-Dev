@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>De naam van de persoon die op de hoogte moet worden gesteld van deze gift.</help>
+    <label><!-- Donation Notification Recipient Name --></label>
+    <name>npsp__Donation_Notification_Recipient_Name__c</name>
+</CustomFieldTranslation>

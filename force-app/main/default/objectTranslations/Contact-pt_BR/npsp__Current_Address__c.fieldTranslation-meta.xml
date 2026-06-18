@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Pesquisa no registro de Endereço atual deste Contato. O NPSP preenche o campo Endereço de correspondência do Contato com a rua, a cidade, o estado e o CEP do registro de Endereço atual.</help>
+    <label><!-- Current Address --></label>
+    <name>npsp__Current_Address__c</name>
+    <relationshipLabel><!-- Contacts (Current Address) --></relationshipLabel>
+</CustomFieldTranslation>

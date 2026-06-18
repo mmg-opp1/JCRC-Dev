@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Festlegung durch den Originalkontakt, der diesen Haushalt erstellt hat. Kann auf &quot;Haushalt bearbeiten&quot; aktualisiert werden, aber der Kontakt wird erst aktualisiert, wenn auf die Schaltfläche &quot;Adresse des Haushalts zu Kontakten hinzufügen&quot; geklickt wird.</help>
+    <label><!-- Mailing Street --></label>
+    <name>npo02__MailingStreet__c</name>
+</CustomFieldTranslation>

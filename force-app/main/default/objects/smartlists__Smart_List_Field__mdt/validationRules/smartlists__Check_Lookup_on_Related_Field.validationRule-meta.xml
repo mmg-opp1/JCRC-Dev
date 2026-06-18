@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>smartlists__Check_Lookup_on_Related_Field</fullName>
+    <active>true</active>
+    <errorConditionFormula>smartlists__Lookup_in_Quick_Filters__c &amp;&amp; smartlists__Field_Name__c != &apos;Owner&apos; &amp;&amp; (LEN( smartlists__Field_Name__c ) - LEN ( SUBSTITUTE ( smartlists__Field_Name__c , &apos;.&apos;, &apos;&apos;))) &lt;&gt; 1</errorConditionFormula>
+    <errorDisplayField>smartlists__Lookup_in_Quick_Filters__c</errorDisplayField>
+    <errorMessage>Lookup in Quick Filters is only available for related parent fields such as Account.Name or for Owner. It is not available for base fields such as Name or related grand parent fields such as Account.Parent.Name</errorMessage>
+</ValidationRule>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Definido pelo Contato original que criou esta Família. Pode ser editado em Família, mas não atualiza Contato.</help>
+    <label><!-- Household Phone --></label>
+    <name>npo02__HouseholdPhone__c</name>
+</CustomFieldTranslation>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Le montant de l’opportunité gagnée la plus récente (par date de fermeture) avec un montant supérieur à zéro associée à ce compte.</help>
+    <label><!-- Last Gift Amount --></label>
+    <name>npo02__LastOppAmount__c</name>
+</CustomFieldTranslation>

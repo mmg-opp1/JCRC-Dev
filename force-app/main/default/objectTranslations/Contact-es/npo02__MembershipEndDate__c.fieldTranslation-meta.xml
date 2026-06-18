@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>La fecha de finalización de afiliación de la oportunidad (Tipo de registro) ganada de afiliación más recientemente (Fecha de cierre) relacionada con este contacto por una función del contacto de oportunidad principal.</help>
+    <label><!-- Membership End Date --></label>
+    <name>npo02__MembershipEndDate__c</name>
+</CustomFieldTranslation>

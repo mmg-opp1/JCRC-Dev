@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Recentste Sluitingsdatum van een gewonnen Opportunity voor dit Huishouden via gerelateerde Contactpersonen met primaire Opportunitycontactpersoonsrol.</help>
+    <label><!-- Last Gift Date --></label>
+    <name>npo02__LastCloseDate__c</name>
+</CustomFieldTranslation>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Mitgliedschaft-&quot;Ursprung&quot; (neu, verlängert...) der zuletzt (nach Schlusstermin) in Verbindung mit diesem Account gewonnenen Mitgliedschaft-Opportunity (nach Datensatztyp).</help>
+    <label><!-- Last Membership Origin --></label>
+    <name>npo02__LastMembershipOrigin__c</name>
+</CustomFieldTranslation>

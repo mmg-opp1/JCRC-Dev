@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>Excluye este contacto de cualquier procesamiento de cuenta personal. Si deja el campo Cuenta en blanco, permanecerá de este modo.</help>
+    <label><!-- Private --></label>
+    <name>npe01__Private__c</name>
+</CustomFieldTranslation>

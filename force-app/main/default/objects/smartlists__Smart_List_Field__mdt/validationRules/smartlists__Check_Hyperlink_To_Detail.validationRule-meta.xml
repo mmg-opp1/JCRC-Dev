@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>smartlists__Check_Hyperlink_To_Detail</fullName>
+    <active>true</active>
+    <errorConditionFormula>ISPICKVAL (smartlists__Smart_List_Definition__r.smartlists__Data_Source_Type__c, &apos;Apex Data Source&apos; ) &amp;&amp; ISPICKVAL(smartlists__Display_Type__c, &apos;HYPERLINK_DETAIL&apos;) &amp;&amp; ISBLANK(smartlists__Hyperlink_to_Detail_Id_Field__c)</errorConditionFormula>
+    <errorDisplayField>smartlists__Hyperlink_to_Detail_Id_Field__c</errorDisplayField>
+    <errorMessage>Hyperlink to Detail Id Field is required when Display Type is Hyperlink to Detail for an Apex Data Source</errorMessage>
+</ValidationRule>

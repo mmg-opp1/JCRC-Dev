@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Debit Type --></label>
+    <name>npsp__DebitType__c</name>
+    <picklistValues>
+        <masterLabel>Chargeback</masterLabel>
+        <translation>Devolución de cargo</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Partial Refund</masterLabel>
+        <translation>Reembolso parcial</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Refund</masterLabel>
+        <translation>Reembolso</translation>
+    </picklistValues>
+</CustomFieldTranslation>

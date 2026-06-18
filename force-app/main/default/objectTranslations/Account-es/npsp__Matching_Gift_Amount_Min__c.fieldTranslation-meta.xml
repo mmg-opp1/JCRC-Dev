@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>El importe más pequeño que la empresa igualará en una sola donación.</help>
+    <label><!-- Matching Gift Amount Min --></label>
+    <name>npsp__Matching_Gift_Amount_Min__c</name>
+</CustomFieldTranslation>
