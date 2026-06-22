@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Securities_Gift</fullName>
+    <active>true</active>
+    <businessProcess>Donation_Process</businessProcess>
+    <description>Gift of stock / securities. Aligns with the JSI-80 Stock/Securities/Crypto payment method. JSI-82 / Jason Ott.</description>
+    <label>Securities Gift</label>
+</RecordType>

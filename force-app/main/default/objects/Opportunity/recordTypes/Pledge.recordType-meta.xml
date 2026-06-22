@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Pledge</fullName>
+    <active>true</active>
+    <businessProcess>Pledge_Process</businessProcess>
+    <description>Multi-payment pledge commitment (accrual). Payments scheduled manually; excluded from auto-payment creation. JSI-82 / Jason Ott.</description>
+    <label>Pledge</label>
+</RecordType>

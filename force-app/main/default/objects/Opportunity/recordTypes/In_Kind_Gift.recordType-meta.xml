@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>In_Kind_Gift</fullName>
+    <active>true</active>
+    <businessProcess>Donation_Process</businessProcess>
+    <description>Non-cash (in-kind) gift. No cash payment; excluded from auto-payment creation. Layout/stages to be refined in its own story. JSI-82 / Jason Ott.</description>
+    <label>In-Kind Gift</label>
+</RecordType>

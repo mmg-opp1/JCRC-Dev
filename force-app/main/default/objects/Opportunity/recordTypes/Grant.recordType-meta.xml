@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Grant</fullName>
+    <active>true</active>
+    <businessProcess>Pledge_Process</businessProcess>
+    <description>Grant award, typically installment-paid; treated like a pledge for payments. Excluded from auto-payment creation. JSI-82 / Jason Ott.</description>
+    <label>Grant</label>
+</RecordType>
