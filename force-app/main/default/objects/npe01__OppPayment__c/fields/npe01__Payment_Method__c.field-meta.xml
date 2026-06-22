@@ -27,12 +27,17 @@
             <value>
                 <fullName>ACH</fullName>
                 <default>false</default>
-                <label>ACH</label>
+                <label>ACH/Wire</label>
             </value>
             <value>
                 <fullName>PayPal</fullName>
                 <default>false</default>
                 <label>PayPal</label>
+            </value>
+            <value>
+                <fullName>Stock/Securities/Crypto</fullName>
+                <default>false</default>
+                <label>Stock/Securities/Crypto</label>
             </value>
         </valueSetDefinition>
     </valueSet>

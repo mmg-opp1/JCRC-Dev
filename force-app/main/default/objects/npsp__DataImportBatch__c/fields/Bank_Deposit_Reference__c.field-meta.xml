@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Bank_Deposit_Reference__c</fullName>
+    <label>Bank Deposit Reference</label>
+    <description>Bank deposit reference/key for this gift batch, for finance reconciliation. Added for JSI-80. Author: Jason Ott.</description>
+    <inlineHelpText>The bank deposit reference this batch reconciles to.</inlineHelpText>
+    <required>false</required>
+    <type>Text</type>
+    <length>255</length>
+    <unique>false</unique>
+</CustomField>

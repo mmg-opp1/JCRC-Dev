@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Deposit_Date__c</fullName>
+    <label>Deposit Date</label>
+    <description>Bank deposit date this gift batch reconciles to. Added for JSI-80. Author: Jason Ott.</description>
+    <inlineHelpText>The bank deposit date this batch reconciles to.</inlineHelpText>
+    <required>false</required>
+    <type>Date</type>
+</CustomField>

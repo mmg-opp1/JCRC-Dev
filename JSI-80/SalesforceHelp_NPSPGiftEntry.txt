@@ -1,0 +1,678 @@
+Github Repo for NPSP:
+https://github.com/SalesforceFoundation/NPSP
+
+Create and Edit Gift Entry Batches
+Specify details about a batch in Gift Entry, including number of gifts and default values for fields.
+
+Note
+Note Watch the Nonprofit Salesforce How-To Series video: Create Gift Entry Batches.
+View Batches of Gifts
+View batches created with either Gift Entry or the legacy Batch Gift Entry in Gift Entry.
+Create a Batch
+Before you start entering gifts, set up your batch header details and determine what information users are required to enter. You can edit this information later, if necessary.
+Edit Batch Options
+After creating a batch, you can make changes. For example, after you create the batch and enter a gift, you want to update the Expected Count of Gifts field or set a default value for Donation Date. Edit the batch and make these changes.
+View Batches of Gifts
+View batches created with either Gift Entry or the legacy Batch Gift Entry in Gift Entry.
+
+To view gift batches:
+
+From the App Launcher, find and select Gift Entry.
+
+Click the Batches subtab.
+
+Identify which tool created a batch by looking at the Form Template column.
+
+If Form Template is blank, the batch was created with the legacy Batch Gift Entry tool.
+
+Batches tab in Gift Entry showing the Form Template column highlighted across multiple batches, some created with the old Batch Gift Entry tool and some with Gift Entry.
+
+Open the batch in the tool where it was created by clicking the Batch Name.
+
+Create a Batch
+Before you start entering gifts, set up your batch header details and determine what information users are required to enter. You can edit this information later, if necessary.
+
+From the App Launcher, find and select Gift Entry.
+Click New Batch.
+Select the template to use for the batch.
+Click Next.
+Enter a Batch Name.
+We recommend using a unique name for each batch.
+
+Enter other necessary information—such as a Description, the Expected Count of Gifts, and the Expected Total Batch Amount.
+If you want to ensure that the count of gifts or the total amount of gifts saved to the batch matches the values you enter, select Require Expected Totals Match.
+If you selected Require Expected Totals Match, then enter a value for at least one expected totals field: Expected Count of Gifts or Expected Total Batch Amount.
+To enter recurring gifts in the batch, select Allow Recurring Donations.
+Click Next.
+Set default values for fields.
+If the template already has defaults, they appear here. If necessary, you can override the template default values for this batch.
+
+Save your changes.
+If you set up and activated a batch number format, all Opportunities and Payments associated with this batch will include the batch number in the Batch Number field. Learn more in Configure Batch Numbers for Donations.
+
+Now you're ready to Enter Gifts in Gift Entry. If your batch includes Recurring Donations, click Make Recurring when entering the gift.
+
+Edit Batch Options
+After creating a batch, you can make changes. For example, after you create the batch and enter a gift, you want to update the Expected Count of Gifts field or set a default value for Donation Date. Edit the batch and make these changes.
+
+Note
+Note You can't update the template you selected for this batch.
+Any changes you make don't affect records that you already saved to the batch. If you update default values, the updated values aren't copied to records already saved to the batch. You need to manually update the field values for existing records.
+
+From the App Launcher, find and select Gift Entry.
+Go to the Batches subtab.
+Select the name of the batch you want to update.
+In the batch, click Edit Batch Info.
+Make your changes.
+Save your changes.
+
+
+Create and Edit Gift Entry Batches
+Specify details about a batch in Gift Entry, including number of gifts and default values for fields.
+
+Note
+Note Watch the Nonprofit Salesforce How-To Series video: Create Gift Entry Batches.
+View Batches of Gifts
+View batches created with either Gift Entry or the legacy Batch Gift Entry in Gift Entry.
+Create a Batch
+Before you start entering gifts, set up your batch header details and determine what information users are required to enter. You can edit this information later, if necessary.
+Edit Batch Options
+After creating a batch, you can make changes. For example, after you create the batch and enter a gift, you want to update the Expected Count of Gifts field or set a default value for Donation Date. Edit the batch and make these changes.
+View Batches of Gifts
+View batches created with either Gift Entry or the legacy Batch Gift Entry in Gift Entry.
+
+To view gift batches:
+
+From the App Launcher, find and select Gift Entry.
+
+Click the Batches subtab.
+
+Identify which tool created a batch by looking at the Form Template column.
+
+If Form Template is blank, the batch was created with the legacy Batch Gift Entry tool.
+
+Batches tab in Gift Entry showing the Form Template column highlighted across multiple batches, some created with the old Batch Gift Entry tool and some with Gift Entry.
+
+Open the batch in the tool where it was created by clicking the Batch Name.
+
+Create a Batch
+Before you start entering gifts, set up your batch header details and determine what information users are required to enter. You can edit this information later, if necessary.
+
+From the App Launcher, find and select Gift Entry.
+Click New Batch.
+Select the template to use for the batch.
+Click Next.
+Enter a Batch Name.
+We recommend using a unique name for each batch.
+
+Enter other necessary information—such as a Description, the Expected Count of Gifts, and the Expected Total Batch Amount.
+If you want to ensure that the count of gifts or the total amount of gifts saved to the batch matches the values you enter, select Require Expected Totals Match.
+If you selected Require Expected Totals Match, then enter a value for at least one expected totals field: Expected Count of Gifts or Expected Total Batch Amount.
+To enter recurring gifts in the batch, select Allow Recurring Donations.
+Click Next.
+Set default values for fields.
+If the template already has defaults, they appear here. If necessary, you can override the template default values for this batch.
+
+Save your changes.
+If you set up and activated a batch number format, all Opportunities and Payments associated with this batch will include the batch number in the Batch Number field. Learn more in Configure Batch Numbers for Donations.
+
+Now you're ready to Enter Gifts in Gift Entry. If your batch includes Recurring Donations, click Make Recurring when entering the gift.
+
+Edit Batch Options
+After creating a batch, you can make changes. For example, after you create the batch and enter a gift, you want to update the Expected Count of Gifts field or set a default value for Donation Date. Edit the batch and make these changes.
+
+Note
+Note You can't update the template you selected for this batch.
+Any changes you make don't affect records that you already saved to the batch. If you update default values, the updated values aren't copied to records already saved to the batch. You need to manually update the field values for existing records.
+
+From the App Launcher, find and select Gift Entry.
+Go to the Batches subtab.
+Select the name of the batch you want to update.
+In the batch, click Edit Batch Info.
+Make your changes.
+Save your changes.
+
+
+Enter Gifts in Gift Entry
+Enter donations, donors, and their related records in one form as a batch or one at a time.
+
+Note
+Note Watch the Nonprofit Salesforce How-To Series videos about Gift Entry: NPSP Single Gift Entry and Enter Gifts Into Gift Entry Batches.
+Overview of Entering Gifts in Gift Entry
+Gift Entry gives you the ability to enter gifts one at a time or as a collection. With Gift Entry, users can enter batch and single gifts in a way that's accurate, fast, and flexible.
+Enter Single Gifts
+How you enter a single gift depends on whether the donor already exists in Salesforce or whether you create a donor.
+Enter a Collection of Gifts
+Use Gift Entry to enter a collection of gifts.
+Customize Batch Table Columns
+When you have many fields on your form, the table at the bottom of the screen that lists the gifts can become cramped and difficult to read. Customize the form fields in the gift table.
+Edit or Delete Gifts in an Unprocessed Batch
+Edit or remove gifts in an unprocessed batch.
+Overview of Entering Gifts in Gift Entry
+Gift Entry gives you the ability to enter gifts one at a time or as a collection. With Gift Entry, users can enter batch and single gifts in a way that's accurate, fast, and flexible.
+
+With Gift Entry, users can enter batch and single gifts in a way that's accurate, fast, and flexible. Gift Entry uses the NPSP Data Importer and Advanced Mapping to add constituent and donation data in the appropriate NPSP and standard Salesforce objects.
+
+Gift Entry gives you the ability to enter gifts one at a time or as a collection. When you're on the Gift Entry form, the process is similar for either operation. How you get to the form or what you do when you save the gift varies slightly.
+
+Note
+Note Gift Entry uses the record-matching features in NPSP Data Importer. Learn more in Configure NPSP Data Importer Options.
+Enter Single Gifts
+How you enter a single gift depends on whether the donor already exists in Salesforce or whether you create a donor.
+
+How you enter a single gift depends on whether the donor already exists in Salesforce or whether you create a donor.
+
+To enter a single donation for an existing donor:
+
+Find and select the Organization Account or individual Contact for this donation.
+
+Click New Gift.
+
+Add any Organization Account or Contact information that may not have auto populated in the Single Gift Entry form.
+
+Information updated in the form, like address or phone number, is reflected on the donor's record when the gift is processed.
+
+Ensure the gift is associated with the appropriate Opportunity or Payment record, so that you don't duplicate existing data.
+
+If the donor has any existing open Payments, access those records from the message about pending donations. If you don't see the message, skip this step and go to step 5.
+
+Pending donation message includes a link to review donations.
+
+In the pending donations message, click Review Donations.
+
+Review the list of Payments that haven't been paid and their related Opportunities.
+
+From the potential options, choose one of the following:
+
+Add or update Payments on an existing open Opportunity by clicking Add new Payment or Update this Payment. (For more information about Opportunities with multiple Payments, see Manage Pledges.)
+
+For an open Opportunity without any Payments, click Add new Payment (or Update this Opportunity if you don't use Payments).
+
+If none of the existing donations match, click Alternatively, create a new Opportunity.
+
+As an example, let's assume you're entering a $50 donation that Antonio Gomez made on 3/31. When you click Review Donations, you see these existing open donations for Antonio. The open $50 Opportunity with a close date of 3/31 looks like a good match for this donation, so you might choose to add a Payment to that one.
+
+Review Donations pane
+
+On the Gift Entry form, verify the name of the Payment and the automatically filled in donation information.
+
+If you change your mind about the selected donation, click Select a different donation. You'll then have the ability to select another.
+
+At the end of the Single Gift Entry form, enter the donation information.
+
+Note
+Note You can adjust your templates and Advanced Mapping to allow Contact Address fields to auto-populate. To learn more, see Adjust Gift Entry and Advanced Mapping to Populate Contact Address Fields (Optional).
+In the form, enter the Donation Date and the Donation Amount.
+
+If your admin has set up campaigns, in the Primary Campaign Source field, search for and select the allocation.
+
+From the Payment Method list, select how the donation was made.
+
+Save the gift.
+
+To enter a single gift for a new donor:
+
+From the App Launcher, find and select Gift Entry.
+
+Click New Single Gift.
+
+In the Single Gift Entry form, enter or confirm the details for the donor.
+Use your mouse or Tab key to navigate between cells.
+
+For Donor Type, select either Account1 (an Organization Account donor) or Contact1 (an individual Contact donor).
+
+Double-check that the donor doesn't already exist in Salesforce by searching for the donor in the corresponding Account or Contact fields.
+
+If you have several people or organizations with similar names, start typing the name and click Show All Results for... to see additional information about the records that are found.
+
+Note
+Note Enhanced search works for any lookup field on the form. You can even use it to search for information, like external IDs, in other fields on the object. Customize the fields in the expanded search results by updating the object's Search Layout. Read more in Customize Search Layouts.
+In the Add or Edit Contact or the Add or Edit Organization account section, enter information for the new contact.
+
+For example, here we've entered information for the new Contact, Danny Mayo.
+
+Danny Mayo's name and email address are added in the Add or Edit Contact section.
+
+Enter the Donation Date and Donation Amount.
+
+If your Admin has set up campaigns, in the Primary Campaign Sources field, choose an allocation.
+
+In the Payment Method field, select how the donation was made.
+
+Note
+Note If your template includes any default values, they'll appear here. In this example, we set the Primary Campaign Source to Annual Appeal and the Payment Method to Check.
+An orange rectangle highlights the Primary Campaign Source and Payment Method fields.
+
+Save the gift.
+When you save a gift with a new Payment, the new Payment is related to the Opportunity record and marked as Paid. Additionally, if the new Payment makes the sum of all Paid Payments equal to or greater than the Opportunity amount, the Opportunity is automatically closed. The Stage is changed to the setting found on the NPSP Settings page (Donations | Payments | Opportunity Stage for When Fully Paid).
+
+NPSP deduplicates Soft Credits you enter through Gift Entry. For example, if you enter two Influencer Soft Credits for the same person, NPSP only records one Soft Credit.
+
+Checkbox fields show as a picklist instead of a checkbox. You can select the checkbox field by selecting True, deselect the checkbox by selecting False, or retain the existing value by leaving the field blank.
+
+Enter a Collection of Gifts
+Use Gift Entry to enter a collection of gifts.
+
+Note
+Note A batch can contain up to 10,000 gifts.
+After you Create and Edit Gift Entry Batches, enter gifts.
+
+If you're not continuing from the batch that you created earlier, use the App Launcher to find and select Gift Entry | Batches, and select the batch to add gifts.
+
+Enter the gift, and if your batch includes recurring donations, click Make Recurring when entering the gift.
+
+Click Save & Enter New Gift.
+
+Dry run is initiated against the gift that you entered to:
+
+Look for potential issues with your entry. Rows with issues have a Status of Dry Run - Error. Resolve the issues so that you can process the batch when you finish entering the gifts.
+
+Match the donation based on Donation Matching, and then match the donor based on the Contact & Account Matching.
+
+To enter more gifts, repeat these steps.
+
+Notice the Total Count and Total Amount update as you enter and save gifts.
+
+You can edit gifts you saved to the form before processing (see Enter Gifts in Gift Entry). After entering all gifts in your batch, you're ready to Process a Collection of Gifts and Process a Collection of Gifts.
+
+Here's an example of some gift entries. Notice these details:
+
+Antonio has a link to the Opportunity record related to the Payment we chose in the Review Donations step.
+
+Ana has a link to the Opportunity record we updated during the Review Donations step.
+
+Danny didn't already exist as a Contact, so, we added him in the Add or Edit Contact section. His information shows up in those Contact fields instead of the Donor and Donation columns. After the batch is processed, the Donor column contains a link to his Contact record and the Donation column has a link to the new Opportunity.
+
+Gift Entry page, showing the three donations in the batch list.
+
+Customize Batch Table Columns
+When you have many fields on your form, the table at the bottom of the screen that lists the gifts can become cramped and difficult to read. Customize the form fields in the gift table.
+
+Note
+Note You can also customize the columns at the template level in Template Builder. Read more about batch settings for templates in Create or Edit a Gift Entry Template.
+In a Batch, go to the gift table.
+
+Click Gear icon, and then Select Batch Table Columns.
+
+To add fields to the table, move them from Available Fields to Visible Fields. To remove fields from the table, move them from Visible Fields to Available Fields.
+
+Save your changes.
+
+Edit or Delete Gifts in an Unprocessed Batch
+Edit or remove gifts in an unprocessed batch.
+
+To edit a gift after the gift is saved in a batch that hasn't been processed yet, reopen the gift in the form from the list of gifts in the batch.
+
+In the table of gifts, find the row that you want to change.
+
+In the donation row that you want to change, click Show More icon, and then click Open.
+
+Update fields as needed.
+
+Note
+Note You can't update a processed gift in Gift Entry. Clicking View opens a gift in the form, but the gift isn't editable.
+To save your changes, click Update.
+
+To remove a gift from the batch:
+
+Click Show More icon in that row.
+
+Click Delete.
+
+The Delete action removes the gift row only from the batch. Deleting the gift in the batch doesn't affect the related donor or donations (if it matched against an existing donation).
+
+If you're done entering and editing gifts and have resolved errors, you're ready to Process a Collection of Gifts.
+
+
+Process a Collection of Gifts
+Test processing your Gift Entry batch and then process the batch to add the gifts to NPSP.
+
+Note
+Note Watch the Nonprofit Salesforce How-To Series Video NPSP Gift Entry: Process a Batch.
+Test Your Batch with Dry Run
+To catch and resolve errors before you process your batch, use the Batch Dry Run.
+Process a Batch
+After you enter all gifts, process the batch to commit the records into NPSP. Keep in mind that you must resolve all errors first. You may see an error when trying to process the batch if you selected the Required Expected Totals Match checkbox, but either the Total Amount or Total Count fields don't match the expected totals you entered when creating the batch.
+A Word About Batch Status
+In addition to viewing the status of each record within a batch, you can view the status of the entire batch in the Batch Status field.
+Delete Gift Entry Records
+Since the Gift Entry records provide a link between the batch in which the gift was entered and the Payment or Opportunity record, we recommend that you do not delete them. Deleting Gift Entry records erases the entry history, which is sometimes needed for accounting or audit purposes.
+Test Your Batch with Dry Run
+To catch and resolve errors before you process your batch, use the Batch Dry Run.
+
+As you enter gifts, NPSP performs a dry run to make sure they will process correctly. That's great if you enter everything in one sitting and process the batch right away, but often the workday of people entering gifts isn't quite that streamlined. Instead, you might enter some of the gifts today, and return days later to finish entering and processing the whole batch.
+
+And in that time, other Opportunities or Payments may have been entered or modified in NPSP. As a result, when you go to process your batch, some of the older donations might not match up correctly anymore. To catch and resolve pesky errors before you process your batch, click Batch Dry Run.
+
+Batch Dry Run button highlighted in a sample batch.
+While Batch Dry Run is working, you can't enter or edit gifts. When it's done, you'll be able to add, edit, or process gifts. Any problematic donation line items are flagged with a Dry Run - Error status. You can expand the Error column to see details.
+
+Dry Run error status for a record in a batch list.
+After you've identified the issue, scroll to the right end of the batch list and click Show more actions icon. Select Open to edit the gift in the Gift Entry form or click Delete to remove the gift from the batch.
+
+The action menu for a gift flagged with a Dry Run error, showing options to open or delete the gift.
+Now that you've resolved errors, you’re ready to process your batch.
+
+Process a Batch
+After you enter all gifts, process the batch to commit the records into NPSP. Keep in mind that you must resolve all errors first. You may see an error when trying to process the batch if you selected the Required Expected Totals Match checkbox, but either the Total Amount or Total Count fields don't match the expected totals you entered when creating the batch.
+
+Click Process Batch.
+
+When the batch finishes processing, verify the updated Status for each record.
+
+If you set up and activated a batch number format, all Opportunities and Payments associated with this batch will include the batch number in the Batch Number field. Learn more in Configure Batch Numbers for Donations.
+
+A Word About Batch Status
+In addition to viewing the status of each record within a batch, you can view the status of the entire batch in the Batch Status field.
+
+The Batch Status is based on the Import Status of the records within the batch. The values in Batch Status are:
+
+Open
+NPSP Data Importer hasn't processed the records and sent the information to the target objects.
+Completed
+NPSP Data Importer has processed all of the records in the batch.
+Failed - Needs Review
+One or more records in the batch failed to process.
+You can add your own values to the Batch Status picklist. For example, if batches need to be reviewed before processing, you may want values like Ready for Review or Ready to Process. NPSP will overwrite any custom values to Completed or Failed - Needs Review when the batch is processed.
+
+Delete Gift Entry Records
+Since the Gift Entry records provide a link between the batch in which the gift was entered and the Payment or Opportunity record, we recommend that you do not delete them. Deleting Gift Entry records erases the entry history, which is sometimes needed for accounting or audit purposes.
+
+If you absolutely must delete Gift Entry records, these are the two objects where you'll find Gift Entry batch information.
+
+NPSP Data Import Batches
+These records include Batch Name, Batch Description, or the Form Template used for the batch.
+NPSP Data Imports
+The Gift Entry records for the donations entered within a batch. The NPSP Data Import records are related to NPSP Data Import Batch records through a lookup field.
+
+If you have a lot of Gift Entry records to delete, use Salesforce Data Loader. For details, see Data Loader and Insert, Update, or Delete Data Using Data Loader. After you delete all of the Gift Entry records in a batch and want to delete the batch itself, go to the NPSP Data Import Batches tab.
+
+
+Configure Gift Entry
+Prepare your NPSP Salesforce org to add or edit donations and related information in one entry form.
+
+Note
+Note Watch the Nonprofit Salesforce How-To Series video, Configure Gift Entry
+Gift Entry is a robust set of tools for creating consistent form templates that you can use to enter gifts into NPSP, either individually or in batches. You can also set defaults at the template or batch level. Gift Entry replaces the older Batch Gift Entry product.
+
+Enable Gift Entry
+The Gift Entry tool is disabled by default in Salesforce orgs. Be warned; there's more to enabling it than just flipping a switch! You must first enable Advanced Mapping and then Gift Entry. After that's done, adjust some of your actions and tabs as well as grant your users access to the new functionality.
+Enable Enhanced Recurring Donations
+Follow these steps to enable enhanced recurring donations.
+Customize Columns on Batches & Templates
+The Gift Entry tab contains two subtabs: Batches and Templates. The Templates tab shows all gift entry form templates in your org, and the Batches tab shows all data batches created by your users. You can configure the list columns to show the information you want to see about each item, in the order you want to see it.
+Adjust Gift Entry and Advanced Mapping to Populate Contact Address Fields (Optional)
+NPSP Advanced Mapping's default mapping to the NPSP Address object doesn't work with Gift Entry's feature to automatically populate a Contact's address fields on a form. (For example, if you select a Contact from a lookup on a Gift Entry form, the Contact's address information won't auto-populate.) You can work around this limitation by adjusting your Gift Entry templates and Advanced Mapping.
+Customize Household Names
+Find out more about customizing household names.
+Enable Gift Entry
+The Gift Entry tool is disabled by default in Salesforce orgs. Be warned; there's more to enabling it than just flipping a switch! You must first enable Advanced Mapping and then Gift Entry. After that's done, adjust some of your actions and tabs as well as grant your users access to the new functionality.
+
+To enable Advanced Mapping and Gift Entry:
+
+Confirm you have My Domain enabled. Read more about My Domain in Salesforce documentation.
+Click the NPSP Settings tab. If you don't see the tab, find it in the App Launcher (App Launcher icon).
+
+Click System Tools | Advanced Mapping for Data Import & Gift Entry.
+In the first section, enable Advanced Mapping.
+Note
+Note When you enable Advanced Mapping, NPSP will convert your Help Text mappings to Advanced Mapping. This may take a little time. See Configure NPSP Data Importer for more information.
+When the page reloads, in the second section, enable Gift Entry.
+If you want to number your batches, follow the instructions in Configure Batch Numbers for Donations.
+Add Gift Entry Actions
+Gift Entry adds a new action that lets your users create a gift directly from Account and Contact records. To enter gifts with Gift Entry from the Account or Contact record, you must add these actions to your page layouts.
+
+Note
+Note If you previously created a New Donation action per other NPSP configuration instructions, we recommend removing it. The New Gift action provides greater functionality and is more accessible!
+Click Setup, then click Setup.
+Click the Object Manager tab, then click Account.
+Click Page Layouts, then click the name of the page layout you want to update.
+In the page layout palette, click Mobile & Lightning Actions.
+Drag the New Gift action into the Salesforce Mobile and Lightning Experience Actions section of the layout editor.
+Note
+Note
+If the actions on this page layout haven't been edited before, you may not be able to drag the action into this section yet. Click override the predefined actions to enable drag-and-drop. You can then add, move, or remove actions from this section.
+
+The Mobile and Lightning Experience Actions section of the Page Layout Editor, highlighting the link to override the predefined actions
+
+Click Save.
+Repeat these steps for all other Account page layouts that need this action.
+Return to the Object Manager tab, then click Contact.
+Repeat these steps for all Contact page layouts that need this action.
+Set Up Gift Entry User Permissions
+We recommend creating a permission set to give users access to the Gift Entry tool. Permission sets are a great way to grant a group of permissions to specific users.
+
+For more information on creating and assigning permission sets, see Permission Sets in Salesforce Help.
+
+Note
+Note You can assign these permissions at the profile level instead of using a permission set. If you're using a Profile, you first need to enable the Enhanced Profile User Interface setting in Setup | User Management Settings. The instructions may vary slightly if you set these permissions on the profile.
+Click Setup, then click Setup.
+Enter Permission Sets in the Quick Find box, then select Permission Sets.
+Click New.
+Name the permission set Gift Entry Recommended.
+Click Save.
+Click Apex Class Access.
+Click Edit, then add these classes to the Enabled Apex Classes list:
+npsp.BDI_ManageAdvancedMappingCtrl
+npsp.BDI_MappingServiceAdvanced
+npsp.BGE_BatchGiftEntry_UTIL
+npsp.BGE_ConfigurationWizard_CTRL
+npsp.BGE_DataImportBatchEntry_CTRL
+npsp.BGE_FormTemplate_TDTM
+npsp.GE_GiftEntryController
+npsp.GE_PaymentServices
+npsp.UTIL_CustomSettingsFacade
+npsp.UTIL_CustomSettings_API
+Click Save.
+Navigate to Visualforce Page Access.
+Click Edit, then add these pages to the Enabled Visualforce Pages list:
+npsp.BDI_BatchOverride
+npsp.BDI_DataImport
+Click Save.
+Navigate to Custom Setting Definition.
+Click Edit, then add this setting definition to Enabled Custom Setting Definitions list:
+npsp.Custom Column Header
+npsp.Data Import Settings
+npsp.Gift Entry Settings
+Click Save.
+Navigate to Object Settings.
+Give users access to the Gift Entry tab:
+Click Gift Entry.
+Click Edit​.
+Select ​Available​ and ​Visible​.
+Click ​Save​.​
+In Object Settings, grant object and field permissions for the following objects.
+The following objects power Gift Entry.
+
+Object: Read, Create, Edit, Delete	Fields: Read & Edit Access
+Form Templates	All fields
+NPSP Data Import Batches	All fields
+NPSP Data Imports	All fields
+The following target objects and fields are mapped by default in Gift Entry.
+
+Note
+Note The table below shows standard target objects and fields for Gift Entry. If you've added custom objects and fields with Advanced Mapping, you must also grant Read, Create, and Edit access to those objects, and Read and Edit access to those fields. Learn how to add custom fields to Gift Entry in Customize Advanced Mapping.
+Object: Read, Create, Edit	Fields: Read & Edit Access
+Accounts	Account Name, Billing Address, Household Phone, Phone, Website
+Addresses	Mailing City, Mailing Country, Mailing Street, Mailing Street2, Mailing State/Province, Mailing Zip/Postal Code
+Campaigns	Campaign Name
+Contacts	Alternate Email, Birthdate, Home Phone, Mobile, Name, Other Phone, Personal Email, Preferred Email, Preferred Phone, Title, Work Email, Work Phone
+GAU Allocations	Amount, General Accounting Unit, Opportunity, Percent
+General Accounting Units	All fields
+Opportunities	Account Name, Amount, Close Date, Description, Honoree Information, Honoree Name, Member Level, Membership End Date, Membership Origin, Membership Start Date, Notification Message, Notification Recipient Email, Notification Recipient Information, Notification Recipient Name, Number of Payments, Opportunity Name, Opportunity Record Type, Primary Campaign Source, Primary Contact, Stage, Tribute Type, Type
+Payments	Check/Reference Number, Elevate Payment API Status, Paid, Payment Amount, Payment Date, Payment Method, Scheduled Date, Written Off
+Recurring Donations	Account, Amount, Campaign, Contact, Day of Month, Effective Date, End Date, Installment Frequency, Installment Period, Number of Planned Installments, Payment Method, Recurring Type
+Return to the Permission Set Overview.
+Click Manage Assignments.
+Click Add Assignments.
+Select all users who should have access to Gift Entry.
+Click Assign.
+Click Done.
+Remove Batch Gift Entry Tab for All Users
+While Gift Entry and Batch Gift Entry are similarly named, they are quite different features. Reduce confusion by hiding the Batch Gift Entry tab.
+
+Note
+Note These steps include modifying the existing Batch Gift Entry permission set. The instructions may vary slightly if you need to update these permissions at the User Profile level.
+Click Setup, then click Setup.
+In the Quick Find box, enter permission sets, then click Permission Sets.
+
+Click Batch Gift Entry.
+
+Click Object Settings.
+
+Click Batch Gift Entry.
+
+Click Edit.
+
+Deselect Available and Visible.
+
+Click Save.
+
+Enable Enhanced Recurring Donations
+Follow these steps to enable enhanced recurring donations.
+
+Enable Enhanced Recurring Donations.
+
+To find out if Enhanced Recurring Donations is enabled in your org, review Which Version of Recurring Donations Am I Using?
+
+Give users Read and Edit access to the Allow Recurring Donations field on the NPSP Data Import Batches object.
+
+Customize Columns on Batches & Templates
+The Gift Entry tab contains two subtabs: Batches and Templates. The Templates tab shows all gift entry form templates in your org, and the Batches tab shows all data batches created by your users. You can configure the list columns to show the information you want to see about each item, in the order you want to see it.
+
+From the App Launcher, find and select Gift Entry.
+From the Templates tab or Batches tab, click Setup to access the list view controls, then select Select Fields to Display .
+Use the left and right arrows to move fields from the Available Fields list to the Visible Fields list.
+Use the up and down arrows to change the display order.
+Click Save.
+Now that you're set up to use Gift Entry, head to Create or Edit a Gift Entry Template to get your templates ready to use.
+
+Adjust Gift Entry and Advanced Mapping to Populate Contact Address Fields (Optional)
+NPSP Advanced Mapping's default mapping to the NPSP Address object doesn't work with Gift Entry's feature to automatically populate a Contact's address fields on a form. (For example, if you select a Contact from a lookup on a Gift Entry form, the Contact's address information won't auto-populate.) You can work around this limitation by adjusting your Gift Entry templates and Advanced Mapping.
+
+Note
+Note These changes affect the address mappings for importing data with NPSP Data Importer.
+Adjust Gift Entry Templates and Advanced Mapping
+Here's how to adjust Gift Entry templates so that related Contact information auto-populates on your forms.
+
+Important
+Important Before proceeding, complete any gift batches that haven't been processed.
+You must perform all of these steps in order. When you're done, you should see records created or updated as outlined in Expected Behaviors.
+
+Remove Address Fields from Templates
+Here's how to remove address field from templates.
+
+Important
+Important Do this for all of your templates.
+In the App Launcher App Launcher icon, find and select Gift Entry.
+
+Click the Templates tab.
+
+Click the name of the template you'd like to update.
+
+Go to the Form Fields tab.
+
+Remove these address fields:
+
+Mailing City
+
+Mailing Country
+
+Mailing State/Province
+
+Mailing Street
+
+Mailing Zip/Postal Code
+
+Click Save & Close.
+
+Repeat these steps for all of your templates.
+
+Adjust Addresses Mapped in Advanced Mapping
+Map addresses to the Contact1 object.
+
+Click the NPSP Settings tab. If you don't see the tab, find it in the App Launcher (App Launcher icon).
+
+Go to System Tools | Advanced Mapping for Data Import & Gift Entry.
+
+Click Configure Advanced Mapping.
+
+For the Object Group named Address, click Show more selector icon , then click View Field Mappings.
+
+Delete these NPSP Data Import address mappings:
+
+Home City
+
+Home Country
+
+Home State/Province
+
+Home Street
+
+Home Zip/Postal Code
+
+Click Back to Object Group.
+
+For the Object Group named Contact1, click the selector, and then click View Field Mappings.
+
+Click Create New Field Mapping and map the home address fields on the NPSP Data Import object to the Contact mailing address fields.
+
+Source (NPSP Data Import Object) Field	Target (Contact1 Object) Field
+Home City (npsp__Home_City__c)	Mailing City (MailingCity)
+Home Country (npsp__Home_Country__c)	Mailing Country (MailingCountry)
+Home State/Province (npsp__Home_State_Province__c)	Mailing State/Province (MailingState)
+Home Street (npsp__Home_Street__c)	Mailing Street (MailingStreet)
+Home Zip/Postal Code (npsp__Home_Zip_Postal_Code__c)	Mailing Zip/Postal Code (MailingPostalCode)
+Add New Address Fields to Templates
+Here's how to add new address fields to templates.
+
+Note
+Note If the new fields don't show up in Template Builder immediately, refresh your browser a time or two.
+In the App Launcher App Launcher icon, find and select Gift Entry.
+
+Click the Templates tab.
+
+Click the name of the template you'd like to update.
+
+Go to the Form Fields tab.
+
+Select the section of the template where you'd like to add the fields.
+
+Expand the Address section under Form Fields.
+
+Select these address fields to add them to the template:
+
+Mailing City
+
+Mailing Country
+
+Mailing State/Province
+
+Mailing Street
+
+Mailing Zip/Postal Code
+
+Click Save & Close.
+
+Expected Behaviors
+After you've adjusted Gift Entry and Advanced Mapping for auto-population of corresponding Contact address information, what you see is highly dependent on your org's configuration.
+
+The scenarios below describe what you see if 1) the Household Account Addresses Disabled option isn't selected in NPSP Settings, and 2) the Address Override is not selected on the Contact's record.
+
+After adding a new Contact in Gift Entry and processing the gift, the address information appears in the Mailing Address fields on the Contact's new record. NPSP automation also updates the address on related records. Specifically, NPSP:
+
+Creates a new Address record with the same address.
+Links the Current Address field on the Contact to the Address record.
+Makes the Contact's Household Account and the Billing Address the same.
+After finding and selecting an existing Contact in the Existing Donor Contact field on the form, the Contact address fields on the form are automatically populated. You can update or clear out the address information on the form.
+
+If you change the address on the form and process the gift, the updated address appears in the Contact's Mailing Address fields. NPSP automation also updates the address on related records. Specifically, NPSP:
+Updates the Billing Address information on Contact's Household Account.
+Updates Contacts related to the household with the new Mailing Address.
+Creates a new Address record and sets it as the Default Address.
+If you clear out and remove all of the address information and process the gift, the Contact won't have any address information in the Mailing Address fields. NPSP Automation also updates related records. Specifically, NPSP:
+Removes the Billing Address information from the Contact's Household Account.
+Updates Contacts related to the household to remove Mailing Address information.
+Does not set any address as the Default Address in the Address object.
+
+
