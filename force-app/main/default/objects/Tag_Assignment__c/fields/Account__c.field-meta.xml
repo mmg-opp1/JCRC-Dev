@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Account__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>The Account this tag is applied to. Populated when the assignment is created from an Account record; mutually exclusive with Contact (see Exactly_One_Parent validation). JSI-122.</description>
+    <label>Account</label>
+    <referenceTo>Account</referenceTo>
+    <relationshipLabel>Tag Assignments</relationshipLabel>
+    <relationshipName>Tag_Assignments</relationshipName>
+    <required>false</required>
+    <type>Lookup</type>
+</CustomField>

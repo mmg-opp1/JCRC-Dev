@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Reusable tag library. Each row is one distinct tag (value + category) reused across Contacts and Accounts. JSI-122 Tag Management. Author: Jason Ott.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <label>Tag</label>
+    <nameField>
+        <label>Tag Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Tags</pluralLabel>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

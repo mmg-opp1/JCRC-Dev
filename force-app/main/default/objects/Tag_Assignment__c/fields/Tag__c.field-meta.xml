@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Tag__c</fullName>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <description>The tag applied to the record. Restrict delete so a tag still in use cannot be deleted out from under its assignments. JSI-122.</description>
+    <label>Tag</label>
+    <referenceTo>Tag__c</referenceTo>
+    <relationshipLabel>Tag Assignments</relationshipLabel>
+    <relationshipName>Tag_Assignments</relationshipName>
+    <required>true</required>
+    <type>Lookup</type>
+</CustomField>

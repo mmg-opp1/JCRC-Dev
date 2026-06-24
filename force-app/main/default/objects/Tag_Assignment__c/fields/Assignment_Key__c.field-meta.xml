@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Assignment_Key__c</fullName>
+    <caseSensitive>false</caseSensitive>
+    <description>Backstop against applying the same tag twice to one record = Tag Id + '|' + (Contact Id or Account Id). Unique. Populated by the add path (Apex) and a before-save Flow for data loads. JSI-122.</description>
+    <externalId>true</externalId>
+    <label>Assignment Key</label>
+    <length>255</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>

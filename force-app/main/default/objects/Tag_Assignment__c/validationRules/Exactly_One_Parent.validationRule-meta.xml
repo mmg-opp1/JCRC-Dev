@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Exactly_One_Parent</fullName>
+    <active>true</active>
+    <description>A tag assignment must link to exactly one parent. ISBLANK(Contact__c) = ISBLANK(Account__c) is TRUE (blocks save) when both are blank or both are populated; it passes only when exactly one is set. JSI-122.</description>
+    <errorConditionFormula>ISBLANK(Contact__c) = ISBLANK(Account__c)</errorConditionFormula>
+    <errorMessage>A tag assignment must link to exactly one Contact or one Account.</errorMessage>
+</ValidationRule>

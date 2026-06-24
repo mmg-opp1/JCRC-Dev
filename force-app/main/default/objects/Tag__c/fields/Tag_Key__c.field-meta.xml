@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Tag_Key__c</fullName>
+    <caseSensitive>false</caseSensitive>
+    <description>Dedupe key = LOWER(Name) + '|' + Category. Unique and case-insensitive so the same tag value cannot be created twice within a category. Populated by the tag-create path (Apex) and a before-save Flow for data loads. JSI-122.</description>
+    <externalId>true</externalId>
+    <label>Tag Key</label>
+    <length>255</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>
