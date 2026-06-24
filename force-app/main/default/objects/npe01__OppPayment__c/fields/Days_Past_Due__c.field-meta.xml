@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Days_Past_Due__c</fullName>
+    <description>Number of days this scheduled payment is past due (only for unpaid, not-written-off installments scheduled on or before today; otherwise blank). Evaluated live. Added for JSI-82 aging report. Author: Jason Ott.</description>
+    <formula>IF(OR(npe01__Paid__c, npe01__Written_Off__c, ISBLANK(npe01__Scheduled_Date__c), npe01__Scheduled_Date__c &gt;= TODAY()), null, TODAY() - npe01__Scheduled_Date__c)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Days past due for this unpaid installment (blank if paid, written off, or not yet due).</inlineHelpText>
+    <label>Days Past Due</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <name>Pledge Payment Schedule (Remaining)</name>
+    <description>All unpaid, not-written-off pledge/grant installments by scheduled month — the full remaining payment schedule / cash-flow forecast. JSI-82 / Jason Ott.</description>
+    <reportType>Pledges_with_Payments__c</reportType>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Month</dateGranularity>
+        <field>Opportunity.npe01__OppPayment__r$npe01__Scheduled_Date__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <columns>
+        <field>Opportunity$Name</field>
+    </columns>
+    <columns>
+        <field>Opportunity$StageName</field>
+    </columns>
+    <columns>
+        <field>Opportunity.npe01__OppPayment__r$npe01__Payment_Amount__c</field>
+        <aggregateTypes>Sum</aggregateTypes>
+    </columns>
+    <filter>
+        <criteriaItems>
+            <column>Opportunity$StageName</column>
+            <operator>equals</operator>
+            <value>Pledged</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.npe01__OppPayment__r$npe01__Paid__c</column>
+            <operator>equals</operator>
+            <value>false</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.npe01__OppPayment__r$npe01__Written_Off__c</column>
+            <operator>equals</operator>
+            <value>false</value>
+        </criteriaItems>
+    </filter>
+</Report>

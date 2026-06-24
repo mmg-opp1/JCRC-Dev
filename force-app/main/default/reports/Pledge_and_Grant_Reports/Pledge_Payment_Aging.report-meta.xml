@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <name>Pledge Payment Aging</name>
+    <description>Overdue pledge/grant installments bucketed by days past due (1-30 / 31-60 / 61-90 / 90+). JSI-82 / Jason Ott.</description>
+    <reportType>Pledges_with_Payments__c</reportType>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Opportunity.npe01__OppPayment__r$Aging_Bucket__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <columns>
+        <field>Opportunity$Name</field>
+    </columns>
+    <columns>
+        <field>Opportunity$StageName</field>
+    </columns>
+    <columns>
+        <field>Opportunity.npe01__OppPayment__r$npe01__Scheduled_Date__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.npe01__OppPayment__r$Days_Past_Due__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.npe01__OppPayment__r$npe01__Payment_Amount__c</field>
+        <aggregateTypes>Sum</aggregateTypes>
+    </columns>
+    <filter>
+        <criteriaItems>
+            <column>Opportunity$StageName</column>
+            <operator>equals</operator>
+            <value>Pledged</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.npe01__OppPayment__r$Days_Past_Due__c</column>
+            <operator>greaterThan</operator>
+            <value>0</value>
+        </criteriaItems>
+    </filter>
+</Report>

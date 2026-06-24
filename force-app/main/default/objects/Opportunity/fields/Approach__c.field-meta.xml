@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Approach__c</fullName>
-    <label>Approach</label>
     <description>Fundraising approach/channel for this donation (e.g., Direct Mail). Added for JSI-80 NPSP Gift Entry. Author: Jason Ott.</description>
     <inlineHelpText>The approach or channel through which this gift was received (e.g., Direct Mail).</inlineHelpText>
+    <label>Approach</label>
     <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
     <type>Picklist</type>
-    <trackTrending>false</trackTrending>
     <valueSet>
         <restricted>true</restricted>
         <valueSetDefinition>

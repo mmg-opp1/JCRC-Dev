@@ -3,11 +3,11 @@
     <fullName>Donation_Process</fullName>
     <isActive>true</isActive>
     <values>
-        <fullName>Prospecting</fullName>
+        <fullName>Cultivating</fullName>
         <default>false</default>
     </values>
     <values>
-        <fullName>Cultivating</fullName>
+        <fullName>Declined</fullName>
         <default>false</default>
     </values>
     <values>
@@ -15,7 +15,7 @@
         <default>false</default>
     </values>
     <values>
-        <fullName>Declined</fullName>
+        <fullName>Prospecting</fullName>
         <default>false</default>
     </values>
 </BusinessProcess>

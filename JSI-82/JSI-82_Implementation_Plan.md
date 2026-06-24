@@ -1,7 +1,7 @@
 # JSI-82 — Implementation Game Plan: Track Pledges Separately from One-Time Gifts
 
 > **Status:** Plan only — no build yet.
-> **Author:** Jason Ott · **Date:** 2026-06-20 (**rev. 4** — Partially Posted reconciliation set to Option B; flagged for client confirmation)
+> **Author:** Jason Ott · **Date:** 2026-06-22 (**rev. 5** — Phase 1 + custom fields BUILT & deployed to JCRC-Dev; see §12 Build Log)
 > **Related:** `JSI-82_User_Story.md`, `JSI-82_Dictation.md`, `NPSP_PledgeDocumentation.md`
 > **Jira:** https://missionmattersgroup.atlassian.net/browse/JSI-82
 > **🚩 NEEDS CLIENT CONFIRMATION:** the **Partially Posted** "Amount vs. write-off" reconciliation is set to **Option B** (§6.3) **for now** — confirm with the client before go-live, since it overwrites the Opportunity `Amount` to the collected total and records the uncollected remainder in a custom field rather than NPSP's native write-off.
@@ -105,7 +105,7 @@ totals only for **Won** opportunities. Hence:
 | **Pledged** | ✅ | ✅ | Committed → full amount recognized (receivable booked); Remaining Balance = outstanding receivable. |
 | **Posted** | ✅ | ✅ | **All** installments collected. |
 | **Partially Posted** | ✅ | ✅ | Some collected, remainder written off (donor stopped). Final. §6.3. |
-| **Written Off / Cancelled** | ✅ | ✗ | Committed but **zero** collected → removed from gift totals. §6.2. |
+| **Written Off** | ✅ | ✗ | Committed but **zero** collected → removed from gift totals. §6.2. *(Deployed API value/label = "Written Off"; the slash in "Written Off / Cancelled" broke StandardValueSet↔BusinessProcess matching. Display label can be changed to "Written Off / Cancelled" while keeping the API value "Written Off" — pending confirmation.)* |
 
 *"Posted" is shared by both processes (one picklist value, included in both business
 processes). Stages are wired to record types via business processes.*
@@ -280,3 +280,102 @@ Payments, native Write Off.)*
 - [RSF can't use TODAY — SF Ideas](https://ideas.salesforce.com/); [NPSP Customizable Rollups objects (Trailhead)](https://trailhead.salesforce.com/content/learn/modules/opportunity-settings-in-nonprofit-success-pack/enable-customizable-rollups-npsp); [DLRS Docs](https://sfdo-community-sprints.github.io/DLRS-Documentation/)
 - **Research roadblock:** Salesforce Help "Configure Opportunity Payments" (Max Payments ceiling / wizard-vs-manual) is JS-protected and didn't render; mirror site TLS error — pending user pull.
 - Live org verification (`sf` CLI, 2026-06-19): settings, record types, stages, profiles, counts, packages.
+
+---
+
+## 12. Build Log
+
+### 2026-06-22 — Phase 1 + custom fields deployed to JCRC-Dev (sandbox) ✅
+- **Stages (StandardValueSet OpportunityStage):** added Prospecting (default), Cultivating,
+  Pledged, Posted, Partially Posted, Written Off, Declined. *(Existing standard sales stages
+  left in place but excluded from the fundraising business processes.)*
+- **Business processes:** `Donation_Process` (Prospecting/Cultivating/Posted/Declined),
+  `Pledge_Process` (Pledged/Posted/Partially Posted/Written Off).
+- **Record types (7):** `NPSP_Default` relabeled → **Donation** (→ Donation_Process); created
+  **Pledge, Grant** (→ Pledge_Process) and **In-Kind Gift, Major Gift, Matching Gift,
+  Securities Gift** (→ Donation_Process).
+- **Profiles:** all 7 RTs visible on **Admin** + **JCRC – Fundraising**; **Donation = default**
+  on both.
+- **Custom fields (Opportunity):** `Amount_Due_To_Date__c`, `Original_Pledge_Amount__c`,
+  `Pledge_Written_Off__c` (Currency 16,2) + FLS (Admin edit; Fundraising read-only).
+- **Deploy notes / gotchas resolved:** leading XML comments break source→mdapi conversion
+  (removed); Opportunity business processes can't declare a stage `<default>` (SVS governs);
+  a "/" in a stage name fails SVS↔BusinessProcess matching (named the value "Written Off").
+
+### 2026-06-24 — Phase 2 (payment settings), Phase 3 (DLRS), Phase 4 automation done ✅
+- **Phase 2 — Payment settings:** done (excluded Pledge/Grant/In-Kind from auto-create; Max
+  Payments raised; global auto-close left blank).
+- **Phase 3 — DLRS:** `Amount_Due_To_Date__c` rollup built + scheduled nightly Full Calculate.
+  Nightly batch WHERE clause: `RecordType.DeveloperName IN ('Pledge','Grant') AND
+  npe01__Amount_Outstanding__c > 0`.
+- **Phase 4 — Flows (reviewed & retrieved to repo):**
+  - `Opportunity_FullyPaidPledgeToPosted` — Pledge/Grant + Pledged + Outstanding=0 +
+    WrittenOff=0 + has payments → Stage = Posted.
+  - `Opportunity_HandlePartiallyPostedPledge` — Option B: stamps `Original_Pledge_Amount__c`,
+    sets `Pledge_Written_Off__c = Amount − Received`, `Amount = Received`, then **zeroes** unpaid
+    payment amounts (retains rows for audit) → balance 0.
+  - `Opportunity_HandlePledgeWriteOff` — writes off all payments → balance 0; not-Won stage
+    drops it from rollups; Amount preserved.
+- **Phase 4 — Validation rules:** `Partially_Post_Only_Pledges_With_Payment` (block Partially
+  Posted when Received=0), `Write_Off_Only_No_Payment_Pledges` (block Written Off when Received>0).
+- **🚩 Follow-up before PROD:** the 3 flows filter on **hardcoded RecordType IDs**
+  (Pledge `012iI0000000Dq9QAE`, Grant `012iI0000000Dq5QAE`). Metadata deploys don't translate
+  IDs → flows would silently never fire in prod. **Note:** Flow *entry* conditions only accept
+  direct fields (no dot notation / `RecordType.DeveloperName`, no formulas). Fix options:
+  (a) **drop the RecordType filter and key entry on `StageName`** — the pledge-lifecycle stages
+  (Pledged/Partially Posted/Written Off) are exclusive to `Pledge_Process`, so only Pledge/Grant
+  reach them via the UI; stage names deploy identically to prod (recommended); or
+  (b) keep Stage entry + add a **Decision element in the flow body** using a formula
+  `{!$Record.RecordType.DeveloperName}` (dot notation is valid in formulas, just not in entry
+  filters) to guard against API/data-load stage changes.
+- **Edge case noted:** a *native* write-off applied before setting Partially Posted could drive
+  balance negative (remainder double-counted). Not possible in the standard workflow.
+
+### 2026-06-24 (cont.) — Lightning pages + reports/dashboard ✅
+- **Lightning record pages** (Pledge & Grant): added `Original_Pledge_Amount__c` +
+  `Pledge_Written_Off__c` to Payment Information; set `Amount_Due_To_Date__c` read-only;
+  relabeled section to Pledge/Grant Information. Deployed. *(Page activation/assignment is set
+  in App Builder, not in flexipage metadata — confirm assignments hold on prod deploy.)*
+- **Reports** (folder **Pledge and Grant Reports**), built + deployed as metadata:
+  Outstanding Pledges, Overdue Pledges, Pledge Write-Offs (Bad Debt), Pledges by Lifecycle Stage.
+- **Custom report type** `Pledges_with_Payments` (Opportunity → Payments) deployed.
+- **Dashboard** **Pledge Health** (folder **Pledge and Grant Dashboards**): Total Outstanding
+  (metric), Pledges by Stage (donut), Overdue by Owner (column), Write-Offs (bar). Deployed
+  (running user = jcrcny@…; change for prod).
+- **Report gotchas (metadata):** standard report column tokens (AMOUNT, STAGE_NAME, FULL_NAME)
+  differ from custom-RT tokens (`Object$Field`).
+- **Record-type filter format (RESOLVED 2026-06-24, from a UI-built sample report):** column =
+  **`RECORDTYPE`** (no underscore); value = **object-qualified DeveloperName**, comma-separated
+  for multiple → `Opportunity.Pledge,Opportunity.Grant`. (Portable — no IDs.) Earlier failures
+  were `RECORD_TYPE` (invalid column) and bare `Pledge` (not found). **Pledges by Lifecycle
+  Stage** upgraded to this scope (now includes Posted pledges, excludes donations); added
+  **New Pledges This Fiscal Year** (record-type + INTERVAL_CURFY).
+
+### 2026-06-24 (cont.) — Payment-level reports resolved & deployed ✅
+- Root cause of earlier "invalid report type": a report must reference a **custom** report type
+  with the **`__c` suffix** → `<reportType>Pledges_with_Payments__c</reportType>` (not
+  `Pledges_with_Payments`). Diagnosed from a UI-built sample report.
+- Custom-RT column token format (confirmed): base = `Opportunity$Field`, child =
+  `Opportunity.npe01__OppPayment__r$Field`. Date range via `<timeFrameFilter>` +
+  `INTERVAL_CURFY`. A grouped field must NOT also appear as a column.
+- Built + deployed: **Pledge Payments Due This Fiscal Year** (timeFrameFilter INTERVAL_CURFY),
+  **Pledge Payment Schedule (Remaining)**. 6 pledge reports total now live.
+
+### 2026-06-24 (cont.) — Pledge Payment Aging ✅
+- Reports can't group by a row-level formula, and bucket columns can't compute date diffs
+  ([SF docs](https://help.salesforce.com/s/articleView?id=analytics.reports_formulas_row_level_limits.htm)).
+  Solution: two **formula fields on `npe01__OppPayment__c`** — `Days_Past_Due__c` (Number) and
+  `Aging_Bucket__c` (Text: 1-30 / 31-60 / 61-90 / 90+ / Not Overdue), evaluated live (TODAY → no
+  staleness). Added to the `Pledges_with_Payments` report type + FLS (Admin/Fundraising read).
+- **Pledge Payment Aging** report built: grouped by `Aging_Bucket__c`, filtered Stage=Pledged
+  AND Days Past Due > 0. **8 pledge reports total now live.**
+- ⚠️ **Doc roadblock:** official `formula_examples_dates` help page is JS-gated (CSS-error
+  shell); date-subtraction-returns-days verified instead via the fields compiling + secondary
+  sources. (User offered to pull the page if needed.)
+
+### Remaining (next phases)
+- (optional) add the Aging chart as a 5th **Pledge Health** dashboard component.
+- **Runbooks** (create-pledge, write-off).
+- 🚩 **Before PROD:** flow hardcoded RecordType IDs (§ earlier); dashboard running user;
+  Lightning page assignments; "Written Off" display label.
+- ⚠️ Still pending **client confirmation:** §6.3 Option B.

@@ -3,6 +3,14 @@
     <fullName>Pledge_Process</fullName>
     <isActive>true</isActive>
     <values>
+        <fullName>Cultivating</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Partially Posted</fullName>
+        <default>false</default>
+    </values>
+    <values>
         <fullName>Pledged</fullName>
         <default>false</default>
     </values>
@@ -11,7 +19,7 @@
         <default>false</default>
     </values>
     <values>
-        <fullName>Partially Posted</fullName>
+        <fullName>Prospecting</fullName>
         <default>false</default>
     </values>
     <values>

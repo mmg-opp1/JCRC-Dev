@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Aging_Bucket__c</fullName>
+    <description>Aging bucket for an unpaid, not-written-off installment based on days past due (1-30 / 31-60 / 61-90 / 90+); "Not Overdue" otherwise. Evaluated live (TODAY). Group pledge aging reports by this field. Added for JSI-82. Author: Jason Ott.</description>
+    <formula>IF(OR(npe01__Paid__c, npe01__Written_Off__c, ISBLANK(npe01__Scheduled_Date__c), npe01__Scheduled_Date__c &gt;= TODAY()), "Not Overdue", IF(TODAY() - npe01__Scheduled_Date__c &lt;= 30, "1-30 Days", IF(TODAY() - npe01__Scheduled_Date__c &lt;= 60, "31-60 Days", IF(TODAY() - npe01__Scheduled_Date__c &lt;= 90, "61-90 Days", "90+ Days"))))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Days-past-due aging bucket for this unpaid installment.</inlineHelpText>
+    <label>Aging Bucket</label>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

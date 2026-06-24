@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <name>New Pledges This Fiscal Year</name>
+    <description>Pledge/grant commitments booked in the current fiscal year (fundraising production). JSI-82 / Jason Ott.</description>
+    <reportType>Opportunity</reportType>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>FULL_NAME</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <columns>
+        <field>ACCOUNT_NAME</field>
+    </columns>
+    <columns>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <columns>
+        <field>STAGE_NAME</field>
+    </columns>
+    <columns>
+        <field>AMOUNT</field>
+        <aggregateTypes>Sum</aggregateTypes>
+    </columns>
+    <columns>
+        <field>CLOSE_DATE</field>
+    </columns>
+    <filter>
+        <criteriaItems>
+            <column>RECORDTYPE</column>
+            <operator>equals</operator>
+            <value>Opportunity.Pledge,Opportunity.Grant</value>
+        </criteriaItems>
+    </filter>
+    <timeFrameFilter>
+        <dateColumn>CLOSE_DATE</dateColumn>
+        <interval>INTERVAL_CURFY</interval>
+    </timeFrameFilter>
+</Report>

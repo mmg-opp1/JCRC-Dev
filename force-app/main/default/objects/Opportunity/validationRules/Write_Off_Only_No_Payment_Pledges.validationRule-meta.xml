@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Write_Off_Only_No_Payment_Pledges</fullName>
+    <active>true</active>
+    <description>You can only write off pledges where no payments have been made.</description>
+    <errorConditionFormula>TEXT(StageName) = &apos;Written Off&apos; &amp;&amp;  npe01__Payments_Made__c &gt; 0</errorConditionFormula>
+    <errorDisplayField>StageName</errorDisplayField>
+    <errorMessage>You cannot write-off an opportunity if payments have already been made. Use Partially Posted or remove the payments.</errorMessage>
+</ValidationRule>

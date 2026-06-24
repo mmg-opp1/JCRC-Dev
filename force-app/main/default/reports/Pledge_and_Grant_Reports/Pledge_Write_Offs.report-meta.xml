@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <name>Pledge Write-Offs (Bad Debt)</name>
+    <description>Pledges/grants that were partially posted or written off, with original commitment vs collected vs written off. JSI-82 / Jason Ott.</description>
+    <reportType>Opportunity</reportType>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>STAGE_NAME</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <columns>
+        <field>ACCOUNT_NAME</field>
+    </columns>
+    <columns>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Original_Pledge_Amount__c</field>
+        <aggregateTypes>Sum</aggregateTypes>
+    </columns>
+    <columns>
+        <field>Opportunity.npe01__Payments_Made__c</field>
+        <aggregateTypes>Sum</aggregateTypes>
+    </columns>
+    <columns>
+        <field>Opportunity.Pledge_Written_Off__c</field>
+        <aggregateTypes>Sum</aggregateTypes>
+    </columns>
+    <columns>
+        <field>Opportunity.npe01__Amount_Written_Off__c</field>
+        <aggregateTypes>Sum</aggregateTypes>
+    </columns>
+    <columns>
+        <field>CLOSE_DATE</field>
+    </columns>
+    <filter>
+        <criteriaItems>
+            <column>STAGE_NAME</column>
+            <operator>equals</operator>
+            <value>Partially Posted,Written Off</value>
+        </criteriaItems>
+    </filter>
+</Report>
