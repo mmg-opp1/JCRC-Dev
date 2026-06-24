@@ -1,7 +1,8 @@
 # JSI-82 — Implementation Game Plan: Track Pledges Separately from One-Time Gifts
 
-> **Status:** Plan only — no build yet.
-> **Author:** Jason Ott · **Date:** 2026-06-22 (**rev. 5** — Phase 1 + custom fields BUILT & deployed to JCRC-Dev; see §12 Build Log)
+> **Status:** ✅ BUILT & DEPLOYED to JCRC-Dev sandbox; committed to `main` (commit `82675ea`).
+> Session closed 2026-06-24. Carryover items below + in §12.
+> **Author:** Jason Ott · **Date:** 2026-06-24 (**rev. 6** — session closeout)
 > **Related:** `JSI-82_User_Story.md`, `JSI-82_Dictation.md`, `NPSP_PledgeDocumentation.md`
 > **Jira:** https://missionmattersgroup.atlassian.net/browse/JSI-82
 > **🚩 NEEDS CLIENT CONFIRMATION:** the **Partially Posted** "Amount vs. write-off" reconciliation is set to **Option B** (§6.3) **for now** — confirm with the client before go-live, since it overwrites the Opportunity `Amount` to the collected total and records the uncollected remainder in a custom field rather than NPSP's native write-off.
@@ -373,9 +374,26 @@ Payments, native Write Off.)*
   shell); date-subtraction-returns-days verified instead via the fields compiling + secondary
   sources. (User offered to pull the page if needed.)
 
-### Remaining (next phases)
-- (optional) add the Aging chart as a 5th **Pledge Health** dashboard component.
-- **Runbooks** (create-pledge, write-off).
-- 🚩 **Before PROD:** flow hardcoded RecordType IDs (§ earlier); dashboard running user;
-  Lightning page assignments; "Written Off" display label.
-- ⚠️ Still pending **client confirmation:** §6.3 Option B.
+### Open / Carryover (for next session)
+
+**Delivered & deployed to JCRC-Dev (committed to `main` `82675ea`):** 7 record types, 2 business
+processes + lifecycle stages, 5 custom fields + 2 validation rules, 3 flows, Pledge & Grant
+Lightning pages, 8 reports + `Pledges_with_Payments` report type, Pledge Health dashboard,
+profile RT visibility + FLS. DLRS rollup + nightly recalc and payment settings done by user.
+
+**Not done / deferred:**
+- [ ] **Runbooks** — create-a-pledge + write-off/partial-posting (DoD asks for the write-off one).
+- [ ] (optional) Aging chart as a 5th Pledge Health dashboard component.
+- [ ] **Push** to remote — work is committed locally only.
+
+**🚩 Client confirmation before go-live:**
+- [ ] **§6.3 Option B** (Partially Posted overwrites `Amount` to collected; uncollected → custom
+  `Pledge_Written_Off__c`, not native write-off). Fallback = Option C.
+- [ ] **"Written Off" stage** display label (kept API value "Written Off"; could show "Written Off / Cancelled").
+
+**🚩 Before PROD deploy:**
+- [ ] **Flow hardcoded RecordType IDs** (Pledge `…Dq9QAE`, Grant `…Dq5QAE`) — won't translate to
+  prod; refactor entry to key on `StageName` (recommended) or remap.
+- [ ] **Dashboard running user** (currently jcrcny@…) and **Lightning page assignments** (set in
+  App Builder, not in flexipage metadata).
+- [ ] Confirm fiscal year = calendar (Jan start) is correct for "Due This FY" reports.
