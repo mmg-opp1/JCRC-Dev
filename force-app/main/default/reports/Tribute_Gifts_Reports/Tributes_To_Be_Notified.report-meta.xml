@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <name>Tributes To Be Notified</name>
+    <description>Work queue of tribute/memorial gifts whose notification is still pending (Status = To Be Notified), excluding Do Not Notify. Doubles as the data source for tribute notification letters. JSI-89 / Jason Ott.</description>
+    <reportType>Opportunity</reportType>
+    <format>Tabular</format>
+    <columns>
+        <field>OPPORTUNITY_NAME</field>
+    </columns>
+    <columns>
+        <field>ACCOUNT_NAME</field>
+    </columns>
+    <columns>
+        <field>Opportunity.npsp__Tribute_Type__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.npsp__Honoree_Name__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.npsp__Notification_Recipient_Name__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.npsp__Notification_Recipient_Email__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.npsp__Notification_Preference__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.npsp__Notification_Recipient_Information__c</field>
+    </columns>
+    <columns>
+        <field>CLOSE_DATE</field>
+    </columns>
+    <columns>
+        <field>AMOUNT</field>
+        <aggregateTypes>Sum</aggregateTypes>
+    </columns>
+    <filter>
+        <criteriaItems>
+            <column>Opportunity.npsp__Tribute_Type__c</column>
+            <operator>notEqual</operator>
+            <value></value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.npsp__Tribute_Notification_Status__c</column>
+            <operator>equals</operator>
+            <value>To Be Notified</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.npsp__Notification_Preference__c</column>
+            <operator>notEqual</operator>
+            <value>Do Not Notify</value>
+        </criteriaItems>
+    </filter>
+</Report>
