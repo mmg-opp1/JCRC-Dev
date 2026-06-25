@@ -1,0 +1,74 @@
+<template>
+    <lightning-card title="Tags" icon-name="utility:tags">
+        <div class="slds-var-p-horizontal_small slds-var-p-bottom_small">
+
+            <!-- Current tags -->
+            <template lwc:if={hasAssignments}>
+                <lightning-pill-container
+                    items={pillItems}
+                    onitemremove={handleRemove}>
+                </lightning-pill-container>
+            </template>
+            <template lwc:else>
+                <p class="slds-text-color_weak slds-var-m-vertical_x-small">No tags yet.</p>
+            </template>
+
+            <!-- Search box -->
+            <lightning-input
+                type="search"
+                label="Add a tag"
+                placeholder="Type to search tags…"
+                value={searchTerm}
+                onchange={handleSearchChange}
+                class="slds-var-m-top_small">
+            </lightning-input>
+
+            <!-- Search results dropdown -->
+            <template lwc:if={hasResults}>
+                <ul class="slds-listbox slds-listbox_vertical slds-var-m-top_xx-small" role="listbox">
+                    <template for:each={results} for:item="tag">
+                        <li key={tag.id}
+                            role="option"
+                            data-id={tag.id}
+                            onclick={handleSelect}
+                            class="slds-listbox__item tag-result">
+                            <div class="slds-grid slds-grid_align-spread slds-var-p-around_x-small">
+                                <span>{tag.name}</span>
+                                <span class="slds-badge">{tag.category}</span>
+                            </div>
+                        </li>
+                    </template>
+                </ul>
+            </template>
+
+            <!-- Inline create (authorized users, no exact match) -->
+            <template lwc:if={showCreate}>
+                <div class="slds-box slds-box_xx-small slds-var-m-top_x-small">
+                    <div class="slds-grid slds-grid_vertical-align-end slds-gutters_x-small">
+                        <div class="slds-col">
+                            <lightning-combobox
+                                label="Category"
+                                value={selectedCategory}
+                                placeholder="Choose a category"
+                                options={categoryOptions}
+                                onchange={handleCategoryChange}>
+                            </lightning-combobox>
+                        </div>
+                        <div class="slds-col slds-grow-none">
+                            <lightning-button
+                                label={createLabel}
+                                variant="brand"
+                                onclick={handleCreate}
+                                disabled={loading}>
+                            </lightning-button>
+                        </div>
+                    </div>
+                </div>
+            </template>
+
+            <template lwc:if={loading}>
+                <lightning-spinner alternative-text="Working…" size="small"></lightning-spinner>
+            </template>
+        </div>
+    </lightning-card>
+</template>

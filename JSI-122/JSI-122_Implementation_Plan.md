@@ -292,3 +292,35 @@ for `Tag_Assignment__c` (Public R/W vs. tighter).
   - `sf` relative `--source-dir` didn't resolve from the PowerShell cwd → use **absolute paths**.
 - **Next (phase 2+):** before-save Flow to populate `Tag_Key__c`/`Assignment_Key__c` for non-LWC
   inserts; `TagManagerController` + tests; `tagManager` LWC; report type + reports.
+
+### 2026-06-25 — Phases 2–5 deployed & verified ✅
+- **Phase 2 — before-save Flows:** `Tag_Set_Tag_Key_Before_Save` (Tag_Key__c = `LOWER(TRIM(Name))+'|'+Category`)
+  and `TagAssignment_Set_Key_Before_Save` (Assignment_Key__c = `Tag+'|'+(Contact or Account)`). One
+  source of truth for the keys → unique fields enforce dedupe on every path (LWC, import, manual).
+  Verified by anon Apex (savepoint): keys stamped; case-insensitive dedupe blocks, different
+  category allowed, same-tag-twice blocked.
+- **Phase 3 — Apex:** `TagManagerController` (`with sharing`, all SOQL/DML in `USER_MODE` /
+  `as user`; `searchTags`/`getAssignments`/`addTag`/`createAndAddTag`/`removeAssignment`/`canCreateTags`;
+  `OBJECT_TO_FIELD` map is the one extensibility point) + `TagManagerControllerTest` — **10/10 pass,
+  91% coverage**. Duplicate guard simplified to rely on the unique `Assignment_Key__c` +
+  `friendly()` (status-code based), which also lifted coverage past 90%. Class access added to the
+  permission set. Remaining uncovered lines are defensive race/delete catches.
+- **Phase 4 — LWC `tagManager`:** record-page component (Contact + Account targets); type-ahead
+  (300 ms debounce) → apply / inline create-and-apply (category combobox via `getPicklistValues`,
+  gated by `canCreateTags`) / pills with remove. Deployed.
+- **Phase 5 — Reporting:** report type `Tag_Assignments_with_Tag` (base `Tag_Assignment__c`) +
+  reports **Contacts by Tag** / **Accounts by Tag** (folder "Tag Reports"), grouped by category → tag.
+- **Gotchas resolved (this session):**
+  - **Custom report types can't dot-walk parent lookups** — neither the report type
+    (`<table>Base.Lookup__r</table>` → "Could not find table for path") nor the report
+    (`Base.Lookup__r$Field` → "Invalid field name"). **Fix:** add **cross-object formula fields**
+    on the junction (`Tag_Name__c = Tag__r.Name`, `Tag_Category__c = TEXT(Tag__r.Category__c)`),
+    expose those base fields, and group/filter on them.
+  - Formula field `formulaTreatBlanksAs` enum is **`BlankAsBlank`** (singular), not `BlankAsBlanks`.
+  - Each Apex class needs its own **`.cls-meta.xml`** (missing one → "named in package.xml but not
+    found in zipped directory").
+- **⏳ Carryover for Jason (UI — App Builder):**
+  1. **Place the "Tag Manager" component** on the Contact and Account Lightning record pages (LWC
+     is exposed; record-page placement/assignment isn't in source metadata — same pattern as JSI-82/89).
+  2. **Assign the `Tag_Management` permission set** to the users who should tag (and create tags).
+  3. Optional: seed a starter set of tags; add a Tag tab/app nav if desired.

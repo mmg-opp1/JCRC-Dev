@@ -4,6 +4,12 @@
     <description>JSI-122 tagging feature access: read/create Tags, manage Tag Assignments on Contacts/Accounts, plus FLS for the Tag fields. Holding this set lets a user apply and create tags. Author: Jason Ott.</description>
     <hasActivationRequired>false</hasActivationRequired>
 
+    <!-- Apex controller behind the tagManager LWC -->
+    <classAccesses>
+        <apexClass>TagManagerController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+
     <!-- Object permissions -->
     <objectPermissions>
         <object>Tag__c</object>
@@ -46,5 +52,16 @@
         <field>Tag_Assignment__c.Assignment_Key__c</field>
         <readable>true</readable>
         <editable>true</editable>
+    </fieldPermissions>
+    <!-- Formula fields (read-only) for list views and reporting -->
+    <fieldPermissions>
+        <field>Tag_Assignment__c.Tag_Name__c</field>
+        <readable>true</readable>
+        <editable>false</editable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <field>Tag_Assignment__c.Tag_Category__c</field>
+        <readable>true</readable>
+        <editable>false</editable>
     </fieldPermissions>
 </PermissionSet>
