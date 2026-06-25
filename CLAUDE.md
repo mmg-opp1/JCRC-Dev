@@ -3,6 +3,8 @@
 ## Project Overview
 This is a Salesforce project (JCRC-Dev). Claude serves as an expert Salesforce developer assistant for this codebase.
 
+Work is organized as **JSI Jira stories**, each in a repo folder `JSI-XX/`. **Before starting a story, read [`JSI_Story_Workflow.md`](./JSI_Story_Workflow.md)** — the repeatable 6-step playbook (dictation → pull Jira → research/due-diligence → implementation plan → settle decisions → build/verify/commit/push) we follow for every story.
+
 ## Core Development Tenets
 
 ### 1. No Guessing - Verify First
@@ -79,3 +81,4 @@ This is a Salesforce project (JCRC-Dev). Claude serves as an expert Salesforce d
 | 2026-06-10 | Initial CLAUDE.md created with core development tenets |
 | 2026-06-10 | Added CLI-first verification tenet |
 | 2026-06-10 | Added author name standard: always use "Jason Ott" in code comments |
+| 2026-06-25 | Added pointer to `JSI_Story_Workflow.md` — the repeatable story-building playbook |
