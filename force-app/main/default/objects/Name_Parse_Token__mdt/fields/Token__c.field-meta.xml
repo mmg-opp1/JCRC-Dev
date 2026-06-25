@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Token__c</fullName>
+    <label>Token</label>
+    <description>The literal name token to recognize (e.g. "van", "de", "Jr"). Matched case-insensitively; a trailing period or comma is ignored. Author: Jason Ott.</description>
+    <type>Text</type>
+    <length>40</length>
+    <required>true</required>
+    <unique>false</unique>
+</CustomField>

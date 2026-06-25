@@ -21,4 +21,20 @@
         </matchingRuleItems>
         <ruleStatus>Active</ruleStatus>
     </matchingRules>
+    <matchingRules>
+        <fullName>Tribute_Contact_Name_Match</fullName>
+        <description>JSI-89: matches Contacts on fuzzy first name + exact last name (no email required) so the tribute honoree/recipient matcher can resolve text names. Powers a silent (report-only) duplicate rule used by Datacloud.FindDuplicates. Author: Jason Ott.</description>
+        <label>Tribute Contact Name Match</label>
+        <matchingRuleItems>
+            <blankValueBehavior>NullNotAllowed</blankValueBehavior>
+            <fieldName>FirstName</fieldName>
+            <matchingMethod>FirstName</matchingMethod>
+        </matchingRuleItems>
+        <matchingRuleItems>
+            <blankValueBehavior>NullNotAllowed</blankValueBehavior>
+            <fieldName>LastName</fieldName>
+            <matchingMethod>Exact</matchingMethod>
+        </matchingRuleItems>
+        <ruleStatus>Active</ruleStatus>
+    </matchingRules>
 </MatchingRules>

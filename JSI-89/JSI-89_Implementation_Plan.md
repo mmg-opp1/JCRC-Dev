@@ -70,12 +70,11 @@ the **actual managed-package values** in this org.
 
 - "Pending / Sent" → `Tribute_Notification_Status__c` = **To Be Notified → Notified**, with
   `Tribute_Notification_Date__c` stamped when sent. No new fields needed.
-- ❓ **Review process (JCRC note):** Decide whether a gift officer **reviews/approves**
-  tribute notifications before they go out. Options:
-  - **Manual:** staff flip status to "Notified" after mailing (simplest; no build).
-  - **Review queue:** a report/list view of `To Be Notified` tributes as the work queue
-    (recommended, no build — see §7).
-  - **Approval flow:** only if a formal sign-off is required (heavier; likely overkill).
+- ✅ **Review process — DECIDED 2026-06-24 (client):** the **"Tributes To Be Notified" report
+  is the work queue** (§7). Staff work that list, send the notice, then mark status "Notified."
+  **No approval process / extra statuses — no build.**
+- ✅ **Status labels — DECIDED 2026-06-24 (client):** **use NPSP's labels** ("To Be Notified /
+  Notified") as-is; DoD's "pending/sent" is just descriptive. Don't alter the managed picklist.
 
 ---
 
@@ -100,9 +99,69 @@ types honoree/notification **names as text**; those sync into the Opportunity te
      free-text names risks duplicates — **prefer match-or-flag over auto-create**.
 
 🚩 **CLIENT CONFIRMATION:** which **online donation platform** is in use, and how does it pass
-honoree/notification data? This determines the field mapping and whether matching can also key
-on email (far more reliable than name alone). Until confirmed, the resolution flow is designed
-but not built.
+honoree/notification data? This determines the field mapping at ingest. (The matching logic
+itself keys off the Salesforce text fields and is platform-agnostic — the platform only affects
+how raw data lands in those fields.)
+
+### 5.1 Matching design — locked 2026-06-24 (Jason)
+
+For **both** the honoree and the notification recipient: take the raw text (name + email),
+find duplicate Contacts, **create or update**, then populate the Contact lookup.
+
+- **Match key:** **name + email**, with a **fuzzy match on name**.
+- **⚠️ Verify-first reality:** Flow **cannot** do fuzzy matching natively. True fuzzy name
+  matching is a **Matching Rule** feature. So the design is:
+  1. Configure/confirm an active **Contact Matching Rule** — fuzzy first name + (fuzzy/exact)
+     last name + exact email (Salesforce's standard fuzzy methods).
+  2. A small **invocable Apex** action (`Datacloud.FindDuplicates`) runs that rule for the
+     name/email and returns candidate Contacts. (This is the documented way to invoke
+     matching/duplicate rules from automation — Flow's Get Records can't.)
+  3. A **record-triggered Flow** on Opportunity (after save), entry = a tribute name is present
+     **and** its Contact lookup is blank, calls the action and branches:
+     - **0 matches** → create Contact (parse name → first/last; set email), set lookup.
+     - **1 match** → fill **blank** fields only (never overwrite), set lookup.
+     - **2+ matches** → ambiguous: **leave lookup blank, flag for manual review** (don't guess).
+- This is the org's **second Apex** (after JSI-122's `TagManagerController`).
+
+**Decisions (locked 2026-06-24):** ambiguous (2+) → flag `Tribute_Contact_Needs_Review__c` &
+leave lookup blank; memorial honoree → create + set `npsp__Deceased__c` (only on *create*, never
+on an existing match); single match → fill blank email only.
+
+**Name parsing — configurable via `Name_Parse_Token__mdt` (DONE 2026-06-25):** parsing is driven
+by a custom metadata type (`Token__c`, `Token_Type__c` = Suffix/Particle, `Active__c`) so JCRC
+tunes the lists from real data without code changes. Seeded **66 records** (25 suffixes + 41
+single-word particles; researched from Wikipedia *Name suffix* / *Nobiliary particle* /
+*Tussenvoegsel*). Logic: strip trailing **suffix** tokens (Jr, MD…) → first **particle** (van, de,
+della…) marks where the last name begins ("Maria van der Berg" → "van der Berg") → else last token
+is the surname ("Mary Grace Ott" → "Ott"). `loadTokens()` uses limit-free `getAll()`.
+- **Multi-word particles** ("de la") won't match as a unit — the scanner is token-by-token — but
+  "de"+"la" individually (both seeded) already cover "Robert de la Cruz". Enter multi-word
+  particles as component words.
+- ⚠️ **CMDT-record deploy gotcha** (cost real time): record files must declare
+  `xmlns:xsd="http://www.w3.org/2001/XMLSchema"` or deploy fails silently (0 components / server
+  `UNKNOWN_EXCEPTION`). Diagnosed by creating one in the UI + retrieving. See [[reference-sf-metadata-gotchas]].
+
+**Engine finding & resolution:** the org's pre-existing contact rules are **email-driven**
+(name-alone never matched), so `FindDuplicates` couldn't fuzzy-match by name. Fixed by adding a
+**`Tribute_Contact_Name_Match`** matching rule (fuzzy first + exact last) wired to a **silent
+(Allow / Report-only)** Contact duplicate rule `Tribute_Contact_Name_Match_Rule` — no user-facing
+dedupe popups, but `FindDuplicates` now matches on name. Existing email rules untouched.
+
+> 🔭 **FUTURE CLIENT DECISION (Jason, 2026-06-24):** add a dedicated **Honoree Email** field so
+> honorees can also be matched on email (today the honoree has no email field → name-only match).
+> Revisit with the online-platform field mapping (§5).
+
+### 5.2 Build status — DONE & deployed 2026-06-24
+- `TributeContactResolver` (invocable Apex + `Datacloud.FindDuplicates`, CMDT-driven parser) + test — **7/7 pass, 96% cov.**
+- `Name_Parse_Token__mdt` CMDT (Token / Token_Type / Active) + **68 token records** (incl. Jason's `Particle: de la`, `Suffix: Dr`).
+- `Opportunity_Resolve_Tribute_Contacts` record-triggered flow (after-save; entry = honoree or
+  recipient name present) → calls the resolver with `{!$Record.Id}`. Recursion-guarded.
+- `Tribute_Contact_Needs_Review__c` checkbox (Opportunity).
+- **FLS at the profile level** (read+edit) on `Tribute_Contact_Needs_Review__c` for **System
+  Administrator (`Admin`)** + the four **JCRC** profiles (Development, Fundraising, Marketing,
+  Volunteering). Deployed via minimal additive profile files (no drift risk). *(The interim
+  `Tribute_Gift_Management` perm set was deleted per Jason — FLS is profile-based for this story.)*
+- `Tribute_Contact_Name_Match` matching rule + silent `Tribute_Contact_Name_Match_Rule` duplicate rule.
 
 > Aligns with [[reference-sf-metadata-gotchas]]: Flow entry conditions take only direct fields
 > (no dot notation / formulas) — name-vs-lookup logic goes in a **Decision** element in the
@@ -110,7 +169,13 @@ but not built.
 
 ---
 
-## 6. Letter generation — OUT of native NPSP scope 🚩
+## 6. Letter generation — OUT of native NPSP scope 🚩 — **ON HOLD (client, 2026-06-24)**
+
+> **STATUS: ON HOLD per client** — JCRC needs to provide the **letter template** first
+> (content, fund/campaign variants, Hebrew-font requirements). No Salesforce build proceeds
+> until the template + tool are decided. The "Tributes To Be Notified" report (§7) already
+> supplies the merge data source whenever a tool is chosen.
+
 
 NPSP **tracks** tribute notifications; it does **not produce documents**. These DoD items need
 a tool, not configuration:
@@ -241,6 +306,20 @@ primary; treat classic as a follow-up only if needed.
 
 ---
 
+## 8.6 Field visibility — hide the text name once the lookup is set (DONE 2026-06-24)
+
+On every page carrying the tribute section (**Pledge, Donation, Major Gift, Matching Gift**),
+the **Honoree Name** and **Notification Recipient Name** text fields are hidden once their
+Contact lookup is populated (component visibility), so staff see the text only while it's
+unresolved.
+
+- **Gotcha:** reference (lookup) fields **don't support the `EQUAL` operator** in component
+  visibility ("…is a reference field, which doesn't support the EQUAL operator"). Worked around
+  with two helper **formula-checkbox** fields — `Honoree_Contact_Set__c` /
+  `Notification_Recipient_Contact_Set__c` (`NOT(ISBLANK(<lookup>))`) — and the visibility rule
+  shows the name field while the formula `= false`. Formula fields got **read FLS** on the same
+  5 profiles. Deployed 4/4.
+
 ## 9. Build task summary
 
 | # | Task | Type | Owner | Status |
@@ -253,11 +332,12 @@ primary; treat classic as a follow-up only if needed.
 | 6 | **Assign** each new page to its record type in App Builder (§8.4) | UI / Activation | **Jason** | ⏳ **Pending (Jason)** |
 | 7 | Pledge page — **no change** (already complete); confirm only (§8.1) | — | Jason | ⏳ confirm |
 | 8 | "Tribute Gifts by Honoree" + "To Be Notified" reports (§7) | Metadata | Claude | ✅ **Deployed** 2026-06-24 |
-| 9 | Online-gift text→Contact matching flow (§5) | Flow | Claude | ⛔ blocked (#10) |
-| 10 | Confirm online platform + field mapping (§5) | Decision | Client | ⛔ open |
-| 11 | Notification review process choice (§4) | Decision | Client | ⛔ open |
-| 12 | Letter-generation tooling decision + build (§6) | Tooling | Client / TBD | ⛔ open (not NPSP) |
-| 13 | Confirm single vs. multiple tributes (§2) | Decision | Client | ⛔ open |
+| 9 | Online-gift text→Contact matching flow (§5.1/5.2) | Apex+Flow+Rules | Claude | ✅ **Deployed** 2026-06-24 (6/6 tests) |
+| 10 | Confirm online platform + field mapping (§5) | Decision | Client | ⛔ open (ingest mapping only) |
+| 11 | Notification review process choice (§4) | Decision | Client | ✅ DECIDED — report = queue |
+| 12 | Letter-generation tooling decision + build (§6) | Tooling | Client / TBD | ⏸️ ON HOLD (need template) |
+| 13 | Confirm single vs. multiple tributes (§2) | Decision | Client | ✅ DECIDED — single |
+| 14 | Future: add Honoree Email field for email matching (§5.1) | Field | Client/Claude | 🔭 future decision |
 
 **Done:** #1–#5 (five record pages deployed). **Next:** Jason assigns pages (#6); Claude can
 build reports (#8) in parallel. **Blocked on client:** #9–#13.
@@ -283,17 +363,16 @@ build reports (#8) in parallel. **Blocked on client:** #9–#13.
 
 ## 10. Open / client-confirmation items (carryover)
 
-- 🚩 **Letter generation tool** (§6) — not native NPSP; Hebrew-font + fund/campaign
-  customization decision.
-- 🚩 **Online donation platform & field mapping** (§5) — drives the matching automation.
-- ❓ **Notification review process** (§4) — manual vs. queue vs. approval.
-- ❓ **Single vs. multiple tributes** (§2) — confirm before page design is finalized.
-- ❓ **Status label mismatch** — DoD says "pending / sent"; NPSP uses "To Be Notified /
-  Notified." Confirm staff are fine with NPSP's labels (recommended — don't fork the managed
-  picklist) or whether report/letter wording should translate them.
-- ⚠️ **Lightning page assignment (Jason, post-deploy)** (§8.4) — the five new pages must be
-  assigned to their record types in App Builder; deploying the flexipages does not route any
-  record type to them. (Same class of item as the JSI-82 page-assignment carryover.)
+- ⏸️ **Letter generation** (§6) — **ON HOLD per client**; awaiting letter template (content,
+  fund/campaign variants, Hebrew fonts) + tool choice.
+- 🔨 **Online-gift Contact matching flow** (§5.1) — design locked (name+email, fuzzy via
+  matching rule + invocable Apex, create/update/flag). Pending a few build decisions, then build.
+- 🚩 **Online donation platform & field mapping** (§5) — drives ingest mapping only (not the
+  matching logic).
+- ✅ **Notification review process** (§4) — DECIDED: the "To Be Notified" report is the work queue; no build.
+- ✅ **Single vs. multiple tributes** (§2) — DECIDED: **keep single-tribute inline model.** Pages/flow are final.
+- ✅ **Status labels** — DECIDED: use NPSP's "To Be Notified / Notified" as-is.
+- ✅ **Lightning page assignment** (§8.4) — DONE by Jason (pages assigned to record types in App Builder).
 
 **Decisions locked 2026-06-24:** (1) **new** `Donation_Record_Page` for NPSP_Default (don't
 edit the shared Three-Column page); (2) each new page includes its **type-specific** field

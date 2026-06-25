@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Notification_Recipient_Contact_Set__c</fullName>
+    <description>JSI-89: TRUE when the Notification Recipient Contact lookup is populated. Drives record-page visibility (hide the Notification Recipient Name text field once the contact is linked). Author: Jason Ott.</description>
+    <formula>NOT(ISBLANK(npsp__Notification_Recipient_Contact__c))</formula>
+    <formulaTreatBlanksAs>BlankAsBlank</formulaTreatBlanksAs>
+    <label>Notification Recipient Contact Set</label>
+    <type>Checkbox</type>
+</CustomField>

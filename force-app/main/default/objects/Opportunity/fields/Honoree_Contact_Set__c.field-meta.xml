@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Honoree_Contact_Set__c</fullName>
+    <description>JSI-89: TRUE when the Honoree Contact lookup is populated. Drives record-page visibility (hide the Honoree Name text field once the contact is linked). Reference fields can't be used directly in component visibility, hence this helper formula. Author: Jason Ott.</description>
+    <formula>NOT(ISBLANK(npsp__Honoree_Contact__c))</formula>
+    <formulaTreatBlanksAs>BlankAsBlank</formulaTreatBlanksAs>
+    <label>Honoree Contact Set</label>
+    <type>Checkbox</type>
+</CustomField>
