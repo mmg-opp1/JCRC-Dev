@@ -307,6 +307,26 @@
                 <identifier>f_sec_c0_npsp_Fair_Market_Value</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Number_of_Shares__c</fieldItem>
+                <identifier>f_sec_c0_Number_of_Shares</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Stock_Ticker_Symbol__c</fieldItem>
+                <identifier>f_sec_c0_Stock_Ticker_Symbol</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet_sec_col0</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -319,6 +339,16 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:column</componentName>
                 <identifier>col_sec_0</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet_sec_col1</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>col_sec_1</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet_sec_cols</name>
@@ -990,6 +1020,30 @@
             </componentInstance>
         </itemInstances>
         <name>Facet_tax_cols</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Date_Stock_Received__c</fieldItem>
+                <identifier>f_sec_c1_Date_Stock_Received</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Stock_Valuation_Method__c</fieldItem>
+                <identifier>f_sec_c1_Stock_Valuation_Method</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet_sec_col1</name>
         <type>Facet</type>
     </flexiPageRegions>
     <masterLabel>Securities Gift Record Page</masterLabel>

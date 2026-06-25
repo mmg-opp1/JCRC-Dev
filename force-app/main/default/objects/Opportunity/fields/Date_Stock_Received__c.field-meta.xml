@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Date_Stock_Received__c</fullName>
+    <description>Date the donated shares were received (may differ from the recorded gift/close date). JSI-84 / Jason Ott.</description>
+    <inlineHelpText>Date the shares were received (may differ from the gift Close Date).</inlineHelpText>
+    <label>Date Stock Received</label>
+    <required>false</required>
+    <type>Date</type>
+</CustomField>
