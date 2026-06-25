@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Deductible_Amount__c</fullName>
+    <description>Tax-deductible portion = Amount − Non-Deductible Amount (floored at 0). Auto-calculated formula. JSI-86 / Jason Ott.</description>
+    <formula>MAX(Amount - BLANKVALUE(Non_Deductible_Amount__c, 0), 0)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Auto-calculated: gift Amount minus the Non-Deductible Amount.</inlineHelpText>
+    <label>Tax-Deductible Amount</label>
+    <precision>16</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <type>Currency</type>
+</CustomField>

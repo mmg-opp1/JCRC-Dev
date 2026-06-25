@@ -303,118 +303,6 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Approach__c</fieldItem>
-                <identifier>f_cult_c0_Approach</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.npsp__Gift_Strategy__c</fieldItem>
-                <identifier>f_cult_c0_npsp_Gift_Strategy</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.npsp__Ask_Date__c</fieldItem>
-                <identifier>f_cult_c0_npsp_Ask_Date</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.npsp__Qualified_Date__c</fieldItem>
-                <identifier>f_cult_c0_npsp_Qualified_Date</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <name>Facet_cult_col0</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Budget_Confirmed__c</fieldItem>
-                <identifier>f_cult_c1_Budget_Confirmed</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Discovery_Completed__c</fieldItem>
-                <identifier>f_cult_c1_Discovery_Completed</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.ROI_Analysis_Completed__c</fieldItem>
-                <identifier>f_cult_c1_ROI_Analysis_Completed</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Loss_Reason__c</fieldItem>
-                <identifier>f_cult_c1_Loss_Reason</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <name>Facet_cult_col1</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>body</name>
-                    <value>Facet_cult_col0</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:column</componentName>
-                <identifier>col_cult_0</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>body</name>
-                    <value>Facet_cult_col1</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:column</componentName>
-                <identifier>col_cult_1</identifier>
-            </componentInstance>
-        </itemInstances>
-        <name>Facet_cult_cols</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
                 <fieldItem>Record.npsp__Tribute_Type__c</fieldItem>
                 <identifier>f_trib_c0_npsp_Tribute_Type</identifier>
             </fieldInstance>
@@ -691,24 +579,6 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>fs_oppinfo</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>columns</name>
-                    <value>Facet_cult_cols</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>horizontalAlignment</name>
-                    <value>false</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>label</name>
-                    <value>Cultivation</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:fieldSection</componentName>
-                <identifier>fs_cult</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -1260,7 +1130,7 @@
         <name>Facet_tax_cols</name>
         <type>Facet</type>
     </flexiPageRegions>
-    <masterLabel>Major Gift Record Page</masterLabel>
+    <masterLabel>Event Registration Record Page</masterLabel>
     <sobjectType>Opportunity</sobjectType>
     <template>
         <name>flexipage:recordHomeWithSubheaderTemplateDesktop</name>

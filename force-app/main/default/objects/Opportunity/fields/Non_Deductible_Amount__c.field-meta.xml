@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Non_Deductible_Amount__c</fullName>
+    <description>Portion of the gift that is NOT tax-deductible — the value of goods/services the donor received in return (quid pro quo, e.g. event/gala benefits). The full gift Amount remains JCRC revenue; this split is informational for receipts. JSI-86 / Jason Ott.</description>
+    <inlineHelpText>Value of any goods or services the donor received in return (e.g., gala dinner, event benefits). Leave blank if the entire gift is tax-deductible.</inlineHelpText>
+    <label>Non-Deductible Amount</label>
+    <precision>16</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <type>Currency</type>
+</CustomField>

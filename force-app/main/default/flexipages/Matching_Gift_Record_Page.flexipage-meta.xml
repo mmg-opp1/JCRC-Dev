@@ -693,6 +693,24 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>columns</name>
+                    <value>Facet_tax_cols</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Tax Information</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:fieldSection</componentName>
+                <identifier>fs_tax</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>columns</name>
                     <value>Facet_sysinfo_cols</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -1149,6 +1167,58 @@
         </itemInstances>
         <name>sidebar</name>
         <type>Region</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Non_Deductible_Amount__c</fieldItem>
+                <identifier>f_tax_c0_Non_Deductible_Amount</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet_tax_col0</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Deductible_Amount__c</fieldItem>
+                <identifier>f_tax_c1_Deductible_Amount</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet_tax_col1</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet_tax_col0</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>col_tax_0</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet_tax_col1</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>col_tax_1</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet_tax_cols</name>
+        <type>Facet</type>
     </flexiPageRegions>
     <masterLabel>Matching Gift Record Page</masterLabel>
     <sobjectType>Opportunity</sobjectType>

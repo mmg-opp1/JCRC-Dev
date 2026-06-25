@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Non_Deductible_Not_Over_Amount</fullName>
+    <active>true</active>
+    <description>The non-deductible portion of a gift can't exceed the gift Amount. JSI-86.</description>
+    <errorConditionFormula>AND(
+  NOT(ISBLANK(Non_Deductible_Amount__c)),
+  NOT(ISBLANK(Amount)),
+  Non_Deductible_Amount__c &gt; Amount
+)</errorConditionFormula>
+    <errorDisplayField>Non_Deductible_Amount__c</errorDisplayField>
+    <errorMessage>The Non-Deductible Amount can't be more than the gift Amount.</errorMessage>
+</ValidationRule>
