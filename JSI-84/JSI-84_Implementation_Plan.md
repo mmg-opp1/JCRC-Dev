@@ -1,9 +1,9 @@
 # JSI-84 — Implementation Game Plan: Stock & In-Kind Gifts with Valuation
 
-> **Status:** ✅ BUILT & DEPLOYED to JCRC-Dev (securities fields + FLS, Securities page section, 2
-> reports) — verified 2026-06-25. **One remaining (Jason, NPSP UI):** the in-kind record-type rollup
-> exclusion on the HC + SC filter groups (§5.2). Build Log in §13.
-> **Author:** Jason Ott · **Date:** 2026-06-25 (rev. 2 — built)
+> **Status:** ✅ COMPLETE — built & deployed to JCRC-Dev (securities fields + FLS, Securities page
+> section, 2 reports) and the **in-kind rollup exclusion is configured & verified on BOTH the
+> Hard-Credit and Soft-Credit filter groups** (Jason, 2026-06-25). Build Log in §13.
+> **Author:** Jason Ott · **Date:** 2026-06-25 (rev. 3 — complete)
 > **Related:** `JSI-84_User_Story.md`, `JSI-84_StoryDictationNotes.MD`
 > **Jira:** https://missionmattersgroup.atlassian.net/browse/JSI-84 (Epic JSI-8 — Fundraising; US-017, Should-Have)
 > **Org:** JCRC-Dev sandbox · NPSP 3.237 · API v67.0 · **Customizable Rollups ENABLED**
