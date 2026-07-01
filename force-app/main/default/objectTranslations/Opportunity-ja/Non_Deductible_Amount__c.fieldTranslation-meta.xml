@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Value of any goods or services the donor received in return (e.g., gala dinner, event benefits). Leave blank if the entire gift is tax-deductible. --></help>
+    <label><!-- Non-Deductible Amount --></label>
+    <name>Non_Deductible_Amount__c</name>
+</CustomFieldTranslation>

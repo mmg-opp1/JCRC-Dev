@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Token_Type__c</fullName>
-    <label>Token Type</label>
     <description>Suffix = a trailing token (e.g. Jr, MD) that is stripped before splitting first/last. Particle = a last-name prefix (e.g. van, de, della) that marks where the last name begins. Author: Jason Ott.</description>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Token Type</label>
+    <required>false</required>
     <type>Picklist</type>
     <valueSet>
+        <restricted>true</restricted>
         <valueSetDefinition>
-            <sorted>true</sorted>
+            <sorted>false</sorted>
             <value>
                 <fullName>Particle</fullName>
                 <default>false</default>

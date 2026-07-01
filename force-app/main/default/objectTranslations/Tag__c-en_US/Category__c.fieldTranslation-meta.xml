@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Category --></label>
+    <name>Category__c</name>
+    <picklistValues>
+        <masterLabel>Demographic</masterLabel>
+        <translation><!-- Demographic --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Education</masterLabel>
+        <translation><!-- Education --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Employment</masterLabel>
+        <translation><!-- Employment --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>General</masterLabel>
+        <translation><!-- General --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Geographic</masterLabel>
+        <translation><!-- Geographic --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Hobbies</masterLabel>
+        <translation><!-- Hobbies --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Interest</masterLabel>
+        <translation><!-- Interest --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Other</masterLabel>
+        <translation><!-- Other --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Program</masterLabel>
+        <translation><!-- Program --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Skills</masterLabel>
+        <translation><!-- Skills --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

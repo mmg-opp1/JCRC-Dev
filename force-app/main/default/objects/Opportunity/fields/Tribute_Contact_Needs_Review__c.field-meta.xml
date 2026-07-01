@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Tribute_Contact_Needs_Review__c</fullName>
+    <defaultValue>false</defaultValue>
     <description>Set by the JSI-89 tribute-matching automation when a honoree or notification recipient matched 2+ existing Contacts (ambiguous). The lookup was left blank for a person to resolve manually. Author: Jason Ott.</description>
-    <externalId>false</externalId>
     <inlineHelpText>Auto-checked when the tribute contact matcher found multiple possible Contacts. Review and set the Honoree/Notification Recipient lookup manually, then uncheck.</inlineHelpText>
     <label>Tribute Contact Needs Review</label>
-    <trackTrending>false</trackTrending>
+    <trackFeedHistory>false</trackFeedHistory>
     <type>Checkbox</type>
-    <defaultValue>false</defaultValue>
 </CustomField>

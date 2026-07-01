@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Days past due for this unpaid installment (blank if paid, written off, or not yet due). --></help>
+    <label><!-- Days Past Due --></label>
+    <name>Days_Past_Due__c</name>
+</CustomFieldTranslation>

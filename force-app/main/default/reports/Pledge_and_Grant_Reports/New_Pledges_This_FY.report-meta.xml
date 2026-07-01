@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Report xmlns="http://soap.sforce.com/2006/04/metadata">
-    <name>New Pledges This Fiscal Year</name>
-    <description>Pledge/grant commitments booked in the current fiscal year (fundraising production). JSI-82 / Jason Ott.</description>
-    <reportType>Opportunity</reportType>
-    <format>Summary</format>
-    <groupingsDown>
-        <dateGranularity>Day</dateGranularity>
-        <field>FULL_NAME</field>
-        <sortOrder>Asc</sortOrder>
-    </groupingsDown>
     <columns>
         <field>ACCOUNT_NAME</field>
     </columns>
@@ -19,19 +10,46 @@
         <field>STAGE_NAME</field>
     </columns>
     <columns>
-        <field>AMOUNT</field>
         <aggregateTypes>Sum</aggregateTypes>
+        <field>AMOUNT</field>
     </columns>
     <columns>
         <field>CLOSE_DATE</field>
     </columns>
+    <description>Pledge/grant commitments booked in the current fiscal year (fundraising production). JSI-82 / Jason Ott.</description>
     <filter>
         <criteriaItems>
             <column>RECORDTYPE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
             <operator>equals</operator>
             <value>Opportunity.Pledge,Opportunity.Grant</value>
         </criteriaItems>
     </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>FULL_NAME</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>New Pledges This Fiscal Year</name>
+    <params>
+        <name>open</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Opportunity</reportType>
+    <scope>organization</scope>
+    <showDetails>false</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
     <timeFrameFilter>
         <dateColumn>CLOSE_DATE</dateColumn>
         <interval>INTERVAL_CURFY</interval>

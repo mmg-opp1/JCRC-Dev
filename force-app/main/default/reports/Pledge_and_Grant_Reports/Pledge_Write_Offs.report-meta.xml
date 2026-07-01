@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Report xmlns="http://soap.sforce.com/2006/04/metadata">
-    <name>Pledge Write-Offs (Bad Debt)</name>
-    <description>Pledges/grants that were partially posted or written off, with original commitment vs collected vs written off. JSI-82 / Jason Ott.</description>
-    <reportType>Opportunity</reportType>
-    <format>Summary</format>
-    <groupingsDown>
-        <dateGranularity>Day</dateGranularity>
-        <field>STAGE_NAME</field>
-        <sortOrder>Asc</sortOrder>
-    </groupingsDown>
     <columns>
         <field>ACCOUNT_NAME</field>
     </columns>
@@ -16,29 +7,60 @@
         <field>OPPORTUNITY_NAME</field>
     </columns>
     <columns>
+        <aggregateTypes>Sum</aggregateTypes>
         <field>Opportunity.Original_Pledge_Amount__c</field>
-        <aggregateTypes>Sum</aggregateTypes>
     </columns>
     <columns>
+        <aggregateTypes>Sum</aggregateTypes>
         <field>Opportunity.npe01__Payments_Made__c</field>
-        <aggregateTypes>Sum</aggregateTypes>
     </columns>
     <columns>
+        <aggregateTypes>Sum</aggregateTypes>
         <field>Opportunity.Pledge_Written_Off__c</field>
-        <aggregateTypes>Sum</aggregateTypes>
     </columns>
     <columns>
-        <field>Opportunity.npe01__Amount_Written_Off__c</field>
         <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.npe01__Amount_Written_Off__c</field>
     </columns>
     <columns>
         <field>CLOSE_DATE</field>
     </columns>
+    <description>Pledges/grants that were partially posted or written off, with original commitment vs collected vs written off. JSI-82 / Jason Ott.</description>
     <filter>
         <criteriaItems>
             <column>STAGE_NAME</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
             <operator>equals</operator>
             <value>Partially Posted,Written Off</value>
         </criteriaItems>
     </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>STAGE_NAME</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Pledge Write-Offs (Bad Debt)</name>
+    <params>
+        <name>open</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Opportunity</reportType>
+    <scope>organization</scope>
+    <showDetails>false</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CLOSE_DATE</dateColumn>
+        <interval>INTERVAL_CURRENT</interval>
+    </timeFrameFilter>
 </Report>

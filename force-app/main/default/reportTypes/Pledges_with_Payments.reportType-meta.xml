@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ReportType xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label>Pledges with Payments</label>
     <baseObject>Opportunity</baseObject>
     <category>opportunities</category>
     <deployed>true</deployed>
     <description>Opportunities with their NPSP Payments, for installment-level pledge reporting (cash-flow forecast, aging). JSI-82 / Jason Ott.</description>
     <join>
+        <outerJoin>false</outerJoin>
         <relationship>npe01__OppPayment__r</relationship>
     </join>
+    <label>Pledges with Payments</label>
     <sections>
         <columns>
             <checkedByDefault>true</checkedByDefault>

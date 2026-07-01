@@ -190,6 +190,10 @@
             <label>Next Deliverable Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ih0</field>
+            <label>Notification Recipient Contact Set</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>DESCRIPTION</field>
             <label>Description</label>
         </forecastingObjectListLabelMappings>
@@ -202,6 +206,10 @@
             <label>Remaining Balance</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000igz</field>
+            <label>Honoree Contact Set</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001Dcka</field>
             <label>Is Opp From Individual</label>
         </forecastingObjectListLabelMappings>
@@ -212,6 +220,10 @@
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001DctN</field>
             <label>Recurring Donation</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ho9</field>
+            <label>Tribute Contact Needs Review</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.AGE_IN_DAYS</field>
@@ -238,12 +250,36 @@
             <label>Budget Confirmed</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku7</field>
+            <label>Stock/Ticker Symbol</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001A0YG</field>
             <label>Discovery Completed</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku6</field>
+            <label>Number of Shares</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku5</field>
+            <label>Date Stock Received</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>CORE.USERS.FIRST_NAME</field>
             <label>Owner First Name</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku8</field>
+            <label>Valuation Method</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000j8Q</field>
+            <label>Tax-Deductible Amount</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000j8P</field>
+            <label>Non-Deductible Amount</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>CREATEDBY_USER.ALIAS</field>
@@ -280,6 +316,18 @@
         <forecastingObjectListLabelMappings>
             <field>SYNCEDQUOTE.NAME</field>
             <label>Synced Quote</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000WBD</field>
+            <label>Pledge Written Off</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000WBC</field>
+            <label>Original Pledge Amount</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000WBB</field>
+            <label>Amount Due To Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.ISPRIORITYRECORD</field>
@@ -398,6 +446,10 @@
             <label>Honoree Information</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000MTZ</field>
+            <label>Approach</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.RECORDTYPE</field>
             <label>Opportunity Record Type</label>
         </forecastingObjectListLabelMappings>
@@ -449,6 +501,8 @@
             <field>00Nhk000001Dcp6</field>
             <field>00Nhk000001DdB7</field>
             <field>00Nhk000001DdB8</field>
+            <field>00NiI0000000WBB</field>
+            <field>00NiI0000000MTZ</field>
             <field>00Nhk000001DdB9</field>
             <field>00Nhk000001DdBB</field>
             <field>00Nhk000001DdBA</field>
@@ -456,6 +510,7 @@
             <field>00Nhk000001DdBC</field>
             <field>00Nhk000001Dcp5</field>
             <field>00Nhk000001DckJ</field>
+            <field>00NiI0000000ku5</field>
             <field>00Nhk000001DdBE</field>
             <field>00Nhk000001A0YG</field>
             <field>00Nhk000001DckK</field>
@@ -468,6 +523,7 @@
             <field>00Nhk000001DdBK</field>
             <field>00Nhk000001DdBM</field>
             <field>00Nhk000001DdBN</field>
+            <field>00NiI0000000igz</field>
             <field>00Nhk000001DdBO</field>
             <field>00Nhk000001DdBP</field>
             <field>00Nhk000001DdBQ</field>
@@ -485,15 +541,20 @@
             <field>00Nhk000001DckN</field>
             <field>00Nhk000001DckO</field>
             <field>00Nhk000001DdEd</field>
+            <field>00NiI0000000j8P</field>
             <field>00Nhk000001DdBY</field>
             <field>00Nhk000001DdBZ</field>
             <field>00Nhk000001DdBa</field>
+            <field>00NiI0000000ih0</field>
             <field>00Nhk000001DdBb</field>
             <field>00Nhk000001DdBc</field>
             <field>00Nhk000001DdBd</field>
             <field>00Nhk000001DckS</field>
+            <field>00NiI0000000ku6</field>
+            <field>00NiI0000000WBC</field>
             <field>00Nhk000001DckT</field>
             <field>00Nhk000001DckR</field>
+            <field>00NiI0000000WBD</field>
             <field>00Nhk000001DdBe</field>
             <field>00Nhk000001DdBg</field>
             <field>00Nhk000001DdBf</field>
@@ -505,9 +566,13 @@
             <field>00Nhk000001DckZ</field>
             <field>00Nhk000001DdBj</field>
             <field>00Nhk000001A0YH</field>
+            <field>00NiI0000000ku7</field>
+            <field>00NiI0000000j8Q</field>
+            <field>00NiI0000000ho9</field>
             <field>00Nhk000001DdBk</field>
             <field>00Nhk000001DdBl</field>
             <field>00Nhk000001DdBm</field>
+            <field>00NiI0000000ku8</field>
             <field>OPPORTUNITY.ISPRIORITYRECORD</field>
             <field>OPPORTUNITY.LAST_STG_CHG_DAYS</field>
             <field>OPPORTUNITY.LAST_ACTIVITY_DAYS</field>
@@ -707,6 +772,10 @@
             <label>Next Deliverable Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ih0</field>
+            <label>Notification Recipient Contact Set</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>DESCRIPTION</field>
             <label>Description</label>
         </forecastingObjectListLabelMappings>
@@ -719,6 +788,10 @@
             <label>Remaining Balance</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000igz</field>
+            <label>Honoree Contact Set</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001Dcka</field>
             <label>Is Opp From Individual</label>
         </forecastingObjectListLabelMappings>
@@ -729,6 +802,10 @@
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001DctN</field>
             <label>Recurring Donation</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ho9</field>
+            <label>Tribute Contact Needs Review</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.AGE_IN_DAYS</field>
@@ -755,12 +832,36 @@
             <label>Budget Confirmed</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku7</field>
+            <label>Stock/Ticker Symbol</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001A0YG</field>
             <label>Discovery Completed</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku6</field>
+            <label>Number of Shares</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku5</field>
+            <label>Date Stock Received</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>CORE.USERS.FIRST_NAME</field>
             <label>Owner First Name</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku8</field>
+            <label>Valuation Method</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000j8Q</field>
+            <label>Tax-Deductible Amount</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000j8P</field>
+            <label>Non-Deductible Amount</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>CREATEDBY_USER.ALIAS</field>
@@ -797,6 +898,18 @@
         <forecastingObjectListLabelMappings>
             <field>SYNCEDQUOTE.NAME</field>
             <label>Synced Quote</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000WBD</field>
+            <label>Pledge Written Off</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000WBC</field>
+            <label>Original Pledge Amount</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000WBB</field>
+            <label>Amount Due To Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.ISPRIORITYRECORD</field>
@@ -915,6 +1028,10 @@
             <label>Honoree Information</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000MTZ</field>
+            <label>Approach</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.RECORDTYPE</field>
             <label>Opportunity Record Type</label>
         </forecastingObjectListLabelMappings>
@@ -966,6 +1083,8 @@
             <field>00Nhk000001Dcp6</field>
             <field>00Nhk000001DdB7</field>
             <field>00Nhk000001DdB8</field>
+            <field>00NiI0000000WBB</field>
+            <field>00NiI0000000MTZ</field>
             <field>00Nhk000001DdB9</field>
             <field>00Nhk000001DdBB</field>
             <field>00Nhk000001DdBA</field>
@@ -973,6 +1092,7 @@
             <field>00Nhk000001DdBC</field>
             <field>00Nhk000001Dcp5</field>
             <field>00Nhk000001DckJ</field>
+            <field>00NiI0000000ku5</field>
             <field>00Nhk000001DdBE</field>
             <field>00Nhk000001A0YG</field>
             <field>00Nhk000001DckK</field>
@@ -985,6 +1105,7 @@
             <field>00Nhk000001DdBK</field>
             <field>00Nhk000001DdBM</field>
             <field>00Nhk000001DdBN</field>
+            <field>00NiI0000000igz</field>
             <field>00Nhk000001DdBO</field>
             <field>00Nhk000001DdBP</field>
             <field>00Nhk000001DdBQ</field>
@@ -1002,15 +1123,20 @@
             <field>00Nhk000001DckN</field>
             <field>00Nhk000001DckO</field>
             <field>00Nhk000001DdEd</field>
+            <field>00NiI0000000j8P</field>
             <field>00Nhk000001DdBY</field>
             <field>00Nhk000001DdBZ</field>
             <field>00Nhk000001DdBa</field>
+            <field>00NiI0000000ih0</field>
             <field>00Nhk000001DdBb</field>
             <field>00Nhk000001DdBc</field>
             <field>00Nhk000001DdBd</field>
             <field>00Nhk000001DckS</field>
+            <field>00NiI0000000ku6</field>
+            <field>00NiI0000000WBC</field>
             <field>00Nhk000001DckT</field>
             <field>00Nhk000001DckR</field>
+            <field>00NiI0000000WBD</field>
             <field>00Nhk000001DdBe</field>
             <field>00Nhk000001DdBg</field>
             <field>00Nhk000001DdBf</field>
@@ -1022,9 +1148,13 @@
             <field>00Nhk000001DckZ</field>
             <field>00Nhk000001DdBj</field>
             <field>00Nhk000001A0YH</field>
+            <field>00NiI0000000ku7</field>
+            <field>00NiI0000000j8Q</field>
+            <field>00NiI0000000ho9</field>
             <field>00Nhk000001DdBk</field>
             <field>00Nhk000001DdBl</field>
             <field>00Nhk000001DdBm</field>
+            <field>00NiI0000000ku8</field>
             <field>OPPORTUNITY.ISPRIORITYRECORD</field>
             <field>OPPORTUNITY.LAST_STG_CHG_DAYS</field>
             <field>OPPORTUNITY.LAST_ACTIVITY_DAYS</field>
@@ -1224,6 +1354,10 @@
             <label>Next Deliverable Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ih0</field>
+            <label>Notification Recipient Contact Set</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>DESCRIPTION</field>
             <label>Description</label>
         </forecastingObjectListLabelMappings>
@@ -1236,6 +1370,10 @@
             <label>Remaining Balance</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000igz</field>
+            <label>Honoree Contact Set</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001Dcka</field>
             <label>Is Opp From Individual</label>
         </forecastingObjectListLabelMappings>
@@ -1246,6 +1384,10 @@
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001DctN</field>
             <label>Recurring Donation</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ho9</field>
+            <label>Tribute Contact Needs Review</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.AGE_IN_DAYS</field>
@@ -1272,12 +1414,36 @@
             <label>Budget Confirmed</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku7</field>
+            <label>Stock/Ticker Symbol</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001A0YG</field>
             <label>Discovery Completed</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku6</field>
+            <label>Number of Shares</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku5</field>
+            <label>Date Stock Received</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>CORE.USERS.FIRST_NAME</field>
             <label>Owner First Name</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku8</field>
+            <label>Valuation Method</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000j8Q</field>
+            <label>Tax-Deductible Amount</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000j8P</field>
+            <label>Non-Deductible Amount</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>CREATEDBY_USER.ALIAS</field>
@@ -1314,6 +1480,18 @@
         <forecastingObjectListLabelMappings>
             <field>SYNCEDQUOTE.NAME</field>
             <label>Synced Quote</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000WBD</field>
+            <label>Pledge Written Off</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000WBC</field>
+            <label>Original Pledge Amount</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000WBB</field>
+            <label>Amount Due To Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.ISPRIORITYRECORD</field>
@@ -1432,6 +1610,10 @@
             <label>Honoree Information</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000MTZ</field>
+            <label>Approach</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.RECORDTYPE</field>
             <label>Opportunity Record Type</label>
         </forecastingObjectListLabelMappings>
@@ -1483,6 +1665,8 @@
             <field>00Nhk000001Dcp6</field>
             <field>00Nhk000001DdB7</field>
             <field>00Nhk000001DdB8</field>
+            <field>00NiI0000000WBB</field>
+            <field>00NiI0000000MTZ</field>
             <field>00Nhk000001DdB9</field>
             <field>00Nhk000001DdBB</field>
             <field>00Nhk000001DdBA</field>
@@ -1490,6 +1674,7 @@
             <field>00Nhk000001DdBC</field>
             <field>00Nhk000001Dcp5</field>
             <field>00Nhk000001DckJ</field>
+            <field>00NiI0000000ku5</field>
             <field>00Nhk000001DdBE</field>
             <field>00Nhk000001A0YG</field>
             <field>00Nhk000001DckK</field>
@@ -1502,6 +1687,7 @@
             <field>00Nhk000001DdBK</field>
             <field>00Nhk000001DdBM</field>
             <field>00Nhk000001DdBN</field>
+            <field>00NiI0000000igz</field>
             <field>00Nhk000001DdBO</field>
             <field>00Nhk000001DdBP</field>
             <field>00Nhk000001DdBQ</field>
@@ -1519,15 +1705,20 @@
             <field>00Nhk000001DckN</field>
             <field>00Nhk000001DckO</field>
             <field>00Nhk000001DdEd</field>
+            <field>00NiI0000000j8P</field>
             <field>00Nhk000001DdBY</field>
             <field>00Nhk000001DdBZ</field>
             <field>00Nhk000001DdBa</field>
+            <field>00NiI0000000ih0</field>
             <field>00Nhk000001DdBb</field>
             <field>00Nhk000001DdBc</field>
             <field>00Nhk000001DdBd</field>
             <field>00Nhk000001DckS</field>
+            <field>00NiI0000000ku6</field>
+            <field>00NiI0000000WBC</field>
             <field>00Nhk000001DckT</field>
             <field>00Nhk000001DckR</field>
+            <field>00NiI0000000WBD</field>
             <field>00Nhk000001DdBe</field>
             <field>00Nhk000001DdBg</field>
             <field>00Nhk000001DdBf</field>
@@ -1539,9 +1730,13 @@
             <field>00Nhk000001DckZ</field>
             <field>00Nhk000001DdBj</field>
             <field>00Nhk000001A0YH</field>
+            <field>00NiI0000000ku7</field>
+            <field>00NiI0000000j8Q</field>
+            <field>00NiI0000000ho9</field>
             <field>00Nhk000001DdBk</field>
             <field>00Nhk000001DdBl</field>
             <field>00Nhk000001DdBm</field>
+            <field>00NiI0000000ku8</field>
             <field>OPPORTUNITY.ISPRIORITYRECORD</field>
             <field>OPPORTUNITY.LAST_STG_CHG_DAYS</field>
             <field>OPPORTUNITY.LAST_ACTIVITY_DAYS</field>
@@ -1741,6 +1936,10 @@
             <label>Next Deliverable Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ih0</field>
+            <label>Notification Recipient Contact Set</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>DESCRIPTION</field>
             <label>Description</label>
         </forecastingObjectListLabelMappings>
@@ -1753,6 +1952,10 @@
             <label>Remaining Balance</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000igz</field>
+            <label>Honoree Contact Set</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001Dcka</field>
             <label>Is Opp From Individual</label>
         </forecastingObjectListLabelMappings>
@@ -1763,6 +1966,10 @@
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001DctN</field>
             <label>Recurring Donation</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ho9</field>
+            <label>Tribute Contact Needs Review</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.AGE_IN_DAYS</field>
@@ -1789,12 +1996,36 @@
             <label>Budget Confirmed</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku7</field>
+            <label>Stock/Ticker Symbol</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001A0YG</field>
             <label>Discovery Completed</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku6</field>
+            <label>Number of Shares</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku5</field>
+            <label>Date Stock Received</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>CORE.USERS.FIRST_NAME</field>
             <label>Owner First Name</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku8</field>
+            <label>Valuation Method</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000j8Q</field>
+            <label>Tax-Deductible Amount</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000j8P</field>
+            <label>Non-Deductible Amount</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>CREATEDBY_USER.ALIAS</field>
@@ -1835,6 +2066,18 @@
         <forecastingObjectListLabelMappings>
             <field>SYNCEDQUOTE.NAME</field>
             <label>Synced Quote</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000WBD</field>
+            <label>Pledge Written Off</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000WBC</field>
+            <label>Original Pledge Amount</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000WBB</field>
+            <label>Amount Due To Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.ISPRIORITYRECORD</field>
@@ -1953,6 +2196,10 @@
             <label>Honoree Information</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000MTZ</field>
+            <label>Approach</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.RECORDTYPE</field>
             <label>Opportunity Record Type</label>
         </forecastingObjectListLabelMappings>
@@ -2005,6 +2252,8 @@
             <field>00Nhk000001Dcp6</field>
             <field>00Nhk000001DdB7</field>
             <field>00Nhk000001DdB8</field>
+            <field>00NiI0000000WBB</field>
+            <field>00NiI0000000MTZ</field>
             <field>00Nhk000001DdB9</field>
             <field>00Nhk000001DdBB</field>
             <field>00Nhk000001DdBA</field>
@@ -2012,6 +2261,7 @@
             <field>00Nhk000001DdBC</field>
             <field>00Nhk000001Dcp5</field>
             <field>00Nhk000001DckJ</field>
+            <field>00NiI0000000ku5</field>
             <field>00Nhk000001DdBE</field>
             <field>00Nhk000001A0YG</field>
             <field>00Nhk000001DckK</field>
@@ -2024,6 +2274,7 @@
             <field>00Nhk000001DdBK</field>
             <field>00Nhk000001DdBM</field>
             <field>00Nhk000001DdBN</field>
+            <field>00NiI0000000igz</field>
             <field>00Nhk000001DdBO</field>
             <field>00Nhk000001DdBP</field>
             <field>00Nhk000001DdBQ</field>
@@ -2041,15 +2292,20 @@
             <field>00Nhk000001DckN</field>
             <field>00Nhk000001DckO</field>
             <field>00Nhk000001DdEd</field>
+            <field>00NiI0000000j8P</field>
             <field>00Nhk000001DdBY</field>
             <field>00Nhk000001DdBZ</field>
             <field>00Nhk000001DdBa</field>
+            <field>00NiI0000000ih0</field>
             <field>00Nhk000001DdBb</field>
             <field>00Nhk000001DdBc</field>
             <field>00Nhk000001DdBd</field>
             <field>00Nhk000001DckS</field>
+            <field>00NiI0000000ku6</field>
+            <field>00NiI0000000WBC</field>
             <field>00Nhk000001DckT</field>
             <field>00Nhk000001DckR</field>
+            <field>00NiI0000000WBD</field>
             <field>00Nhk000001DdBe</field>
             <field>00Nhk000001DdBg</field>
             <field>00Nhk000001DdBf</field>
@@ -2061,9 +2317,13 @@
             <field>00Nhk000001DckZ</field>
             <field>00Nhk000001DdBj</field>
             <field>00Nhk000001A0YH</field>
+            <field>00NiI0000000ku7</field>
+            <field>00NiI0000000j8Q</field>
+            <field>00NiI0000000ho9</field>
             <field>00Nhk000001DdBk</field>
             <field>00Nhk000001DdBl</field>
             <field>00Nhk000001DdBm</field>
+            <field>00NiI0000000ku8</field>
             <field>OPPORTUNITY.ISPRIORITYRECORD</field>
             <field>OPPORTUNITY.LAST_STG_CHG_DAYS</field>
             <field>OPPORTUNITY.LAST_ACTIVITY_DAYS</field>
@@ -2263,6 +2523,10 @@
             <label>Next Deliverable Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ih0</field>
+            <label>Notification Recipient Contact Set</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>DESCRIPTION</field>
             <label>Description</label>
         </forecastingObjectListLabelMappings>
@@ -2275,6 +2539,10 @@
             <label>Remaining Balance</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000igz</field>
+            <label>Honoree Contact Set</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001Dcka</field>
             <label>Is Opp From Individual</label>
         </forecastingObjectListLabelMappings>
@@ -2285,6 +2553,10 @@
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001DctN</field>
             <label>Recurring Donation</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ho9</field>
+            <label>Tribute Contact Needs Review</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.AGE_IN_DAYS</field>
@@ -2311,12 +2583,36 @@
             <label>Budget Confirmed</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku7</field>
+            <label>Stock/Ticker Symbol</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001A0YG</field>
             <label>Discovery Completed</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku6</field>
+            <label>Number of Shares</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku5</field>
+            <label>Date Stock Received</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>CORE.USERS.FIRST_NAME</field>
             <label>Owner First Name</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku8</field>
+            <label>Valuation Method</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000j8Q</field>
+            <label>Tax-Deductible Amount</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000j8P</field>
+            <label>Non-Deductible Amount</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>CREATEDBY_USER.ALIAS</field>
@@ -2353,6 +2649,18 @@
         <forecastingObjectListLabelMappings>
             <field>SYNCEDQUOTE.NAME</field>
             <label>Synced Quote</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000WBD</field>
+            <label>Pledge Written Off</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000WBC</field>
+            <label>Original Pledge Amount</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000WBB</field>
+            <label>Amount Due To Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.ISPRIORITYRECORD</field>
@@ -2471,6 +2779,10 @@
             <label>Honoree Information</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000MTZ</field>
+            <label>Approach</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.RECORDTYPE</field>
             <label>Opportunity Record Type</label>
         </forecastingObjectListLabelMappings>
@@ -2522,6 +2834,8 @@
             <field>00Nhk000001Dcp6</field>
             <field>00Nhk000001DdB7</field>
             <field>00Nhk000001DdB8</field>
+            <field>00NiI0000000WBB</field>
+            <field>00NiI0000000MTZ</field>
             <field>00Nhk000001DdB9</field>
             <field>00Nhk000001DdBB</field>
             <field>00Nhk000001DdBA</field>
@@ -2529,6 +2843,7 @@
             <field>00Nhk000001DdBC</field>
             <field>00Nhk000001Dcp5</field>
             <field>00Nhk000001DckJ</field>
+            <field>00NiI0000000ku5</field>
             <field>00Nhk000001DdBE</field>
             <field>00Nhk000001A0YG</field>
             <field>00Nhk000001DckK</field>
@@ -2541,6 +2856,7 @@
             <field>00Nhk000001DdBK</field>
             <field>00Nhk000001DdBM</field>
             <field>00Nhk000001DdBN</field>
+            <field>00NiI0000000igz</field>
             <field>00Nhk000001DdBO</field>
             <field>00Nhk000001DdBP</field>
             <field>00Nhk000001DdBQ</field>
@@ -2558,15 +2874,20 @@
             <field>00Nhk000001DckN</field>
             <field>00Nhk000001DckO</field>
             <field>00Nhk000001DdEd</field>
+            <field>00NiI0000000j8P</field>
             <field>00Nhk000001DdBY</field>
             <field>00Nhk000001DdBZ</field>
             <field>00Nhk000001DdBa</field>
+            <field>00NiI0000000ih0</field>
             <field>00Nhk000001DdBb</field>
             <field>00Nhk000001DdBc</field>
             <field>00Nhk000001DdBd</field>
             <field>00Nhk000001DckS</field>
+            <field>00NiI0000000ku6</field>
+            <field>00NiI0000000WBC</field>
             <field>00Nhk000001DckT</field>
             <field>00Nhk000001DckR</field>
+            <field>00NiI0000000WBD</field>
             <field>00Nhk000001DdBe</field>
             <field>00Nhk000001DdBg</field>
             <field>00Nhk000001DdBf</field>
@@ -2578,9 +2899,13 @@
             <field>00Nhk000001DckZ</field>
             <field>00Nhk000001DdBj</field>
             <field>00Nhk000001A0YH</field>
+            <field>00NiI0000000ku7</field>
+            <field>00NiI0000000j8Q</field>
+            <field>00NiI0000000ho9</field>
             <field>00Nhk000001DdBk</field>
             <field>00Nhk000001DdBl</field>
             <field>00Nhk000001DdBm</field>
+            <field>00NiI0000000ku8</field>
             <field>OPPORTUNITY.ISPRIORITYRECORD</field>
             <field>OPPORTUNITY.LAST_STG_CHG_DAYS</field>
             <field>OPPORTUNITY.LAST_ACTIVITY_DAYS</field>
@@ -2780,6 +3105,10 @@
             <label>Next Deliverable Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ih0</field>
+            <label>Notification Recipient Contact Set</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>DESCRIPTION</field>
             <label>Description</label>
         </forecastingObjectListLabelMappings>
@@ -2792,6 +3121,10 @@
             <label>Remaining Balance</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000igz</field>
+            <label>Honoree Contact Set</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001Dcka</field>
             <label>Is Opp From Individual</label>
         </forecastingObjectListLabelMappings>
@@ -2802,6 +3135,10 @@
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001DctN</field>
             <label>Recurring Donation</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ho9</field>
+            <label>Tribute Contact Needs Review</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.AGE_IN_DAYS</field>
@@ -2828,12 +3165,36 @@
             <label>Budget Confirmed</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku7</field>
+            <label>Stock/Ticker Symbol</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001A0YG</field>
             <label>Discovery Completed</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku6</field>
+            <label>Number of Shares</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku5</field>
+            <label>Date Stock Received</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>CORE.USERS.FIRST_NAME</field>
             <label>Owner First Name</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku8</field>
+            <label>Valuation Method</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000j8Q</field>
+            <label>Tax-Deductible Amount</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000j8P</field>
+            <label>Non-Deductible Amount</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>CREATEDBY_USER.ALIAS</field>
@@ -2874,6 +3235,18 @@
         <forecastingObjectListLabelMappings>
             <field>SYNCEDQUOTE.NAME</field>
             <label>Synced Quote</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000WBD</field>
+            <label>Pledge Written Off</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000WBC</field>
+            <label>Original Pledge Amount</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000WBB</field>
+            <label>Amount Due To Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.ISPRIORITYRECORD</field>
@@ -2992,6 +3365,10 @@
             <label>Honoree Information</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000MTZ</field>
+            <label>Approach</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.RECORDTYPE</field>
             <label>Opportunity Record Type</label>
         </forecastingObjectListLabelMappings>
@@ -3044,6 +3421,8 @@
             <field>00Nhk000001Dcp6</field>
             <field>00Nhk000001DdB7</field>
             <field>00Nhk000001DdB8</field>
+            <field>00NiI0000000WBB</field>
+            <field>00NiI0000000MTZ</field>
             <field>00Nhk000001DdB9</field>
             <field>00Nhk000001DdBB</field>
             <field>00Nhk000001DdBA</field>
@@ -3051,6 +3430,7 @@
             <field>00Nhk000001DdBC</field>
             <field>00Nhk000001Dcp5</field>
             <field>00Nhk000001DckJ</field>
+            <field>00NiI0000000ku5</field>
             <field>00Nhk000001DdBE</field>
             <field>00Nhk000001A0YG</field>
             <field>00Nhk000001DckK</field>
@@ -3063,6 +3443,7 @@
             <field>00Nhk000001DdBK</field>
             <field>00Nhk000001DdBM</field>
             <field>00Nhk000001DdBN</field>
+            <field>00NiI0000000igz</field>
             <field>00Nhk000001DdBO</field>
             <field>00Nhk000001DdBP</field>
             <field>00Nhk000001DdBQ</field>
@@ -3080,15 +3461,20 @@
             <field>00Nhk000001DckN</field>
             <field>00Nhk000001DckO</field>
             <field>00Nhk000001DdEd</field>
+            <field>00NiI0000000j8P</field>
             <field>00Nhk000001DdBY</field>
             <field>00Nhk000001DdBZ</field>
             <field>00Nhk000001DdBa</field>
+            <field>00NiI0000000ih0</field>
             <field>00Nhk000001DdBb</field>
             <field>00Nhk000001DdBc</field>
             <field>00Nhk000001DdBd</field>
             <field>00Nhk000001DckS</field>
+            <field>00NiI0000000ku6</field>
+            <field>00NiI0000000WBC</field>
             <field>00Nhk000001DckT</field>
             <field>00Nhk000001DckR</field>
+            <field>00NiI0000000WBD</field>
             <field>00Nhk000001DdBe</field>
             <field>00Nhk000001DdBg</field>
             <field>00Nhk000001DdBf</field>
@@ -3100,9 +3486,13 @@
             <field>00Nhk000001DckZ</field>
             <field>00Nhk000001DdBj</field>
             <field>00Nhk000001A0YH</field>
+            <field>00NiI0000000ku7</field>
+            <field>00NiI0000000j8Q</field>
+            <field>00NiI0000000ho9</field>
             <field>00Nhk000001DdBk</field>
             <field>00Nhk000001DdBl</field>
             <field>00Nhk000001DdBm</field>
+            <field>00NiI0000000ku8</field>
             <field>OPPORTUNITY.ISPRIORITYRECORD</field>
             <field>OPPORTUNITY.LAST_STG_CHG_DAYS</field>
             <field>OPPORTUNITY.LAST_ACTIVITY_DAYS</field>
@@ -3302,6 +3692,10 @@
             <label>Next Deliverable Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ih0</field>
+            <label>Notification Recipient Contact Set</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>DESCRIPTION</field>
             <label>Description</label>
         </forecastingObjectListLabelMappings>
@@ -3314,6 +3708,10 @@
             <label>Remaining Balance</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000igz</field>
+            <label>Honoree Contact Set</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001Dcka</field>
             <label>Is Opp From Individual</label>
         </forecastingObjectListLabelMappings>
@@ -3324,6 +3722,10 @@
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001DctN</field>
             <label>Recurring Donation</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ho9</field>
+            <label>Tribute Contact Needs Review</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.AGE_IN_DAYS</field>
@@ -3350,12 +3752,36 @@
             <label>Budget Confirmed</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku7</field>
+            <label>Stock/Ticker Symbol</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001A0YG</field>
             <label>Discovery Completed</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku6</field>
+            <label>Number of Shares</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku5</field>
+            <label>Date Stock Received</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>CORE.USERS.FIRST_NAME</field>
             <label>Owner First Name</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku8</field>
+            <label>Valuation Method</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000j8Q</field>
+            <label>Tax-Deductible Amount</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000j8P</field>
+            <label>Non-Deductible Amount</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>CREATEDBY_USER.ALIAS</field>
@@ -3392,6 +3818,18 @@
         <forecastingObjectListLabelMappings>
             <field>SYNCEDQUOTE.NAME</field>
             <label>Synced Quote</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000WBD</field>
+            <label>Pledge Written Off</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000WBC</field>
+            <label>Original Pledge Amount</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000WBB</field>
+            <label>Amount Due To Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.ISPRIORITYRECORD</field>
@@ -3510,6 +3948,10 @@
             <label>Honoree Information</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000MTZ</field>
+            <label>Approach</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.RECORDTYPE</field>
             <label>Opportunity Record Type</label>
         </forecastingObjectListLabelMappings>
@@ -3561,6 +4003,8 @@
             <field>00Nhk000001Dcp6</field>
             <field>00Nhk000001DdB7</field>
             <field>00Nhk000001DdB8</field>
+            <field>00NiI0000000WBB</field>
+            <field>00NiI0000000MTZ</field>
             <field>00Nhk000001DdB9</field>
             <field>00Nhk000001DdBB</field>
             <field>00Nhk000001DdBA</field>
@@ -3568,6 +4012,7 @@
             <field>00Nhk000001DdBC</field>
             <field>00Nhk000001Dcp5</field>
             <field>00Nhk000001DckJ</field>
+            <field>00NiI0000000ku5</field>
             <field>00Nhk000001DdBE</field>
             <field>00Nhk000001A0YG</field>
             <field>00Nhk000001DckK</field>
@@ -3580,6 +4025,7 @@
             <field>00Nhk000001DdBK</field>
             <field>00Nhk000001DdBM</field>
             <field>00Nhk000001DdBN</field>
+            <field>00NiI0000000igz</field>
             <field>00Nhk000001DdBO</field>
             <field>00Nhk000001DdBP</field>
             <field>00Nhk000001DdBQ</field>
@@ -3597,15 +4043,20 @@
             <field>00Nhk000001DckN</field>
             <field>00Nhk000001DckO</field>
             <field>00Nhk000001DdEd</field>
+            <field>00NiI0000000j8P</field>
             <field>00Nhk000001DdBY</field>
             <field>00Nhk000001DdBZ</field>
             <field>00Nhk000001DdBa</field>
+            <field>00NiI0000000ih0</field>
             <field>00Nhk000001DdBb</field>
             <field>00Nhk000001DdBc</field>
             <field>00Nhk000001DdBd</field>
             <field>00Nhk000001DckS</field>
+            <field>00NiI0000000ku6</field>
+            <field>00NiI0000000WBC</field>
             <field>00Nhk000001DckT</field>
             <field>00Nhk000001DckR</field>
+            <field>00NiI0000000WBD</field>
             <field>00Nhk000001DdBe</field>
             <field>00Nhk000001DdBg</field>
             <field>00Nhk000001DdBf</field>
@@ -3617,9 +4068,13 @@
             <field>00Nhk000001DckZ</field>
             <field>00Nhk000001DdBj</field>
             <field>00Nhk000001A0YH</field>
+            <field>00NiI0000000ku7</field>
+            <field>00NiI0000000j8Q</field>
+            <field>00NiI0000000ho9</field>
             <field>00Nhk000001DdBk</field>
             <field>00Nhk000001DdBl</field>
             <field>00Nhk000001DdBm</field>
+            <field>00NiI0000000ku8</field>
             <field>OPPORTUNITY.ISPRIORITYRECORD</field>
             <field>OPPORTUNITY.LAST_STG_CHG_DAYS</field>
             <field>OPPORTUNITY.LAST_ACTIVITY_DAYS</field>
@@ -3819,6 +4274,10 @@
             <label>Next Deliverable Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ih0</field>
+            <label>Notification Recipient Contact Set</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>DESCRIPTION</field>
             <label>Description</label>
         </forecastingObjectListLabelMappings>
@@ -3831,6 +4290,10 @@
             <label>Remaining Balance</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000igz</field>
+            <label>Honoree Contact Set</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001Dcka</field>
             <label>Is Opp From Individual</label>
         </forecastingObjectListLabelMappings>
@@ -3841,6 +4304,10 @@
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001DctN</field>
             <label>Recurring Donation</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ho9</field>
+            <label>Tribute Contact Needs Review</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.AGE_IN_DAYS</field>
@@ -3867,12 +4334,36 @@
             <label>Budget Confirmed</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku7</field>
+            <label>Stock/Ticker Symbol</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001A0YG</field>
             <label>Discovery Completed</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku6</field>
+            <label>Number of Shares</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku5</field>
+            <label>Date Stock Received</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>CORE.USERS.FIRST_NAME</field>
             <label>Owner First Name</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku8</field>
+            <label>Valuation Method</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000j8Q</field>
+            <label>Tax-Deductible Amount</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000j8P</field>
+            <label>Non-Deductible Amount</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>CREATEDBY_USER.ALIAS</field>
@@ -3913,6 +4404,18 @@
         <forecastingObjectListLabelMappings>
             <field>SYNCEDQUOTE.NAME</field>
             <label>Synced Quote</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000WBD</field>
+            <label>Pledge Written Off</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000WBC</field>
+            <label>Original Pledge Amount</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000WBB</field>
+            <label>Amount Due To Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.ISPRIORITYRECORD</field>
@@ -4031,6 +4534,10 @@
             <label>Honoree Information</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000MTZ</field>
+            <label>Approach</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.RECORDTYPE</field>
             <label>Opportunity Record Type</label>
         </forecastingObjectListLabelMappings>
@@ -4083,6 +4590,8 @@
             <field>00Nhk000001Dcp6</field>
             <field>00Nhk000001DdB7</field>
             <field>00Nhk000001DdB8</field>
+            <field>00NiI0000000WBB</field>
+            <field>00NiI0000000MTZ</field>
             <field>00Nhk000001DdB9</field>
             <field>00Nhk000001DdBB</field>
             <field>00Nhk000001DdBA</field>
@@ -4090,6 +4599,7 @@
             <field>00Nhk000001DdBC</field>
             <field>00Nhk000001Dcp5</field>
             <field>00Nhk000001DckJ</field>
+            <field>00NiI0000000ku5</field>
             <field>00Nhk000001DdBE</field>
             <field>00Nhk000001A0YG</field>
             <field>00Nhk000001DckK</field>
@@ -4102,6 +4612,7 @@
             <field>00Nhk000001DdBK</field>
             <field>00Nhk000001DdBM</field>
             <field>00Nhk000001DdBN</field>
+            <field>00NiI0000000igz</field>
             <field>00Nhk000001DdBO</field>
             <field>00Nhk000001DdBP</field>
             <field>00Nhk000001DdBQ</field>
@@ -4119,15 +4630,20 @@
             <field>00Nhk000001DckN</field>
             <field>00Nhk000001DckO</field>
             <field>00Nhk000001DdEd</field>
+            <field>00NiI0000000j8P</field>
             <field>00Nhk000001DdBY</field>
             <field>00Nhk000001DdBZ</field>
             <field>00Nhk000001DdBa</field>
+            <field>00NiI0000000ih0</field>
             <field>00Nhk000001DdBb</field>
             <field>00Nhk000001DdBc</field>
             <field>00Nhk000001DdBd</field>
             <field>00Nhk000001DckS</field>
+            <field>00NiI0000000ku6</field>
+            <field>00NiI0000000WBC</field>
             <field>00Nhk000001DckT</field>
             <field>00Nhk000001DckR</field>
+            <field>00NiI0000000WBD</field>
             <field>00Nhk000001DdBe</field>
             <field>00Nhk000001DdBg</field>
             <field>00Nhk000001DdBf</field>
@@ -4139,9 +4655,13 @@
             <field>00Nhk000001DckZ</field>
             <field>00Nhk000001DdBj</field>
             <field>00Nhk000001A0YH</field>
+            <field>00NiI0000000ku7</field>
+            <field>00NiI0000000j8Q</field>
+            <field>00NiI0000000ho9</field>
             <field>00Nhk000001DdBk</field>
             <field>00Nhk000001DdBl</field>
             <field>00Nhk000001DdBm</field>
+            <field>00NiI0000000ku8</field>
             <field>OPPORTUNITY.ISPRIORITYRECORD</field>
             <field>OPPORTUNITY.LAST_STG_CHG_DAYS</field>
             <field>OPPORTUNITY.LAST_ACTIVITY_DAYS</field>
@@ -4341,6 +4861,10 @@
             <label>Next Deliverable Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ih0</field>
+            <label>Notification Recipient Contact Set</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>DESCRIPTION</field>
             <label>Description</label>
         </forecastingObjectListLabelMappings>
@@ -4353,6 +4877,10 @@
             <label>Remaining Balance</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000igz</field>
+            <label>Honoree Contact Set</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001Dcka</field>
             <label>Is Opp From Individual</label>
         </forecastingObjectListLabelMappings>
@@ -4363,6 +4891,10 @@
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001DctN</field>
             <label>Recurring Donation</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ho9</field>
+            <label>Tribute Contact Needs Review</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.AGE_IN_DAYS</field>
@@ -4389,12 +4921,36 @@
             <label>Budget Confirmed</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku7</field>
+            <label>Stock/Ticker Symbol</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001A0YG</field>
             <label>Discovery Completed</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku6</field>
+            <label>Number of Shares</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku5</field>
+            <label>Date Stock Received</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>CORE.USERS.FIRST_NAME</field>
             <label>Owner First Name</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku8</field>
+            <label>Valuation Method</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000j8Q</field>
+            <label>Tax-Deductible Amount</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000j8P</field>
+            <label>Non-Deductible Amount</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>CREATEDBY_USER.ALIAS</field>
@@ -4431,6 +4987,18 @@
         <forecastingObjectListLabelMappings>
             <field>SYNCEDQUOTE.NAME</field>
             <label>Synced Quote</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000WBD</field>
+            <label>Pledge Written Off</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000WBC</field>
+            <label>Original Pledge Amount</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000WBB</field>
+            <label>Amount Due To Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.ISPRIORITYRECORD</field>
@@ -4549,6 +5117,10 @@
             <label>Honoree Information</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000MTZ</field>
+            <label>Approach</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.RECORDTYPE</field>
             <label>Opportunity Record Type</label>
         </forecastingObjectListLabelMappings>
@@ -4600,6 +5172,8 @@
             <field>00Nhk000001Dcp6</field>
             <field>00Nhk000001DdB7</field>
             <field>00Nhk000001DdB8</field>
+            <field>00NiI0000000WBB</field>
+            <field>00NiI0000000MTZ</field>
             <field>00Nhk000001DdB9</field>
             <field>00Nhk000001DdBB</field>
             <field>00Nhk000001DdBA</field>
@@ -4607,6 +5181,7 @@
             <field>00Nhk000001DdBC</field>
             <field>00Nhk000001Dcp5</field>
             <field>00Nhk000001DckJ</field>
+            <field>00NiI0000000ku5</field>
             <field>00Nhk000001DdBE</field>
             <field>00Nhk000001A0YG</field>
             <field>00Nhk000001DckK</field>
@@ -4619,6 +5194,7 @@
             <field>00Nhk000001DdBK</field>
             <field>00Nhk000001DdBM</field>
             <field>00Nhk000001DdBN</field>
+            <field>00NiI0000000igz</field>
             <field>00Nhk000001DdBO</field>
             <field>00Nhk000001DdBP</field>
             <field>00Nhk000001DdBQ</field>
@@ -4636,15 +5212,20 @@
             <field>00Nhk000001DckN</field>
             <field>00Nhk000001DckO</field>
             <field>00Nhk000001DdEd</field>
+            <field>00NiI0000000j8P</field>
             <field>00Nhk000001DdBY</field>
             <field>00Nhk000001DdBZ</field>
             <field>00Nhk000001DdBa</field>
+            <field>00NiI0000000ih0</field>
             <field>00Nhk000001DdBb</field>
             <field>00Nhk000001DdBc</field>
             <field>00Nhk000001DdBd</field>
             <field>00Nhk000001DckS</field>
+            <field>00NiI0000000ku6</field>
+            <field>00NiI0000000WBC</field>
             <field>00Nhk000001DckT</field>
             <field>00Nhk000001DckR</field>
+            <field>00NiI0000000WBD</field>
             <field>00Nhk000001DdBe</field>
             <field>00Nhk000001DdBg</field>
             <field>00Nhk000001DdBf</field>
@@ -4656,9 +5237,13 @@
             <field>00Nhk000001DckZ</field>
             <field>00Nhk000001DdBj</field>
             <field>00Nhk000001A0YH</field>
+            <field>00NiI0000000ku7</field>
+            <field>00NiI0000000j8Q</field>
+            <field>00NiI0000000ho9</field>
             <field>00Nhk000001DdBk</field>
             <field>00Nhk000001DdBl</field>
             <field>00Nhk000001DdBm</field>
+            <field>00NiI0000000ku8</field>
             <field>OPPORTUNITY.ISPRIORITYRECORD</field>
             <field>OPPORTUNITY.LAST_STG_CHG_DAYS</field>
             <field>OPPORTUNITY.LAST_ACTIVITY_DAYS</field>
@@ -4858,6 +5443,10 @@
             <label>Next Deliverable Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ih0</field>
+            <label>Notification Recipient Contact Set</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>DESCRIPTION</field>
             <label>Description</label>
         </forecastingObjectListLabelMappings>
@@ -4870,6 +5459,10 @@
             <label>Remaining Balance</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000igz</field>
+            <label>Honoree Contact Set</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001Dcka</field>
             <label>Is Opp From Individual</label>
         </forecastingObjectListLabelMappings>
@@ -4880,6 +5473,10 @@
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001DctN</field>
             <label>Recurring Donation</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ho9</field>
+            <label>Tribute Contact Needs Review</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.AGE_IN_DAYS</field>
@@ -4906,12 +5503,36 @@
             <label>Budget Confirmed</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku7</field>
+            <label>Stock/Ticker Symbol</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001A0YG</field>
             <label>Discovery Completed</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku6</field>
+            <label>Number of Shares</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku5</field>
+            <label>Date Stock Received</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>CORE.USERS.FIRST_NAME</field>
             <label>Owner First Name</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku8</field>
+            <label>Valuation Method</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000j8Q</field>
+            <label>Tax-Deductible Amount</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000j8P</field>
+            <label>Non-Deductible Amount</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>CREATEDBY_USER.ALIAS</field>
@@ -4952,6 +5573,18 @@
         <forecastingObjectListLabelMappings>
             <field>SYNCEDQUOTE.NAME</field>
             <label>Synced Quote</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000WBD</field>
+            <label>Pledge Written Off</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000WBC</field>
+            <label>Original Pledge Amount</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000WBB</field>
+            <label>Amount Due To Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.ISPRIORITYRECORD</field>
@@ -5070,6 +5703,10 @@
             <label>Honoree Information</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000MTZ</field>
+            <label>Approach</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.RECORDTYPE</field>
             <label>Opportunity Record Type</label>
         </forecastingObjectListLabelMappings>
@@ -5122,6 +5759,8 @@
             <field>00Nhk000001Dcp6</field>
             <field>00Nhk000001DdB7</field>
             <field>00Nhk000001DdB8</field>
+            <field>00NiI0000000WBB</field>
+            <field>00NiI0000000MTZ</field>
             <field>00Nhk000001DdB9</field>
             <field>00Nhk000001DdBB</field>
             <field>00Nhk000001DdBA</field>
@@ -5129,6 +5768,7 @@
             <field>00Nhk000001DdBC</field>
             <field>00Nhk000001Dcp5</field>
             <field>00Nhk000001DckJ</field>
+            <field>00NiI0000000ku5</field>
             <field>00Nhk000001DdBE</field>
             <field>00Nhk000001A0YG</field>
             <field>00Nhk000001DckK</field>
@@ -5141,6 +5781,7 @@
             <field>00Nhk000001DdBK</field>
             <field>00Nhk000001DdBM</field>
             <field>00Nhk000001DdBN</field>
+            <field>00NiI0000000igz</field>
             <field>00Nhk000001DdBO</field>
             <field>00Nhk000001DdBP</field>
             <field>00Nhk000001DdBQ</field>
@@ -5158,15 +5799,20 @@
             <field>00Nhk000001DckN</field>
             <field>00Nhk000001DckO</field>
             <field>00Nhk000001DdEd</field>
+            <field>00NiI0000000j8P</field>
             <field>00Nhk000001DdBY</field>
             <field>00Nhk000001DdBZ</field>
             <field>00Nhk000001DdBa</field>
+            <field>00NiI0000000ih0</field>
             <field>00Nhk000001DdBb</field>
             <field>00Nhk000001DdBc</field>
             <field>00Nhk000001DdBd</field>
             <field>00Nhk000001DckS</field>
+            <field>00NiI0000000ku6</field>
+            <field>00NiI0000000WBC</field>
             <field>00Nhk000001DckT</field>
             <field>00Nhk000001DckR</field>
+            <field>00NiI0000000WBD</field>
             <field>00Nhk000001DdBe</field>
             <field>00Nhk000001DdBg</field>
             <field>00Nhk000001DdBf</field>
@@ -5178,9 +5824,13 @@
             <field>00Nhk000001DckZ</field>
             <field>00Nhk000001DdBj</field>
             <field>00Nhk000001A0YH</field>
+            <field>00NiI0000000ku7</field>
+            <field>00NiI0000000j8Q</field>
+            <field>00NiI0000000ho9</field>
             <field>00Nhk000001DdBk</field>
             <field>00Nhk000001DdBl</field>
             <field>00Nhk000001DdBm</field>
+            <field>00NiI0000000ku8</field>
             <field>OPPORTUNITY.ISPRIORITYRECORD</field>
             <field>OPPORTUNITY.LAST_STG_CHG_DAYS</field>
             <field>OPPORTUNITY.LAST_ACTIVITY_DAYS</field>
@@ -5380,6 +6030,10 @@
             <label>Next Deliverable Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ih0</field>
+            <label>Notification Recipient Contact Set</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>DESCRIPTION</field>
             <label>Description</label>
         </forecastingObjectListLabelMappings>
@@ -5392,6 +6046,10 @@
             <label>Remaining Balance</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000igz</field>
+            <label>Honoree Contact Set</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001Dcka</field>
             <label>Is Opp From Individual</label>
         </forecastingObjectListLabelMappings>
@@ -5402,6 +6060,10 @@
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001DctN</field>
             <label>Recurring Donation</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ho9</field>
+            <label>Tribute Contact Needs Review</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.AGE_IN_DAYS</field>
@@ -5428,12 +6090,36 @@
             <label>Budget Confirmed</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku7</field>
+            <label>Stock/Ticker Symbol</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001A0YG</field>
             <label>Discovery Completed</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku6</field>
+            <label>Number of Shares</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku5</field>
+            <label>Date Stock Received</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>CORE.USERS.FIRST_NAME</field>
             <label>Owner First Name</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku8</field>
+            <label>Valuation Method</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000j8Q</field>
+            <label>Tax-Deductible Amount</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000j8P</field>
+            <label>Non-Deductible Amount</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>CREATEDBY_USER.ALIAS</field>
@@ -5470,6 +6156,18 @@
         <forecastingObjectListLabelMappings>
             <field>SYNCEDQUOTE.NAME</field>
             <label>Synced Quote</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000WBD</field>
+            <label>Pledge Written Off</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000WBC</field>
+            <label>Original Pledge Amount</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000WBB</field>
+            <label>Amount Due To Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.ISPRIORITYRECORD</field>
@@ -5588,6 +6286,10 @@
             <label>Honoree Information</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000MTZ</field>
+            <label>Approach</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.RECORDTYPE</field>
             <label>Opportunity Record Type</label>
         </forecastingObjectListLabelMappings>
@@ -5639,6 +6341,8 @@
             <field>00Nhk000001Dcp6</field>
             <field>00Nhk000001DdB7</field>
             <field>00Nhk000001DdB8</field>
+            <field>00NiI0000000WBB</field>
+            <field>00NiI0000000MTZ</field>
             <field>00Nhk000001DdB9</field>
             <field>00Nhk000001DdBB</field>
             <field>00Nhk000001DdBA</field>
@@ -5646,6 +6350,7 @@
             <field>00Nhk000001DdBC</field>
             <field>00Nhk000001Dcp5</field>
             <field>00Nhk000001DckJ</field>
+            <field>00NiI0000000ku5</field>
             <field>00Nhk000001DdBE</field>
             <field>00Nhk000001A0YG</field>
             <field>00Nhk000001DckK</field>
@@ -5658,6 +6363,7 @@
             <field>00Nhk000001DdBK</field>
             <field>00Nhk000001DdBM</field>
             <field>00Nhk000001DdBN</field>
+            <field>00NiI0000000igz</field>
             <field>00Nhk000001DdBO</field>
             <field>00Nhk000001DdBP</field>
             <field>00Nhk000001DdBQ</field>
@@ -5675,15 +6381,20 @@
             <field>00Nhk000001DckN</field>
             <field>00Nhk000001DckO</field>
             <field>00Nhk000001DdEd</field>
+            <field>00NiI0000000j8P</field>
             <field>00Nhk000001DdBY</field>
             <field>00Nhk000001DdBZ</field>
             <field>00Nhk000001DdBa</field>
+            <field>00NiI0000000ih0</field>
             <field>00Nhk000001DdBb</field>
             <field>00Nhk000001DdBc</field>
             <field>00Nhk000001DdBd</field>
             <field>00Nhk000001DckS</field>
+            <field>00NiI0000000ku6</field>
+            <field>00NiI0000000WBC</field>
             <field>00Nhk000001DckT</field>
             <field>00Nhk000001DckR</field>
+            <field>00NiI0000000WBD</field>
             <field>00Nhk000001DdBe</field>
             <field>00Nhk000001DdBg</field>
             <field>00Nhk000001DdBf</field>
@@ -5695,9 +6406,13 @@
             <field>00Nhk000001DckZ</field>
             <field>00Nhk000001DdBj</field>
             <field>00Nhk000001A0YH</field>
+            <field>00NiI0000000ku7</field>
+            <field>00NiI0000000j8Q</field>
+            <field>00NiI0000000ho9</field>
             <field>00Nhk000001DdBk</field>
             <field>00Nhk000001DdBl</field>
             <field>00Nhk000001DdBm</field>
+            <field>00NiI0000000ku8</field>
             <field>OPPORTUNITY.ISPRIORITYRECORD</field>
             <field>OPPORTUNITY.LAST_STG_CHG_DAYS</field>
             <field>OPPORTUNITY.LAST_ACTIVITY_DAYS</field>
@@ -5897,6 +6612,10 @@
             <label>Next Deliverable Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ih0</field>
+            <label>Notification Recipient Contact Set</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>DESCRIPTION</field>
             <label>Description</label>
         </forecastingObjectListLabelMappings>
@@ -5909,6 +6628,10 @@
             <label>Remaining Balance</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000igz</field>
+            <label>Honoree Contact Set</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001Dcka</field>
             <label>Is Opp From Individual</label>
         </forecastingObjectListLabelMappings>
@@ -5919,6 +6642,10 @@
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001DctN</field>
             <label>Recurring Donation</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ho9</field>
+            <label>Tribute Contact Needs Review</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.AGE_IN_DAYS</field>
@@ -5945,12 +6672,36 @@
             <label>Budget Confirmed</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku7</field>
+            <label>Stock/Ticker Symbol</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001A0YG</field>
             <label>Discovery Completed</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku6</field>
+            <label>Number of Shares</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku5</field>
+            <label>Date Stock Received</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>CORE.USERS.FIRST_NAME</field>
             <label>Owner First Name</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku8</field>
+            <label>Valuation Method</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000j8Q</field>
+            <label>Tax-Deductible Amount</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000j8P</field>
+            <label>Non-Deductible Amount</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>CREATEDBY_USER.ALIAS</field>
@@ -5991,6 +6742,18 @@
         <forecastingObjectListLabelMappings>
             <field>SYNCEDQUOTE.NAME</field>
             <label>Synced Quote</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000WBD</field>
+            <label>Pledge Written Off</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000WBC</field>
+            <label>Original Pledge Amount</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000WBB</field>
+            <label>Amount Due To Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.ISPRIORITYRECORD</field>
@@ -6109,6 +6872,10 @@
             <label>Honoree Information</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000MTZ</field>
+            <label>Approach</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.RECORDTYPE</field>
             <label>Opportunity Record Type</label>
         </forecastingObjectListLabelMappings>
@@ -6161,6 +6928,8 @@
             <field>00Nhk000001Dcp6</field>
             <field>00Nhk000001DdB7</field>
             <field>00Nhk000001DdB8</field>
+            <field>00NiI0000000WBB</field>
+            <field>00NiI0000000MTZ</field>
             <field>00Nhk000001DdB9</field>
             <field>00Nhk000001DdBB</field>
             <field>00Nhk000001DdBA</field>
@@ -6168,6 +6937,7 @@
             <field>00Nhk000001DdBC</field>
             <field>00Nhk000001Dcp5</field>
             <field>00Nhk000001DckJ</field>
+            <field>00NiI0000000ku5</field>
             <field>00Nhk000001DdBE</field>
             <field>00Nhk000001A0YG</field>
             <field>00Nhk000001DckK</field>
@@ -6180,6 +6950,7 @@
             <field>00Nhk000001DdBK</field>
             <field>00Nhk000001DdBM</field>
             <field>00Nhk000001DdBN</field>
+            <field>00NiI0000000igz</field>
             <field>00Nhk000001DdBO</field>
             <field>00Nhk000001DdBP</field>
             <field>00Nhk000001DdBQ</field>
@@ -6197,15 +6968,20 @@
             <field>00Nhk000001DckN</field>
             <field>00Nhk000001DckO</field>
             <field>00Nhk000001DdEd</field>
+            <field>00NiI0000000j8P</field>
             <field>00Nhk000001DdBY</field>
             <field>00Nhk000001DdBZ</field>
             <field>00Nhk000001DdBa</field>
+            <field>00NiI0000000ih0</field>
             <field>00Nhk000001DdBb</field>
             <field>00Nhk000001DdBc</field>
             <field>00Nhk000001DdBd</field>
             <field>00Nhk000001DckS</field>
+            <field>00NiI0000000ku6</field>
+            <field>00NiI0000000WBC</field>
             <field>00Nhk000001DckT</field>
             <field>00Nhk000001DckR</field>
+            <field>00NiI0000000WBD</field>
             <field>00Nhk000001DdBe</field>
             <field>00Nhk000001DdBg</field>
             <field>00Nhk000001DdBf</field>
@@ -6217,9 +6993,13 @@
             <field>00Nhk000001DckZ</field>
             <field>00Nhk000001DdBj</field>
             <field>00Nhk000001A0YH</field>
+            <field>00NiI0000000ku7</field>
+            <field>00NiI0000000j8Q</field>
+            <field>00NiI0000000ho9</field>
             <field>00Nhk000001DdBk</field>
             <field>00Nhk000001DdBl</field>
             <field>00Nhk000001DdBm</field>
+            <field>00NiI0000000ku8</field>
             <field>OPPORTUNITY.ISPRIORITYRECORD</field>
             <field>OPPORTUNITY.LAST_STG_CHG_DAYS</field>
             <field>OPPORTUNITY.LAST_ACTIVITY_DAYS</field>
@@ -6419,6 +7199,10 @@
             <label>Next Deliverable Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ih0</field>
+            <label>Notification Recipient Contact Set</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>DESCRIPTION</field>
             <label>Description</label>
         </forecastingObjectListLabelMappings>
@@ -6431,6 +7215,10 @@
             <label>Remaining Balance</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000igz</field>
+            <label>Honoree Contact Set</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001Dcka</field>
             <label>Is Opp From Individual</label>
         </forecastingObjectListLabelMappings>
@@ -6441,6 +7229,10 @@
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001DctN</field>
             <label>Recurring Donation</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ho9</field>
+            <label>Tribute Contact Needs Review</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.AGE_IN_DAYS</field>
@@ -6467,12 +7259,36 @@
             <label>Budget Confirmed</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku7</field>
+            <label>Stock/Ticker Symbol</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001A0YG</field>
             <label>Discovery Completed</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku6</field>
+            <label>Number of Shares</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku5</field>
+            <label>Date Stock Received</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>CORE.USERS.FIRST_NAME</field>
             <label>Owner First Name</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000ku8</field>
+            <label>Valuation Method</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000j8Q</field>
+            <label>Tax-Deductible Amount</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000j8P</field>
+            <label>Non-Deductible Amount</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>CREATEDBY_USER.ALIAS</field>
@@ -6509,6 +7325,18 @@
         <forecastingObjectListLabelMappings>
             <field>SYNCEDQUOTE.NAME</field>
             <label>Synced Quote</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000WBD</field>
+            <label>Pledge Written Off</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000WBC</field>
+            <label>Original Pledge Amount</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000000WBB</field>
+            <label>Amount Due To Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.ISPRIORITYRECORD</field>
@@ -6627,6 +7455,10 @@
             <label>Honoree Information</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000000MTZ</field>
+            <label>Approach</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.RECORDTYPE</field>
             <label>Opportunity Record Type</label>
         </forecastingObjectListLabelMappings>
@@ -6678,6 +7510,8 @@
             <field>00Nhk000001Dcp6</field>
             <field>00Nhk000001DdB7</field>
             <field>00Nhk000001DdB8</field>
+            <field>00NiI0000000WBB</field>
+            <field>00NiI0000000MTZ</field>
             <field>00Nhk000001DdB9</field>
             <field>00Nhk000001DdBB</field>
             <field>00Nhk000001DdBA</field>
@@ -6685,6 +7519,7 @@
             <field>00Nhk000001DdBC</field>
             <field>00Nhk000001Dcp5</field>
             <field>00Nhk000001DckJ</field>
+            <field>00NiI0000000ku5</field>
             <field>00Nhk000001DdBE</field>
             <field>00Nhk000001A0YG</field>
             <field>00Nhk000001DckK</field>
@@ -6697,6 +7532,7 @@
             <field>00Nhk000001DdBK</field>
             <field>00Nhk000001DdBM</field>
             <field>00Nhk000001DdBN</field>
+            <field>00NiI0000000igz</field>
             <field>00Nhk000001DdBO</field>
             <field>00Nhk000001DdBP</field>
             <field>00Nhk000001DdBQ</field>
@@ -6714,15 +7550,20 @@
             <field>00Nhk000001DckN</field>
             <field>00Nhk000001DckO</field>
             <field>00Nhk000001DdEd</field>
+            <field>00NiI0000000j8P</field>
             <field>00Nhk000001DdBY</field>
             <field>00Nhk000001DdBZ</field>
             <field>00Nhk000001DdBa</field>
+            <field>00NiI0000000ih0</field>
             <field>00Nhk000001DdBb</field>
             <field>00Nhk000001DdBc</field>
             <field>00Nhk000001DdBd</field>
             <field>00Nhk000001DckS</field>
+            <field>00NiI0000000ku6</field>
+            <field>00NiI0000000WBC</field>
             <field>00Nhk000001DckT</field>
             <field>00Nhk000001DckR</field>
+            <field>00NiI0000000WBD</field>
             <field>00Nhk000001DdBe</field>
             <field>00Nhk000001DdBg</field>
             <field>00Nhk000001DdBf</field>
@@ -6734,9 +7575,13 @@
             <field>00Nhk000001DckZ</field>
             <field>00Nhk000001DdBj</field>
             <field>00Nhk000001A0YH</field>
+            <field>00NiI0000000ku7</field>
+            <field>00NiI0000000j8Q</field>
+            <field>00NiI0000000ho9</field>
             <field>00Nhk000001DdBk</field>
             <field>00Nhk000001DdBl</field>
             <field>00Nhk000001DdBm</field>
+            <field>00NiI0000000ku8</field>
             <field>OPPORTUNITY.ISPRIORITYRECORD</field>
             <field>OPPORTUNITY.LAST_STG_CHG_DAYS</field>
             <field>OPPORTUNITY.LAST_ACTIVITY_DAYS</field>

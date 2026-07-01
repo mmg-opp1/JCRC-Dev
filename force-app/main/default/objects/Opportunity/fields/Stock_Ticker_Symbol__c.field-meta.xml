@@ -2,9 +2,12 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Stock_Ticker_Symbol__c</fullName>
     <description>Ticker symbol of the donated security (e.g., AAPL) for a securities/stock gift. JSI-84 / Jason Ott.</description>
+    <externalId>false</externalId>
     <inlineHelpText>Ticker symbol of the donated security (e.g., AAPL).</inlineHelpText>
     <label>Stock/Ticker Symbol</label>
     <length>10</length>
     <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
     <type>Text</type>
+    <unique>false</unique>
 </CustomField>

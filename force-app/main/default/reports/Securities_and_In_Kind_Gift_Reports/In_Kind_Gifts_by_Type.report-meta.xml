@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Report xmlns="http://soap.sforce.com/2006/04/metadata">
-    <name>In-Kind Gifts by Type</name>
-    <description>In-kind (non-cash) gifts grouped by In-Kind Type, valued at Fair Market Value. In-kind gifts are excluded from donor cash rollups; this report uses FMV (Amount is left blank). JSI-84 / Jason Ott.</description>
-    <reportType>Opportunity</reportType>
-    <format>Summary</format>
-    <groupingsDown>
-        <dateGranularity>Day</dateGranularity>
-        <field>Opportunity.npsp__In_Kind_Type__c</field>
-        <sortOrder>Asc</sortOrder>
-    </groupingsDown>
     <columns>
         <field>ACCOUNT_NAME</field>
     </columns>
@@ -19,17 +10,48 @@
         <field>CLOSE_DATE</field>
     </columns>
     <columns>
-        <field>Opportunity.npsp__Fair_Market_Value__c</field>
         <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.npsp__Fair_Market_Value__c</field>
     </columns>
     <columns>
         <field>Opportunity.npsp__In_Kind_Description__c</field>
     </columns>
+    <description>In-kind (non-cash) gifts grouped by In-Kind Type, valued at Fair Market Value. In-kind gifts are excluded from donor cash rollups; this report uses FMV (Amount is left blank). JSI-84 / Jason Ott.</description>
     <filter>
         <criteriaItems>
             <column>RECORDTYPE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
             <operator>equals</operator>
             <value>Opportunity.In_Kind_Gift</value>
         </criteriaItems>
     </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Opportunity.npsp__In_Kind_Type__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>In-Kind Gifts by Type</name>
+    <params>
+        <name>open</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Opportunity</reportType>
+    <scope>organization</scope>
+    <showDetails>false</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CLOSE_DATE</dateColumn>
+        <interval>INTERVAL_CURRENT</interval>
+    </timeFrameFilter>
 </Report>

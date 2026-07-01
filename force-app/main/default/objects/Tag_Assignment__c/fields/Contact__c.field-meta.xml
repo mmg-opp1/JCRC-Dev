@@ -8,5 +8,6 @@
     <relationshipLabel>Tag Assignments</relationshipLabel>
     <relationshipName>Tag_Assignments</relationshipName>
     <required>false</required>
+    <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

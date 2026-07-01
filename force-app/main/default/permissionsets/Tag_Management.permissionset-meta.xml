@@ -1,67 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label>Tag Management</label>
-    <description>JSI-122 tagging feature access: read/create Tags, manage Tag Assignments on Contacts/Accounts, plus FLS for the Tag fields. Holding this set lets a user apply and create tags. Author: Jason Ott.</description>
-    <hasActivationRequired>false</hasActivationRequired>
-
-    <!-- Apex controller behind the tagManager LWC -->
     <classAccesses>
         <apexClass>TagManagerController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
-
-    <!-- Object permissions -->
-    <objectPermissions>
-        <object>Tag__c</object>
-        <allowRead>true</allowRead>
-        <allowCreate>true</allowCreate>
-        <allowEdit>true</allowEdit>
-        <allowDelete>false</allowDelete>
-        <viewAllRecords>false</viewAllRecords>
-        <modifyAllRecords>false</modifyAllRecords>
-    </objectPermissions>
-    <objectPermissions>
-        <object>Tag_Assignment__c</object>
-        <allowRead>true</allowRead>
-        <allowCreate>true</allowCreate>
-        <allowEdit>true</allowEdit>
-        <allowDelete>true</allowDelete>
-        <viewAllRecords>false</viewAllRecords>
-        <modifyAllRecords>false</modifyAllRecords>
-    </objectPermissions>
-
-    <!-- Field-level security: Tag__c (Category__c omitted — required fields can't take FLS) -->
+    <description>JSI-122 tagging feature access: read/create Tags, manage Tag Assignments on Contacts/Accounts, plus FLS for the Tag fields. Holding this set lets a user apply and create tags. Author: Jason Ott.</description>
     <fieldPermissions>
-        <field>Tag__c.Tag_Key__c</field>
-        <readable>true</readable>
         <editable>true</editable>
-    </fieldPermissions>
-
-    <!-- Field-level security: Tag_Assignment__c (Tag__c omitted — required lookup) -->
-    <fieldPermissions>
-        <field>Tag_Assignment__c.Contact__c</field>
-        <readable>true</readable>
-        <editable>true</editable>
-    </fieldPermissions>
-    <fieldPermissions>
         <field>Tag_Assignment__c.Account__c</field>
         <readable>true</readable>
-        <editable>true</editable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
         <field>Tag_Assignment__c.Assignment_Key__c</field>
         <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
-    </fieldPermissions>
-    <!-- Formula fields (read-only) for list views and reporting -->
-    <fieldPermissions>
-        <field>Tag_Assignment__c.Tag_Name__c</field>
+        <field>Tag_Assignment__c.Contact__c</field>
         <readable>true</readable>
-        <editable>false</editable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
         <field>Tag_Assignment__c.Tag_Category__c</field>
         <readable>true</readable>
-        <editable>false</editable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Tag_Assignment__c.Tag_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Tag__c.Tag_Key__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Tag Management</label>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>Tag_Assignment__c</object>
+        <viewAllFields>false</viewAllFields>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>Tag__c</object>
+        <viewAllFields>false</viewAllFields>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
 </PermissionSet>

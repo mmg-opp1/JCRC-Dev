@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <MatchingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <matchingRules>
+        <fullName>Tribute_Contact_Name_Match</fullName>
+        <description>JSI-89: matches Contacts on fuzzy first name + exact last name (no email required) so the tribute honoree/recipient matcher can resolve text names. Powers a silent (report-only) duplicate rule used by Datacloud.FindDuplicates. Author: Jason Ott.</description>
+        <label>Tribute Contact Name Match</label>
+        <matchingRuleItems>
+            <blankValueBehavior>NullNotAllowed</blankValueBehavior>
+            <fieldName>FirstName</fieldName>
+            <matchingMethod>FirstName</matchingMethod>
+        </matchingRuleItems>
+        <matchingRuleItems>
+            <blankValueBehavior>NullNotAllowed</blankValueBehavior>
+            <fieldName>LastName</fieldName>
+            <matchingMethod>Exact</matchingMethod>
+        </matchingRuleItems>
+        <ruleStatus>Active</ruleStatus>
+    </matchingRules>
+    <matchingRules>
         <fullName>npsp__NPSP_Contact_Personal_Email_Match</fullName>
         <description>Matching rule for contact records; matches on First Name, Last Name, and Personal Email.</description>
         <label>NPSP Contact Personal Email Match</label>
@@ -17,22 +33,6 @@
         <matchingRuleItems>
             <blankValueBehavior>NullNotAllowed</blankValueBehavior>
             <fieldName>npe01__HomeEmail__c</fieldName>
-            <matchingMethod>Exact</matchingMethod>
-        </matchingRuleItems>
-        <ruleStatus>Active</ruleStatus>
-    </matchingRules>
-    <matchingRules>
-        <fullName>Tribute_Contact_Name_Match</fullName>
-        <description>JSI-89: matches Contacts on fuzzy first name + exact last name (no email required) so the tribute honoree/recipient matcher can resolve text names. Powers a silent (report-only) duplicate rule used by Datacloud.FindDuplicates. Author: Jason Ott.</description>
-        <label>Tribute Contact Name Match</label>
-        <matchingRuleItems>
-            <blankValueBehavior>NullNotAllowed</blankValueBehavior>
-            <fieldName>FirstName</fieldName>
-            <matchingMethod>FirstName</matchingMethod>
-        </matchingRuleItems>
-        <matchingRuleItems>
-            <blankValueBehavior>NullNotAllowed</blankValueBehavior>
-            <fieldName>LastName</fieldName>
             <matchingMethod>Exact</matchingMethod>
         </matchingRuleItems>
         <ruleStatus>Active</ruleStatus>

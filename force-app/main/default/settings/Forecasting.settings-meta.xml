@@ -260,6 +260,14 @@
             <label>Acknowledgment Status</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000WBB</field>
+            <label>Amount Due To Date</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000MTZ</field>
+            <label>Approach</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdB9</field>
             <label>Ask Date</label>
         </opportunityListFieldsLabelMappings>
@@ -286,6 +294,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DckJ</field>
             <label>Contact Id for Role</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ku5</field>
+            <label>Date Stock Received</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBE</field>
@@ -334,6 +346,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBN</field>
             <label>Honoree Contact</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000igz</field>
+            <label>Honoree Contact Set</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBO</field>
@@ -404,6 +420,10 @@
             <label>Next Deliverable Date</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000j8P</field>
+            <label>Non-Deductible Amount</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBY</field>
             <label>Notification Message</label>
         </opportunityListFieldsLabelMappings>
@@ -414,6 +434,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBa</field>
             <label>Notification Recipient Contact</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ih0</field>
+            <label>Notification Recipient Contact Set</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBb</field>
@@ -432,12 +456,24 @@
             <label>Number of Payments</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ku6</field>
+            <label>Number of Shares</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000WBC</field>
+            <label>Original Pledge Amount</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DckT</field>
             <label>Payment Amount Received</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DckR</field>
             <label>Payment Writeoff Amount</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000WBD</field>
+            <label>Pledge Written Off</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBe</field>
@@ -484,6 +520,18 @@
             <label>ROI Analysis Completed</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ku7</field>
+            <label>Stock/Ticker Symbol</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000j8Q</field>
+            <label>Tax-Deductible Amount</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ho9</field>
+            <label>Tribute Contact Needs Review</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBk</field>
             <label>Tribute Notification Date</label>
         </opportunityListFieldsLabelMappings>
@@ -494,6 +542,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBm</field>
             <label>Tribute Type</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ku8</field>
+            <label>Valuation Method</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>OPPORTUNITY.ISPRIORITYRECORD</field>
@@ -559,6 +611,8 @@
             <field>00Nhk000001Dcp6</field>
             <field>00Nhk000001DdB7</field>
             <field>00Nhk000001DdB8</field>
+            <field>00NiI0000000WBB</field>
+            <field>00NiI0000000MTZ</field>
             <field>00Nhk000001DdB9</field>
             <field>00Nhk000001DdBB</field>
             <field>00Nhk000001DdBA</field>
@@ -566,6 +620,7 @@
             <field>00Nhk000001DdBC</field>
             <field>00Nhk000001Dcp5</field>
             <field>00Nhk000001DckJ</field>
+            <field>00NiI0000000ku5</field>
             <field>00Nhk000001DdBE</field>
             <field>00Nhk000001A0YG</field>
             <field>00Nhk000001DckK</field>
@@ -578,6 +633,7 @@
             <field>00Nhk000001DdBK</field>
             <field>00Nhk000001DdBM</field>
             <field>00Nhk000001DdBN</field>
+            <field>00NiI0000000igz</field>
             <field>00Nhk000001DdBO</field>
             <field>00Nhk000001DdBP</field>
             <field>00Nhk000001DdBQ</field>
@@ -595,15 +651,20 @@
             <field>00Nhk000001DckN</field>
             <field>00Nhk000001DckO</field>
             <field>00Nhk000001DdEd</field>
+            <field>00NiI0000000j8P</field>
             <field>00Nhk000001DdBY</field>
             <field>00Nhk000001DdBZ</field>
             <field>00Nhk000001DdBa</field>
+            <field>00NiI0000000ih0</field>
             <field>00Nhk000001DdBb</field>
             <field>00Nhk000001DdBc</field>
             <field>00Nhk000001DdBd</field>
             <field>00Nhk000001DckS</field>
+            <field>00NiI0000000ku6</field>
+            <field>00NiI0000000WBC</field>
             <field>00Nhk000001DckT</field>
             <field>00Nhk000001DckR</field>
+            <field>00NiI0000000WBD</field>
             <field>00Nhk000001DdBe</field>
             <field>00Nhk000001DdBg</field>
             <field>00Nhk000001DdBf</field>
@@ -615,9 +676,13 @@
             <field>00Nhk000001DckZ</field>
             <field>00Nhk000001DdBj</field>
             <field>00Nhk000001A0YH</field>
+            <field>00NiI0000000ku7</field>
+            <field>00NiI0000000j8Q</field>
+            <field>00NiI0000000ho9</field>
             <field>00Nhk000001DdBk</field>
             <field>00Nhk000001DdBl</field>
             <field>00Nhk000001DdBm</field>
+            <field>00NiI0000000ku8</field>
             <field>OPPORTUNITY.ISPRIORITYRECORD</field>
             <field>OPPORTUNITY.LAST_STG_CHG_DAYS</field>
             <field>OPPORTUNITY.LAST_ACTIVITY_DAYS</field>
@@ -798,6 +863,14 @@
             <label>Acknowledgment Status</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000WBB</field>
+            <label>Amount Due To Date</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000MTZ</field>
+            <label>Approach</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdB9</field>
             <label>Ask Date</label>
         </opportunityListFieldsLabelMappings>
@@ -824,6 +897,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DckJ</field>
             <label>Contact Id for Role</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ku5</field>
+            <label>Date Stock Received</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBE</field>
@@ -872,6 +949,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBN</field>
             <label>Honoree Contact</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000igz</field>
+            <label>Honoree Contact Set</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBO</field>
@@ -942,6 +1023,10 @@
             <label>Next Deliverable Date</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000j8P</field>
+            <label>Non-Deductible Amount</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBY</field>
             <label>Notification Message</label>
         </opportunityListFieldsLabelMappings>
@@ -952,6 +1037,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBa</field>
             <label>Notification Recipient Contact</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ih0</field>
+            <label>Notification Recipient Contact Set</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBb</field>
@@ -970,12 +1059,24 @@
             <label>Number of Payments</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ku6</field>
+            <label>Number of Shares</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000WBC</field>
+            <label>Original Pledge Amount</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DckT</field>
             <label>Payment Amount Received</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DckR</field>
             <label>Payment Writeoff Amount</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000WBD</field>
+            <label>Pledge Written Off</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBe</field>
@@ -1022,6 +1123,18 @@
             <label>ROI Analysis Completed</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ku7</field>
+            <label>Stock/Ticker Symbol</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000j8Q</field>
+            <label>Tax-Deductible Amount</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ho9</field>
+            <label>Tribute Contact Needs Review</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBk</field>
             <label>Tribute Notification Date</label>
         </opportunityListFieldsLabelMappings>
@@ -1032,6 +1145,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBm</field>
             <label>Tribute Type</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ku8</field>
+            <label>Valuation Method</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>OPPORTUNITY.ISPRIORITYRECORD</field>
@@ -1097,6 +1214,8 @@
             <field>00Nhk000001Dcp6</field>
             <field>00Nhk000001DdB7</field>
             <field>00Nhk000001DdB8</field>
+            <field>00NiI0000000WBB</field>
+            <field>00NiI0000000MTZ</field>
             <field>00Nhk000001DdB9</field>
             <field>00Nhk000001DdBB</field>
             <field>00Nhk000001DdBA</field>
@@ -1104,6 +1223,7 @@
             <field>00Nhk000001DdBC</field>
             <field>00Nhk000001Dcp5</field>
             <field>00Nhk000001DckJ</field>
+            <field>00NiI0000000ku5</field>
             <field>00Nhk000001DdBE</field>
             <field>00Nhk000001A0YG</field>
             <field>00Nhk000001DckK</field>
@@ -1116,6 +1236,7 @@
             <field>00Nhk000001DdBK</field>
             <field>00Nhk000001DdBM</field>
             <field>00Nhk000001DdBN</field>
+            <field>00NiI0000000igz</field>
             <field>00Nhk000001DdBO</field>
             <field>00Nhk000001DdBP</field>
             <field>00Nhk000001DdBQ</field>
@@ -1133,15 +1254,20 @@
             <field>00Nhk000001DckN</field>
             <field>00Nhk000001DckO</field>
             <field>00Nhk000001DdEd</field>
+            <field>00NiI0000000j8P</field>
             <field>00Nhk000001DdBY</field>
             <field>00Nhk000001DdBZ</field>
             <field>00Nhk000001DdBa</field>
+            <field>00NiI0000000ih0</field>
             <field>00Nhk000001DdBb</field>
             <field>00Nhk000001DdBc</field>
             <field>00Nhk000001DdBd</field>
             <field>00Nhk000001DckS</field>
+            <field>00NiI0000000ku6</field>
+            <field>00NiI0000000WBC</field>
             <field>00Nhk000001DckT</field>
             <field>00Nhk000001DckR</field>
+            <field>00NiI0000000WBD</field>
             <field>00Nhk000001DdBe</field>
             <field>00Nhk000001DdBg</field>
             <field>00Nhk000001DdBf</field>
@@ -1153,9 +1279,13 @@
             <field>00Nhk000001DckZ</field>
             <field>00Nhk000001DdBj</field>
             <field>00Nhk000001A0YH</field>
+            <field>00NiI0000000ku7</field>
+            <field>00NiI0000000j8Q</field>
+            <field>00NiI0000000ho9</field>
             <field>00Nhk000001DdBk</field>
             <field>00Nhk000001DdBl</field>
             <field>00Nhk000001DdBm</field>
+            <field>00NiI0000000ku8</field>
             <field>OPPORTUNITY.ISPRIORITYRECORD</field>
             <field>OPPORTUNITY.LAST_STG_CHG_DAYS</field>
             <field>OPPORTUNITY.LAST_ACTIVITY_DAYS</field>
@@ -1340,6 +1470,14 @@
             <label>Acknowledgment Status</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000WBB</field>
+            <label>Amount Due To Date</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000MTZ</field>
+            <label>Approach</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdB9</field>
             <label>Ask Date</label>
         </opportunityListFieldsLabelMappings>
@@ -1366,6 +1504,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DckJ</field>
             <label>Contact Id for Role</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ku5</field>
+            <label>Date Stock Received</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBE</field>
@@ -1414,6 +1556,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBN</field>
             <label>Honoree Contact</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000igz</field>
+            <label>Honoree Contact Set</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBO</field>
@@ -1484,6 +1630,10 @@
             <label>Next Deliverable Date</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000j8P</field>
+            <label>Non-Deductible Amount</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBY</field>
             <label>Notification Message</label>
         </opportunityListFieldsLabelMappings>
@@ -1494,6 +1644,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBa</field>
             <label>Notification Recipient Contact</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ih0</field>
+            <label>Notification Recipient Contact Set</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBb</field>
@@ -1512,12 +1666,24 @@
             <label>Number of Payments</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ku6</field>
+            <label>Number of Shares</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000WBC</field>
+            <label>Original Pledge Amount</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DckT</field>
             <label>Payment Amount Received</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DckR</field>
             <label>Payment Writeoff Amount</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000WBD</field>
+            <label>Pledge Written Off</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBe</field>
@@ -1564,6 +1730,18 @@
             <label>ROI Analysis Completed</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ku7</field>
+            <label>Stock/Ticker Symbol</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000j8Q</field>
+            <label>Tax-Deductible Amount</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ho9</field>
+            <label>Tribute Contact Needs Review</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBk</field>
             <label>Tribute Notification Date</label>
         </opportunityListFieldsLabelMappings>
@@ -1574,6 +1752,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBm</field>
             <label>Tribute Type</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ku8</field>
+            <label>Valuation Method</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>OPPORTUNITY.ISPRIORITYRECORD</field>
@@ -1640,6 +1822,8 @@
             <field>00Nhk000001Dcp6</field>
             <field>00Nhk000001DdB7</field>
             <field>00Nhk000001DdB8</field>
+            <field>00NiI0000000WBB</field>
+            <field>00NiI0000000MTZ</field>
             <field>00Nhk000001DdB9</field>
             <field>00Nhk000001DdBB</field>
             <field>00Nhk000001DdBA</field>
@@ -1647,6 +1831,7 @@
             <field>00Nhk000001DdBC</field>
             <field>00Nhk000001Dcp5</field>
             <field>00Nhk000001DckJ</field>
+            <field>00NiI0000000ku5</field>
             <field>00Nhk000001DdBE</field>
             <field>00Nhk000001A0YG</field>
             <field>00Nhk000001DckK</field>
@@ -1659,6 +1844,7 @@
             <field>00Nhk000001DdBK</field>
             <field>00Nhk000001DdBM</field>
             <field>00Nhk000001DdBN</field>
+            <field>00NiI0000000igz</field>
             <field>00Nhk000001DdBO</field>
             <field>00Nhk000001DdBP</field>
             <field>00Nhk000001DdBQ</field>
@@ -1676,15 +1862,20 @@
             <field>00Nhk000001DckN</field>
             <field>00Nhk000001DckO</field>
             <field>00Nhk000001DdEd</field>
+            <field>00NiI0000000j8P</field>
             <field>00Nhk000001DdBY</field>
             <field>00Nhk000001DdBZ</field>
             <field>00Nhk000001DdBa</field>
+            <field>00NiI0000000ih0</field>
             <field>00Nhk000001DdBb</field>
             <field>00Nhk000001DdBc</field>
             <field>00Nhk000001DdBd</field>
             <field>00Nhk000001DckS</field>
+            <field>00NiI0000000ku6</field>
+            <field>00NiI0000000WBC</field>
             <field>00Nhk000001DckT</field>
             <field>00Nhk000001DckR</field>
+            <field>00NiI0000000WBD</field>
             <field>00Nhk000001DdBe</field>
             <field>00Nhk000001DdBg</field>
             <field>00Nhk000001DdBf</field>
@@ -1696,9 +1887,13 @@
             <field>00Nhk000001DckZ</field>
             <field>00Nhk000001DdBj</field>
             <field>00Nhk000001A0YH</field>
+            <field>00NiI0000000ku7</field>
+            <field>00NiI0000000j8Q</field>
+            <field>00NiI0000000ho9</field>
             <field>00Nhk000001DdBk</field>
             <field>00Nhk000001DdBl</field>
             <field>00Nhk000001DdBm</field>
+            <field>00NiI0000000ku8</field>
             <field>OPPORTUNITY.ISPRIORITYRECORD</field>
             <field>OPPORTUNITY.LAST_STG_CHG_DAYS</field>
             <field>OPPORTUNITY.LAST_ACTIVITY_DAYS</field>
@@ -1879,6 +2074,14 @@
             <label>Acknowledgment Status</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000WBB</field>
+            <label>Amount Due To Date</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000MTZ</field>
+            <label>Approach</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdB9</field>
             <label>Ask Date</label>
         </opportunityListFieldsLabelMappings>
@@ -1905,6 +2108,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DckJ</field>
             <label>Contact Id for Role</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ku5</field>
+            <label>Date Stock Received</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBE</field>
@@ -1953,6 +2160,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBN</field>
             <label>Honoree Contact</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000igz</field>
+            <label>Honoree Contact Set</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBO</field>
@@ -2023,6 +2234,10 @@
             <label>Next Deliverable Date</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000j8P</field>
+            <label>Non-Deductible Amount</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBY</field>
             <label>Notification Message</label>
         </opportunityListFieldsLabelMappings>
@@ -2033,6 +2248,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBa</field>
             <label>Notification Recipient Contact</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ih0</field>
+            <label>Notification Recipient Contact Set</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBb</field>
@@ -2051,12 +2270,24 @@
             <label>Number of Payments</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ku6</field>
+            <label>Number of Shares</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000WBC</field>
+            <label>Original Pledge Amount</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DckT</field>
             <label>Payment Amount Received</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DckR</field>
             <label>Payment Writeoff Amount</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000WBD</field>
+            <label>Pledge Written Off</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBe</field>
@@ -2103,6 +2334,18 @@
             <label>ROI Analysis Completed</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ku7</field>
+            <label>Stock/Ticker Symbol</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000j8Q</field>
+            <label>Tax-Deductible Amount</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ho9</field>
+            <label>Tribute Contact Needs Review</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBk</field>
             <label>Tribute Notification Date</label>
         </opportunityListFieldsLabelMappings>
@@ -2113,6 +2356,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBm</field>
             <label>Tribute Type</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ku8</field>
+            <label>Valuation Method</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>OPPORTUNITY.ISPRIORITYRECORD</field>
@@ -2178,6 +2425,8 @@
             <field>00Nhk000001Dcp6</field>
             <field>00Nhk000001DdB7</field>
             <field>00Nhk000001DdB8</field>
+            <field>00NiI0000000WBB</field>
+            <field>00NiI0000000MTZ</field>
             <field>00Nhk000001DdB9</field>
             <field>00Nhk000001DdBB</field>
             <field>00Nhk000001DdBA</field>
@@ -2185,6 +2434,7 @@
             <field>00Nhk000001DdBC</field>
             <field>00Nhk000001Dcp5</field>
             <field>00Nhk000001DckJ</field>
+            <field>00NiI0000000ku5</field>
             <field>00Nhk000001DdBE</field>
             <field>00Nhk000001A0YG</field>
             <field>00Nhk000001DckK</field>
@@ -2197,6 +2447,7 @@
             <field>00Nhk000001DdBK</field>
             <field>00Nhk000001DdBM</field>
             <field>00Nhk000001DdBN</field>
+            <field>00NiI0000000igz</field>
             <field>00Nhk000001DdBO</field>
             <field>00Nhk000001DdBP</field>
             <field>00Nhk000001DdBQ</field>
@@ -2214,15 +2465,20 @@
             <field>00Nhk000001DckN</field>
             <field>00Nhk000001DckO</field>
             <field>00Nhk000001DdEd</field>
+            <field>00NiI0000000j8P</field>
             <field>00Nhk000001DdBY</field>
             <field>00Nhk000001DdBZ</field>
             <field>00Nhk000001DdBa</field>
+            <field>00NiI0000000ih0</field>
             <field>00Nhk000001DdBb</field>
             <field>00Nhk000001DdBc</field>
             <field>00Nhk000001DdBd</field>
             <field>00Nhk000001DckS</field>
+            <field>00NiI0000000ku6</field>
+            <field>00NiI0000000WBC</field>
             <field>00Nhk000001DckT</field>
             <field>00Nhk000001DckR</field>
+            <field>00NiI0000000WBD</field>
             <field>00Nhk000001DdBe</field>
             <field>00Nhk000001DdBg</field>
             <field>00Nhk000001DdBf</field>
@@ -2234,9 +2490,13 @@
             <field>00Nhk000001DckZ</field>
             <field>00Nhk000001DdBj</field>
             <field>00Nhk000001A0YH</field>
+            <field>00NiI0000000ku7</field>
+            <field>00NiI0000000j8Q</field>
+            <field>00NiI0000000ho9</field>
             <field>00Nhk000001DdBk</field>
             <field>00Nhk000001DdBl</field>
             <field>00Nhk000001DdBm</field>
+            <field>00NiI0000000ku8</field>
             <field>OPPORTUNITY.ISPRIORITYRECORD</field>
             <field>OPPORTUNITY.LAST_STG_CHG_DAYS</field>
             <field>OPPORTUNITY.LAST_ACTIVITY_DAYS</field>
@@ -2421,6 +2681,14 @@
             <label>Acknowledgment Status</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000WBB</field>
+            <label>Amount Due To Date</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000MTZ</field>
+            <label>Approach</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdB9</field>
             <label>Ask Date</label>
         </opportunityListFieldsLabelMappings>
@@ -2447,6 +2715,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DckJ</field>
             <label>Contact Id for Role</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ku5</field>
+            <label>Date Stock Received</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBE</field>
@@ -2495,6 +2767,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBN</field>
             <label>Honoree Contact</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000igz</field>
+            <label>Honoree Contact Set</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBO</field>
@@ -2565,6 +2841,10 @@
             <label>Next Deliverable Date</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000j8P</field>
+            <label>Non-Deductible Amount</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBY</field>
             <label>Notification Message</label>
         </opportunityListFieldsLabelMappings>
@@ -2575,6 +2855,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBa</field>
             <label>Notification Recipient Contact</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ih0</field>
+            <label>Notification Recipient Contact Set</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBb</field>
@@ -2593,12 +2877,24 @@
             <label>Number of Payments</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ku6</field>
+            <label>Number of Shares</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000WBC</field>
+            <label>Original Pledge Amount</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DckT</field>
             <label>Payment Amount Received</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DckR</field>
             <label>Payment Writeoff Amount</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000WBD</field>
+            <label>Pledge Written Off</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBe</field>
@@ -2645,6 +2941,18 @@
             <label>ROI Analysis Completed</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ku7</field>
+            <label>Stock/Ticker Symbol</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000j8Q</field>
+            <label>Tax-Deductible Amount</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ho9</field>
+            <label>Tribute Contact Needs Review</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBk</field>
             <label>Tribute Notification Date</label>
         </opportunityListFieldsLabelMappings>
@@ -2655,6 +2963,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBm</field>
             <label>Tribute Type</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ku8</field>
+            <label>Valuation Method</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>OPPORTUNITY.ISPRIORITYRECORD</field>
@@ -2721,6 +3033,8 @@
             <field>00Nhk000001Dcp6</field>
             <field>00Nhk000001DdB7</field>
             <field>00Nhk000001DdB8</field>
+            <field>00NiI0000000WBB</field>
+            <field>00NiI0000000MTZ</field>
             <field>00Nhk000001DdB9</field>
             <field>00Nhk000001DdBB</field>
             <field>00Nhk000001DdBA</field>
@@ -2728,6 +3042,7 @@
             <field>00Nhk000001DdBC</field>
             <field>00Nhk000001Dcp5</field>
             <field>00Nhk000001DckJ</field>
+            <field>00NiI0000000ku5</field>
             <field>00Nhk000001DdBE</field>
             <field>00Nhk000001A0YG</field>
             <field>00Nhk000001DckK</field>
@@ -2740,6 +3055,7 @@
             <field>00Nhk000001DdBK</field>
             <field>00Nhk000001DdBM</field>
             <field>00Nhk000001DdBN</field>
+            <field>00NiI0000000igz</field>
             <field>00Nhk000001DdBO</field>
             <field>00Nhk000001DdBP</field>
             <field>00Nhk000001DdBQ</field>
@@ -2757,15 +3073,20 @@
             <field>00Nhk000001DckN</field>
             <field>00Nhk000001DckO</field>
             <field>00Nhk000001DdEd</field>
+            <field>00NiI0000000j8P</field>
             <field>00Nhk000001DdBY</field>
             <field>00Nhk000001DdBZ</field>
             <field>00Nhk000001DdBa</field>
+            <field>00NiI0000000ih0</field>
             <field>00Nhk000001DdBb</field>
             <field>00Nhk000001DdBc</field>
             <field>00Nhk000001DdBd</field>
             <field>00Nhk000001DckS</field>
+            <field>00NiI0000000ku6</field>
+            <field>00NiI0000000WBC</field>
             <field>00Nhk000001DckT</field>
             <field>00Nhk000001DckR</field>
+            <field>00NiI0000000WBD</field>
             <field>00Nhk000001DdBe</field>
             <field>00Nhk000001DdBg</field>
             <field>00Nhk000001DdBf</field>
@@ -2777,9 +3098,13 @@
             <field>00Nhk000001DckZ</field>
             <field>00Nhk000001DdBj</field>
             <field>00Nhk000001A0YH</field>
+            <field>00NiI0000000ku7</field>
+            <field>00NiI0000000j8Q</field>
+            <field>00NiI0000000ho9</field>
             <field>00Nhk000001DdBk</field>
             <field>00Nhk000001DdBl</field>
             <field>00Nhk000001DdBm</field>
+            <field>00NiI0000000ku8</field>
             <field>OPPORTUNITY.ISPRIORITYRECORD</field>
             <field>OPPORTUNITY.LAST_STG_CHG_DAYS</field>
             <field>OPPORTUNITY.LAST_ACTIVITY_DAYS</field>
@@ -2960,6 +3285,14 @@
             <label>Acknowledgment Status</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000WBB</field>
+            <label>Amount Due To Date</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000MTZ</field>
+            <label>Approach</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdB9</field>
             <label>Ask Date</label>
         </opportunityListFieldsLabelMappings>
@@ -2986,6 +3319,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DckJ</field>
             <label>Contact Id for Role</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ku5</field>
+            <label>Date Stock Received</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBE</field>
@@ -3034,6 +3371,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBN</field>
             <label>Honoree Contact</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000igz</field>
+            <label>Honoree Contact Set</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBO</field>
@@ -3104,6 +3445,10 @@
             <label>Next Deliverable Date</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000j8P</field>
+            <label>Non-Deductible Amount</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBY</field>
             <label>Notification Message</label>
         </opportunityListFieldsLabelMappings>
@@ -3114,6 +3459,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBa</field>
             <label>Notification Recipient Contact</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ih0</field>
+            <label>Notification Recipient Contact Set</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBb</field>
@@ -3132,12 +3481,24 @@
             <label>Number of Payments</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ku6</field>
+            <label>Number of Shares</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000WBC</field>
+            <label>Original Pledge Amount</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DckT</field>
             <label>Payment Amount Received</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DckR</field>
             <label>Payment Writeoff Amount</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000WBD</field>
+            <label>Pledge Written Off</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBe</field>
@@ -3184,6 +3545,18 @@
             <label>ROI Analysis Completed</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ku7</field>
+            <label>Stock/Ticker Symbol</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000j8Q</field>
+            <label>Tax-Deductible Amount</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ho9</field>
+            <label>Tribute Contact Needs Review</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBk</field>
             <label>Tribute Notification Date</label>
         </opportunityListFieldsLabelMappings>
@@ -3194,6 +3567,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBm</field>
             <label>Tribute Type</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ku8</field>
+            <label>Valuation Method</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>OPPORTUNITY.ISPRIORITYRECORD</field>
@@ -3259,6 +3636,8 @@
             <field>00Nhk000001Dcp6</field>
             <field>00Nhk000001DdB7</field>
             <field>00Nhk000001DdB8</field>
+            <field>00NiI0000000WBB</field>
+            <field>00NiI0000000MTZ</field>
             <field>00Nhk000001DdB9</field>
             <field>00Nhk000001DdBB</field>
             <field>00Nhk000001DdBA</field>
@@ -3266,6 +3645,7 @@
             <field>00Nhk000001DdBC</field>
             <field>00Nhk000001Dcp5</field>
             <field>00Nhk000001DckJ</field>
+            <field>00NiI0000000ku5</field>
             <field>00Nhk000001DdBE</field>
             <field>00Nhk000001A0YG</field>
             <field>00Nhk000001DckK</field>
@@ -3278,6 +3658,7 @@
             <field>00Nhk000001DdBK</field>
             <field>00Nhk000001DdBM</field>
             <field>00Nhk000001DdBN</field>
+            <field>00NiI0000000igz</field>
             <field>00Nhk000001DdBO</field>
             <field>00Nhk000001DdBP</field>
             <field>00Nhk000001DdBQ</field>
@@ -3295,15 +3676,20 @@
             <field>00Nhk000001DckN</field>
             <field>00Nhk000001DckO</field>
             <field>00Nhk000001DdEd</field>
+            <field>00NiI0000000j8P</field>
             <field>00Nhk000001DdBY</field>
             <field>00Nhk000001DdBZ</field>
             <field>00Nhk000001DdBa</field>
+            <field>00NiI0000000ih0</field>
             <field>00Nhk000001DdBb</field>
             <field>00Nhk000001DdBc</field>
             <field>00Nhk000001DdBd</field>
             <field>00Nhk000001DckS</field>
+            <field>00NiI0000000ku6</field>
+            <field>00NiI0000000WBC</field>
             <field>00Nhk000001DckT</field>
             <field>00Nhk000001DckR</field>
+            <field>00NiI0000000WBD</field>
             <field>00Nhk000001DdBe</field>
             <field>00Nhk000001DdBg</field>
             <field>00Nhk000001DdBf</field>
@@ -3315,9 +3701,13 @@
             <field>00Nhk000001DckZ</field>
             <field>00Nhk000001DdBj</field>
             <field>00Nhk000001A0YH</field>
+            <field>00NiI0000000ku7</field>
+            <field>00NiI0000000j8Q</field>
+            <field>00NiI0000000ho9</field>
             <field>00Nhk000001DdBk</field>
             <field>00Nhk000001DdBl</field>
             <field>00Nhk000001DdBm</field>
+            <field>00NiI0000000ku8</field>
             <field>OPPORTUNITY.ISPRIORITYRECORD</field>
             <field>OPPORTUNITY.LAST_STG_CHG_DAYS</field>
             <field>OPPORTUNITY.LAST_ACTIVITY_DAYS</field>
@@ -3502,6 +3892,14 @@
             <label>Acknowledgment Status</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000WBB</field>
+            <label>Amount Due To Date</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000MTZ</field>
+            <label>Approach</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdB9</field>
             <label>Ask Date</label>
         </opportunityListFieldsLabelMappings>
@@ -3528,6 +3926,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DckJ</field>
             <label>Contact Id for Role</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ku5</field>
+            <label>Date Stock Received</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBE</field>
@@ -3576,6 +3978,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBN</field>
             <label>Honoree Contact</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000igz</field>
+            <label>Honoree Contact Set</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBO</field>
@@ -3646,6 +4052,10 @@
             <label>Next Deliverable Date</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000j8P</field>
+            <label>Non-Deductible Amount</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBY</field>
             <label>Notification Message</label>
         </opportunityListFieldsLabelMappings>
@@ -3656,6 +4066,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBa</field>
             <label>Notification Recipient Contact</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ih0</field>
+            <label>Notification Recipient Contact Set</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBb</field>
@@ -3674,12 +4088,24 @@
             <label>Number of Payments</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ku6</field>
+            <label>Number of Shares</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000WBC</field>
+            <label>Original Pledge Amount</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DckT</field>
             <label>Payment Amount Received</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DckR</field>
             <label>Payment Writeoff Amount</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000WBD</field>
+            <label>Pledge Written Off</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBe</field>
@@ -3726,6 +4152,18 @@
             <label>ROI Analysis Completed</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ku7</field>
+            <label>Stock/Ticker Symbol</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000j8Q</field>
+            <label>Tax-Deductible Amount</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ho9</field>
+            <label>Tribute Contact Needs Review</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBk</field>
             <label>Tribute Notification Date</label>
         </opportunityListFieldsLabelMappings>
@@ -3736,6 +4174,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBm</field>
             <label>Tribute Type</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ku8</field>
+            <label>Valuation Method</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>OPPORTUNITY.ISPRIORITYRECORD</field>
@@ -3802,6 +4244,8 @@
             <field>00Nhk000001Dcp6</field>
             <field>00Nhk000001DdB7</field>
             <field>00Nhk000001DdB8</field>
+            <field>00NiI0000000WBB</field>
+            <field>00NiI0000000MTZ</field>
             <field>00Nhk000001DdB9</field>
             <field>00Nhk000001DdBB</field>
             <field>00Nhk000001DdBA</field>
@@ -3809,6 +4253,7 @@
             <field>00Nhk000001DdBC</field>
             <field>00Nhk000001Dcp5</field>
             <field>00Nhk000001DckJ</field>
+            <field>00NiI0000000ku5</field>
             <field>00Nhk000001DdBE</field>
             <field>00Nhk000001A0YG</field>
             <field>00Nhk000001DckK</field>
@@ -3821,6 +4266,7 @@
             <field>00Nhk000001DdBK</field>
             <field>00Nhk000001DdBM</field>
             <field>00Nhk000001DdBN</field>
+            <field>00NiI0000000igz</field>
             <field>00Nhk000001DdBO</field>
             <field>00Nhk000001DdBP</field>
             <field>00Nhk000001DdBQ</field>
@@ -3838,15 +4284,20 @@
             <field>00Nhk000001DckN</field>
             <field>00Nhk000001DckO</field>
             <field>00Nhk000001DdEd</field>
+            <field>00NiI0000000j8P</field>
             <field>00Nhk000001DdBY</field>
             <field>00Nhk000001DdBZ</field>
             <field>00Nhk000001DdBa</field>
+            <field>00NiI0000000ih0</field>
             <field>00Nhk000001DdBb</field>
             <field>00Nhk000001DdBc</field>
             <field>00Nhk000001DdBd</field>
             <field>00Nhk000001DckS</field>
+            <field>00NiI0000000ku6</field>
+            <field>00NiI0000000WBC</field>
             <field>00Nhk000001DckT</field>
             <field>00Nhk000001DckR</field>
+            <field>00NiI0000000WBD</field>
             <field>00Nhk000001DdBe</field>
             <field>00Nhk000001DdBg</field>
             <field>00Nhk000001DdBf</field>
@@ -3858,9 +4309,13 @@
             <field>00Nhk000001DckZ</field>
             <field>00Nhk000001DdBj</field>
             <field>00Nhk000001A0YH</field>
+            <field>00NiI0000000ku7</field>
+            <field>00NiI0000000j8Q</field>
+            <field>00NiI0000000ho9</field>
             <field>00Nhk000001DdBk</field>
             <field>00Nhk000001DdBl</field>
             <field>00Nhk000001DdBm</field>
+            <field>00NiI0000000ku8</field>
             <field>OPPORTUNITY.ISPRIORITYRECORD</field>
             <field>OPPORTUNITY.LAST_STG_CHG_DAYS</field>
             <field>OPPORTUNITY.LAST_ACTIVITY_DAYS</field>
@@ -4041,6 +4496,14 @@
             <label>Acknowledgment Status</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000WBB</field>
+            <label>Amount Due To Date</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000MTZ</field>
+            <label>Approach</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdB9</field>
             <label>Ask Date</label>
         </opportunityListFieldsLabelMappings>
@@ -4067,6 +4530,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DckJ</field>
             <label>Contact Id for Role</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ku5</field>
+            <label>Date Stock Received</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBE</field>
@@ -4115,6 +4582,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBN</field>
             <label>Honoree Contact</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000igz</field>
+            <label>Honoree Contact Set</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBO</field>
@@ -4185,6 +4656,10 @@
             <label>Next Deliverable Date</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000j8P</field>
+            <label>Non-Deductible Amount</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBY</field>
             <label>Notification Message</label>
         </opportunityListFieldsLabelMappings>
@@ -4195,6 +4670,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBa</field>
             <label>Notification Recipient Contact</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ih0</field>
+            <label>Notification Recipient Contact Set</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBb</field>
@@ -4213,12 +4692,24 @@
             <label>Number of Payments</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ku6</field>
+            <label>Number of Shares</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000WBC</field>
+            <label>Original Pledge Amount</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DckT</field>
             <label>Payment Amount Received</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DckR</field>
             <label>Payment Writeoff Amount</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000WBD</field>
+            <label>Pledge Written Off</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBe</field>
@@ -4265,6 +4756,18 @@
             <label>ROI Analysis Completed</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ku7</field>
+            <label>Stock/Ticker Symbol</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000j8Q</field>
+            <label>Tax-Deductible Amount</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ho9</field>
+            <label>Tribute Contact Needs Review</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBk</field>
             <label>Tribute Notification Date</label>
         </opportunityListFieldsLabelMappings>
@@ -4275,6 +4778,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBm</field>
             <label>Tribute Type</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ku8</field>
+            <label>Valuation Method</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>OPPORTUNITY.ISPRIORITYRECORD</field>
@@ -4340,6 +4847,8 @@
             <field>00Nhk000001Dcp6</field>
             <field>00Nhk000001DdB7</field>
             <field>00Nhk000001DdB8</field>
+            <field>00NiI0000000WBB</field>
+            <field>00NiI0000000MTZ</field>
             <field>00Nhk000001DdB9</field>
             <field>00Nhk000001DdBB</field>
             <field>00Nhk000001DdBA</field>
@@ -4347,6 +4856,7 @@
             <field>00Nhk000001DdBC</field>
             <field>00Nhk000001Dcp5</field>
             <field>00Nhk000001DckJ</field>
+            <field>00NiI0000000ku5</field>
             <field>00Nhk000001DdBE</field>
             <field>00Nhk000001A0YG</field>
             <field>00Nhk000001DckK</field>
@@ -4359,6 +4869,7 @@
             <field>00Nhk000001DdBK</field>
             <field>00Nhk000001DdBM</field>
             <field>00Nhk000001DdBN</field>
+            <field>00NiI0000000igz</field>
             <field>00Nhk000001DdBO</field>
             <field>00Nhk000001DdBP</field>
             <field>00Nhk000001DdBQ</field>
@@ -4376,15 +4887,20 @@
             <field>00Nhk000001DckN</field>
             <field>00Nhk000001DckO</field>
             <field>00Nhk000001DdEd</field>
+            <field>00NiI0000000j8P</field>
             <field>00Nhk000001DdBY</field>
             <field>00Nhk000001DdBZ</field>
             <field>00Nhk000001DdBa</field>
+            <field>00NiI0000000ih0</field>
             <field>00Nhk000001DdBb</field>
             <field>00Nhk000001DdBc</field>
             <field>00Nhk000001DdBd</field>
             <field>00Nhk000001DckS</field>
+            <field>00NiI0000000ku6</field>
+            <field>00NiI0000000WBC</field>
             <field>00Nhk000001DckT</field>
             <field>00Nhk000001DckR</field>
+            <field>00NiI0000000WBD</field>
             <field>00Nhk000001DdBe</field>
             <field>00Nhk000001DdBg</field>
             <field>00Nhk000001DdBf</field>
@@ -4396,9 +4912,13 @@
             <field>00Nhk000001DckZ</field>
             <field>00Nhk000001DdBj</field>
             <field>00Nhk000001A0YH</field>
+            <field>00NiI0000000ku7</field>
+            <field>00NiI0000000j8Q</field>
+            <field>00NiI0000000ho9</field>
             <field>00Nhk000001DdBk</field>
             <field>00Nhk000001DdBl</field>
             <field>00Nhk000001DdBm</field>
+            <field>00NiI0000000ku8</field>
             <field>OPPORTUNITY.ISPRIORITYRECORD</field>
             <field>OPPORTUNITY.LAST_STG_CHG_DAYS</field>
             <field>OPPORTUNITY.LAST_ACTIVITY_DAYS</field>
@@ -4583,6 +5103,14 @@
             <label>Acknowledgment Status</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000WBB</field>
+            <label>Amount Due To Date</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000MTZ</field>
+            <label>Approach</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdB9</field>
             <label>Ask Date</label>
         </opportunityListFieldsLabelMappings>
@@ -4609,6 +5137,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DckJ</field>
             <label>Contact Id for Role</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ku5</field>
+            <label>Date Stock Received</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBE</field>
@@ -4657,6 +5189,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBN</field>
             <label>Honoree Contact</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000igz</field>
+            <label>Honoree Contact Set</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBO</field>
@@ -4727,6 +5263,10 @@
             <label>Next Deliverable Date</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000j8P</field>
+            <label>Non-Deductible Amount</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBY</field>
             <label>Notification Message</label>
         </opportunityListFieldsLabelMappings>
@@ -4737,6 +5277,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBa</field>
             <label>Notification Recipient Contact</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ih0</field>
+            <label>Notification Recipient Contact Set</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBb</field>
@@ -4755,12 +5299,24 @@
             <label>Number of Payments</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ku6</field>
+            <label>Number of Shares</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000WBC</field>
+            <label>Original Pledge Amount</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DckT</field>
             <label>Payment Amount Received</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DckR</field>
             <label>Payment Writeoff Amount</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000WBD</field>
+            <label>Pledge Written Off</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBe</field>
@@ -4807,6 +5363,18 @@
             <label>ROI Analysis Completed</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ku7</field>
+            <label>Stock/Ticker Symbol</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000j8Q</field>
+            <label>Tax-Deductible Amount</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ho9</field>
+            <label>Tribute Contact Needs Review</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBk</field>
             <label>Tribute Notification Date</label>
         </opportunityListFieldsLabelMappings>
@@ -4817,6 +5385,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBm</field>
             <label>Tribute Type</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ku8</field>
+            <label>Valuation Method</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>OPPORTUNITY.ISPRIORITYRECORD</field>
@@ -4883,6 +5455,8 @@
             <field>00Nhk000001Dcp6</field>
             <field>00Nhk000001DdB7</field>
             <field>00Nhk000001DdB8</field>
+            <field>00NiI0000000WBB</field>
+            <field>00NiI0000000MTZ</field>
             <field>00Nhk000001DdB9</field>
             <field>00Nhk000001DdBB</field>
             <field>00Nhk000001DdBA</field>
@@ -4890,6 +5464,7 @@
             <field>00Nhk000001DdBC</field>
             <field>00Nhk000001Dcp5</field>
             <field>00Nhk000001DckJ</field>
+            <field>00NiI0000000ku5</field>
             <field>00Nhk000001DdBE</field>
             <field>00Nhk000001A0YG</field>
             <field>00Nhk000001DckK</field>
@@ -4902,6 +5477,7 @@
             <field>00Nhk000001DdBK</field>
             <field>00Nhk000001DdBM</field>
             <field>00Nhk000001DdBN</field>
+            <field>00NiI0000000igz</field>
             <field>00Nhk000001DdBO</field>
             <field>00Nhk000001DdBP</field>
             <field>00Nhk000001DdBQ</field>
@@ -4919,15 +5495,20 @@
             <field>00Nhk000001DckN</field>
             <field>00Nhk000001DckO</field>
             <field>00Nhk000001DdEd</field>
+            <field>00NiI0000000j8P</field>
             <field>00Nhk000001DdBY</field>
             <field>00Nhk000001DdBZ</field>
             <field>00Nhk000001DdBa</field>
+            <field>00NiI0000000ih0</field>
             <field>00Nhk000001DdBb</field>
             <field>00Nhk000001DdBc</field>
             <field>00Nhk000001DdBd</field>
             <field>00Nhk000001DckS</field>
+            <field>00NiI0000000ku6</field>
+            <field>00NiI0000000WBC</field>
             <field>00Nhk000001DckT</field>
             <field>00Nhk000001DckR</field>
+            <field>00NiI0000000WBD</field>
             <field>00Nhk000001DdBe</field>
             <field>00Nhk000001DdBg</field>
             <field>00Nhk000001DdBf</field>
@@ -4939,9 +5520,13 @@
             <field>00Nhk000001DckZ</field>
             <field>00Nhk000001DdBj</field>
             <field>00Nhk000001A0YH</field>
+            <field>00NiI0000000ku7</field>
+            <field>00NiI0000000j8Q</field>
+            <field>00NiI0000000ho9</field>
             <field>00Nhk000001DdBk</field>
             <field>00Nhk000001DdBl</field>
             <field>00Nhk000001DdBm</field>
+            <field>00NiI0000000ku8</field>
             <field>OPPORTUNITY.ISPRIORITYRECORD</field>
             <field>OPPORTUNITY.LAST_STG_CHG_DAYS</field>
             <field>OPPORTUNITY.LAST_ACTIVITY_DAYS</field>
@@ -5122,6 +5707,14 @@
             <label>Acknowledgment Status</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000WBB</field>
+            <label>Amount Due To Date</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000MTZ</field>
+            <label>Approach</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdB9</field>
             <label>Ask Date</label>
         </opportunityListFieldsLabelMappings>
@@ -5148,6 +5741,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DckJ</field>
             <label>Contact Id for Role</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ku5</field>
+            <label>Date Stock Received</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBE</field>
@@ -5196,6 +5793,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBN</field>
             <label>Honoree Contact</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000igz</field>
+            <label>Honoree Contact Set</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBO</field>
@@ -5266,6 +5867,10 @@
             <label>Next Deliverable Date</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000j8P</field>
+            <label>Non-Deductible Amount</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBY</field>
             <label>Notification Message</label>
         </opportunityListFieldsLabelMappings>
@@ -5276,6 +5881,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBa</field>
             <label>Notification Recipient Contact</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ih0</field>
+            <label>Notification Recipient Contact Set</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBb</field>
@@ -5294,12 +5903,24 @@
             <label>Number of Payments</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ku6</field>
+            <label>Number of Shares</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000WBC</field>
+            <label>Original Pledge Amount</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DckT</field>
             <label>Payment Amount Received</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DckR</field>
             <label>Payment Writeoff Amount</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000WBD</field>
+            <label>Pledge Written Off</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBe</field>
@@ -5346,6 +5967,18 @@
             <label>ROI Analysis Completed</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ku7</field>
+            <label>Stock/Ticker Symbol</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000j8Q</field>
+            <label>Tax-Deductible Amount</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ho9</field>
+            <label>Tribute Contact Needs Review</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBk</field>
             <label>Tribute Notification Date</label>
         </opportunityListFieldsLabelMappings>
@@ -5356,6 +5989,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBm</field>
             <label>Tribute Type</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ku8</field>
+            <label>Valuation Method</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>OPPORTUNITY.ISPRIORITYRECORD</field>
@@ -5421,6 +6058,8 @@
             <field>00Nhk000001Dcp6</field>
             <field>00Nhk000001DdB7</field>
             <field>00Nhk000001DdB8</field>
+            <field>00NiI0000000WBB</field>
+            <field>00NiI0000000MTZ</field>
             <field>00Nhk000001DdB9</field>
             <field>00Nhk000001DdBB</field>
             <field>00Nhk000001DdBA</field>
@@ -5428,6 +6067,7 @@
             <field>00Nhk000001DdBC</field>
             <field>00Nhk000001Dcp5</field>
             <field>00Nhk000001DckJ</field>
+            <field>00NiI0000000ku5</field>
             <field>00Nhk000001DdBE</field>
             <field>00Nhk000001A0YG</field>
             <field>00Nhk000001DckK</field>
@@ -5440,6 +6080,7 @@
             <field>00Nhk000001DdBK</field>
             <field>00Nhk000001DdBM</field>
             <field>00Nhk000001DdBN</field>
+            <field>00NiI0000000igz</field>
             <field>00Nhk000001DdBO</field>
             <field>00Nhk000001DdBP</field>
             <field>00Nhk000001DdBQ</field>
@@ -5457,15 +6098,20 @@
             <field>00Nhk000001DckN</field>
             <field>00Nhk000001DckO</field>
             <field>00Nhk000001DdEd</field>
+            <field>00NiI0000000j8P</field>
             <field>00Nhk000001DdBY</field>
             <field>00Nhk000001DdBZ</field>
             <field>00Nhk000001DdBa</field>
+            <field>00NiI0000000ih0</field>
             <field>00Nhk000001DdBb</field>
             <field>00Nhk000001DdBc</field>
             <field>00Nhk000001DdBd</field>
             <field>00Nhk000001DckS</field>
+            <field>00NiI0000000ku6</field>
+            <field>00NiI0000000WBC</field>
             <field>00Nhk000001DckT</field>
             <field>00Nhk000001DckR</field>
+            <field>00NiI0000000WBD</field>
             <field>00Nhk000001DdBe</field>
             <field>00Nhk000001DdBg</field>
             <field>00Nhk000001DdBf</field>
@@ -5477,9 +6123,13 @@
             <field>00Nhk000001DckZ</field>
             <field>00Nhk000001DdBj</field>
             <field>00Nhk000001A0YH</field>
+            <field>00NiI0000000ku7</field>
+            <field>00NiI0000000j8Q</field>
+            <field>00NiI0000000ho9</field>
             <field>00Nhk000001DdBk</field>
             <field>00Nhk000001DdBl</field>
             <field>00Nhk000001DdBm</field>
+            <field>00NiI0000000ku8</field>
             <field>OPPORTUNITY.ISPRIORITYRECORD</field>
             <field>OPPORTUNITY.LAST_STG_CHG_DAYS</field>
             <field>OPPORTUNITY.LAST_ACTIVITY_DAYS</field>
@@ -5664,6 +6314,14 @@
             <label>Acknowledgment Status</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000WBB</field>
+            <label>Amount Due To Date</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000MTZ</field>
+            <label>Approach</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdB9</field>
             <label>Ask Date</label>
         </opportunityListFieldsLabelMappings>
@@ -5690,6 +6348,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DckJ</field>
             <label>Contact Id for Role</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ku5</field>
+            <label>Date Stock Received</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBE</field>
@@ -5738,6 +6400,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBN</field>
             <label>Honoree Contact</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000igz</field>
+            <label>Honoree Contact Set</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBO</field>
@@ -5808,6 +6474,10 @@
             <label>Next Deliverable Date</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000j8P</field>
+            <label>Non-Deductible Amount</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBY</field>
             <label>Notification Message</label>
         </opportunityListFieldsLabelMappings>
@@ -5818,6 +6488,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBa</field>
             <label>Notification Recipient Contact</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ih0</field>
+            <label>Notification Recipient Contact Set</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBb</field>
@@ -5836,12 +6510,24 @@
             <label>Number of Payments</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ku6</field>
+            <label>Number of Shares</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000WBC</field>
+            <label>Original Pledge Amount</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DckT</field>
             <label>Payment Amount Received</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DckR</field>
             <label>Payment Writeoff Amount</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000WBD</field>
+            <label>Pledge Written Off</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBe</field>
@@ -5888,6 +6574,18 @@
             <label>ROI Analysis Completed</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ku7</field>
+            <label>Stock/Ticker Symbol</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000j8Q</field>
+            <label>Tax-Deductible Amount</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ho9</field>
+            <label>Tribute Contact Needs Review</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBk</field>
             <label>Tribute Notification Date</label>
         </opportunityListFieldsLabelMappings>
@@ -5898,6 +6596,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBm</field>
             <label>Tribute Type</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ku8</field>
+            <label>Valuation Method</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>OPPORTUNITY.ISPRIORITYRECORD</field>
@@ -5964,6 +6666,8 @@
             <field>00Nhk000001Dcp6</field>
             <field>00Nhk000001DdB7</field>
             <field>00Nhk000001DdB8</field>
+            <field>00NiI0000000WBB</field>
+            <field>00NiI0000000MTZ</field>
             <field>00Nhk000001DdB9</field>
             <field>00Nhk000001DdBB</field>
             <field>00Nhk000001DdBA</field>
@@ -5971,6 +6675,7 @@
             <field>00Nhk000001DdBC</field>
             <field>00Nhk000001Dcp5</field>
             <field>00Nhk000001DckJ</field>
+            <field>00NiI0000000ku5</field>
             <field>00Nhk000001DdBE</field>
             <field>00Nhk000001A0YG</field>
             <field>00Nhk000001DckK</field>
@@ -5983,6 +6688,7 @@
             <field>00Nhk000001DdBK</field>
             <field>00Nhk000001DdBM</field>
             <field>00Nhk000001DdBN</field>
+            <field>00NiI0000000igz</field>
             <field>00Nhk000001DdBO</field>
             <field>00Nhk000001DdBP</field>
             <field>00Nhk000001DdBQ</field>
@@ -6000,15 +6706,20 @@
             <field>00Nhk000001DckN</field>
             <field>00Nhk000001DckO</field>
             <field>00Nhk000001DdEd</field>
+            <field>00NiI0000000j8P</field>
             <field>00Nhk000001DdBY</field>
             <field>00Nhk000001DdBZ</field>
             <field>00Nhk000001DdBa</field>
+            <field>00NiI0000000ih0</field>
             <field>00Nhk000001DdBb</field>
             <field>00Nhk000001DdBc</field>
             <field>00Nhk000001DdBd</field>
             <field>00Nhk000001DckS</field>
+            <field>00NiI0000000ku6</field>
+            <field>00NiI0000000WBC</field>
             <field>00Nhk000001DckT</field>
             <field>00Nhk000001DckR</field>
+            <field>00NiI0000000WBD</field>
             <field>00Nhk000001DdBe</field>
             <field>00Nhk000001DdBg</field>
             <field>00Nhk000001DdBf</field>
@@ -6020,9 +6731,13 @@
             <field>00Nhk000001DckZ</field>
             <field>00Nhk000001DdBj</field>
             <field>00Nhk000001A0YH</field>
+            <field>00NiI0000000ku7</field>
+            <field>00NiI0000000j8Q</field>
+            <field>00NiI0000000ho9</field>
             <field>00Nhk000001DdBk</field>
             <field>00Nhk000001DdBl</field>
             <field>00Nhk000001DdBm</field>
+            <field>00NiI0000000ku8</field>
             <field>OPPORTUNITY.ISPRIORITYRECORD</field>
             <field>OPPORTUNITY.LAST_STG_CHG_DAYS</field>
             <field>OPPORTUNITY.LAST_ACTIVITY_DAYS</field>
@@ -6203,6 +6918,14 @@
             <label>Acknowledgment Status</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000WBB</field>
+            <label>Amount Due To Date</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000MTZ</field>
+            <label>Approach</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdB9</field>
             <label>Ask Date</label>
         </opportunityListFieldsLabelMappings>
@@ -6229,6 +6952,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DckJ</field>
             <label>Contact Id for Role</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ku5</field>
+            <label>Date Stock Received</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBE</field>
@@ -6277,6 +7004,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBN</field>
             <label>Honoree Contact</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000igz</field>
+            <label>Honoree Contact Set</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBO</field>
@@ -6347,6 +7078,10 @@
             <label>Next Deliverable Date</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000j8P</field>
+            <label>Non-Deductible Amount</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBY</field>
             <label>Notification Message</label>
         </opportunityListFieldsLabelMappings>
@@ -6357,6 +7092,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBa</field>
             <label>Notification Recipient Contact</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ih0</field>
+            <label>Notification Recipient Contact Set</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBb</field>
@@ -6375,12 +7114,24 @@
             <label>Number of Payments</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ku6</field>
+            <label>Number of Shares</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000WBC</field>
+            <label>Original Pledge Amount</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DckT</field>
             <label>Payment Amount Received</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DckR</field>
             <label>Payment Writeoff Amount</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000WBD</field>
+            <label>Pledge Written Off</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBe</field>
@@ -6427,6 +7178,18 @@
             <label>ROI Analysis Completed</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ku7</field>
+            <label>Stock/Ticker Symbol</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000j8Q</field>
+            <label>Tax-Deductible Amount</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ho9</field>
+            <label>Tribute Contact Needs Review</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBk</field>
             <label>Tribute Notification Date</label>
         </opportunityListFieldsLabelMappings>
@@ -6437,6 +7200,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBm</field>
             <label>Tribute Type</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI0000000ku8</field>
+            <label>Valuation Method</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>OPPORTUNITY.ISPRIORITYRECORD</field>
@@ -6502,6 +7269,8 @@
             <field>00Nhk000001Dcp6</field>
             <field>00Nhk000001DdB7</field>
             <field>00Nhk000001DdB8</field>
+            <field>00NiI0000000WBB</field>
+            <field>00NiI0000000MTZ</field>
             <field>00Nhk000001DdB9</field>
             <field>00Nhk000001DdBB</field>
             <field>00Nhk000001DdBA</field>
@@ -6509,6 +7278,7 @@
             <field>00Nhk000001DdBC</field>
             <field>00Nhk000001Dcp5</field>
             <field>00Nhk000001DckJ</field>
+            <field>00NiI0000000ku5</field>
             <field>00Nhk000001DdBE</field>
             <field>00Nhk000001A0YG</field>
             <field>00Nhk000001DckK</field>
@@ -6521,6 +7291,7 @@
             <field>00Nhk000001DdBK</field>
             <field>00Nhk000001DdBM</field>
             <field>00Nhk000001DdBN</field>
+            <field>00NiI0000000igz</field>
             <field>00Nhk000001DdBO</field>
             <field>00Nhk000001DdBP</field>
             <field>00Nhk000001DdBQ</field>
@@ -6538,15 +7309,20 @@
             <field>00Nhk000001DckN</field>
             <field>00Nhk000001DckO</field>
             <field>00Nhk000001DdEd</field>
+            <field>00NiI0000000j8P</field>
             <field>00Nhk000001DdBY</field>
             <field>00Nhk000001DdBZ</field>
             <field>00Nhk000001DdBa</field>
+            <field>00NiI0000000ih0</field>
             <field>00Nhk000001DdBb</field>
             <field>00Nhk000001DdBc</field>
             <field>00Nhk000001DdBd</field>
             <field>00Nhk000001DckS</field>
+            <field>00NiI0000000ku6</field>
+            <field>00NiI0000000WBC</field>
             <field>00Nhk000001DckT</field>
             <field>00Nhk000001DckR</field>
+            <field>00NiI0000000WBD</field>
             <field>00Nhk000001DdBe</field>
             <field>00Nhk000001DdBg</field>
             <field>00Nhk000001DdBf</field>
@@ -6558,9 +7334,13 @@
             <field>00Nhk000001DckZ</field>
             <field>00Nhk000001DdBj</field>
             <field>00Nhk000001A0YH</field>
+            <field>00NiI0000000ku7</field>
+            <field>00NiI0000000j8Q</field>
+            <field>00NiI0000000ho9</field>
             <field>00Nhk000001DdBk</field>
             <field>00Nhk000001DdBl</field>
             <field>00Nhk000001DdBm</field>
+            <field>00NiI0000000ku8</field>
             <field>OPPORTUNITY.ISPRIORITYRECORD</field>
             <field>OPPORTUNITY.LAST_STG_CHG_DAYS</field>
             <field>OPPORTUNITY.LAST_ACTIVITY_DAYS</field>

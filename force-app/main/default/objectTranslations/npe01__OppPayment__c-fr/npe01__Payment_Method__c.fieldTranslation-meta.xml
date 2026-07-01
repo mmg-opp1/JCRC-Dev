@@ -3,8 +3,12 @@
     <label><!-- Payment Method --></label>
     <name>npe01__Payment_Method__c</name>
     <picklistValues>
-        <masterLabel>ACH</masterLabel>
+        <masterLabel>ACH/Wire</masterLabel>
         <translation>CCA</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Benevity</masterLabel>
+        <translation><!-- Benevity --></translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Cash</masterLabel>
@@ -19,7 +23,15 @@
         <translation>Carte de crédit</translation>
     </picklistValues>
     <picklistValues>
+        <masterLabel>DAF</masterLabel>
+        <translation><!-- DAF --></translation>
+    </picklistValues>
+    <picklistValues>
         <masterLabel>PayPal</masterLabel>
         <translation><!-- PayPal --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Stock/Securities/Crypto</masterLabel>
+        <translation><!-- Stock/Securities/Crypto --></translation>
     </picklistValues>
 </CustomFieldTranslation>

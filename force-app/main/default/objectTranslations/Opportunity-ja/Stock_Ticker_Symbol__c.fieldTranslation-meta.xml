@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Ticker symbol of the donated security (e.g., AAPL). --></help>
+    <label><!-- Stock/Ticker Symbol --></label>
+    <name>Stock_Ticker_Symbol__c</name>
+</CustomFieldTranslation>

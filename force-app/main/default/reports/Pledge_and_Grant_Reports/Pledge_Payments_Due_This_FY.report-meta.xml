@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Report xmlns="http://soap.sforce.com/2006/04/metadata">
-    <name>Pledge Payments Due This Fiscal Year</name>
-    <description>Scheduled, unpaid pledge/grant installments due in the current fiscal year (cash-flow forecast). JSI-82 / Jason Ott.</description>
-    <reportType>Pledges_with_Payments__c</reportType>
-    <format>Summary</format>
-    <groupingsDown>
-        <dateGranularity>Month</dateGranularity>
-        <field>Opportunity.npe01__OppPayment__r$npe01__Scheduled_Date__c</field>
-        <sortOrder>Asc</sortOrder>
-    </groupingsDown>
     <columns>
         <field>Opportunity$Name</field>
     </columns>
@@ -16,29 +7,52 @@
         <field>Opportunity$StageName</field>
     </columns>
     <columns>
-        <field>Opportunity.npe01__OppPayment__r$npe01__Payment_Amount__c</field>
         <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.npe01__OppPayment__r$npe01__Payment_Amount__c</field>
     </columns>
     <columns>
         <field>Opportunity.npe01__OppPayment__r$npe01__Paid__c</field>
     </columns>
+    <description>Scheduled, unpaid pledge/grant installments due in the current fiscal year (cash-flow forecast). JSI-82 / Jason Ott.</description>
     <filter>
         <criteriaItems>
             <column>Opportunity$StageName</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
             <operator>equals</operator>
             <value>Pledged</value>
         </criteriaItems>
         <criteriaItems>
             <column>Opportunity.npe01__OppPayment__r$npe01__Paid__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
             <operator>equals</operator>
-            <value>false</value>
+            <value>0</value>
         </criteriaItems>
         <criteriaItems>
             <column>Opportunity.npe01__OppPayment__r$npe01__Written_Off__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
             <operator>equals</operator>
-            <value>false</value>
+            <value>0</value>
         </criteriaItems>
     </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Month</dateGranularity>
+        <field>Opportunity.npe01__OppPayment__r$npe01__Scheduled_Date__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Pledge Payments Due This Fiscal Year</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Pledges_with_Payments__c</reportType>
+    <scope>user</scope>
+    <showDetails>false</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
     <timeFrameFilter>
         <dateColumn>Opportunity.npe01__OppPayment__r$npe01__Scheduled_Date__c</dateColumn>
         <interval>INTERVAL_CURFY</interval>

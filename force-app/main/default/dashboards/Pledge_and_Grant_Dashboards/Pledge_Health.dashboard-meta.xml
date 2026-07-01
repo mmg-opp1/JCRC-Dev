@@ -4,55 +4,88 @@
     <backgroundFadeDirection>Diagonal</backgroundFadeDirection>
     <backgroundStartColor>#FFFFFF</backgroundStartColor>
     <dashboardType>SpecifiedUser</dashboardType>
+    <isGridLayout>false</isGridLayout>
     <leftSection>
         <columnSize>Medium</columnSize>
         <components>
+            <autoselectColumnsFromReport>true</autoselectColumnsFromReport>
             <componentType>Metric</componentType>
             <footer>Remaining Balance on active pledges/grants</footer>
+            <groupingSortProperties/>
             <header>Total Outstanding</header>
             <indicatorHighColor>#54C254</indicatorHighColor>
             <indicatorLowColor>#C25454</indicatorLowColor>
             <indicatorMiddleColor>#D9A741</indicatorMiddleColor>
             <metricLabel>Outstanding</metricLabel>
             <report>Pledge_and_Grant_Reports/Outstanding_Pledges</report>
-            <title>Total Outstanding Pledges</title>
+            <showRange>false</showRange>
         </components>
         <components>
+            <autoselectColumnsFromReport>true</autoselectColumnsFromReport>
             <chartAxisRange>Auto</chartAxisRange>
             <componentType>Donut</componentType>
+            <drillEnabled>false</drillEnabled>
+            <drillToDetailEnabled>false</drillToDetailEnabled>
             <enableHover>true</enableHover>
+            <expandOthers>false</expandOthers>
             <footer>By lifecycle stage</footer>
+            <groupingSortProperties/>
             <header>Pledges by Stage</header>
             <legendPosition>Right</legendPosition>
             <report>Pledge_and_Grant_Reports/Pledges_by_Lifecycle_Stage</report>
+            <showPercentage>false</showPercentage>
+            <showTotal>false</showTotal>
+            <showValues>false</showValues>
             <sortBy>RowValueDescending</sortBy>
+            <sortLegendValues>false</sortLegendValues>
             <title>Pledges by Lifecycle Stage</title>
+            <useReportChart>false</useReportChart>
         </components>
     </leftSection>
+    <owner>jcrcny@missionmattersgroup.com</owner>
     <rightSection>
         <columnSize>Medium</columnSize>
         <components>
+            <autoselectColumnsFromReport>true</autoselectColumnsFromReport>
             <chartAxisRange>Auto</chartAxisRange>
             <componentType>Column</componentType>
+            <drillEnabled>false</drillEnabled>
+            <drillToDetailEnabled>false</drillToDetailEnabled>
             <enableHover>true</enableHover>
+            <expandOthers>false</expandOthers>
             <footer>Amount past due by owner</footer>
+            <groupingSortProperties/>
             <header>Overdue Pledges</header>
             <report>Pledge_and_Grant_Reports/Overdue_Pledges</report>
+            <showPercentage>false</showPercentage>
+            <showValues>false</showValues>
             <sortBy>RowValueDescending</sortBy>
+            <sortLegendValues>false</sortLegendValues>
             <title>Overdue by Owner</title>
+            <useReportChart>false</useReportChart>
         </components>
         <components>
+            <autoselectColumnsFromReport>true</autoselectColumnsFromReport>
             <chartAxisRange>Auto</chartAxisRange>
             <componentType>Bar</componentType>
+            <drillEnabled>false</drillEnabled>
+            <drillToDetailEnabled>false</drillToDetailEnabled>
             <enableHover>true</enableHover>
+            <expandOthers>false</expandOthers>
             <footer>Written off / partially posted</footer>
+            <groupingSortProperties/>
             <header>Pledge Write-Offs</header>
             <report>Pledge_and_Grant_Reports/Pledge_Write_Offs</report>
+            <showPercentage>false</showPercentage>
+            <showPicturesOnCharts>false</showPicturesOnCharts>
+            <showValues>false</showValues>
             <sortBy>RowValueDescending</sortBy>
+            <sortLegendValues>false</sortLegendValues>
             <title>Write-Offs (Bad Debt)</title>
+            <useReportChart>false</useReportChart>
         </components>
     </rightSection>
-    <runningUser>jcrcny@missionmattersgroup.com.dev</runningUser>
+    <runningUser>jcrcny@missionmattersgroup.com</runningUser>
     <textColor>#000000</textColor>
     <title>Pledge Health</title>
     <titleColor>#000000</titleColor>

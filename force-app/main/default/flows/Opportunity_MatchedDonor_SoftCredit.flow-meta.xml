@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>67.0</apiVersion>
-    <description>JSI-85: when a Donation is linked to a corporate Matching Gift opportunity (npsp__Matching_Gift__c populated), soft-credit the individual donor by adding a "Matched Donor" Opportunity Contact Role for the Donation's Primary Contact onto the matching-gift opportunity. Duplicate-guarded. Author: Jason Ott.</description>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
     <decisions>
         <name>OCR_Missing</name>
         <label>Matched Donor OCR Missing?</label>
@@ -24,6 +24,7 @@
             <label>Create It</label>
         </rules>
     </decisions>
+    <description>JSI-85: when a Donation is linked to a corporate Matching Gift opportunity (npsp__Matching_Gift__c populated), soft-credit the individual donor by adding a &quot;Matched Donor&quot; Opportunity Contact Role for the Donation&apos;s Primary Contact onto the matching-gift opportunity. Duplicate-guarded. Author: Jason Ott.</description>
     <environments>Default</environments>
     <interviewLabel>Opportunity - Matched Donor Soft Credit {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Opportunity - Matched Donor Soft Credit</label>
@@ -59,6 +60,7 @@
         <label>Get Existing OCR on Matching Gift</label>
         <locationX>176</locationX>
         <locationY>134</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>OCR_Missing</targetReference>
         </connector>

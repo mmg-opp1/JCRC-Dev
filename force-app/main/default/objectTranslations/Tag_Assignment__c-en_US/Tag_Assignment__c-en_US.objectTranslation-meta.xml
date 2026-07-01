@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Tag Assignment</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Tag Assignments</value>
+    </caseValues>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- A tag assignment must link to exactly one Contact or one Account. --></errorMessage>
+        <name>Exactly_One_Parent</name>
+    </validationRules>
+</CustomObjectTranslation>

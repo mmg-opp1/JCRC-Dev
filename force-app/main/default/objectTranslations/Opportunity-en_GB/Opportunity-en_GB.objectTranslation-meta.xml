@@ -9,9 +9,56 @@
         <name>npsp__BDE_List_FS_v2</name>
     </fieldSets>
     <recordTypes>
-        <label><!-- NPSP Default --></label>
+        <description><!-- Event tickets / gala registrations. The gift Amount is full revenue; the goods/services value goes in Non-Deductible Amount so the Tax-Deductible Amount is calculated. JSI-86 / Jason Ott. --></description>
+        <label><!-- Event Registration --></label>
+        <name>Event_Registration</name>
+    </recordTypes>
+    <recordTypes>
+        <description><!-- Grant award, typically installment-paid; treated like a pledge for payments. Excluded from auto-payment creation. JSI-82 / Jason Ott. --></description>
+        <label><!-- Grant --></label>
+        <name>Grant</name>
+    </recordTypes>
+    <recordTypes>
+        <description><!-- Non-cash (in-kind) gift. No cash payment; excluded from auto-payment creation. Layout/stages to be refined in its own story. JSI-82 / Jason Ott. --></description>
+        <label><!-- In-Kind Gift --></label>
+        <name>In_Kind_Gift</name>
+    </recordTypes>
+    <recordTypes>
+        <description><!-- Major gift (one-time). If pledged, use the Pledge record type instead. JSI-82 / Jason Ott. --></description>
+        <label><!-- Major Gift --></label>
+        <name>Major_Gift</name>
+    </recordTypes>
+    <recordTypes>
+        <description><!-- Employer/foundation matching gift. JSI-82 / Jason Ott. --></description>
+        <label><!-- Matching Gift --></label>
+        <name>Matching_Gift</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Donation --></label>
         <name>NPSP_Default</name>
     </recordTypes>
+    <recordTypes>
+        <description><!-- Multi-payment pledge commitment (accrual). Payments scheduled manually; excluded from auto-payment creation. JSI-82 / Jason Ott. --></description>
+        <label><!-- Pledge --></label>
+        <name>Pledge</name>
+    </recordTypes>
+    <recordTypes>
+        <description><!-- Gift of stock / securities. Aligns with the JSI-80 Stock/Securities/Crypto payment method. JSI-82 / Jason Ott. --></description>
+        <label><!-- Securities Gift --></label>
+        <name>Securities_Gift</name>
+    </recordTypes>
+    <validationRules>
+        <errorMessage><!-- The Non-Deductible Amount can&apos;t be more than the gift Amount. --></errorMessage>
+        <name>Non_Deductible_Not_Over_Amount</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You cannot partially post an opportunity that has no payments. Use Written Off instead or add payment information --></errorMessage>
+        <name>Partially_Post_Only_Pledges_With_Payment</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You cannot write-off an opportunity if payments have already been made. Use Partially Posted or remove the payments. --></errorMessage>
+        <name>Write_Off_Only_No_Payment_Pledges</name>
+    </validationRules>
     <webLinks>
         <label><!-- New_Contact_Donation --></label>
         <name>npe01__New_Contact_Donation</name>

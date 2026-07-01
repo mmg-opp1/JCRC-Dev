@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ReportType xmlns="http://soap.sforce.com/2006/04/metadata">
-    <label>Tag Assignments with Tag</label>
     <baseObject>Tag_Assignment__c</baseObject>
     <category>other</category>
     <deployed>true</deployed>
     <description>Tag Assignments with their Tag, Contact, and Account — list everyone carrying a given tag, grouped by category. JSI-122 / Jason Ott.</description>
+    <label>Tag Assignments with Tag</label>
     <sections>
         <columns>
             <checkedByDefault>true</checkedByDefault>

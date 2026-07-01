@@ -2,10 +2,11 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Tag_Category__c</fullName>
     <description>Tag category, surfaced from the related Tag for grouping/filtering reports by category. JSI-122.</description>
+    <externalId>false</externalId>
     <formula>TEXT(Tag__r.Category__c)</formula>
-    <formulaTreatBlanksAs>BlankAsBlank</formulaTreatBlanksAs>
     <label>Tag Category</label>
     <required>false</required>
+    <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>
 </CustomField>

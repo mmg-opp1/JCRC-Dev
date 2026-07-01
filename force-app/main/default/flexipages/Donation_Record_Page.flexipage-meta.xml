@@ -325,7 +325,7 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.npsp__Honoree_Name__c</fieldItem>
                 <identifier>f_trib_c0_npsp_Honoree_Name</identifier>
-                            <visibilityRule>
+                <visibilityRule>
                     <criteria>
                         <leftValue>{!Record.Honoree_Contact_Set__c}</leftValue>
                         <operator>EQUAL</operator>
@@ -396,7 +396,7 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.npsp__Notification_Recipient_Name__c</fieldItem>
                 <identifier>f_trib_c1_npsp_Notification_Recipient_Name</identifier>
-                            <visibilityRule>
+                <visibilityRule>
                     <criteria>
                         <leftValue>{!Record.Notification_Recipient_Contact_Set__c}</leftValue>
                         <operator>EQUAL</operator>

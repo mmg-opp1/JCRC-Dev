@@ -39,6 +39,16 @@
                 <default>false</default>
                 <label>Stock/Securities/Crypto</label>
             </value>
+            <value>
+                <fullName>DAF</fullName>
+                <default>false</default>
+                <label>DAF</label>
+            </value>
+            <value>
+                <fullName>Benevity</fullName>
+                <default>false</default>
+                <label>Benevity</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

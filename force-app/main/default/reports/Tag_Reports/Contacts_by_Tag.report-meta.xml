@@ -1,28 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Report xmlns="http://soap.sforce.com/2006/04/metadata">
-    <name>Contacts by Tag</name>
-    <description>Every contact carrying a tag, grouped by tag category then tag. Filter to a specific tag to see all contacts with it. JSI-122.</description>
-    <reportType>Tag_Assignments_with_Tag__c</reportType>
-    <format>Summary</format>
-    <groupingsDown>
-        <field>Tag_Assignment__c$Tag_Category__c</field>
-        <sortOrder>Asc</sortOrder>
-    </groupingsDown>
-    <groupingsDown>
-        <field>Tag_Assignment__c$Tag_Name__c</field>
-        <sortOrder>Asc</sortOrder>
-    </groupingsDown>
     <columns>
         <field>Tag_Assignment__c$Contact__c</field>
     </columns>
     <columns>
         <field>Tag_Assignment__c$CreatedDate</field>
     </columns>
+    <description>Every contact carrying a tag, grouped by tag category then tag. Filter to a specific tag to see all contacts with it. JSI-122.</description>
     <filter>
         <criteriaItems>
             <column>Tag_Assignment__c$Contact__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
             <operator>notEqual</operator>
             <value></value>
         </criteriaItems>
     </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Tag_Assignment__c$Tag_Category__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Tag_Assignment__c$Tag_Name__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Contacts by Tag</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Tag_Assignments_with_Tag__c</reportType>
+    <scope>user</scope>
+    <showDetails>false</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Tag_Assignment__c$CreatedDate</dateColumn>
+        <interval>INTERVAL_CURRENT</interval>
+    </timeFrameFilter>
 </Report>

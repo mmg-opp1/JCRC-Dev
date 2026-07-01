@@ -6,7 +6,7 @@
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Auto-calculated: gift Amount minus the Non-Deductible Amount.</inlineHelpText>
     <label>Tax-Deductible Amount</label>
-    <precision>16</precision>
+    <precision>18</precision>
     <required>false</required>
     <scale>2</scale>
     <type>Currency</type>

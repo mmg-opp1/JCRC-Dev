@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
-    <apiVersion>67.0</apiVersion>
     <actionCalls>
         <name>Resolve_Tribute_Contacts</name>
         <label>Resolve Tribute Contacts</label>
@@ -17,6 +16,8 @@
         </inputParameters>
         <nameSegment>TributeContactResolver</nameSegment>
     </actionCalls>
+    <apiVersion>67.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
     <description>JSI-89: after a tribute gift is saved with a honoree or notification-recipient name, resolve those text values to Contact lookups (match/create via TributeContactResolver). Author: Jason Ott.</description>
     <environments>Default</environments>
     <interviewLabel>Opportunity - Resolve Tribute Contacts {!$Flow.CurrentDateTime}</interviewLabel>

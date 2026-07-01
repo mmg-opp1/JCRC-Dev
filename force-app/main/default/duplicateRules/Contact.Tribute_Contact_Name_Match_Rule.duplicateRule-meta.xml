@@ -2,6 +2,7 @@
 <DuplicateRule xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <actionOnInsert>Allow</actionOnInsert>
     <actionOnUpdate>Allow</actionOnUpdate>
+    <alertText xsi:nil="true"/>
     <description>JSI-89: silent (report-only, never blocks/alerts) duplicate rule using the Tribute Contact Name Match rule so Datacloud.FindDuplicates can match Contacts by fuzzy name. Not intended for interactive dedupe. Author: Jason Ott.</description>
     <duplicateRuleFilter xsi:nil="true"/>
     <duplicateRuleMatchRules>

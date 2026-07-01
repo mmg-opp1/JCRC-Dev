@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Stock_Valuation_Method__c</fullName>
-    <description>How the securities gift's fair market value was determined. IRS Pub 561: publicly-traded stock is valued at the mean of the high/low quoted price on the gift date. JSI-84 / Jason Ott.</description>
+    <description>How the securities gift&apos;s fair market value was determined. IRS Pub 561: publicly-traded stock is valued at the mean of the high/low quoted price on the gift date. JSI-84 / Jason Ott.</description>
     <inlineHelpText>How the gift value was determined. Publicly-traded stock: average of the high and low price on the gift date (IRS Pub 561).</inlineHelpText>
     <label>Valuation Method</label>
     <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
     <type>Picklist</type>
     <valueSet>
         <restricted>true</restricted>

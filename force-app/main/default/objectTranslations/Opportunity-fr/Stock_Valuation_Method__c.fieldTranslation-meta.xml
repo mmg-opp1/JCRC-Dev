@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- How the gift value was determined. Publicly-traded stock: average of the high and low price on the gift date (IRS Pub 561). --></help>
+    <label><!-- Valuation Method --></label>
+    <name>Stock_Valuation_Method__c</name>
+    <picklistValues>
+        <masterLabel>Average of High and Low (Publicly Traded)</masterLabel>
+        <translation><!-- Average of High and Low (Publicly Traded) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Closing Price</masterLabel>
+        <translation><!-- Closing Price --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Donor-Declared</masterLabel>
+        <translation><!-- Donor-Declared --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Other</masterLabel>
+        <translation><!-- Other --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Qualified Appraisal</masterLabel>
+        <translation><!-- Qualified Appraisal --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Auto-checked when the tribute contact matcher found multiple possible Contacts. Review and set the Honoree/Notification Recipient lookup manually, then uncheck. --></help>
+    <label><!-- Tribute Contact Needs Review --></label>
+    <name>Tribute_Contact_Needs_Review__c</name>
+</CustomFieldTranslation>

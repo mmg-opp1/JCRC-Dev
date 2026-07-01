@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Report xmlns="http://soap.sforce.com/2006/04/metadata">
-    <name>Tributes To Be Notified</name>
-    <description>Work queue of tribute/memorial gifts whose notification is still pending (Status = To Be Notified), excluding Do Not Notify. Doubles as the data source for tribute notification letters. JSI-89 / Jason Ott.</description>
-    <reportType>Opportunity</reportType>
-    <format>Tabular</format>
     <columns>
         <field>OPPORTUNITY_NAME</field>
     </columns>
@@ -32,24 +28,54 @@
         <field>CLOSE_DATE</field>
     </columns>
     <columns>
-        <field>AMOUNT</field>
         <aggregateTypes>Sum</aggregateTypes>
+        <field>AMOUNT</field>
     </columns>
+    <description>Work queue of tribute/memorial gifts whose notification is still pending (Status = To Be Notified), excluding Do Not Notify. Doubles as the data source for tribute notification letters. JSI-89 / Jason Ott.</description>
     <filter>
         <criteriaItems>
             <column>Opportunity.npsp__Tribute_Type__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
             <operator>notEqual</operator>
             <value></value>
         </criteriaItems>
         <criteriaItems>
             <column>Opportunity.npsp__Tribute_Notification_Status__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
             <operator>equals</operator>
             <value>To Be Notified</value>
         </criteriaItems>
         <criteriaItems>
             <column>Opportunity.npsp__Notification_Preference__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
             <operator>notEqual</operator>
             <value>Do Not Notify</value>
         </criteriaItems>
     </filter>
+    <format>Tabular</format>
+    <name>Tributes To Be Notified</name>
+    <params>
+        <name>open</name>
+        <value>all</value>
+    </params>
+    <params>
+        <name>probability</name>
+        <value>&gt;0</value>
+    </params>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Opportunity</reportType>
+    <scope>organization</scope>
+    <showDetails>false</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CLOSE_DATE</dateColumn>
+        <interval>INTERVAL_CURRENT</interval>
+    </timeFrameFilter>
 </Report>
