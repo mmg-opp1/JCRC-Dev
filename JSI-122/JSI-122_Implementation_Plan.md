@@ -1,7 +1,12 @@
 # JSI-122 — Implementation Game Plan: Tag Management
 
-> **Status:** 🟡 PLANNED — not yet built. Design forks resolved 2026-06-24 (see `JSI-122_User_Story.md`).
-> **Author:** Jason Ott · **Date:** 2026-06-24 (rev. 1)
+> **Status:** ✅ BUILT & DEPLOYED to JCRC-Dev (all 5 phases) · committed to `main` (`c4144a1`,
+> `9deaa61`) and **pushed to origin** 2026-06-25. Full Build Log in §14.
+> **⏳ Remaining (UI, by Jason — not in source metadata):** (1) place the **Tag Manager** LWC on the
+> Contact & Account Lightning record pages in App Builder; (2) assign the **`Tag_Management`**
+> permission set to taggers. Optional: seed starter tags; write the apply/remove + admin retire/merge
+> runbook (phase 7, deferred).
+> **Author:** Jason Ott · **Date:** 2026-06-25 (rev. 2 — build complete) · forks resolved 2026-06-24.
 > **Related:** `JSI-122_User_Story.md`, `StorySpecs.MD`
 > **Jira:** https://missionmattersgroup.atlassian.net/browse/JSI-122 (Epic JSI-9 — Contact Management)
 > **Org:** JCRC-Dev sandbox · NPSP 3.237 · API v67.0

@@ -277,20 +277,17 @@ text; OCR Role picklist = stock Sales values (gap); related lists `npe4__Relatio
   Giving — Hard, Soft & Household** (native rollups `npo02__TotalOppAmount__c` /
   `npo02__Soft_Credit_Total__c` / `npo02__OppAmount{This,Last}YearHH__c`).
 
-**⏳ Jason — UI steps (cannot be done via metadata / NPSP-managed):**
-1. **OCR Role picklist** — Setup → *Contact Roles on Opportunities* → add **Donor** (default),
-   **Household Member, Soft Credit, Matched Donor, Honoree, Notification Recipient, Grant Manager,
-   Workplace Giving, Solicitor**. *(Metadata insert is blocked: "insert isn't supported for the
-   standard value set OpportunityContactRole.")* The Matched Donor flow already works (picklist is
-   unrestricted) but add the value so it's officially selectable.
-2. **Payment Method** — add **DAF** and **Benevity** (managed `npe01` field; UI per JSI-80).
-3. **Verify** the soft-credit **Customizable Rollup Filter Group** includes roles **Soft Credit;
-   Household Member; Matched Donor** (so they count). Confirm **Household Member auto-OCR** is ON
-   (NPSP Settings → Donations | Contact Roles).
-4. **Assign** the new **Relationship** & **Affiliation** record pages (Lightning page Activation);
-   **confirm `Contact_Record_Page` is the active Contact page** (the tab was added there; if
-   `Contact_Record_Page_Three_Column` is active instead, say so and I'll move it).
+**✅ Jason — UI steps (all DONE 2026-06-25):**
+1. ✅ **OCR Role picklist** set up (Setup → *Contact Roles on Opportunities*). *(Metadata insert is
+   blocked: "insert isn't supported for the standard value set OpportunityContactRole" — UI only.)*
+2. ✅ **Payment Method** — DAF + Benevity added.
+3. ✅ **Filter groups** confirmed accurate (soft-credit roles roll up correctly).
+4. ✅ **Pages assigned**; **`Contact_Record_Page` confirmed the active Contact page**. Contact page
+   **re-pulled from org** after Jason's UI edits — Relationships tab + both related lists intact.
 
-**Open / deferred:** Q7 (combined Hard+Soft total → optional single Household *Account (Contact
-Soft Credit)* rollup); optional **DAF Sponsor** reference field (CLI, on request). **Not committed
-to git.**
+**Committed & pushed:** `main` `26e05d4` (2026-06-25) — flow, 2 record pages, Contact page, reports,
+docs.
+
+**Open / deferred (only remaining item):** **Q7** — combined "Total Giving (Hard + Soft)" household
+rollup → one optional *Account (Contact Soft Credit)* Customizable Rollup, **pending the client**.
+Optional **DAF Sponsor** reference field available on request (CLI).
