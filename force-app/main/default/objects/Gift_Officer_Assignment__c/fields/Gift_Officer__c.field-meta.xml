@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Gift_Officer__c</fullName>
+    <description>The internal staff user assigned to this donor. Restrict delete (deactivate users rather than delete). JSI-90 / Jason Ott.</description>
+    <label>Gift Officer</label>
+    <referenceTo>User</referenceTo>
+    <relationshipLabel>Gift Officer Assignments</relationshipLabel>
+    <relationshipName>Gift_Officer_Assignments</relationshipName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <required>false</required>
+    <type>Lookup</type>
+</CustomField>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Annual_Giving_Summary__c</fullName>
+    <description>The donor's fiscal-year summary this allocation credits. Master-detail so hard/soft totals roll up to the correct year. JSI-90 / Jason Ott.</description>
+    <label>Annual Giving Summary</label>
+    <referenceTo>Annual_Giving_Summary__c</referenceTo>
+    <relationshipLabel>Gift Allocations</relationshipLabel>
+    <relationshipName>Gift_Allocations</relationshipName>
+    <reparentableMasterDetail>true</reparentableMasterDetail>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

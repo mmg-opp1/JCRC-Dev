@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Maximum_Amount__c</fullName>
+    <description>Exclusive upper bound (less-than, &lt;) of this level's yearly-giving range. Leave blank for the catch-all top tier. JSI-90 / Jason Ott.</description>
+    <inlineHelpText>Upper limit of this level (exclusive — a gift equal to this amount belongs to the next level up). Blank = no upper bound.</inlineHelpText>
+    <label>Maximum Amount</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <type>Currency</type>
+</CustomField>

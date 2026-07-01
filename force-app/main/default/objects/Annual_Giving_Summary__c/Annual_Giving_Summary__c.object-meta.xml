@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Per-donor, per-fiscal-year (July 1–June 30) accumulator of giving. Keeps a running hard-credit total, soft-credit total, combined total, the earned/effective/override level, and the date each level was achieved. Links to the prior year's summary to carry a level forward one year (inheritance). Populated by Gift Allocation rollups + level automation. JSI-90 Moves Management. Author: Jason Ott.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <label>Annual Giving Summary</label>
+    <nameField>
+        <displayFormat>AGS-{00000}</displayFormat>
+        <label>Annual Giving Summary Number</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Annual Giving Summaries</pluralLabel>
+    <sharingModel>ReadWrite</sharingModel>
+    <externalSharingModel>Private</externalSharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

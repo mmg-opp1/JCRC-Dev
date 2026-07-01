@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Minimum_Amount__c</fullName>
+    <description>Inclusive lower bound (greater-than-or-equal, &gt;=) of this level's yearly-giving range. Leave blank for the catch-all bottom tier. JSI-90 / Jason Ott.</description>
+    <inlineHelpText>Lowest yearly giving that qualifies for this level (inclusive). Blank = no lower bound.</inlineHelpText>
+    <label>Minimum Amount</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <type>Currency</type>
+</CustomField>

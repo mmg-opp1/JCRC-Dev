@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FY_Start__c</fullName>
+    <description>Start of the giving year this summary covers (July 1). Used to place a gift into the correct year's summary by Close Date. JSI-90 / Jason Ott.</description>
+    <label>FY Start</label>
+    <required>false</required>
+    <type>Date</type>
+</CustomField>

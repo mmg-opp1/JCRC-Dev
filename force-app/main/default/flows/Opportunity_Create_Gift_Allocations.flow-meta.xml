@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>67.0</apiVersion>
+    <actionCalls>
+        <name>Sync_Gift_Allocations</name>
+        <label>Sync Gift Allocations</label>
+        <locationX>176</locationX>
+        <locationY>134</locationY>
+        <actionName>GiftAllocationService</actionName>
+        <actionType>apex</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>opportunityId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>GiftAllocationService</nameSegment>
+    </actionCalls>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <description>JSI-90: reconcile an Opportunity's Gift Allocations to its current state (create/update/reparent/delete) and recompute the donor's giving level. Fires on create and when Stage, Amount, Close Date, Record Type, or Primary Contact changes — so amount edits, fiscal-year moves, donor changes, and un-winning all resync. In-Kind and non-won gifts resolve to zero allocations (removing any stale ones). Author: Jason Ott.</description>
+    <environments>Default</environments>
+    <interviewLabel>Opportunity - Sync Gift Allocations {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Opportunity - Sync Gift Allocations</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Sync_Gift_Allocations</targetReference>
+        </connector>
+        <filterFormula>OR(
+  ISNEW(),
+  ISCHANGED({!$Record.StageName}),
+  ISCHANGED({!$Record.Amount}),
+  ISCHANGED({!$Record.CloseDate}),
+  ISCHANGED({!$Record.RecordTypeId}),
+  ISCHANGED({!$Record.npsp__Primary_Contact__c})
+)</filterFormula>
+        <object>Opportunity</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

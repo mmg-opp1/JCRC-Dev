@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Date_Achieved_Senate__c</fullName>
+    <description>EXAMPLE level date field (per the "N date fields" design, D2). Close Date of the gift that pushed this donor's Total Giving over the Senate threshold this year. When a new level is added, an admin adds a matching Date_Achieved_&lt;Level&gt;__c field and extends the level automation. JSI-90 / Jason Ott.</description>
+    <inlineHelpText>Date the donor reached the Senate level this year (auto-stamped).</inlineHelpText>
+    <label>Date Achieved — Senate</label>
+    <required>false</required>
+    <type>Date</type>
+</CustomField>

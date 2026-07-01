@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Valid_Fiscal_Dates</fullName>
+    <active>true</active>
+    <description>When both are set, FY End must be after FY Start. JSI-90 / Jason Ott.</description>
+    <errorConditionFormula>AND(
+  NOT(ISBLANK(FY_Start__c)),
+  NOT(ISBLANK(FY_End__c)),
+  FY_End__c &lt;= FY_Start__c
+)</errorConditionFormula>
+    <errorDisplayField>FY_End__c</errorDisplayField>
+    <errorMessage>FY End must be after FY Start.</errorMessage>
+</ValidationRule>

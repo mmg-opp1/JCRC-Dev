@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Credit_Type__c</fullName>
+    <description>Whether this allocation is a Hard credit (the donor gave directly) or a Soft credit (influence/household/matched). Both accumulate on the summary; qualification uses the combined total. JSI-90 / Jason Ott.</description>
+    <label>Credit Type</label>
+    <required>true</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Hard</fullName>
+                <default>true</default>
+                <label>Hard</label>
+            </value>
+            <value>
+                <fullName>Soft</fullName>
+                <default>false</default>
+                <label>Soft</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

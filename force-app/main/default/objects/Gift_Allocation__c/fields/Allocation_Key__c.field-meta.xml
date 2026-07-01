@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Allocation_Key__c</fullName>
+    <description>Backstop against crediting the same gift to the same donor twice = Opportunity Id + '|' + Contact Id + '|' + Credit Type. Unique, case-insensitive. Stamped by the allocation automation / a before-save flow. JSI-90 / Jason Ott.</description>
+    <caseSensitive>false</caseSensitive>
+    <externalId>true</externalId>
+    <label>Allocation Key</label>
+    <length>255</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>67.0</apiVersion>
+    <actionCalls>
+        <name>Remove_Gift_Allocations</name>
+        <label>Remove Gift Allocations</label>
+        <locationX>176</locationX>
+        <locationY>134</locationY>
+        <actionName>GiftAllocationService</actionName>
+        <actionType>apex</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>opportunityId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>isDelete</name>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputParameters>
+        <nameSegment>GiftAllocationService</nameSegment>
+    </actionCalls>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <description>JSI-90: before an Opportunity is deleted, remove its Gift Allocations (so the gift is no longer credited toward donor giving levels) and recompute the affected Annual Giving Summaries. Runs before delete so the allocations are gone before the gift is removed. Author: Jason Ott.</description>
+    <environments>Default</environments>
+    <interviewLabel>Opportunity - Remove Gift Allocations {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Opportunity - Remove Gift Allocations</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Remove_Gift_Allocations</targetReference>
+        </connector>
+        <object>Opportunity</object>
+        <recordTriggerType>Delete</recordTriggerType>
+        <triggerType>RecordBeforeDelete</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

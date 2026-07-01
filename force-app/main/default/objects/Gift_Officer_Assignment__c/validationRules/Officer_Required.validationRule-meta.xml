@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Officer_Required</fullName>
+    <active>true</active>
+    <description>A gift-officer assignment must name a Gift Officer (User). Enforced by rule because a lookup to User cannot be a required foreign key. JSI-90 / Jason Ott.</description>
+    <errorConditionFormula>ISBLANK(Gift_Officer__c)</errorConditionFormula>
+    <errorDisplayField>Gift_Officer__c</errorDisplayField>
+    <errorMessage>A Gift Officer is required.</errorMessage>
+</ValidationRule>

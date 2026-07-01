@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Earned_Level__c</fullName>
+    <description>The Giving Level this year's Total Giving qualifies for on its own (before inheritance/override). Set by level automation. JSI-90 / Jason Ott.</description>
+    <label>Earned Level</label>
+    <referenceTo>Giving_Level__c</referenceTo>
+    <relationshipLabel>Summaries (Earned Level)</relationshipLabel>
+    <relationshipName>Summaries_Earned_Level</relationshipName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <required>false</required>
+    <type>Lookup</type>
+</CustomField>

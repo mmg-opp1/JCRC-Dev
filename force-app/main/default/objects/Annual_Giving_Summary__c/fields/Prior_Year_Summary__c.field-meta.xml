@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Prior_Year_Summary__c</fullName>
+    <description>This donor's summary for the previous giving year. Enables level inheritance — a level earned last year is held for this year (effective level = higher of this year's earned and last year's effective). JSI-90 / Jason Ott.</description>
+    <label>Prior Year Summary</label>
+    <referenceTo>Annual_Giving_Summary__c</referenceTo>
+    <relationshipLabel>Next Year Summaries</relationshipLabel>
+    <relationshipName>Next_Year_Summaries</relationshipName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <required>false</required>
+    <type>Lookup</type>
+</CustomField>

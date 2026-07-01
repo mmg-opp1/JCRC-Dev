@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Engagement_Plan_Template__c</fullName>
+    <description>Optional NPSP Engagement Plan Template to launch for a donor when they reach this level — ties the giving-levels engine to engagement planning. JSI-90 / Jason Ott.</description>
+    <inlineHelpText>Optional: engagement plan to start when a donor reaches this level.</inlineHelpText>
+    <label>Engagement Plan Template</label>
+    <referenceTo>npsp__Engagement_Plan_Template__c</referenceTo>
+    <relationshipLabel>Giving Levels</relationshipLabel>
+    <relationshipName>Giving_Levels</relationshipName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <required>false</required>
+    <type>Lookup</type>
+</CustomField>

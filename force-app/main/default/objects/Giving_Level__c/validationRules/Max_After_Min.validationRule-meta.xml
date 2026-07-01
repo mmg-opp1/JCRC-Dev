@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Max_After_Min</fullName>
+    <active>true</active>
+    <description>When both bounds are set, Maximum must be greater than Minimum. JSI-90 / Jason Ott.</description>
+    <errorConditionFormula>AND(
+  NOT(ISBLANK(Minimum_Amount__c)),
+  NOT(ISBLANK(Maximum_Amount__c)),
+  Maximum_Amount__c &lt;= Minimum_Amount__c
+)</errorConditionFormula>
+    <errorDisplayField>Maximum_Amount__c</errorDisplayField>
+    <errorMessage>Maximum Amount must be greater than Minimum Amount.</errorMessage>
+</ValidationRule>

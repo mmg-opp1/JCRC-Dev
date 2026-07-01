@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Junction linking an Opportunity (gift) to a donor's Annual Giving Summary, carrying the credited Amount and a Credit Type (Hard or Soft). Master-detail to the Annual Giving Summary so hard/soft totals roll up to the correct fiscal-year record — no fiscal-year date math needed. JSI-90 Moves Management. Author: Jason Ott.</description>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <label>Gift Allocation</label>
+    <nameField>
+        <displayFormat>GA-{00000}</displayFormat>
+        <label>Gift Allocation Number</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Gift Allocations</pluralLabel>
+    <sharingModel>ControlledByParent</sharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

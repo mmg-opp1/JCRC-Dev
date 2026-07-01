@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FY_End__c</fullName>
+    <description>End of the giving year this summary covers (June 30). JSI-90 / Jason Ott.</description>
+    <label>FY End</label>
+    <required>false</required>
+    <type>Date</type>
+</CustomField>

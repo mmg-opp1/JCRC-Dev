@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Junction assigning an internal staff User to a Contact (donor) as a gift officer, with a Role (Primary Gift Officer, Backup, Solicitor, Committee) so a donor can have multiple relationships. Powers portfolio views. JSI-90 Moves Management. Author: Jason Ott.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <label>Gift Officer Assignment</label>
+    <nameField>
+        <displayFormat>GOA-{0000}</displayFormat>
+        <label>Gift Officer Assignment Number</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Gift Officer Assignments</pluralLabel>
+    <sharingModel>ReadWrite</sharingModel>
+    <externalSharingModel>Private</externalSharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Contact__c</fullName>
+    <description>The donor being assigned to a gift officer. Restrict delete to protect the assignment. JSI-90 / Jason Ott.</description>
+    <label>Contact</label>
+    <referenceTo>Contact</referenceTo>
+    <relationshipLabel>Gift Officer Assignments</relationshipLabel>
+    <relationshipName>Gift_Officer_Assignments</relationshipName>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <required>true</required>
+    <type>Lookup</type>
+</CustomField>

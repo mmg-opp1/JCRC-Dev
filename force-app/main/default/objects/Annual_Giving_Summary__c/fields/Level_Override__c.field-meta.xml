@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Level_Override__c</fullName>
+    <description>Manual level override for this year only. When set, it (not the Effective Level) is the donor's displayed level. Overrides do NOT carry forward — next year's summary inherits the earned/effective level, not the override. JSI-90 / Jason Ott.</description>
+    <inlineHelpText>Manually grant a level for this year. Does not carry into next year.</inlineHelpText>
+    <label>Level Override</label>
+    <referenceTo>Giving_Level__c</referenceTo>
+    <relationshipLabel>Summaries (Override Level)</relationshipLabel>
+    <relationshipName>Summaries_Override_Level</relationshipName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <required>false</required>
+    <type>Lookup</type>
+</CustomField>

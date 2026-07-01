@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Opportunity__c</fullName>
+    <description>The gift (Opportunity) being credited. Restrict delete so an Opportunity with allocations cannot be removed out from under the giving totals. JSI-90 / Jason Ott.</description>
+    <label>Opportunity</label>
+    <referenceTo>Opportunity</referenceTo>
+    <relationshipLabel>Gift Allocations</relationshipLabel>
+    <relationshipName>Gift_Allocations</relationshipName>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <required>true</required>
+    <type>Lookup</type>
+</CustomField>

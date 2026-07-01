@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Effective_Level__c</fullName>
+    <description>The level the donor actually holds this year after inheritance — the higher rank of Earned Level and the prior year's Effective Level. Set by level automation. Does not include manual overrides (see Level Override / Level Display). JSI-90 / Jason Ott.</description>
+    <label>Effective Level</label>
+    <referenceTo>Giving_Level__c</referenceTo>
+    <relationshipLabel>Summaries (Effective Level)</relationshipLabel>
+    <relationshipName>Summaries_Effective_Level</relationshipName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <required>false</required>
+    <type>Lookup</type>
+</CustomField>

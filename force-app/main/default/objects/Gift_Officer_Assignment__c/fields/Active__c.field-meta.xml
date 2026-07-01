@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Active__c</fullName>
+    <defaultValue>true</defaultValue>
+    <description>Whether this gift-officer assignment is currently active. Deactivate to end an assignment without deleting its history. JSI-90 / Jason Ott.</description>
+    <label>Active</label>
+    <type>Checkbox</type>
+</CustomField>

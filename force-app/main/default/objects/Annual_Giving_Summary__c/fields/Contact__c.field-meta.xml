@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Contact__c</fullName>
+    <description>The donor this fiscal-year summary belongs to. Restrict delete so a contact with giving history cannot be removed. JSI-90 / Jason Ott.</description>
+    <label>Contact</label>
+    <referenceTo>Contact</referenceTo>
+    <relationshipLabel>Annual Giving Summaries</relationshipLabel>
+    <relationshipName>Annual_Giving_Summaries</relationshipName>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <required>true</required>
+    <type>Lookup</type>
+</CustomField>
