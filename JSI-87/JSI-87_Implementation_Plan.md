@@ -256,8 +256,12 @@
   Donation $50→Email/Auto; Grant→fallback Print/Ack_General). **5 record-triggered-flow gotchas hit & fixed
   → memory** (loop-back connector; IsWon not usable in entry; NotEqualTo excludes nulls; RecordType.Dev
   Name doesn't resolve → Get Records; CMDT sort unreliable → best-match-by-priority).
-- **STILL REMAINING Phase 1:** email-send + approval-send flows (**need OWEA — Jason**); 5 email templates;
-  2 reports + folder (pending queue + SLA). **Jason UI:** create+verify OWEA `development@jcrcny.org`;
+- **REPORTS BUILT & DEPLOYED (2026-07-08):** folder `Acknowledgment Reports` + **Gifts Pending
+  Acknowledgment** (Summary, grouped by owner `FULL_NAME`, status=To Be Acknowledged, shows channel/
+  template/send-mode/approved/age) + **Acknowledgment SLA Breach (Over 48h)** (Tabular, status=To Be
+  Acknowledged AND Age_Business_Days > 2). Deployed 3/3 (folder+reports together). Gotchas: owner grouping
+  token = `FULL_NAME` (NOT `OPPORTUNITY_OWNER` — invalid for Opportunity report type); report Name max 40 chars.
+- **STILL REMAINING Phase 1:** email-send + approval-send flows (**need OWEA — Jason**); 5 email templates. **Jason UI:** create+verify OWEA `development@jcrcny.org`;
   deactivate the 2 native `Email Acknowledgment…` picklist values; place VF page + native/new fields on gift
   record pages; assign FLS already done.
 - **NOT yet committed to git.** Working tree has heavy non-JSI-87 `customMetadata` churn — stage ONLY JSI-87
