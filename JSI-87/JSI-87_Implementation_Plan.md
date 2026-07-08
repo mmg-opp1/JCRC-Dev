@@ -275,7 +275,24 @@
   (with `BlankAsZero`, ISBLANK() always returns false so the freeze never triggered). Verified: 2 while
   pending, frozen at 1 once acknowledged on the next business day.
 - **CMDT `Template_Flow__c` relabeled "Template Key"** (it's a decision key for the single flow, not a flow name).
-- **STILL REMAINING Phase 1:** email-send + approval-send flows (**need OWEA — Jason**); 5 email templates. **Jason UI:** create+verify OWEA `development@jcrcny.org`;
+### 2026-07-08 — Email path BUILT & VERIFIED
+- **`Opportunity_Send_Acknowledgment_Email`** (after-save, entry Channel=Email): Get primary Contact →
+  **Check Send** (`status=To Be Acknowledged AND (Send_Mode=Auto OR Approved=true) AND Contact.Email not
+  null`) → **Pick Template** (keys off `Acknowledgment_Template__c`) → sets subject + rich body from 5 in-flow
+  **Text Templates** (Major/Recurring/In-Kind/Tribute/General, placeholder content, merge fields) → **Send
+  Email** (`emailSimple`) from the **OWEA `development@jcrcny.org`** to the contact → **stamps Acknowledged
+  + date + sent-by**. Handles both the auto tier and the approval tier (fires when Approved is checked).
+- **Router now also stamps `npsp__Acknowledgment_Status__c = "To Be Acknowledged"`** when it classifies —
+  so new won gifts appear in the pending report AND become eligible for the email/approval logic.
+- **VERIFIED end-to-end** (anon Apex, savepoint): small Donation → router set Email/Auto → email flow sent →
+  Status=Acknowledged, Date stamped. **Gotchas:** `emailSimple` requires `emailBody` even when using
+  `richTextBody`+`sendRichBody`; **the OWEA must be VERIFIED** — an unverified OWEA throws "Org-Wide Email
+  provided is not valid" (confirmed the flow works with current-user sender; OWEA sender restored for once verified).
+- **⏳ JASON:** **verify the OWEA** `development@jcrcny.org` (click the confirmation email) so the OWEA send
+  works; confirm email **deliverability = All email** in the sandbox.
+- **Email "templates" are in-flow Text Templates** (consistent with the letter flow). If you want standalone,
+  separately-editable EmailTemplate records instead, that needs a small Apex sender — say the word.
+- **PHASE 1 COMPLETE** apart from the OWEA verification + client-provided real content/rules. **Jason UI:** create+verify OWEA `development@jcrcny.org`;
   deactivate the 2 native `Email Acknowledgment…` picklist values; place VF page + native/new fields on gift
   record pages; assign FLS already done.
 - **NOT yet committed to git.** Working tree has heavy non-JSI-87 `customMetadata` churn — stage ONLY JSI-87

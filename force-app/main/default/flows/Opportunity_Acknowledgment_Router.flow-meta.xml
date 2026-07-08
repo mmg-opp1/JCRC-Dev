@@ -65,6 +65,12 @@
             </value>
         </inputAssignments>
         <inputAssignments>
+            <field>npsp__Acknowledgment_Status__c</field>
+            <value>
+                <stringValue>To Be Acknowledged</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
             <field>Acknowledgment_Send_Mode__c</field>
             <value>
                 <elementReference>varMode</elementReference>
