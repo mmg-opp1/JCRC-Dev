@@ -200,8 +200,13 @@ below, `enableReports/Search/BulkApi=true`, AutoNumber name on junction/log obje
 ## 5. Security & FLS
 
 - New fields deployed **with FLS** (or invisible to admins, the Apex compiler, and reports — JSI-122
-  gotcha). Prefer a **`JSI-90 Moves Management` permission set** (object + FLS + tab + class access)
-  over profile edits (this org's full profiles aren't source-deployable — JSI-86 gotcha).
+  gotcha). **Security is granted at the PROFILE level, not via a permission set** (JCRC org standard —
+  the interim `JSI_90_Moves_Management` perm set was retired 2026-07-08). Object CRUD + FLS + class
+  access to `GiftAllocationService`/`AnnualGivingSummaryRollover` are on **Admin (System Administrator)
+  + JCRC - Development / Fundraising / Marketing / Volunteering**. Because this org's full profiles
+  aren't source-deployable (JSI-86 gotcha — invalid tab settings), the grants were deployed via an
+  **additive minimal-profile deploy** (stripped `<Profile>` files carrying only the new
+  objectPermissions/fieldPermissions/classAccesses) and documented in the full repo profile files.
 - Sharing: config objects (`Giving_Level__c`) public read-only; `Annual_Giving_Summary__c` /
   `Gift_Allocation__c` Public Read/Write initially (revisit if confidential-notes Q10 lands). Apex
   `with sharing` + `USER_MODE`.
@@ -224,7 +229,7 @@ Assignments by officer (portfolio), Engagement Plan tasks by due date (overdue q
 
 **Phase 1 — Custom object model (B + C).** `Giving_Level__c`, `Annual_Giving_Summary__c`,
 `Level_Achievement__c`, `Gift_Allocation__c`, `Gift_Officer_Assignment__c` + fields + validation
-(dedupe keys, XOR where needed) + FLS permission set. Deploy, verify via anon Apex in a savepoint.
+(dedupe keys, XOR where needed) + profile FLS (see §5 — perm set retired). Deploy, verify via anon Apex in a savepoint.
 
 **Phase 2 — Level config + rollups.** Seed example `Giving_Level__c` records (Congressional/Senate +
 base). Configure DLRS/Customizable Rollups for hard/soft totals. Verify totals.
@@ -388,11 +393,19 @@ pattern reuse from JSI-89**, DLRS rollup configs (Jason), 1 permission set, 3–
   three related lists — **Gift Officer Assignments**, **Annual Giving Summaries**, and **Engagement
   Plans** (the EP child relationship on Contact is `npsp__Action_Plans__r`). (4) **Scheduled the July-1
   rollover** (`CronTrigger` "JSI-90 Annual Giving Summary Rollover", `0 0 0 1 7 ?`, WAITING → next fire
-  2027-07-01). **⏳ HANDED TO JASON (App Builder / NPSP Settings — his domain):** assign the Annual
-  Giving Summary record page as the object's org default (Activation); add Engagement Plans + Gift
-  Allocations related lists to the **Major Gift** Opportunity page; enable **Engagement Plans** in NPSP
-  Settings if the tab/feature isn't active for users; **assign the `JSI-90 Moves Management` perm set**
-  to moves-management users. **Story-level remaining:** client to finalize level names/thresholds and
-  Engagement Plan content; the deferred **D9 moves-management stage model** (major gifts vs donors) and
-  **D8 confidential notes**.
+  2027-07-01). **✅ DONE BY JASON (App Builder):** Annual Giving Summary record page set as org default;
+  Gift Allocations + Engagement Plans related lists placed on the gift pages (committed `944dc15`);
+  Engagement Plans already active. **Story-level remaining:** client to finalize level names/thresholds
+  and Engagement Plan content; the deferred **D9 moves-management stage model** (major gifts vs donors)
+  and **D8 confidential notes**.
+- 2026-07-08 — **SECURITY MIGRATED FROM PERM SET → PROFILES (JCRC org standard).** Moved all grants
+  off the interim `JSI_90_Moves_Management` perm set onto **Admin (System Administrator) + JCRC -
+  Development / Fundraising / Marketing / Volunteering**: 4 objectPermissions + 25 fieldPermissions
+  (verbatim from the perm set, rollups/formulas read-only) + classAccesses for `GiftAllocationService`
+  and `AnnualGivingSummaryRollover`. Deployed via the **additive minimal-profile technique** (JSI-86
+  gotcha — full profiles aren't source-deployable), then documented in the full repo profile files
+  (4 objects + 25 fields + 2 classes each; XML validated). **Verified in org:** 20 object perms, 125
+  FLS (25×5), 10 class accesses. Unassigned the perm set from the admin user and **deleted it from the
+  org + repo** (`sf project delete source`; org query returns 0). No more perm set to assign — profile
+  membership grants access automatically.
 </content>
