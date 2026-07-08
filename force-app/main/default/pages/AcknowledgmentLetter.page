@@ -21,6 +21,14 @@
         @media print {
             .noprint { display: none !important; }
             body { padding: 0; }
+            /* Hide the embedded flow navigation footer (the Finish button) when printing */
+            .slds-docked-form-footer,
+            .slds-modal__footer,
+            .flowruntimeFooter,
+            .actionsCancel, .actionsFinish, .actionsNext, .actionsPrevious,
+            lightning-flow footer,
+            [class*="footer"] button,
+            #flowContainer button { display: none !important; }
         }
     </style>
 </head>
@@ -30,8 +38,27 @@
     </div>
     <div id="flowContainer"></div>
     <script>
+    //<![CDATA[
         var flowName = "{!JSENCODE($CurrentPage.parameters.flow)}";
-        if (!flowName) { flowName = "Ack_General"; }
+        if (!flowName) { flowName = "Acknowledgment_Letter"; }
+        // Belt-and-suspenders: also hide the flow footer via JS just before printing,
+        // walking shadow roots (in case the footer is rendered inside shadow DOM).
+        window.addEventListener('beforeprint', function() {
+            var hideFooters = function(root) {
+                try {
+                    root.querySelectorAll('button, [class*="footer"], footer').forEach(function(el) {
+                        var t = (el.textContent || '').toLowerCase();
+                        if (el.tagName === 'BUTTON' || t.indexOf('finish') > -1 || t.indexOf('acknowledged') > -1) {
+                            el.style.setProperty('display', 'none', 'important');
+                        }
+                    });
+                    root.querySelectorAll('*').forEach(function(el) {
+                        if (el.shadowRoot) { hideFooters(el.shadowRoot); }
+                    });
+                } catch (e) {}
+            };
+            hideFooters(document);
+        });
         var recId = "{!JSENCODE(Opportunity.Id)}";
         $Lightning.use("c:AckLetterOut", function() {
             $Lightning.createComponent(
@@ -46,6 +73,7 @@
                 }
             );
         });
+    //]]>
     </script>
 </body>
 </html>

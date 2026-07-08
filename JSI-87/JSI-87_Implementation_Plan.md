@@ -261,6 +261,20 @@
   template/send-mode/approved/age) + **Acknowledgment SLA Breach (Over 48h)** (Tabular, status=To Be
   Acknowledged AND Age_Business_Days > 2). Deployed 3/3 (folder+reports together). Gotchas: owner grouping
   token = `FULL_NAME` (NOT `OPPORTUNITY_OWNER` — invalid for Opportunity report type); report Name max 40 chars.
+### 2026-07-08 — Rev after Jason feedback
+- **Consolidated 5 letter flows → ONE `Acknowledgment_Letter` flow** (per the original intent — my split into
+  5 was wrong). Internal **Pick Template** decision keys off `Acknowledgment_Template__c` (set by the router)
+  → renders Major / Recurring / In-Kind / Tribute / General screen → stamps Acknowledged + date + sent-by on
+  finish. VF page now defaults to this one flow. The 5 old flows (`Ack_*`) **deactivated** in org (API won't
+  delete flows here — Jason can hard-delete in Setup) and **removed from repo**.
+- **Print fix:** VF page now hides the flow footer (Finish button) on print via `@media print` CSS +
+  a `beforeprint` JS that walks shadow roots. **VF gotcha:** inline JS operators/`&` break the page XML —
+  wrap script in `//<![CDATA[ … //]]>` and never put a bare `&` in a CSS/JS comment.
+- **Age formula now FREEZES on acknowledgment** (Jason's Q): end date = Acknowledgment Date if set, else
+  TODAY() → becomes "business days to acknowledge." **Gotcha:** required `formulaTreatBlanksAs=BlankAsBlank`
+  (with `BlankAsZero`, ISBLANK() always returns false so the freeze never triggered). Verified: 2 while
+  pending, frozen at 1 once acknowledged on the next business day.
+- **CMDT `Template_Flow__c` relabeled "Template Key"** (it's a decision key for the single flow, not a flow name).
 - **STILL REMAINING Phase 1:** email-send + approval-send flows (**need OWEA — Jason**); 5 email templates. **Jason UI:** create+verify OWEA `development@jcrcny.org`;
   deactivate the 2 native `Email Acknowledgment…` picklist values; place VF page + native/new fields on gift
   record pages; assign FLS already done.
