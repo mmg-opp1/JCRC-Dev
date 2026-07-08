@@ -711,6 +711,24 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>columns</name>
+                    <value>Facet_ackwrap_mgt</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Acknowledgement Information</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:fieldSection</componentName>
+                <identifier>fs_ack_mgt</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>columns</name>
                     <value>Facet_sysinfo_cols</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -1157,6 +1175,24 @@
                 <identifier>relatedListsTab</identifier>
             </componentInstance>
         </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>active</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet_ackvf_mgt</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Acknowledgement</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+                <identifier>acktab_mgt</identifier>
+            </componentInstance>
+        </itemInstances>
         <name>Facet-tabs</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -1282,6 +1318,184 @@
             </componentInstance>
         </itemInstances>
         <name>Facet_tax_cols</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.npsp__Acknowledgment_Status__c</fieldItem>
+                <identifier>ackf_mgt_status</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Acknowledgment_Channel__c</fieldItem>
+                <identifier>ackf_mgt_channel</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.npsp__Acknowledgment_Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>To Be Acknowledged</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Acknowledgment_Send_Mode__c</fieldItem>
+                <identifier>ackf_mgt_sendmode</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.npsp__Acknowledgment_Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>To Be Acknowledged</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Acknowledgment_Template__c</fieldItem>
+                <identifier>ackf_mgt_template</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.npsp__Acknowledgment_Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>To Be Acknowledged</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Acknowledgment_Age_Business_Days__c</fieldItem>
+                <identifier>ackf_mgt_age</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.npsp__Acknowledgment_Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>To Be Acknowledged</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Acknowledgment_Approved__c</fieldItem>
+                <identifier>ackf_mgt_approved</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.npsp__Acknowledgment_Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>To Be Acknowledged</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Acknowledgment_Send_Mode__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Approval-Gated</rightValue>
+                    </criteria>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.npsp__Acknowledgment_Date__c</fieldItem>
+                <identifier>ackf_mgt_date</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.npsp__Acknowledgment_Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Acknowledged</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Acknowledgment_Sent_By__c</fieldItem>
+                <identifier>ackf_mgt_sentby</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.npsp__Acknowledgment_Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Acknowledged</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet_ackfields_mgt</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet_ackfields_mgt</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>ackcol_mgt</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet_ackwrap_mgt</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>height</name>
+                    <value>600</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>pageName</name>
+                    <value>AcknowledgmentLetter</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showLabel</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:visualforcePage</componentName>
+                <identifier>ackvf_mgt</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet_ackvf_mgt</name>
         <type>Facet</type>
     </flexiPageRegions>
     <masterLabel>Matching Gift Record Page</masterLabel>
