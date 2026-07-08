@@ -290,9 +290,21 @@
   provided is not valid" (confirmed the flow works with current-user sender; OWEA sender restored for once verified).
 - **⏳ JASON:** **verify the OWEA** `development@jcrcny.org` (click the confirmation email) so the OWEA send
   works; confirm email **deliverability = All email** in the sandbox.
-- **Email "templates" are in-flow Text Templates** (consistent with the letter flow). If you want standalone,
-  separately-editable EmailTemplate records instead, that needs a small Apex sender — say the word.
-- **PHASE 1 COMPLETE** apart from the OWEA verification + client-provided real content/rules. **Jason UI:** create+verify OWEA `development@jcrcny.org`;
+### 2026-07-08 — Email uses REAL EmailTemplate records (corrected per Jason)
+- **Correction:** the `emailSimple` (Send Email) flow action DOES send template records via its
+  **`emailTemplateId`** input (its own error even says so). Rebuilt the email path to use **5 classic
+  `EmailTemplate` records** (`Ack_Email_General / MajorGift / Recurring / InKind / Tribute`, type=custom HTML,
+  merge fields `{!Contact.…}` / `{!Opportunity.…}`, in `email/unfiled$public/`).
+- **`Opportunity_Send_Acknowledgment_Email` rewritten:** Get Contact → **Get EmailTemplate by DeveloperName =
+  `Acknowledgment_Template__c`** → Check Send (adds "template found") → **Send Email with `emailTemplateId` =
+  the template, `recipientId` = contact (whoId merge), `relatedRecordId` = opp (whatId merge), sender = OWEA**
+  → stamp. No more in-flow text templates.
+- **Verified structurally:** flow reaches Send Email (template lookup + params accepted); the only remaining
+  errors are **org email settings**, not code.
+- **⏳ JASON — two Setup actions unblock live sending:** (1) **verify the OWEA** `development@jcrcny.org`;
+  (2) **Setup → Deliverability → Access to Send Email = "All email"** (sending a template to a contact via
+  `recipientId` needs single-email enabled — currently "Single email is not enabled for your org/profile").
+- **PHASE 1 COMPLETE** apart from those 2 org email settings + client real content/rules. **Jason UI:** create+verify OWEA `development@jcrcny.org`;
   deactivate the 2 native `Email Acknowledgment…` picklist values; place VF page + native/new fields on gift
   record pages; assign FLS already done.
 - **NOT yet committed to git.** Working tree has heavy non-JSI-87 `customMetadata` churn — stage ONLY JSI-87
