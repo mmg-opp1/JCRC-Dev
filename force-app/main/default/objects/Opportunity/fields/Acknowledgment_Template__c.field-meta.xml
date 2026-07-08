@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Acknowledgment_Template__c</fullName>
+    <description>The acknowledgment template chosen by the router (letter screen-flow API name or email template name) for this gift. Recorded for reporting and audit. JSI-87 / Jason Ott.</description>
+    <inlineHelpText>The acknowledgment template selected for this gift (set by the router).</inlineHelpText>
+    <label>Acknowledgment Template</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

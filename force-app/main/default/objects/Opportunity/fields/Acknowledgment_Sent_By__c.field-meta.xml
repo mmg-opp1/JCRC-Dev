@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Acknowledgment_Sent_By__c</fullName>
+    <description>The user who sent/printed this acknowledgment. Light audit trail alongside the native Acknowledgment Date. JSI-87 / Jason Ott.</description>
+    <inlineHelpText>The user who sent or printed this acknowledgment.</inlineHelpText>
+    <label>Acknowledgment Sent By</label>
+    <referenceTo>User</referenceTo>
+    <relationshipLabel>Acknowledgments Sent</relationshipLabel>
+    <relationshipName>Acknowledgments_Sent</relationshipName>
+    <required>false</required>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <type>Lookup</type>
+</CustomField>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Template_Flow__c</fullName>
+        <description>Print path: API name of the letter screen flow the VF page renders.</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Template Flow</label>
+    <required>false</required>
+    <length>80</length>
+    <type>Text</type>
+</CustomField>

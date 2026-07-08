@@ -1,0 +1,52 @@
+<apex:page standardController="Opportunity" sidebar="false" showHeader="false" applyHtmlTag="false" applyBodyTag="false">
+<!--
+  AcknowledgmentLetter - JSI-87 / Jason Ott
+  Reusable print page for gift acknowledgment letters. Renders ANY acknowledgment
+  letter screen flow via Lightning Out. The letter flow is chosen by the "flow" URL
+  parameter (e.g. ?flow=Ack_MajorGift); defaults to Ack_General. The Opportunity Id
+  is passed to the flow as the "recordId" input variable. The Print button uses the
+  browser print dialog; print CSS hides the button and chrome.
+-->
+<html>
+<head>
+    <apex:includeLightning />
+    <style>
+        body { font-family: Arial, Helvetica, sans-serif; color: #181818; margin: 0; padding: 24px; }
+        .noprint { margin-bottom: 16px; }
+        .printbtn {
+            background: #1a237e; color: #fff; border: none; padding: 8px 18px;
+            font-size: 14px; border-radius: 4px; cursor: pointer;
+        }
+        @page { margin: 0.5in; }
+        @media print {
+            .noprint { display: none !important; }
+            body { padding: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="noprint">
+        <button class="printbtn" onclick="window.print(); return false;">Print Letter</button>
+    </div>
+    <div id="flowContainer"></div>
+    <script>
+        var flowName = "{!JSENCODE($CurrentPage.parameters.flow)}";
+        if (!flowName) { flowName = "Ack_General"; }
+        var recId = "{!JSENCODE(Opportunity.Id)}";
+        $Lightning.use("c:AckLetterOut", function() {
+            $Lightning.createComponent(
+                "lightning:flow",
+                {},
+                "flowContainer",
+                function(flow) {
+                    var inputVariables = [
+                        { name: "recordId", type: "String", value: recId }
+                    ];
+                    flow.startFlow(flowName, inputVariables);
+                }
+            );
+        });
+    </script>
+</body>
+</html>
+</apex:page>

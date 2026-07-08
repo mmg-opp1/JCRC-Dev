@@ -8413,6 +8413,36 @@
         <readable>true</readable>
         <editable>true</editable>
     </fieldPermissions>
+    <fieldPermissions>
+        <field>Opportunity.Acknowledgment_Age_Business_Days__c</field>
+        <readable>true</readable>
+        <editable>false</editable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <field>Opportunity.Acknowledgment_Channel__c</field>
+        <readable>true</readable>
+        <editable>true</editable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <field>Opportunity.Acknowledgment_Send_Mode__c</field>
+        <readable>true</readable>
+        <editable>true</editable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <field>Opportunity.Acknowledgment_Approved__c</field>
+        <readable>true</readable>
+        <editable>true</editable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <field>Opportunity.Acknowledgment_Template__c</field>
+        <readable>true</readable>
+        <editable>true</editable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <field>Opportunity.Acknowledgment_Sent_By__c</field>
+        <readable>true</readable>
+        <editable>true</editable>
+    </fieldPermissions>
     <flowAccesses>
         <enabled>false</enabled>
         <flow>Datatable_Configuration_Wizard5</flow>

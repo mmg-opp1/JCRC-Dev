@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexPage xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <availableInTouch>true</availableInTouch>
+    <confirmationTokenRequired>false</confirmationTokenRequired>
+    <description>Reusable acknowledgment-letter print page; renders any letter screen flow via Lightning Out (flow chosen by the "flow" URL param). JSI-87.</description>
+    <label>Acknowledgment Letter</label>
+</ApexPage>

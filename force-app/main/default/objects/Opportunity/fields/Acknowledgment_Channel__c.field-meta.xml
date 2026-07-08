@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Acknowledgment_Channel__c</fullName>
+    <description>How this gift is acknowledged, resolved by the acknowledgment router from Acknowledgment_Rule__mdt: Email (custom flow-sent), Print (letter via the Visualforce print page), or None. JSI-87 / Jason Ott.</description>
+    <inlineHelpText>How this gift is acknowledged: Email, Print, or None. Set automatically by the acknowledgment router.</inlineHelpText>
+    <label>Acknowledgment Channel</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Email</fullName>
+                <default>false</default>
+                <label>Email</label>
+            </value>
+            <value>
+                <fullName>Print</fullName>
+                <default>false</default>
+                <label>Print</label>
+            </value>
+            <value>
+                <fullName>None</fullName>
+                <default>false</default>
+                <label>None</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

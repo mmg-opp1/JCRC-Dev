@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Acknowledgment_Approved__c</fullName>
+    <description>Reviewer approval gate. For Approval-Gated acknowledgments (all print, and approval-tier emails), a reviewer sets this to true to release the letter/email. The Auto send mode ignores it. JSI-87 / Jason Ott.</description>
+    <inlineHelpText>Check to approve this acknowledgment to be sent/printed (for approval-gated gifts).</inlineHelpText>
+    <label>Acknowledgment Approved</label>
+    <type>Checkbox</type>
+    <defaultValue>false</defaultValue>
+</CustomField>
