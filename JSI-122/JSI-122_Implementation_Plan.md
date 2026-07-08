@@ -2,10 +2,13 @@
 
 > **Status:** ✅ BUILT & DEPLOYED to JCRC-Dev (all 5 phases) · committed to `main` (`c4144a1`,
 > `9deaa61`) and **pushed to origin** 2026-06-25. Full Build Log in §14.
-> **⏳ Remaining (UI, by Jason — not in source metadata):** (1) place the **Tag Manager** LWC on the
-> Contact & Account Lightning record pages in App Builder; (2) assign the **`Tag_Management`**
-> permission set to taggers. Optional: seed starter tags; write the apply/remove + admin retire/merge
-> runbook (phase 7, deferred).
+> **Security (rev. 3, 2026-07-08):** the `Tag_Management` **permission set was RETIRED** and its
+> access moved to **profiles** (JCRC org standard) — Admin + JCRC Development/Fundraising/Marketing/
+> Volunteering. See §14 build log for the migration.
+> **⏳ Remaining (UI, by Jason — not in source metadata):** (1) **Contact** page — Tag Manager LWC
+> **DONE**; **Account** page LWC placement **DEFERRED** by Jason (2026-07-08, not touching account
+> pages now — circle back). (2) Perm-set assignment is now **moot** — taggers get access via their
+> profile. Optional: seed starter tags; write the apply/remove + admin retire/merge runbook (deferred).
 > **Author:** Jason Ott · **Date:** 2026-06-25 (rev. 2 — build complete) · forks resolved 2026-06-24.
 > **Related:** `JSI-122_User_Story.md`, `StorySpecs.MD`
 > **Jira:** https://missionmattersgroup.atlassian.net/browse/JSI-122 (Epic JSI-9 — Contact Management)
@@ -329,3 +332,21 @@ for `Tag_Assignment__c` (Public R/W vs. tighter).
      is exposed; record-page placement/assignment isn't in source metadata — same pattern as JSI-82/89).
   2. **Assign the `Tag_Management` permission set** to the users who should tag (and create tags).
   3. Optional: seed a starter set of tags; add a Tag tab/app nav if desired.
+
+### 2026-07-08 — Security migrated to PROFILES; `Tag_Management` perm set retired ✅
+- Per the JCRC org standard (security at profile level, not permission sets — same treatment as JSI-90),
+  moved the Tag-Management access onto **Admin + JCRC Development / Fundraising / Marketing / Volunteering**
+  and **deleted the `Tag_Management` permission set** from org + repo (perm-set query returns 0).
+- **What actually needed doing:** the profiles already carried Tag **object CRUD** and **`TagManagerController`
+  class access** (from the org metadata snapshot) but the **6 Tag field permissions were `readable=false`
+  (FLS OFF)**. Turned FLS **ON** across all 5 profiles via the additive minimal-profile deploy (Account/
+  Contact/Assignment_Key/Tag_Key = R/E; Tag_Name/Tag_Category = R only). Added the 2 Tag object perms to
+  Fundraising (the only profile lacking them). Verified in org: 6 FLS/profile, class access ×5, object CRUD ×5.
+- **Key findings (→ gotchas memory):** (1) **additive minimal-profile deploys only ADD/enable permissions —
+  they do NOT revoke** (deploying `allowDelete=false` over an existing `true` left it `true`). Revoking a
+  profile permission needs a full-profile deploy, which is blocked here by the invalid-tab gotcha (JSI-86).
+  (2) The 4 non-Fundraising JCRC profiles already have **Modify All on ~117–129 objects** (near-admin),
+  including both Tag objects — so the perm set was fully redundant and a Tag-only "no delete" tightening is
+  moot without a broader least-privilege effort. **Jason's call 2026-07-08: retire the perm set, leave the
+  profiles' broad access as-is** (least-privilege re-scoping is a separate, org-wide topic). Tag Manager LWC
+  is on the **Contact** page; **Account** page placement deferred.
