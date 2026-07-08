@@ -1,6 +1,6 @@
 # JSI-80 — Implementation Game Plan: Manual Batch Gift Entry (UI)
 
-> **Status:** Plan only — no build yet.
+> **Status:** ✅ Built, deployed & committed (`d81dc04`, 2026-06-22); verified against JCRC-Dev. See §10 for build status. Trivial go-live leftovers only (assign profile to users; surface 2 batch fields on layout; ACH stored-value decision).
 > **Author:** Jason Ott · **Date:** 2026-06-18 (rev. 2 — QBO de-scoped; tool selection verified)
 > **Related:** `JSI-80_User_Story.md`, `Story_Dictation_Cleaned.md`, `SalesforceHelp_NPSPGiftEntry.txt`
 > **Jira:** https://missionmattersgroup.atlassian.net/browse/JSI-80
