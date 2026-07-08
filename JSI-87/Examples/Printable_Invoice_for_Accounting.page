@@ -1,0 +1,72 @@
+<apex:page standardController="Artist_Submitted_Invoice__c" sidebar="false" showHeader="false">
+   <html>
+
+   <head>
+      <apex:includeLightning />
+      <style>
+         @page {
+            margin-bottom: .5in;
+            margin-left: .5in;
+            margin-right: .5in;
+         }
+         
+         body {
+            font-family: Arial, sans-serif;
+         }
+         
+@media print {
+    .noprint {
+        visibility: hidden;
+    }
+    table, tr, th, td {
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+            color-adjust: exact !important;
+         }
+}
+      </style>
+   </head>
+
+   <body class="slds-scope">
+      <apex:form >
+         <apex:commandLink value="Print" onclick="window.print();" styleClass="noprint" />
+      </apex:form>
+      <div id="flowContainer" />
+      <script>
+         var statusChange = function (event) {
+            if (event.getParam("status") === "FINISHED") {
+               // Control what happens when the interview finishes
+
+               var outputVariables = event.getParam("outputVariables");
+               var key;
+               for (key in outputVariables) {
+                  if (outputVariables[key].name === "myOutput") {
+                     // Do something with an output variable
+                  }
+               }
+            }
+         };
+            $Lightning.use("c:PrintableAttachmentA", function() {
+               // Create the flow component and set the onstatuschange attribute
+               $Lightning.createComponent("lightning:flow", {"onstatuschange":statusChange},
+                  "flowContainer",
+                  function (component) {
+                     // Set the input variables
+                     var inputVariables = [
+                        {
+                           name : 'vASIId',
+                           type : 'String',
+                           value : "{!Artist_Submitted_Invoice__c.Id}"
+                        }
+                     ];
+                     
+                     // Start an interview in the flowContainer div, and 
+                     // initializes the input variables.
+                     component.startFlow("Screen_PrintableInvoice", inputVariables);
+                  }
+               );
+            });
+         </script>
+      </body>
+   </html>
+</apex:page>

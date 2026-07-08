@@ -1,0 +1,775 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <assignments>
+        <name>Assign_Currency</name>
+        <label>Assign Currency</label>
+        <locationX>264</locationX>
+        <locationY>566</locationY>
+        <assignmentItems>
+            <assignToReference>vPayRate</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Loop_Over_Line_Items.Pay_Rate__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>vSubtotal</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Loop_Over_Line_Items.Total_Calculated__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Assign_Table_Rows</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Table_and_Header</name>
+        <label>Assign Table and Header</label>
+        <locationX>176</locationX>
+        <locationY>350</locationY>
+        <assignmentItems>
+            <assignToReference>vTableData</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>ttTableandHeader</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Loop_Over_Line_Items</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Table_Rows</name>
+        <label>Assign Table Rows</label>
+        <locationX>264</locationX>
+        <locationY>674</locationY>
+        <assignmentItems>
+            <assignToReference>vTableData</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>ttTableRow</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Clear_Variables</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Clear_Variables</name>
+        <label>Clear Variables</label>
+        <locationX>264</locationX>
+        <locationY>782</locationY>
+        <assignmentItems>
+            <assignToReference>vPayRate</assignToReference>
+            <operator>Assign</operator>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>vSubtotal</assignToReference>
+            <operator>Assign</operator>
+        </assignmentItems>
+        <connector>
+            <targetReference>Loop_Over_Line_Items</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Close_Table</name>
+        <label>Close Table</label>
+        <locationX>176</locationX>
+        <locationY>974</locationY>
+        <assignmentItems>
+            <assignToReference>vTableData</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>ttFinalRow</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>vTableData</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>&lt;/table&gt;&lt;/div&gt;</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Get_Invoice</targetReference>
+        </connector>
+    </assignments>
+    <constants>
+        <name>vBlankLine</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue></stringValue>
+        </value>
+    </constants>
+    <environments>Default</environments>
+    <formulas>
+        <name>fArtistName</name>
+        <dataType>String</dataType>
+        <expression>{!Get_ASI.First_Name__c}+&quot; &quot;+{!Get_ASI.Last_Name__c}</expression>
+    </formulas>
+    <formulas>
+        <name>fArtistPin</name>
+        <dataType>String</dataType>
+        <expression>IF(NOT(ISBLANK({!Get_ASI.Artist__c})), {!Get_ASI.Artist__r.Artist_PIN__c}, IF(NOT(ISBLANK({!Get_ASI.Artist_Account__c})), TEXT({!Get_ASI.Artist_Account__r.Artist_PIN__c}), NULL))</expression>
+    </formulas>
+    <formulas>
+        <name>fFinal</name>
+        <dataType>String</dataType>
+        <expression>IF({!Get_ASI.Final__c}, &quot;&lt;img src=\&quot;/resource/1765922221000/checkboxchecked?\&quot; alt=\&quot;Partial Invoice\&quot;&gt;&quot;, &quot;&lt;img src=\&quot;/resource/1765922319000/checkboxunchecked?\&quot; alt=\&quot;Not a Partial Invoice\&quot;&gt;&quot;)</expression>
+    </formulas>
+    <formulas>
+        <name>fPartial</name>
+        <dataType>String</dataType>
+        <expression>IF({!Get_ASI.Partial__c}, &quot;&lt;img src=\&quot;/resource/1765922221000/checkboxchecked?\&quot; alt=\&quot;Partial Invoice\&quot;&gt;&quot;, &quot;&lt;img src=\&quot;/resource/1765922319000/checkboxunchecked?\&quot; alt=\&quot;Not a Partial Invoice\&quot;&gt;&quot;)</expression>
+    </formulas>
+    <formulas>
+        <name>fSumWorkshops</name>
+        <dataType>Number</dataType>
+        <expression>{!vWorkshops}</expression>
+        <scale>0</scale>
+    </formulas>
+    <formulas>
+        <name>fTotalDuetoArtist</name>
+        <dataType>Currency</dataType>
+        <expression>{!Get_ASI.Final_Total_Calculated__c}</expression>
+        <scale>2</scale>
+    </formulas>
+    <interviewLabel>Screen_PrintableInvoice {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Screen_PrintableInvoice</label>
+    <loops>
+        <name>Loop_Over_Line_Items</name>
+        <label>Loop Over Line Items</label>
+        <locationX>176</locationX>
+        <locationY>458</locationY>
+        <collectionReference>Get_Line_Items</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Assign_Currency</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Close_Table</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <recordLookups>
+        <name>Get_ASI</name>
+        <label>Get ASI</label>
+        <locationX>176</locationX>
+        <locationY>134</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Line_Items</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>vASIId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Artist_Submitted_Invoice__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Invoice</name>
+        <label>Get Invoice</label>
+        <locationX>176</locationX>
+        <locationY>1082</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>vScreen</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Artist_Submitted_Invoice__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>vASIId</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Workshop__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Invoice__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Line_Items</name>
+        <label>Get Line Items</label>
+        <locationX>176</locationX>
+        <locationY>242</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Assign_Table_and_Header</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Artist_Submitted_Invoice__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>vASIId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>Artist_Invoice_Line_Item__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <screens>
+        <name>vScreen</name>
+        <label>vScreen</label>
+        <locationX>176</locationX>
+        <locationY>1190</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>AttachmentText</name>
+            <fieldText>&lt;p&gt;&lt;strong style=&quot;color: rgb(26, 35, 126); font-family: sans-serif; font-size: 12px;&quot;&gt;Invoice for Contract Services&lt;/strong&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <fields>
+            <name>txtArtistInfo</name>
+            <fieldText>&lt;p&gt;&lt;span style=&quot;font-family: sans-serif; font-size: 10px; color: rgb(24, 24, 24);&quot;&gt;{!fArtistName}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;color: rgb(24, 24, 24); font-size: 10px;&quot;&gt;{!Get_Invoice.Artist_Street__c}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;color: rgb(24, 24, 24); font-size: 10px;&quot;&gt;{!Get_Invoice.Artist_City__c}, {!Get_Invoice.Artist_State__c} {!Get_Invoice.Artist_Zip__c}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;color: rgb(24, 24, 24); font-size: 10px;&quot;&gt;{!Get_Invoice.Artist_Phone__c}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;color: rgb(24, 24, 24); font-size: 10px;&quot;&gt;{!Get_ASI.Email__c}&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>5</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <fields>
+            <name>txtArtistInfo2</name>
+            <fieldText>&lt;p&gt;&lt;strong style=&quot;font-size: 10px;&quot;&gt;Vendor ID No.:&lt;/strong&gt;&lt;span style=&quot;font-size: 10px;&quot;&gt; {!Get_Invoice.Artist_PIN__c}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;font-size: 10px;&quot;&gt;PO No.:&lt;/strong&gt;&lt;span style=&quot;font-size: 10px;&quot;&gt; {!Get_ASI.Contract_Number__c}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;font-size: 10px;&quot;&gt;Partial:&lt;/strong&gt;&lt;span style=&quot;font-size: 10px;&quot;&gt; &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 10px;&quot;&gt;{!ttPartial}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;font-size: 10px;&quot;&gt;Final:&lt;/strong&gt;&lt;span style=&quot;font-size: 10px;&quot;&gt; &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 10px;&quot;&gt;{!ttFinal}&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>3</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <fields>
+            <name>txtDate</name>
+            <fieldText>&lt;p style=&quot;text-align: right;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: right;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: right;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: right;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: right;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: right;&quot;&gt;&lt;strong style=&quot;font-size: 9px;&quot;&gt;{!Get_ASI.Completed_Date__c}&lt;/strong&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>4</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <fields>
+            <name>txtBillto</name>
+            <fieldText>&lt;p&gt;{!ttBillTo}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <fields>
+            <name>vScreen_Section1</name>
+            <fieldType>RegionContainer</fieldType>
+            <fields>
+                <name>vScreen_Section1_Column1</name>
+                <fieldType>Region</fieldType>
+                <fields>
+                    <name>txtCCP</name>
+                    <fieldText>&lt;p&gt;&lt;span style=&quot;font-family: sans-serif; font-size: 10px;&quot;&gt;Children&apos;s Creative Project	&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-family: sans-serif; font-size: 10px;&quot;&gt;3970 La Colina Rd. Suite 9	&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-family: sans-serif; font-size: 10px;&quot;&gt;Santa Barbara, CA 93110	&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-family: sans-serif; font-size: 10px;&quot;&gt;Attn: Kate Yamasaki 	&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-family: sans-serif; font-size: 10px;&quot;&gt;(805) 964-4710 ext. 4412&lt;/span&gt;&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                    <styleProperties>
+                        <verticalAlignment>
+                            <stringValue>top</stringValue>
+                        </verticalAlignment>
+                        <width>
+                            <stringValue>11</stringValue>
+                        </width>
+                    </styleProperties>
+                </fields>
+                <fields>
+                    <name>dtDescription</name>
+                    <fieldText>&lt;p&gt;&lt;span style=&quot;font-family: sans-serif; font-size: 10px; color: rgb(0, 0, 0);&quot;&gt;Description of Services: Providing arts education workshops for students as outlined in the CCP contract.&lt;/span&gt;&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                    <styleProperties>
+                        <verticalAlignment>
+                            <stringValue>top</stringValue>
+                        </verticalAlignment>
+                        <width>
+                            <stringValue>12</stringValue>
+                        </width>
+                    </styleProperties>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>12</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <isRequired>false</isRequired>
+            <regionContainerType>SectionWithoutHeader</regionContainerType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <fields>
+            <name>vScreen_Section2</name>
+            <fieldType>RegionContainer</fieldType>
+            <fields>
+                <name>vScreen_Section2_Column1</name>
+                <fieldType>Region</fieldType>
+                <fields>
+                    <name>vDataTable</name>
+                    <fieldText>&lt;p&gt;&lt;span style=&quot;font-family: sans-serif; font-size: 11px;&quot;&gt;{!vTableData}&lt;/span&gt;&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                    <styleProperties>
+                        <verticalAlignment>
+                            <stringValue>top</stringValue>
+                        </verticalAlignment>
+                        <width>
+                            <stringValue>12</stringValue>
+                        </width>
+                    </styleProperties>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>12</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <isRequired>false</isRequired>
+            <regionContainerType>SectionWithoutHeader</regionContainerType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <fields>
+            <name>vBlankSpace</name>
+            <fieldText>&lt;p&gt;{!ttBlanks}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <fields>
+            <name>vOfficeTable</name>
+            <fieldText>&lt;p&gt;{!ttBlankTable}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <fields>
+            <name>End</name>
+            <fieldText>&lt;p style=&quot;text-align: right;&quot;&gt;&lt;strong style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;Signed: &lt;/strong&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;{!Get_ASI.Signature_Image__c}  &lt;/span&gt;&lt;strong style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;Date:&lt;/strong&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255);&quot;&gt; {!Get_ASI.Director_Signature_Date__c}&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <showFooter>false</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_ASI</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <textTemplates>
+        <name>ttBillTo</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>&lt;table style=&quot;width:100%; border-collapse:collapse;&quot;&gt;
+  &lt;tr&gt;
+    &lt;td style=&quot;color:#1a237e; text-align:left; font-weight:bold; font-size:11px; padding:2px; border-bottom:1px solid #dddddd;&quot;&gt;
+      BILL TO
+    &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;</text>
+    </textTemplates>
+    <textTemplates>
+        <name>ttBlanks</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>{!vBlankLine}&lt;BR&gt;
+{!vBlankLine}&lt;BR&gt;
+{!vBlankLine}&lt;BR&gt;</text>
+    </textTemplates>
+    <textTemplates>
+        <name>ttBlankTable</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>&lt;div style=&quot;text-align: center; font-style: italic; margin-bottom: 5px; font-size: 9px;&quot;&gt;For Office Use Only:&lt;/div&gt;
+&lt;table style=&quot;width: 100%; border-collapse: collapse; background-color: white;font-size:9px;&quot;&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th style=&quot;border: 1px solid #000; padding: 4px 6x; text-align: center; font-size: 9px; background-color: white; font-weight: 700;&quot;&gt;Resource.&lt;br&gt;XXXX&lt;/th&gt;
+            &lt;th style=&quot;border: 1px solid #000; padding: 4px 6px; text-align: center; font-size: 9px; background-color: white; font-weight: 700;&quot;&gt;Proj. Year&lt;br&gt;0&lt;/th&gt;
+            &lt;th style=&quot;border: 1px solid #000; padding: 4px 6px; text-align: center; font-size: 9px; background-color: white; font-weight: 700;&quot;&gt;Goal.&lt;br&gt;4900&lt;/th&gt;
+            &lt;th style=&quot;border: 1px solid #000; padding: 4px 6px; text-align: center; font-size: 9px; background-color: white; font-weight: 700;&quot;&gt;Function&lt;br&gt;1000&lt;/th&gt;
+            &lt;th style=&quot;border: 1px solid #000; padding: 4px 6px; text-align: center; font-size: 9px; background-color: white; font-weight: 700;&quot;&gt;Object&lt;br&gt;5850&lt;/th&gt;
+            &lt;th style=&quot;border: 1px solid #000; padding: 4px 6px; text-align: center; font-size: 9px; background-color: white; font-weight: 700;&quot;&gt;Mgmt.&lt;br&gt;XXXX&lt;/th&gt;
+            &lt;th style=&quot;border: 1px solid #000; padding: 4px 6px; text-align: center; font-size: 9px; background-color: white; font-weight: 700;&quot;&gt;Unit&lt;br&gt;XXXX&lt;/th&gt;
+            &lt;th style=&quot;border: 1px solid #000; padding: 4px 6px; text-align: center; font-size: 9px; background-color: white; font-weight: 700;&quot;&gt;Amount&lt;br&gt;XXXX&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr style=&quot;background-color: #f0f0f0;&quot;&gt;
+            &lt;td style=&quot;border: 1px solid #000; padding: 4px 6px; text-align: center; font-size: 9px;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+            &lt;td style=&quot;border: 1px solid #000; padding: 4px 6px; text-align: center; font-size: 9px;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+            &lt;td style=&quot;border: 1px solid #000; padding: 4px 6px; text-align: center; font-size: 9px;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+            &lt;td style=&quot;border: 1px solid #000; padding: 4px 6px; text-align: center; font-size: 9px;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+            &lt;td style=&quot;border: 1px solid #000; padding: 4px 6px; text-align: center; font-size: 9px;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+            &lt;td style=&quot;border: 1px solid #000; padding: 4px 6px; text-align: center; font-size: 9px;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+            &lt;td style=&quot;border: 1px solid #000; padding: 4px 6px; text-align: center; font-size: 9px;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+            &lt;td style=&quot;border: 1px solid #000; padding: 4px 6px; text-align: center; font-size: 9px;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td style=&quot;border: 1px solid #000; padding: 4px 6px; text-align: center; font-size: 9px;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+            &lt;td style=&quot;border: 1px solid #000; padding: 4px 6px; text-align: center; font-size: 9px;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+            &lt;td style=&quot;border: 1px solid #000; padding: 4px 6px; text-align: center; font-size: 9px;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+            &lt;td style=&quot;border: 1px solid #000; padding: 4px 6px; text-align: center; font-size: 9px;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+            &lt;td style=&quot;border: 1px solid #000; padding: 4px 6px; text-align: center; font-size: 9px;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+            &lt;td style=&quot;border: 1px solid #000; padding: 4px 6px; text-align: center; font-size: 9px;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+            &lt;td style=&quot;border: 1px solid #000; padding: 4px 6px; text-align: center; font-size: 9px;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+            &lt;td style=&quot;border: 1px solid #000; padding: 4px 6px; text-align: center; font-size: 9px;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr style=&quot;background-color: #f0f0f0;&quot;&gt;
+            &lt;td style=&quot;border: 1px solid #000; padding: 4px 6px; text-align: center; font-size: 9px;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+            &lt;td style=&quot;border: 1px solid #000; padding: 4px 6px; text-align: center; font-size: 9px;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+            &lt;td style=&quot;border: 1px solid #000; padding: 4px 6px; text-align: center; font-size: 9px;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+            &lt;td style=&quot;border: 1px solid #000; padding: 4px 6px; text-align: center; font-size: 9px;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+            &lt;td style=&quot;border: 1px solid #000; padding: 4px 6px; text-align: center; font-size: 9px;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+            &lt;td style=&quot;border: 1px solid #000; padding: 4px 6px; text-align: center; font-size: 9px;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+            &lt;td style=&quot;border: 1px solid #000; padding: 4px 6px; text-align: center; font-size: 9px;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+            &lt;td style=&quot;border: 1px solid #000; padding: 4px 6px; text-align: center; font-size: 9px;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td style=&quot;border: 1px solid #000; padding: 4px 6px; text-align: center; font-size: 9px;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+            &lt;td style=&quot;border: 1px solid #000; padding: 4px 6px; text-align: center; font-size: 9px;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+            &lt;td style=&quot;border: 1px solid #000; padding: 4px 6px; text-align: center; font-size: 9px;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+            &lt;td style=&quot;border: 1px solid #000; padding: 4px 6px; text-align: center; font-size: 9px;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+            &lt;td style=&quot;border: 1px solid #000; padding: 4px 6px; text-align: center; font-size: 9px;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+            &lt;td style=&quot;border: 1px solid #000; padding: 4px 6px; text-align: center; font-size: 9px;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+            &lt;td style=&quot;border: 1px solid #000; padding: 4px 6px; text-align: center; font-size: 9px;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+            &lt;td style=&quot;border: 1px solid #000; padding: 4px 6px; text-align: center; font-size: 9px;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr style=&quot;background-color: #f0f0f0;&quot;&gt;
+            &lt;td style=&quot;border: 1px solid #000; padding: 4px 6px; text-align: center; font-size: 9px;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+            &lt;td style=&quot;border: 1px solid #000; padding: 4px 6px; text-align: center; font-size: 9px;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+            &lt;td style=&quot;border: 1px solid #000; padding: 4px 6px; text-align: center; font-size: 9px;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+            &lt;td style=&quot;border: 1px solid #000; padding: 4px 6px; text-align: center; font-size: 9px;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+            &lt;td style=&quot;border: 1px solid #000; padding: 4px 6px; text-align: center; font-size: 9px;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+            &lt;td style=&quot;border: 1px solid #000; padding: 4px 6px; text-align: center; font-size: 9px;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+            &lt;td style=&quot;border: 1px solid #000; padding: 4px 6px; text-align: center; font-size: 9px;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+            &lt;td style=&quot;border: 1px solid #000; padding: 4px 6px; text-align: center; font-size: 9px;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;</text>
+    </textTemplates>
+    <textTemplates>
+        <name>ttFinal</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>{!fFinal}</text>
+    </textTemplates>
+    <textTemplates>
+        <name>ttFinalRow</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>&lt;tr&gt;
+&lt;td style=&quot;overflow:hidden;width:160px;padding:2px;text-align:right;&quot;&gt; &lt;/td&gt;
+&lt;td style=&quot;overflow:hidden;width:160px;padding:2px;text-align:right;&quot;&gt; &lt;/td&gt;
+&lt;td style=&quot;overflow:hidden;width:160px;padding:2px;text-align:right;&quot;&gt; &lt;/td&gt;
+&lt;td style=&quot;overflow:hidden;width:160px;padding:2px;text-align:right;&quot;&gt; &lt;/td&gt;
+&lt;td style=&quot;overflow:hidden;width:160px;padding:2px;text-align:left;&quot;&gt;&lt;b&gt;Balance Due&lt;/b&gt; &lt;/td&gt;
+&lt;td style=&quot;overflow:hidden;width:160px;padding:2px;text-align:left;&quot;&gt;&lt;b&gt;{!fTotalDuetoArtist}&lt;/b&gt;&lt;/td&gt;
+&lt;/tr&gt;</text>
+    </textTemplates>
+    <textTemplates>
+        <name>ttHeader</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>&lt;table style=&quot;width:100%; border-collapse:collapse;&quot;&gt;
+  &lt;tr style=&quot;background-color:#15bcad; height:40px;&quot;&gt;
+    &lt;td style=&quot;padding:10px;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;</text>
+    </textTemplates>
+    <textTemplates>
+        <name>ttHeaderSection</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>&lt;!-- Container --&gt;
+&lt;div style=&quot;max-width:1000px; margin:0 auto; font-family:Arial, sans-serif; background-color:#f5f6f7; border:1px solid #ddd;&quot;&gt;
+
+  &lt;!-- Teal Header Bar --&gt;
+  &lt;div style=&quot;background-color:#15bcad; height:30px;&quot;&gt;&lt;/div&gt;
+
+  &lt;!-- Main Content --&gt;
+  &lt;div style=&quot;padding:40px;&quot;&gt;
+
+    &lt;!-- Title --&gt;
+    &lt;h2 style=&quot;color:#1a237e; text-align:left; margin-bottom:30px; font-weight:bold;&quot;&gt;
+      Invoice for Contract Services
+    &lt;/h2&gt;
+
+    &lt;!-- Two-column info section --&gt;
+    &lt;table style=&quot;width:100%; border-collapse:collapse;&quot;&gt;
+      &lt;tr style=&quot;vertical-align:top;&quot;&gt;
+        &lt;td style=&quot;width:20%; color:#1a237e; font-size:14px; line-height:1;&quot;&gt;
+          {!fArtistName}&lt;br/&gt;
+{!Get_Invoice.Artist_Street__c}&lt;br/&gt;
+          {!Get_Invoice.Artist_City__c}, {!Get_Invoice.Artist_State__c} {!Get_Invoice.Artist_Zip__c}&lt;br/&gt;
+          {!Get_ASI.Email__c}&lt;br/&gt;
+{!Get_Invoice.Artist_Phone__c}
+        &lt;/td&gt;
+
+        &lt;td style=&quot;width:20%; color:#1a237e; font-size:14px; line-height:1;&quot;&gt;
+          {!Get_Invoice.Artist_PIN__c}&lt;br/&gt;
+{!Get_ASI.Contract_Number__c}
+        &lt;/td&gt;
+
+        &lt;td style=&quot;width:60%; color:#1a237e; text-align:right; font-size:14px;&quot;&gt;
+          &lt;strong&gt;DATE&lt;/strong&gt;&lt;br/&gt;
+          &lt;hr style=&quot;border:0; border-top:1px solid #999; width:80%; margin:6px auto 0 auto;&quot;/&gt;
+        &lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/table&gt;
+
+  &lt;/div&gt;
+&lt;/div&gt;</text>
+    </textTemplates>
+    <textTemplates>
+        <name>ttOfficeTable</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>&lt;div style=&quot;max-width:1200px;&quot;&gt;
+&lt;table&gt;
+  &lt;table style=&quot;border:1px solid black; width:100%; border-collapse: separate; border-spacing: 0;&quot;&gt;
+    &lt;tr style=&quot;border-bottom:1px solid black; text-align:center; padding:8px&quot;&gt;
+      &lt;th style=&quot;border-bottom:1px solid black; text-align:center; padding:8px;background-color:#f2f2f2&quot;&gt;Resource.&lt;br&gt;XXXX&lt;/th&gt;
+   &lt;th style=&quot;border-bottom:1px solid black; text-align:center; padding:8px;background-color:#f2f2f2&quot;&gt;Proj. Year&lt;br&gt;0&lt;/th&gt;
+   &lt;th style=&quot;border-bottom:1px solid black; text-align:center; padding:8px;background-color:#f2f2f2&quot;&gt;Goal.&lt;br&gt;4900&lt;/th&gt;
+   &lt;th style=&quot;border-bottom:1px solid black; text-align:center; padding:8px;background-color:#f2f2f2&quot;&gt;Function&lt;br&gt;1000&lt;/th&gt;
+   &lt;th style=&quot;border-bottom:1px solid black; text-align:center; padding:8px;background-color:#f2f2f2&quot;&gt;Object&lt;br&gt;5850&lt;/th&gt;
+   &lt;th style=&quot;border-bottom:1px solid black; text-align:center; padding:8px;background-color:#f2f2f2&quot;&gt;Mgmt.&lt;br&gt;XXXX&lt;/th&gt;
+   &lt;th style=&quot;border-bottom:1px solid black; text-align:center; padding:8px;background-color:#f2f2f2&quot;&gt;Unit&lt;br&gt;XXXX&lt;/th&gt;
+   &lt;th style=&quot;border-bottom:1px solid black; text-align:center; padding:8px;background-color:#f2f2f2&quot;&gt;Amount&lt;br&gt;XXXX&lt;/th&gt;
+&lt;/tr style&gt;
+&lt;tr style=&quot;border:1px solid black; text-align:center; padding:8px&quot;&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+ &lt;tr style=&quot;border:1px solid black; text-align:center; padding:8px&quot;&gt; &lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+ &lt;tr style=&quot;border:1px solid black; text-align:center; padding:8px&quot;&gt; &lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+ &lt;tr style=&quot;border:1px solid black; text-align:center; padding:8px&quot;&gt; &lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;</text>
+    </textTemplates>
+    <textTemplates>
+        <name>ttPartial</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>{!fPartial}</text>
+    </textTemplates>
+    <textTemplates>
+        <name>ttSection</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>&lt;div style=&quot;max-width:1000px; font-family:Arial, sans-serif; background-color:#f5f6f7; border:1px solid #ddd;&quot;&gt;
+  &lt;div style=&quot;background-color:#15bcad;height:30px;&quot;&gt;&lt;/div&gt;
+  &lt;div style=&quot;padding:20px;&quot;&gt;
+    &lt;h2 style=&quot;color:#1a237e; text-align:left; margin-bottom:10px; font-weight:bold;&quot;&gt;
+      Invoice for Contract Services
+    &lt;/h2&gt;
+    &lt;table style=&quot;width:100%; border-collapse:collapse;&quot;&gt;
+      &lt;tr style=&quot;height:10px; vertical-align:top;&quot;&gt;
+        &lt;td style=&quot;width:20%; color:#1a237e; font-size:14px;&quot;&gt;
+          {!fArtistName}&lt;/tr&gt;
+      &lt;tr style=&quot;height:10px; vertical-align:top;&quot;&gt;
+        &lt;td style=&quot;width:20%; color:#1a237e; font-size:14px;&quot;&gt;
+{!Get_Invoice.Artist_Street__c}&lt;/td&gt;
+&lt;td&gt; {!Get_Invoice.Artist_PIN__c}&lt;/td&gt;
+&lt;/tr&gt;
+           &lt;tr style=&quot;height:10px; vertical-align:top;&quot;&gt;
+        &lt;td style=&quot;width:20%; color:#1a237e; font-size:14px;&quot;&gt;
+   {!Get_Invoice.Artist_City__c}, {!Get_Invoice.Artist_State__c} {!Get_Invoice.Artist_Zip__c}&lt;/td&gt;
+&lt;td style=&quot;width:20%; color:#1a237e; font-size:14px; line-height:1;&quot;&gt;    {!Get_ASI.Contract_Number__c} &lt;/td&gt;
+&lt;/tr&gt;
+      &lt;tr style=&quot;height:10px; vertical-align:top;&quot;&gt;
+        &lt;td style=&quot;width:20%; color:#1a237e; font-size:14px;&quot;&gt;
+    {!Get_ASI.Email__c}&lt;/tr&gt;
+     &lt;tr style=&quot;height:10px; vertical-align:top;&quot;&gt;
+        &lt;td style=&quot;width:20%; color:#1a237e; font-size:14px;&quot;&gt;
+{!Get_Invoice.Artist_Phone__c} &lt;/td&gt;
+        &lt;td style=&quot;width:60%; color:#1a237e; text-align:right; font-size:14px;&quot;&gt;
+          &lt;strong&gt;DATE&lt;/strong&gt;&lt;br/&gt;
+          &lt;hr style=&quot;border:0; border-top:1px solid #999; width:80%; margin:6px auto 0 auto;&quot;/&gt;
+        &lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/table&gt;
+
+  &lt;/div&gt;
+&lt;/div&gt;</text>
+    </textTemplates>
+    <textTemplates>
+        <name>ttTableandHeader</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>&lt;div style=&quot;max-width:1600px;&quot;&gt;
+  &lt;table style=&quot;table-layout:fixed;border:1px solid black; width:100%; border-collapse:collapse; font-size:9px;&quot;&gt;
+    &lt;tr style=&quot;background-color:#15bcad; color:white; -webkit-print-color-adjust: exact; print-color-adjust: exact;&quot;&gt;
+      &lt;th style=&quot;border-bottom:1px solid black; text-align:center; padding:2px;&quot;&gt;School Name&lt;/th&gt;
+      &lt;th style=&quot;border-bottom:1px solid black; text-align:center; padding:2px;&quot;&gt;Account No.&lt;/th&gt;
+      &lt;th style=&quot;border-bottom:1px solid black; text-align:center; padding:2px;&quot;&gt;No. Workshops&lt;/th&gt;
+      &lt;th style=&quot;border-bottom:1px solid black; text-align:center; padding:2px;&quot;&gt;Workshop Dates&lt;/th&gt;
+      &lt;th style=&quot;border-bottom:1px solid black; text-align:center; padding:2px;&quot;&gt;Pay Rate&lt;/th&gt;
+      &lt;th style=&quot;border-bottom:1px solid black; text-align:center; padding:2px;&quot;&gt;Total&lt;/th&gt;
+    &lt;/tr&gt;</text>
+    </textTemplates>
+    <textTemplates>
+        <name>ttTableRow</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>&lt;tr style=&quot; border: 1px solid black;text-align:center&quot;&gt;
+&lt;td style=&quot;overflow:hidden;width:320px;padding:2px;text-align:center;&quot;&gt; {!Loop_Over_Line_Items.School_Name_Service__c}&lt;/td&gt;
+&lt;td style=&quot;overflow:hidden;width:320px;padding:2px;text-align:center;&quot;&gt;{!Loop_Over_Line_Items.Account_Number__c}&lt;/td&gt;
+&lt;td style=&quot;overflow:hidden;width:320px;padding:2px;text-align:center;&quot;&gt;{!Loop_Over_Line_Items.Number_of_Workshops__c}&lt;/td&gt;
+&lt;td style=&quot;overflow:hidden;width:320px;max-width:320px;padding:2px;text-align:center;word-wrap: break-word;&quot;&gt;{!Loop_Over_Line_Items.Dates_Workshops_Completed__c}&lt;/td&gt;
+&lt;td style=&quot;overflow:hidden;width:320px;padding:2px;text-align:center;&quot;&gt;{!vPayRate}&lt;/td&gt;
+&lt;td style=&quot;overflow:hidden;width:320px;padding:2px;text-align:center;&quot;&gt;{!vSubtotal}&lt;/td&gt;
+&lt;/tr&gt;</text>
+    </textTemplates>
+    <variables>
+        <name>vASIId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>vAttachmentTemplate</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Attachment_A__c</objectType>
+    </variables>
+    <variables>
+        <name>vContactName</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>vPay</name>
+        <dataType>Currency</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>2</scale>
+    </variables>
+    <variables>
+        <name>vPayRate</name>
+        <dataType>Currency</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>2</scale>
+    </variables>
+    <variables>
+        <name>vSubtotal</name>
+        <dataType>Currency</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>2</scale>
+    </variables>
+    <variables>
+        <name>vTableData</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>vTotalDuetoArtist</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>2</scale>
+    </variables>
+    <variables>
+        <name>vWorkshops</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>0</scale>
+    </variables>
+</Flow>

@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <assignments>
+        <name>Assign_Currency</name>
+        <label>Assign Currency</label>
+        <locationX>264</locationX>
+        <locationY>674</locationY>
+        <assignmentItems>
+            <assignToReference>vPay</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Loop_Over_Services.Override_Rate__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>vSubtotal</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Loop_Over_Services.Total_Due_to_Artist__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>vWorkshops</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>Loop_Over_Services.Total_Workshops__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>vTotalDuetoArtist</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>vSubtotal</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Assign_Table_Rows</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Table_and_Header</name>
+        <label>Assign Table and Header</label>
+        <locationX>176</locationX>
+        <locationY>458</locationY>
+        <assignmentItems>
+            <assignToReference>vTableData</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>ttTableandHeader</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Loop_Over_Services</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Table_Rows</name>
+        <label>Assign Table Rows</label>
+        <locationX>264</locationX>
+        <locationY>782</locationY>
+        <assignmentItems>
+            <assignToReference>vTableData</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>ttTableRow</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Loop_Over_Services</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Close_Table</name>
+        <label>Close Table</label>
+        <locationX>176</locationX>
+        <locationY>974</locationY>
+        <assignmentItems>
+            <assignToReference>vTableData</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>ttFinalRow</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>vTableData</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>&lt;/table&gt;&lt;/div&gt;</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>vScreen</targetReference>
+        </connector>
+    </assignments>
+    <collectionProcessors>
+        <name>Sort_by_Start_Date</name>
+        <elementSubtype>SortCollectionProcessor</elementSubtype>
+        <label>Sort by Start Date</label>
+        <locationX>176</locationX>
+        <locationY>350</locationY>
+        <collectionProcessorType>SortCollectionProcessor</collectionProcessorType>
+        <collectionReference>Get_Services</collectionReference>
+        <connector>
+            <targetReference>Assign_Table_and_Header</targetReference>
+        </connector>
+        <sortOptions>
+            <doesPutEmptyStringAndNullFirst>false</doesPutEmptyStringAndNullFirst>
+            <sortField>Start_Date__c</sortField>
+            <sortOrder>Asc</sortOrder>
+        </sortOptions>
+    </collectionProcessors>
+    <environments>Default</environments>
+    <formulas>
+        <name>fFiscalYear</name>
+        <dataType>String</dataType>
+        <expression>TEXT(CASE(MONTH( {!$Flow.CurrentDate} ) , 1, YEAR({!$Flow.CurrentDate} ), 2, YEAR({!$Flow.CurrentDate} ), 3, YEAR({!$Flow.CurrentDate} ), 4, YEAR({!$Flow.CurrentDate} ), 5, YEAR({!$Flow.CurrentDate} ), 6, YEAR({!$Flow.CurrentDate} ), 7, YEAR({!$Flow.CurrentDate} )+1, 8, YEAR({!$Flow.CurrentDate} )+1, 9, YEAR({!$Flow.CurrentDate} )+1, 10, YEAR({!$Flow.CurrentDate} )+1, 11, YEAR({!$Flow.CurrentDate} )+1, 12, YEAR({!$Flow.CurrentDate} )+1, NULL))</expression>
+    </formulas>
+    <formulas>
+        <name>fShortenedContactId</name>
+        <dataType>String</dataType>
+        <expression>LEFT({!vContactId}, 15)</expression>
+    </formulas>
+    <formulas>
+        <name>fSumWorkshops</name>
+        <dataType>Number</dataType>
+        <expression>{!vWorkshops}</expression>
+        <scale>0</scale>
+    </formulas>
+    <formulas>
+        <name>fTotalDuetoArtist</name>
+        <dataType>Currency</dataType>
+        <expression>{!vTotalDuetoArtist}</expression>
+        <scale>2</scale>
+    </formulas>
+    <interviewLabel>Screen_AttachmentAGroup {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Screen_AttachmentAGroup</label>
+    <loops>
+        <name>Loop_Over_Services</name>
+        <label>Loop Over Services</label>
+        <locationX>176</locationX>
+        <locationY>566</locationY>
+        <collectionReference>Get_Services</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Assign_Currency</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Close_Table</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <recordLookups>
+        <name>Get_Contact</name>
+        <label>Get Contact</label>
+        <locationX>176</locationX>
+        <locationY>134</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Services</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>vContactId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Account</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Services</name>
+        <label>Get Services</label>
+        <locationX>176</locationX>
+        <locationY>242</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Sort_by_Start_Date</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Artist__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>fShortenedContactId</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Artist_Full_Name__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Contact.Name</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Fiscal_Year__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>fFiscalYear</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>Service__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <screens>
+        <name>vScreen</name>
+        <label>vScreen</label>
+        <locationX>176</locationX>
+        <locationY>1082</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>vHeader</name>
+            <fieldText>&lt;p&gt;&lt;span style=&quot;font-family: sans-serif;&quot;&gt;{!ttHeader}&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <fields>
+            <name>AttachmentText</name>
+            <fieldText>&lt;p&gt;&lt;strong style=&quot;font-size: 11px; font-family: sans-serif;&quot;&gt;1. Artist in Residence Workshops&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 11px; font-family: sans-serif;&quot;&gt;The fee paid to the Contractor for the Artist in Residence workshops includes all time spent by Contractor for scheduling, workshop preparation and/or planning time, performance preparation, distribution of teacher preparation materials, acquisition of teaching materials, requested paperwork, and all other time, and all materials, and equipment furnished by Contractor in connection with providing services under this Agreement.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 11px; font-family: sans-serif;&quot;&gt;It is the Contractor&apos;s responsibility to schedule Artist in Residence workshops with the principal or the principal&apos;s designee at each school site to which Contractor has been assigned.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 11px; font-family: sans-serif;&quot;&gt;Contractor shall only be paid the fee for an Artist in Residence workshop when Contractor completes the entire workshop at a school site for the agreed-upon duration and when Contractor submits the attached invoice form. Contractor will not be paid a pro rata portion of the fee for a workshop that does not last the agreed-upon duration unless the early termination of the workshop is solely not due to the fault of the Contractor. The County Superintendent may cancel workshops at any time and for any reason, and Contractor will not be paid a fee or reimbursed for expenses incurred by Contractor for workshops cancelled by the County Superintendent.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;font-size: 11px; font-family: sans-serif;&quot;&gt;2. Exchange Workshops&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 11px; font-family: sans-serif;&quot;&gt;The County Superintendent will pay the Contactor to attend each Exchange Workshops (maximum 4) during the term of this Agreement, as scheduled by the County Superintendent. The focus of&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 11px; font-family: sans-serif;&quot;&gt;the Exchange Workshop will be for the Contractor to provide and exchange workshop lessons and discuss business matters with other artists&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <fields>
+            <name>vDataTable</name>
+            <fieldText>&lt;p&gt;&lt;span style=&quot;font-family: sans-serif; font-size: 11px;&quot;&gt;{!vTableData}&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <showFooter>false</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Contact</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <textTemplates>
+        <name>ttFinalRow</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>&lt;tr&gt;
+
+&lt;/tr&gt;
+
+&lt;tr&gt;
+
+&lt;td style=&quot;overflow:hidden;width:160px;padding:2px;text-align:right;&quot;&gt; &lt;/td&gt;
+
+&lt;td style=&quot;overflow:hidden;width:160px;padding:2px;text-align:right;&quot;&gt; &lt;/td&gt;
+
+&lt;td style=&quot;overflow:hidden;width:160px;padding:2px;text-align:right;&quot;&gt; &lt;/td&gt;
+
+&lt;td style=&quot;overflow:hidden;width:160px;padding:2px;text-align:right;&quot;&gt; &lt;/td&gt;
+
+&lt;td style=&quot;overflow:hidden;width:160px;padding:2px;text-align:right;&quot;&gt; &lt;/td&gt;
+
+&lt;td style=&quot;overflow:hidden;width:160px;padding:2px;text-align:right;&quot;&gt; &lt;/td&gt;
+
+&lt;td style=&quot;overflow:hidden;width:160px;padding:2px;text-align:right;&quot;&gt; &lt;/td&gt;
+
+&lt;td style=&quot;overflow:hidden;width:160px;padding:2px;text-align:left;&quot;&gt;&lt;b&gt;Grand Total&lt;/b&gt; &lt;/td&gt;
+
+&lt;td style=&quot;overflow:hidden;width:160px;padding:2px;text-align:left;&quot;&gt;&lt;b&gt;{!fSumWorkshops}&lt;/b&gt;&lt;/td&gt;
+
+&lt;td style=&quot;overflow:hidden;width:160px;padding:2px;text-align:right;&quot;&gt; &lt;/td&gt;
+
+&lt;td style=&quot;overflow:hidden;width:160px;padding:2px;text-align:left;&quot;&gt; &lt;b&gt;{!fTotalDuetoArtist} &lt;/b&gt;&lt;/td&gt;
+
+&lt;td style=&quot;overflow:hidden;width:160px;padding:2px;text-align:right;&quot;&gt;&lt;/td&gt;
+
+&lt;td style=&quot;overflow:hidden;width:160px;padding:2px;text-align:right;&quot;&gt; &lt;/td&gt;</text>
+    </textTemplates>
+    <textTemplates>
+        <name>ttHeader</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>&lt;div style=&quot;max-width:1600px;&quot;&gt;
+&lt;table style=&quot;width:100%;&quot;&gt;
+&lt;tr&gt;
+&lt;th style=&quot; valign:top;text-align:left;&quot;&gt;{!$Flow.CurrentDate}&lt;/th&gt;
+&lt;th style=&quot;valign:top;text-align:center;&quot;&gt;&lt;b&gt;Attachment A&lt;/b&gt;&lt;/th&gt;
+&lt;th style=&quot; valign:top;text-align:right;&quot;&gt;Artist Copy &lt;br&gt;&lt;small&gt;Please Save&lt;/small&gt;&lt;/br&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;</text>
+    </textTemplates>
+    <textTemplates>
+        <name>ttTableandHeader</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>&lt;div style=&quot;max-width:1600px;&quot;&gt;
+
+&lt;table style=&quot;border:1px solid black;width:100%;&quot;&gt;
+
+
+
+&lt;tr&gt;
+
+&lt;th style=&quot;border-bottom: 1px solid black; text-align:left;&quot;&gt;Co&lt;/th&gt;
+
+&lt;th style=&quot;border-bottom: 1px solid black; text-align:left;&quot;&gt;Dist.&lt;/th&gt;
+
+&lt;th style=&quot;border-bottom: 1px solid black; text-align:left;&quot;&gt;Site&lt;/th&gt;
+
+&lt;th style=&quot;border-bottom: 1px solid black; text-align:left;&quot;&gt;Artist&lt;/th&gt;
+
+&lt;th style=&quot;border-bottom: 1px solid black; text-align:left;&quot;&gt;Discipline&lt;/th&gt;
+
+&lt;th style=&quot;border-bottom: 1px solid black; text-align:left;&quot;&gt;Min&lt;/th&gt;
+
+&lt;th style=&quot;border-bottom: 1px solid black; text-align:left;&quot;&gt;#Rms&lt;/th&gt;
+
+&lt;th style=&quot;border-bottom: 1px solid black; text-align:left;&quot;&gt;#Wksp&lt;/th&gt;
+
+&lt;th style=&quot;border-bottom: 1px solid black; text-align:left;&quot;&gt;Total&lt;/th&gt;
+
+&lt;th style=&quot;border-bottom: 1px solid black; text-align:left;&quot;&gt;Pay&lt;/th&gt;
+
+&lt;th style=&quot;border-bottom: 1px solid black; text-align:left;&quot;&gt;Subtotal&lt;/th&gt;
+
+&lt;th style=&quot;border-bottom: 1px solid black; text-align:left;&quot;&gt;Account&lt;/th&gt;
+
+&lt;th style=&quot;border-bottom: 1px solid black; text-align:right;&quot;&gt;Start Date&lt;/th&gt;
+
+&lt;/tr&gt;</text>
+    </textTemplates>
+    <textTemplates>
+        <name>ttTableRow</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>&lt;tr style=&quot; border: 1px solid black;&quot;&gt;
+&lt;td style=&quot;overflow:hidden;width:60px;padding:2px;text-align:left;&quot;&gt; {!Loop_Over_Services.Booking__r.Site__r.County__c}&lt;/td&gt;
+&lt;td style=&quot;overflow:hidden;width:60px;padding:2px;text-align:left;&quot;&gt;{!Loop_Over_Services.Booking__r.Site__r.District__c}&lt;/td&gt;
+&lt;td style=&quot;overflow:hidden;width:160px;padding:2px;text-align:left;&quot;&gt;{!Loop_Over_Services.Booking__r.Site__r.Name}&lt;/td&gt;
+&lt;td style=&quot;overflow:hidden;width:160px;padding:2px;text-align:left;&quot;&gt; {!Loop_Over_Services.Booking__r.Artist_Group__r.Name}&lt;/td&gt;
+&lt;td style=&quot;overflow:hidden;width:160px;padding:2px;text-align:left;&quot;&gt; {!Loop_Over_Services.Description__c}&lt;/td&gt;
+&lt;td style=&quot;overflow:hidden;width:60px;padding:2px;text-align:left;&quot;&gt; {!Loop_Over_Services.Duration_Min__c}&lt;/td&gt;
+&lt;td style=&quot;overflow:hidden;width:60px;padding:2px;text-align:left;&quot;&gt; {!Loop_Over_Services.Rooms__c}&lt;/td&gt;
+&lt;td style=&quot;overflow:hidden;width:60px;padding:2px;text-align:left;&quot;&gt; {!Loop_Over_Services.Workshops__c}&lt;/td&gt;
+&lt;td style=&quot;overflow:hidden;width:60px;padding:2px;text-align:left;&quot;&gt; {!Loop_Over_Services.Total_Workshops__c}&lt;/td&gt;
+&lt;td style=&quot;overflow:hidden;width:80px;padding:2px;text-align:left;&quot;&gt; {!vPay}&lt;/td&gt;
+&lt;td style=&quot;overflow:hidden;width:80px;padding:2px;text-align:left;&quot;&gt; {!vSubtotal}&lt;/td&gt;
+&lt;td style=&quot;overflow:hidden;width:60px;padding:2px;text-align:center;&quot;&gt; {!Loop_Over_Services.Account__r.Name}&lt;/td&gt;
+&lt;td style=&quot;overflow:hidden;width:160px;padding:2px;text-align:right;&quot;&gt; {!Loop_Over_Services.Booking__r.Start_Date__c}&lt;/td&gt;
+&lt;/tr&gt;</text>
+    </textTemplates>
+    <variables>
+        <name>vAttachmentAToDisplay</name>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Attachment_A__c</objectType>
+    </variables>
+    <variables>
+        <name>vAttachmentTemplate</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Attachment_A__c</objectType>
+    </variables>
+    <variables>
+        <name>vContactId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>vContactName</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>vPay</name>
+        <dataType>Currency</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>2</scale>
+    </variables>
+    <variables>
+        <name>vServiceIds</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>vSubtotal</name>
+        <dataType>Currency</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>2</scale>
+    </variables>
+    <variables>
+        <name>vTableData</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>vTotalDuetoArtist</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>2</scale>
+    </variables>
+    <variables>
+        <name>vWorkshops</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>0</scale>
+    </variables>
+</Flow>
