@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns><field>Contact.Name</field></columns>
+    <columns><field>Contact.Email</field></columns>
+    <columns><field>Contact.Email_Opens_Last_90_Days__c</field></columns>
+    <columns><field>Contact.Email_Clicks_Last_90_Days__c</field></columns>
+    <columns><field>Contact.Email_Last_Open__c</field></columns>
+    <columns><field>Contact.CC_Subscription_Status__c</field></columns>
+    <description>Constituents most engaged with our Constant Contact email (3+ opens in the last 90 days). DoD #3. JSI-109 / Jason Ott.</description>
+    <filter>
+        <criteriaItems>
+            <column>Contact.Email_Opens_Last_90_Days__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>greaterOrEqual</operator>
+            <value>3</value>
+        </criteriaItems>
+    </filter>
+    <format>Tabular</format>
+    <name>Highly Engaged Constituents</name>
+    <params><name>co</name><value>1</value></params>
+    <reportType>ContactList</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>Contact.Email_Opens_Last_90_Days__c</sortColumn>
+    <sortOrder>Desc</sortOrder>
+</Report>

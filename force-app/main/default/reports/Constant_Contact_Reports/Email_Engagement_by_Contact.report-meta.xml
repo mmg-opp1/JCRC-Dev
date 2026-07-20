@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns><field>CC_Email_Activity__c$Contact_Name__c</field></columns>
+    <columns><field>CC_Email_Activity__c$Status__c</field></columns>
+    <columns><field>CC_Email_Activity__c$Open_Count__c</field></columns>
+    <columns><field>CC_Email_Activity__c$Click_Count__c</field></columns>
+    <columns><field>CC_Email_Activity__c$Last_Open_Date__c</field></columns>
+    <description>Per-email engagement detail from Constant Contact, grouped by email. Shows which constituents opened/clicked each send. JSI-109 / Jason Ott.</description>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>None</dateGranularity>
+        <field>CC_Email_Activity__c$Email_Subject__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Email Engagement by Contact</name>
+    <reportType>CC_Email_Engagement__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+</Report>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Activity_Key__c</fullName>
+    <description>Idempotent upsert key: {CC_Campaign_Activity_Id}|{CC_Contact_Id}. Ensures one summary row per contact per email. JSI-109 / Jason Ott.</description>
+    <externalId>true</externalId>
+    <label>Activity Key</label>
+    <caseSensitive>false</caseSensitive>
+    <length>120</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>

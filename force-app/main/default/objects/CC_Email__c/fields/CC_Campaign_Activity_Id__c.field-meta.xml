@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CC_Campaign_Activity_Id__c</fullName>
+    <description>Constant Contact campaign_activity_id (UUID) for this email. Stable external key the poller upserts on. JSI-109 / Jason Ott.</description>
+    <externalId>true</externalId>
+    <inlineHelpText>Constant Contact's internal ID for this email send. Do not edit.</inlineHelpText>
+    <label>CC Campaign Activity ID</label>
+    <caseSensitive>false</caseSensitive>
+    <length>50</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>

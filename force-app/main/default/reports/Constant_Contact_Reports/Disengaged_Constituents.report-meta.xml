@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns><field>Contact.Name</field></columns>
+    <columns><field>Contact.Email</field></columns>
+    <columns><field>Contact.Email_Opens_Last_90_Days__c</field></columns>
+    <columns><field>Contact.Email_Last_Open__c</field></columns>
+    <columns><field>Contact.CC_Subscription_Status__c</field></columns>
+    <description>Subscribed constituents with zero email opens in the last 90 days — re-engagement targets. DoD #3. JSI-109 / Jason Ott.</description>
+    <filter>
+        <booleanFilter>1 AND 2 AND 3</booleanFilter>
+        <criteriaItems>
+            <column>Contact.Email_Opens_Last_90_Days__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>0</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Contact.HasOptedOutOfEmail</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>false</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Contact.CC_Subscription_Status__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Subscribed</value>
+        </criteriaItems>
+    </filter>
+    <format>Tabular</format>
+    <name>Disengaged Constituents (Subscribed)</name>
+    <params><name>co</name><value>1</value></params>
+    <reportType>ContactList</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+</Report>

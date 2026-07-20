@@ -17,6 +17,8 @@
  * Change Log:
  * -----------
  * 2026-07-19 - Jason Ott - JSI-107 Phase 4: opt-out (unsubscribe) fetch + Salesforce-Id resolution.
+ * 2026-07-20 - Jason Ott - JSI-108: getListMemberships (topic preference fetch).
+ * 2026-07-20 - Jason Ott - JSI-109: getEmailCampaigns — email + per-recipient tracking (engagement) fetch.
  */
 public with sharing class ConstantContactClient {
 
@@ -150,6 +152,165 @@ public with sharing class ConstantContactClient {
             System.debug(LoggingLevel.WARN, 'Could not resolve Salesforce ID custom field: ' + e.getMessage());
         }
         return sfIdCustomFieldId;
+    }
+
+    /**
+     * JSI-109: fetch Constant Contact emails and their per-recipient engagement. Lists emails
+     * (/emails); for each sent email within the window, loads the activity detail (subject +
+     * contact_list_ids) and the tracking reports (sends/opens/clicks/bounces), producing one
+     * ContactActivityDTO per recipient with opens/clicks aggregated.
+     *
+     * VERIFY-AGAINST-LIVE: the /emails collection, /emails/activities/{id}, and
+     * /reports/email_reports/{id}/tracking/* shapes are grounded in the documented v3 schema but
+     * unconfirmed against a live payload (CC authorize pending). Parsing is isolated here so
+     * wire-format tweaks stay in this class; the applier is CC-agnostic.
+     * @param since only include emails last sent on/after this cursor
+     */
+    public List<ConstantContactSyncService.EmailCampaignDTO> getEmailCampaigns(Datetime since) {
+        List<ConstantContactSyncService.EmailCampaignDTO> out =
+            new List<ConstantContactSyncService.EmailCampaignDTO>();
+
+        String path = '/emails?limit=50';
+        Integer guard = 0;
+        while (String.isNotBlank(path) && guard < PAGE_GUARD) {
+            guard++;
+            Map<String, Object> body = getJson(path);
+            List<Object> campaigns = (List<Object>) body.get('campaigns');
+            if (campaigns != null) {
+                for (Object o : campaigns) {
+                    Map<String, Object> cm = (Map<String, Object>) o;
+                    String caId = primaryActivityId(cm);
+                    if (String.isBlank(caId)) continue;
+
+                    ConstantContactSyncService.EmailCampaignDTO dto =
+                        new ConstantContactSyncService.EmailCampaignDTO();
+                    dto.ccCampaignActivityId = caId;
+                    dto.name = (String) cm.get('name');
+                    dto.sentDate = parseDateTime((String) cm.get('last_sent_date'));
+                    if (dto.sentDate == null) dto.sentDate = parseDateTime((String) cm.get('updated_at'));
+
+                    // Only sync emails actually sent within the incremental window.
+                    if (since != null && dto.sentDate != null && dto.sentDate < since) continue;
+
+                    loadActivityDetail(caId, dto);
+                    loadTracking(caId, dto);
+                    out.add(dto);
+                }
+            }
+            path = nextEmailsPath(body);
+        }
+        return out;
+    }
+
+    /** Find the campaign_activity_id whose role is primary_email (the actual send). */
+    private String primaryActivityId(Map<String, Object> campaign) {
+        if (!(campaign.get('campaign_activities') instanceof List<Object>)) return null;
+        for (Object o : (List<Object>) campaign.get('campaign_activities')) {
+            Map<String, Object> ca = (Map<String, Object>) o;
+            if ('primary_email'.equals((String) ca.get('role'))) {
+                return (String) ca.get('campaign_activity_id');
+            }
+        }
+        return null;
+    }
+
+    /** Load subject + sent-to list ids from the campaign activity detail. */
+    private void loadActivityDetail(String caId, ConstantContactSyncService.EmailCampaignDTO dto) {
+        Map<String, Object> a = getJson('/emails/activities/' + caId);
+        dto.subject = (String) a.get('subject');
+        if (String.isBlank(dto.name)) dto.name = (String) a.get('name');
+        if (a.get('contact_list_ids') instanceof List<Object>) {
+            for (Object lid : (List<Object>) a.get('contact_list_ids')) {
+                if (lid != null) dto.ccListIds.add(String.valueOf(lid));
+            }
+        }
+    }
+
+    /** Pull the four tracking reports for a campaign and merge into per-contact activity DTOs. */
+    private void loadTracking(String caId, ConstantContactSyncService.EmailCampaignDTO dto) {
+        Map<String, ConstantContactSyncService.ContactActivityDTO> byContact =
+            new Map<String, ConstantContactSyncService.ContactActivityDTO>();
+        readTracking(caId, 'sends',   byContact);
+        readTracking(caId, 'opens',   byContact);
+        readTracking(caId, 'clicks',  byContact);
+        readTracking(caId, 'bounces', byContact);
+        dto.activities.addAll(byContact.values());
+    }
+
+    /** Read one tracking report type (paginated) and fold each row into the per-contact map. */
+    private void readTracking(String caId, String type,
+            Map<String, ConstantContactSyncService.ContactActivityDTO> byContact) {
+        String path = '/reports/email_reports/' + caId + '/tracking/' + type + '?limit=' + PAGE_LIMIT;
+        Integer guard = 0;
+        while (String.isNotBlank(path) && guard < PAGE_GUARD) {
+            guard++;
+            Map<String, Object> body = getJson(path);
+            List<Object> rows = (List<Object>) body.get('tracking_activities');
+            if (rows != null) {
+                for (Object o : rows) {
+                    Map<String, Object> r = (Map<String, Object>) o;
+                    String ccId = (String) r.get('contact_id');
+                    if (String.isBlank(ccId)) continue;
+                    ConstantContactSyncService.ContactActivityDTO a = byContact.get(ccId);
+                    if (a == null) {
+                        a = new ConstantContactSyncService.ContactActivityDTO();
+                        a.ccContactId = ccId;
+                        a.email = (String) r.get('email_address');
+                        byContact.put(ccId, a);
+                    }
+                    Datetime t = parseDateTime((String) r.get('created_time'));
+                    if (type == 'opens') {
+                        a.opened = true; a.openCount++;
+                        if (a.firstOpen == null || (t != null && t < a.firstOpen)) a.firstOpen = t;
+                        if (a.lastOpen == null || (t != null && t > a.lastOpen)) a.lastOpen = t;
+                    } else if (type == 'clicks') {
+                        a.clicked = true; a.clickCount++;
+                        if (a.firstClick == null || (t != null && t < a.firstClick)) a.firstClick = t;
+                        if (a.lastClick == null || (t != null && t > a.lastClick)) a.lastClick = t;
+                    } else if (type == 'bounces') {
+                        a.bounced = true;
+                    }
+                    // 'sends' just ensures the contact appears with email/id captured.
+                }
+            }
+            path = nextTrackingPath(body);
+        }
+    }
+
+    /** Next page for /emails (cursor style, keeping limit). */
+    private String nextEmailsPath(Map<String, Object> body) {
+        String cursor = nextCursor(body);
+        return cursor == null ? null : '/emails?cursor=' + cursor + '&limit=50';
+    }
+
+    /** Next page for a tracking report — strip the /v3 base the Named Credential already carries. */
+    private String nextTrackingPath(Map<String, Object> body) {
+        Map<String, Object> links = (Map<String, Object>) body.get('_links');
+        if (links == null || links.get('next') == null) return null;
+        Map<String, Object> next = (Map<String, Object>) links.get('next');
+        String href = (String) next.get('href');
+        return String.isBlank(href) ? null : href.replaceFirst('^/v3', '');
+    }
+
+    /** Extract the cursor= value from _links.next.href, or null when there's no next page. */
+    private String nextCursor(Map<String, Object> body) {
+        Map<String, Object> links = (Map<String, Object>) body.get('_links');
+        if (links == null || links.get('next') == null) return null;
+        Map<String, Object> next = (Map<String, Object>) links.get('next');
+        String href = (String) next.get('href');
+        if (String.isBlank(href) || !href.contains('cursor=')) return null;
+        return href.substringAfter('cursor=').substringBefore('&');
+    }
+
+    /** Parse a CC ISO-8601 datetime (e.g. 2026-07-20T14:00:00Z) to Datetime; null-safe. */
+    private Datetime parseDateTime(String iso) {
+        if (String.isBlank(iso)) return null;
+        try {
+            return (Datetime) JSON.deserialize('"' + iso + '"', Datetime.class);
+        } catch (Exception e) {
+            try { return Datetime.valueOfGmt(iso.replace('T', ' ').replace('Z', '').substringBefore('.')); }
+            catch (Exception e2) { return null; }
+        }
     }
 
     /** GET a CC path over the Named Credential and return the parsed JSON body. */

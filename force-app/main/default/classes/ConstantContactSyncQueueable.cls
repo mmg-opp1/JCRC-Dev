@@ -12,12 +12,15 @@
  * Change Log:
  * -----------
  * 2026-07-19 - Jason Ott - JSI-107 Phase 4: opt-out sync orchestration + incremental cursor.
+ * 2026-07-20 - Jason Ott - JSI-108: PREFERENCE mode (topic membership sync).
+ * 2026-07-20 - Jason Ott - JSI-109: ENGAGEMENT mode (email + per-recipient activity sync).
  */
 public with sharing class ConstantContactSyncQueueable implements Queueable, Database.AllowsCallouts {
 
     @TestVisible private static final Integer DEFAULT_LOOKBACK_HOURS = 25; // > 24h SLA on first run
 
-    // Which read(s) this run performs. 'OPT_OUT' (default), 'PREFERENCE' (JSI-108), or 'ALL'.
+    // Which read(s) this run performs. 'OPT_OUT' (default), 'PREFERENCE' (JSI-108),
+    // 'ENGAGEMENT' (JSI-109), or 'ALL'.
     private String mode = 'OPT_OUT';
 
     public ConstantContactSyncQueueable() {}
@@ -28,6 +31,7 @@ public with sharing class ConstantContactSyncQueueable implements Queueable, Dat
     public void execute(QueueableContext qc) {
         if (mode == 'OPT_OUT' || mode == 'ALL') runOptOutSync();
         if (mode == 'PREFERENCE' || mode == 'ALL') runPreferenceSync();
+        if (mode == 'ENGAGEMENT' || mode == 'ALL') runEngagementSync();
     }
 
     /** Fetch unsubscribes since the cursor and apply them; log a Failed run if the callout throws. */
@@ -54,6 +58,19 @@ public with sharing class ConstantContactSyncQueueable implements Queueable, Dat
             return null;
         }
         return new ConstantContactSyncService().applyTopicMemberships(memberships);
+    }
+
+    /** JSI-109: fetch CC emails + per-recipient engagement and apply them (CC_Email__c / CC_Email_Activity__c). */
+    public ConstantContactSyncService.SyncResult runEngagementSync() {
+        Datetime since = getCursor('Engagement Sync');
+        List<ConstantContactSyncService.EmailCampaignDTO> campaigns;
+        try {
+            campaigns = new ConstantContactClient().getEmailCampaigns(since);
+        } catch (Exception e) {
+            logFailure('Engagement Sync', e);
+            return null;
+        }
+        return new ConstantContactSyncService().applyEmailActivity(campaigns);
     }
 
     /** Cursor = start of the most recent successful/partial opt-out run; else now - lookback. */

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CC_Email__c</fullName>
+    <description>The CC email this activity summarizes. JSI-109 / Jason Ott.</description>
+    <label>CC Email</label>
+    <referenceTo>CC_Email__c</referenceTo>
+    <relationshipLabel>Email Activities</relationshipLabel>
+    <relationshipName>Email_Activities</relationshipName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <required>false</required>
+    <type>Lookup</type>
+</CustomField>

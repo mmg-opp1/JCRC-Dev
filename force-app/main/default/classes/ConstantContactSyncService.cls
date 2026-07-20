@@ -15,6 +15,7 @@
  * Change Log:
  * -----------
  * 2026-07-19 - Jason Ott - JSI-107 Phase 4: reverse-sync applier + run logging (CC client wired separately).
+ * 2026-07-20 - Jason Ott - JSI-109: engagement applier (applyEmailActivity) — CC_Email__c + CC_Email_Activity__c + Contact 90-day counters.
  */
 public with sharing class ConstantContactSyncService {
 
@@ -49,6 +50,32 @@ public with sharing class ConstantContactSyncService {
         public String ccContactId;
         public String email;      // fallback match
         public Set<String> subscribedListIds = new Set<String>();
+    }
+
+    /** JSI-109: one Constant Contact email + its per-recipient engagement (built by the client). */
+    public class EmailCampaignDTO {
+        public String ccCampaignActivityId;               // CC campaign_activity_id — upsert key on CC_Email__c
+        public String name;
+        public String subject;
+        public Datetime sentDate;
+        public Set<String> ccListIds = new Set<String>(); // contact_list_ids the email was sent to
+        public List<ContactActivityDTO> activities = new List<ContactActivityDTO>();
+    }
+
+    /** JSI-109: one recipient's summary engagement for a single email (not one row per event). */
+    public class ContactActivityDTO {
+        public Id salesforceId;         // pushed Salesforce Id (primary match)
+        public String ccContactId;      // CC contact UUID (match + Activity_Key)
+        public String email;            // fallback match
+        public Boolean opened = false;
+        public Boolean clicked = false;
+        public Boolean bounced = false;
+        public Integer openCount = 0;
+        public Integer clickCount = 0;
+        public Datetime firstOpen;
+        public Datetime lastOpen;
+        public Datetime firstClick;
+        public Datetime lastClick;
     }
 
     /**
@@ -247,6 +274,167 @@ public with sharing class ConstantContactSyncService {
 
         String status = res.failed == 0 ? 'Success' : (res.updated > 0 ? 'Partial' : 'Failed');
         logRun('Preference Sync', status, runStart, res, res.errors.isEmpty() ? 'OK' : String.join(res.errors, '\n'));
+        return res;
+    }
+
+    /**
+     * JSI-109 engagement sync. Upserts one CC_Email__c per Constant Contact email and one
+     * CC_Email_Activity__c summary per recipient (idempotent on Activity_Key__c), then refreshes each
+     * affected Contact's rolling 90-day open/click counters and last open/click dates. Writes one
+     * Integration_Log__c ('Engagement Sync'). System-mode DML (trusted backend); recipient matching
+     * reuses the pushed Salesforce Id, then CC_Contact_Id__c, then a case-insensitive email fallback.
+     * @param campaigns normalized CC emails + per-recipient activity (built by ConstantContactClient)
+     */
+    public SyncResult applyEmailActivity(List<EmailCampaignDTO> campaigns) {
+        Datetime runStart = System.now();
+        SyncResult res = new SyncResult();
+        if (campaigns == null || campaigns.isEmpty()) {
+            logRun('Engagement Sync', 'Success', runStart, res, 'No email campaigns to process.');
+            return res;
+        }
+
+        // --- 1. Upsert CC_Email__c (one per CC email); resolve CC_List__c from the sent-to list ids ---
+        Set<String> allListIds = new Set<String>();
+        for (EmailCampaignDTO em : campaigns) {
+            if (em.ccListIds != null) allListIds.addAll(em.ccListIds);
+        }
+        Map<String, Id> listToCampaign = new Map<String, Id>();
+        if (!allListIds.isEmpty()) {
+            for (Campaign camp : [
+                SELECT Id, CC_List_Id__c FROM Campaign
+                WHERE CC_List_Id__c IN :allListIds AND RecordType.DeveloperName = 'CC_List'
+            ]) {
+                if (String.isNotBlank(camp.CC_List_Id__c)) listToCampaign.put(camp.CC_List_Id__c, camp.Id);
+            }
+        }
+        List<CC_Email__c> emails = new List<CC_Email__c>();
+        for (EmailCampaignDTO em : campaigns) {
+            if (String.isBlank(em.ccCampaignActivityId)) continue;
+            // First matching sent-to list becomes the audience lookup; attribution Campaign__c is set manually.
+            Id listCampId = null;
+            for (String lid : em.ccListIds) {
+                if (listToCampaign.containsKey(lid)) { listCampId = listToCampaign.get(lid); break; }
+            }
+            String nm = String.isNotBlank(em.name) ? em.name
+                      : (String.isNotBlank(em.subject) ? em.subject : em.ccCampaignActivityId);
+            emails.add(new CC_Email__c(
+                Name = nm.abbreviate(80),
+                CC_Campaign_Activity_Id__c = em.ccCampaignActivityId,
+                Subject__c = em.subject,
+                Sent_Date__c = em.sentDate,
+                CC_List__c = listCampId
+            ));
+        }
+        Map<String, Id> caIdToEmailId = new Map<String, Id>();
+        if (!emails.isEmpty()) {
+            List<Database.UpsertResult> emailUrs =
+                Database.upsert(emails, CC_Email__c.CC_Campaign_Activity_Id__c, false);
+            for (Integer i = 0; i < emailUrs.size(); i++) {
+                if (emailUrs[i].isSuccess()) {
+                    caIdToEmailId.put(emails[i].CC_Campaign_Activity_Id__c, emailUrs[i].getId());
+                } else {
+                    res.errors.add('CC_Email ' + emails[i].CC_Campaign_Activity_Id__c + ': '
+                        + emailUrs[i].getErrors()[0].getMessage());
+                }
+            }
+        }
+
+        // --- 2. Match recipients and upsert one CC_Email_Activity__c per contact per email ---
+        Set<Id> ids = new Set<Id>();
+        Set<String> ccIds = new Set<String>();
+        Set<String> recipEmails = new Set<String>();
+        for (EmailCampaignDTO em : campaigns) {
+            for (ContactActivityDTO a : em.activities) {
+                res.processed++;
+                if (a.salesforceId != null) ids.add(a.salesforceId);
+                if (String.isNotBlank(a.ccContactId)) ccIds.add(a.ccContactId);
+                if (String.isNotBlank(a.email)) recipEmails.add(a.email.toLowerCase());
+            }
+        }
+        Map<Id, Contact> byId = new Map<Id, Contact>();
+        Map<String, Contact> byCc = new Map<String, Contact>();
+        Map<String, Contact> byEmail = new Map<String, Contact>();
+        for (Contact c : [
+            SELECT Id, Email, CC_Contact_Id__c FROM Contact
+            WHERE Id IN :ids OR CC_Contact_Id__c IN :ccIds OR Email IN :recipEmails
+        ]) {
+            byId.put(c.Id, c);
+            if (String.isNotBlank(c.CC_Contact_Id__c)) byCc.put(c.CC_Contact_Id__c, c);
+            if (String.isNotBlank(c.Email)) {
+                String k = c.Email.toLowerCase();
+                if (!byEmail.containsKey(k)) byEmail.put(k, c);
+            }
+        }
+
+        List<CC_Email_Activity__c> acts = new List<CC_Email_Activity__c>();
+        Set<Id> affected = new Set<Id>();
+        for (EmailCampaignDTO em : campaigns) {
+            Id emailId = caIdToEmailId.get(em.ccCampaignActivityId);
+            if (emailId == null) continue;
+            for (ContactActivityDTO a : em.activities) {
+                Contact c = null;
+                if (a.salesforceId != null && byId.containsKey(a.salesforceId)) c = byId.get(a.salesforceId);
+                else if (String.isNotBlank(a.ccContactId) && byCc.containsKey(a.ccContactId)) c = byCc.get(a.ccContactId);
+                else if (String.isNotBlank(a.email) && byEmail.containsKey(a.email.toLowerCase())) c = byEmail.get(a.email.toLowerCase());
+                if (c == null) {
+                    res.failed++;
+                    res.errors.add('No Contact match for '
+                        + (a.salesforceId != null ? String.valueOf(a.salesforceId)
+                           : (a.ccContactId != null ? a.ccContactId : a.email)));
+                    continue;
+                }
+                String keyPart = String.isNotBlank(a.ccContactId) ? a.ccContactId : String.valueOf(c.Id);
+                String status = a.clicked ? 'Clicked' : (a.opened ? 'Opened' : (a.bounced ? 'Bounced' : 'Sent'));
+                acts.add(new CC_Email_Activity__c(
+                    CC_Email__c = emailId,
+                    Contact__c = c.Id,
+                    Activity_Key__c = em.ccCampaignActivityId + '|' + keyPart,
+                    Status__c = status,
+                    Opened__c = a.opened, Clicked__c = a.clicked, Bounced__c = a.bounced,
+                    Open_Count__c = a.openCount, Click_Count__c = a.clickCount,
+                    First_Open_Date__c = a.firstOpen, Last_Open_Date__c = a.lastOpen,
+                    First_Click_Date__c = a.firstClick, Last_Click_Date__c = a.lastClick
+                ));
+                affected.add(c.Id);
+            }
+        }
+        if (!acts.isEmpty()) {
+            List<Database.UpsertResult> urs =
+                Database.upsert(acts, CC_Email_Activity__c.Activity_Key__c, false);
+            for (Integer i = 0; i < urs.size(); i++) {
+                if (urs[i].isSuccess()) res.updated++;
+                else { res.failed++; res.errors.add(urs[i].getErrors()[0].getMessage()); }
+            }
+        }
+
+        // --- 3. Refresh each affected Contact's rolling 90-day counters + last open/click dates ---
+        if (!affected.isEmpty()) {
+            Datetime cutoff = System.now().addDays(-90);
+            Map<Id, Contact> upd = new Map<Id, Contact>();
+            for (AggregateResult ar : [
+                SELECT Contact__c cid, SUM(Open_Count__c) opens, SUM(Click_Count__c) clicks,
+                       MAX(Last_Open_Date__c) lo, MAX(Last_Click_Date__c) lc
+                FROM CC_Email_Activity__c
+                WHERE Contact__c IN :affected AND CC_Email__r.Sent_Date__c >= :cutoff
+                GROUP BY Contact__c
+            ]) {
+                Id cid = (Id) ar.get('cid');
+                Contact e = new Contact(Id = cid);
+                Object o = ar.get('opens');
+                e.Email_Opens_Last_90_Days__c = (o == null) ? 0 : ((Decimal) o).intValue();
+                Object cl = ar.get('clicks');
+                e.Email_Clicks_Last_90_Days__c = (cl == null) ? 0 : ((Decimal) cl).intValue();
+                Datetime lo = (Datetime) ar.get('lo');
+                if (lo != null) e.Email_Last_Open__c = lo.date();
+                Datetime lc = (Datetime) ar.get('lc');
+                if (lc != null) e.Email_Last_Click__c = lc.date();
+                upd.put(cid, e);
+            }
+            if (!upd.isEmpty()) Database.update(upd.values(), false);
+        }
+
+        String status = res.failed == 0 ? 'Success' : (res.updated > 0 ? 'Partial' : 'Failed');
+        logRun('Engagement Sync', status, runStart, res, res.errors.isEmpty() ? 'OK' : String.join(res.errors, '\n'));
         return res;
     }
 

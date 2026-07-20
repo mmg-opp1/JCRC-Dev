@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Email_Clicks_Last_90_Days__c</fullName>
+    <description>Rolling count of email clicks in the last 90 days, maintained by the CC engagement poller. Companion to Email_Opens_Last_90_Days__c. JSI-109 / Jason Ott.</description>
+    <label>Email Clicks (Last 90 Days)</label>
+    <precision>6</precision>
+    <scale>0</scale>
+    <required>false</required>
+    <type>Number</type>
+</CustomField>
