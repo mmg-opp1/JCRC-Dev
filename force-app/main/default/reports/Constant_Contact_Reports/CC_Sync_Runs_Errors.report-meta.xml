@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Integration_Log__c$Operation__c</field>
+    </columns>
+    <columns>
+        <field>Integration_Log__c$Run_Status__c</field>
+    </columns>
+    <columns>
+        <field>Integration_Log__c$Run_Start__c</field>
+    </columns>
+    <columns>
+        <field>Integration_Log__c$Records_Processed__c</field>
+    </columns>
+    <columns>
+        <field>Integration_Log__c$Records_Updated__c</field>
+    </columns>
+    <columns>
+        <field>Integration_Log__c$Records_Failed__c</field>
+    </columns>
+    <columns>
+        <field>Integration_Log__c$Message__c</field>
+    </columns>
+    <description>Constant Contact sync runs that did not fully succeed (Failed or Partial) — admin monitoring/troubleshooting (DoD #6). JSI-107 / Jason Ott.</description>
+    <filter>
+        <criteriaItems>
+            <column>Integration_Log__c$Run_Status__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Success</value>
+        </criteriaItems>
+    </filter>
+    <format>Tabular</format>
+    <name>CC Sync Runs — Errors</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CC_Sync_Logs__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+</Report>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Email_Hard_Bounce__c</fullName>
+    <description>TRUE when Constant Contact last reported a hard (permanent) bounce for this Contact's email — flags the record for list cleanup (DoD #5). Set by the inbound poller; distinct from Salesforce's native IsEmailBounced (which only reflects Salesforce-sent email). JSI-107 / Jason Ott.</description>
+    <inlineHelpText>Constant Contact reported this email as a hard bounce. Review/clean up the address.</inlineHelpText>
+    <label>Email Hard Bounce (CC)</label>
+    <defaultValue>false</defaultValue>
+    <type>Checkbox</type>
+</CustomField>

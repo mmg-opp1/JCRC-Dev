@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CC_Contact_Id__c</fullName>
+    <description>Constant Contact contact_id (UUID) for this Contact. Stable external key the inbound poller uses to match CC records back to Salesforce (fallback = email). Populated from CC; also mapped into a CC custom field on the outbound native import. JSI-107 / Jason Ott.</description>
+    <externalId>true</externalId>
+    <inlineHelpText>Constant Contact's internal ID for this contact. Used to sync engagement, bounces, and opt-outs. Do not edit.</inlineHelpText>
+    <label>Constant Contact ID</label>
+    <caseSensitive>false</caseSensitive>
+    <length>50</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>

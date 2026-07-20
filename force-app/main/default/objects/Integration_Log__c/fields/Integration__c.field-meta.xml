@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Integration__c</fullName>
+    <description>Which integration produced this log row (e.g., "Constant Contact"). Text so new integrations can reuse this object. JSI-107 / Jason Ott.</description>
+    <label>Integration</label>
+    <length>80</length>
+    <required>false</required>
+    <type>Text</type>
+</CustomField>

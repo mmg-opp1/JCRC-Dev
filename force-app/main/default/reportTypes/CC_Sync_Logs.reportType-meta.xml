@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ReportType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <baseObject>Integration_Log__c</baseObject>
+    <category>other</category>
+    <deployed>true</deployed>
+    <description>Integration sync runs (Constant Contact inbound poller, and reusable for future integrations) for System Administrator monitoring and troubleshooting. JSI-107 / Jason Ott.</description>
+    <label>Constant Contact Sync Logs</label>
+    <sections>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Integration__c</field>
+            <table>Integration_Log__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Operation__c</field>
+            <table>Integration_Log__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Run_Status__c</field>
+            <table>Integration_Log__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Run_Start__c</field>
+            <table>Integration_Log__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Run_End__c</field>
+            <table>Integration_Log__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Records_Processed__c</field>
+            <table>Integration_Log__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Records_Updated__c</field>
+            <table>Integration_Log__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Records_Failed__c</field>
+            <table>Integration_Log__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Message__c</field>
+            <table>Integration_Log__c</table>
+        </columns>
+        <masterLabel>Integration Logs</masterLabel>
+    </sections>
+</ReportType>

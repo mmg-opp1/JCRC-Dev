@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Email_Last_Bounce_Date__c</fullName>
+    <description>Date Constant Contact last reported a bounce for this Contact's email. Set by the inbound poller (DoD #5). JSI-107 / Jason Ott.</description>
+    <inlineHelpText>Most recent date Constant Contact reported an email bounce for this contact.</inlineHelpText>
+    <label>Email Last Bounce Date (CC)</label>
+    <required>false</required>
+    <type>Date</type>
+</CustomField>

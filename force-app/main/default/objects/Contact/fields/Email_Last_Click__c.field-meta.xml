@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Email_Last_Click__c</fullName>
+    <description>Date this Contact last clicked a link in a Constant Contact email (engagement visibility, DoD #3, Option A summary field). Set by the inbound poller. JSI-107 / Jason Ott.</description>
+    <inlineHelpText>Most recent date this contact clicked a link in a Constant Contact email.</inlineHelpText>
+    <label>Email Last Clicked (CC)</label>
+    <required>false</required>
+    <type>Date</type>
+</CustomField>

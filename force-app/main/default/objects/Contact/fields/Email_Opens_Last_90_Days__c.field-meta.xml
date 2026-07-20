@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Email_Opens_Last_90_Days__c</fullName>
+    <description>Rolling count of Constant Contact email opens by this Contact in the last 90 days (engagement/re-engagement filtering, DoD #3, Option A). Maintained by the inbound poller. JSI-107 / Jason Ott.</description>
+    <inlineHelpText>How many Constant Contact emails this contact has opened in the last 90 days (synced).</inlineHelpText>
+    <label>Email Opens (Last 90 Days)</label>
+    <precision>4</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <type>Number</type>
+</CustomField>

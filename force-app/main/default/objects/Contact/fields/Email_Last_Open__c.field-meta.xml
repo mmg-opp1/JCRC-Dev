@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Email_Last_Open__c</fullName>
+    <description>Date this Contact last opened a Constant Contact email (engagement visibility, DoD #3, Option A summary field). Set by the inbound poller. JSI-107 / Jason Ott.</description>
+    <inlineHelpText>Most recent date this contact opened a Constant Contact email.</inlineHelpText>
+    <label>Email Last Opened (CC)</label>
+    <required>false</required>
+    <type>Date</type>
+</CustomField>
