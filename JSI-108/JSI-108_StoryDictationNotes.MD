@@ -1,0 +1,9 @@
+JSI 108 is a story that was made using AI and I believe that there isn't anything really for me to do in Salesforce for this so I just want you to take a deep dive into the story the definition of done items and make sure that this is all and within constant contact which is the e-mail provider for this particular project I want you to look at all of the documentation and the implementation plan for jsi 107 to understand what we did to integrate that and how we're using constant contact and then verify against constant contact features and functionality that everything contained in this particular user st....ales force and mark the story as done
+
+Here are the steps that we need to take for this:
+1) Pull the story from jira using C:\Users\jott3\OneDrive\Documents\SF_Local\JCRC-Dev\.jira_creds.json and save the story details locally using the same format that we have been using. See JSI-80 for an example.
+2) Review the notes in this document and compare to the details we pull from Jira.  Identify any outstanding questions or holes in the story that we may need to answer or have the client answer.
+3) Come up with an implementation plan just like the other stories. Use JSI-80 as an example.
+4) Review the entire org structure in @force-app to get a solid handle on how things are built in this org. This should show you how to structure things like flows, lightning record pages, comments, record types, etc.
+5) Make sure you do some research on the best way to handle this and the best way to approach this given then NPSP structure.
+6) After all clarifications are done and implementation plan is reviewed we can start implementing.

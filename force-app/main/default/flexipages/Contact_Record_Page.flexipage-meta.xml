@@ -315,6 +315,108 @@
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CC_Contact_Id__c</fieldItem>
+                <identifier>RecordCC_Contact_Id_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Email_Last_Click__c</fieldItem>
+                <identifier>RecordEmail_Last_Click_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Email_Last_Open__c</fieldItem>
+                <identifier>RecordEmail_Last_Open_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Email_Opens_Last_90_Days__c</fieldItem>
+                <identifier>RecordEmail_Opens_Last_90_Days_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-75718e41-a41d-4340-9445-c616da510463</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.HasOptedOutOfEmail</fieldItem>
+                <identifier>RecordHasOptedOutOfEmailField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Email_Last_Bounce_Date__c</fieldItem>
+                <identifier>RecordEmail_Last_Bounce_Date_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Email_Hard_Bounce__c</fieldItem>
+                <identifier>RecordEmail_Hard_Bounce_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-4cc4b811-321e-4a6a-9673-d1c9c61bfd86</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-75718e41-a41d-4340-9445-c616da510463</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column14</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-4cc4b811-321e-4a6a-9673-d1c9c61bfd86</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column15</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-6d7e2c61-5eb5-4cd7-9970-09c8044ba06b</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
         <name>Facet-a814c4a0-6a98-461b-b486-e6ca9efd6462</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -469,6 +571,24 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection2</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>columns</name>
+                    <value>Facet-6d7e2c61-5eb5-4cd7-9970-09c8044ba06b</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Email Marketing</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:fieldSection</componentName>
+                <identifier>flexipage_fieldSection8</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -772,25 +892,61 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>actionNames</name>
-                    <valueList><valueListItems><value>New</value></valueListItems></valueList>
+                    <valueList>
+                        <valueListItems>
+                            <value>New</value>
+                        </valueListItems>
+                    </valueList>
                 </componentInstanceProperties>
-                <componentInstanceProperties><name>maxRecordsToDisplay</name><value>15</value></componentInstanceProperties>
-                <componentInstanceProperties><name>parentFieldApiName</name><value>Contact.Id</value></componentInstanceProperties>
-                <componentInstanceProperties><name>relatedListApiName</name><value>Gift_Officer_Assignments__r</value></componentInstanceProperties>
-                <componentInstanceProperties><name>relatedListDisplayType</name><value>ADVGRID</value></componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>maxRecordsToDisplay</name>
+                    <value>15</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>parentFieldApiName</name>
+                    <value>Contact.Id</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListApiName</name>
+                    <value>Gift_Officer_Assignments__r</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListDisplayType</name>
+                    <value>ADVGRID</value>
+                </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>relatedListFieldAliases</name>
                     <valueList>
-                        <valueListItems><value>NAME</value></valueListItems>
-                        <valueListItems><value>Gift_Officer__c</value></valueListItems>
-                        <valueListItems><value>Role__c</value></valueListItems>
-                        <valueListItems><value>Active__c</value></valueListItems>
+                        <valueListItems>
+                            <value>NAME</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Gift_Officer__c</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Role__c</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Active__c</value>
+                        </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
-                <componentInstanceProperties><name>relatedListLabel</name><value>Gift Officer Assignments</value></componentInstanceProperties>
-                <componentInstanceProperties><name>showActionBar</name><value>true</value></componentInstanceProperties>
-                <componentInstanceProperties><name>sortFieldAlias</name><value>__DEFAULT__</value></componentInstanceProperties>
-                <componentInstanceProperties><name>sortFieldOrder</name><value>Default</value></componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListLabel</name>
+                    <value>Gift Officer Assignments</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showActionBar</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>sortFieldAlias</name>
+                    <value>__DEFAULT__</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>sortFieldOrder</name>
+                    <value>Default</value>
+                </componentInstanceProperties>
                 <componentName>lst:dynamicRelatedList</componentName>
                 <identifier>lst_moves_officers</identifier>
             </componentInstance>
@@ -799,25 +955,61 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>actionNames</name>
-                    <valueList><valueListItems><value>New</value></valueListItems></valueList>
+                    <valueList>
+                        <valueListItems>
+                            <value>New</value>
+                        </valueListItems>
+                    </valueList>
                 </componentInstanceProperties>
-                <componentInstanceProperties><name>maxRecordsToDisplay</name><value>10</value></componentInstanceProperties>
-                <componentInstanceProperties><name>parentFieldApiName</name><value>Contact.Id</value></componentInstanceProperties>
-                <componentInstanceProperties><name>relatedListApiName</name><value>Annual_Giving_Summaries__r</value></componentInstanceProperties>
-                <componentInstanceProperties><name>relatedListDisplayType</name><value>ADVGRID</value></componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>maxRecordsToDisplay</name>
+                    <value>10</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>parentFieldApiName</name>
+                    <value>Contact.Id</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListApiName</name>
+                    <value>Annual_Giving_Summaries__r</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListDisplayType</name>
+                    <value>ADVGRID</value>
+                </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>relatedListFieldAliases</name>
                     <valueList>
-                        <valueListItems><value>NAME</value></valueListItems>
-                        <valueListItems><value>Fiscal_Year_Label__c</value></valueListItems>
-                        <valueListItems><value>Level_Display__c</value></valueListItems>
-                        <valueListItems><value>Total_Giving__c</value></valueListItems>
+                        <valueListItems>
+                            <value>NAME</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Fiscal_Year_Label__c</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Level_Display__c</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Total_Giving__c</value>
+                        </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
-                <componentInstanceProperties><name>relatedListLabel</name><value>Annual Giving Summaries</value></componentInstanceProperties>
-                <componentInstanceProperties><name>showActionBar</name><value>true</value></componentInstanceProperties>
-                <componentInstanceProperties><name>sortFieldAlias</name><value>__DEFAULT__</value></componentInstanceProperties>
-                <componentInstanceProperties><name>sortFieldOrder</name><value>Default</value></componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListLabel</name>
+                    <value>Annual Giving Summaries</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showActionBar</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>sortFieldAlias</name>
+                    <value>__DEFAULT__</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>sortFieldOrder</name>
+                    <value>Default</value>
+                </componentInstanceProperties>
                 <componentName>lst:dynamicRelatedList</componentName>
                 <identifier>lst_moves_summaries</identifier>
             </componentInstance>
@@ -826,23 +1018,55 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>actionNames</name>
-                    <valueList><valueListItems><value>New</value></valueListItems></valueList>
+                    <valueList>
+                        <valueListItems>
+                            <value>New</value>
+                        </valueListItems>
+                    </valueList>
                 </componentInstanceProperties>
-                <componentInstanceProperties><name>maxRecordsToDisplay</name><value>10</value></componentInstanceProperties>
-                <componentInstanceProperties><name>parentFieldApiName</name><value>Contact.Id</value></componentInstanceProperties>
-                <componentInstanceProperties><name>relatedListApiName</name><value>npsp__Action_Plans__r</value></componentInstanceProperties>
-                <componentInstanceProperties><name>relatedListDisplayType</name><value>ADVGRID</value></componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>maxRecordsToDisplay</name>
+                    <value>10</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>parentFieldApiName</name>
+                    <value>Contact.Id</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListApiName</name>
+                    <value>npsp__Action_Plans__r</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListDisplayType</name>
+                    <value>ADVGRID</value>
+                </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>relatedListFieldAliases</name>
                     <valueList>
-                        <valueListItems><value>NAME</value></valueListItems>
-                        <valueListItems><value>npsp__Status__c</value></valueListItems>
+                        <valueListItems>
+                            <value>NAME</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>npsp__Status__c</value>
+                        </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
-                <componentInstanceProperties><name>relatedListLabel</name><value>Engagement Plans</value></componentInstanceProperties>
-                <componentInstanceProperties><name>showActionBar</name><value>true</value></componentInstanceProperties>
-                <componentInstanceProperties><name>sortFieldAlias</name><value>__DEFAULT__</value></componentInstanceProperties>
-                <componentInstanceProperties><name>sortFieldOrder</name><value>Default</value></componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListLabel</name>
+                    <value>Engagement Plans</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showActionBar</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>sortFieldAlias</name>
+                    <value>__DEFAULT__</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>sortFieldOrder</name>
+                    <value>Default</value>
+                </componentInstanceProperties>
                 <componentName>lst:dynamicRelatedList</componentName>
                 <identifier>lst_moves_engagement</identifier>
             </componentInstance>
@@ -1094,6 +1318,12 @@
             <componentInstance>
                 <componentName>tagManager</componentName>
                 <identifier>c_tagManager</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentName>contactListSubscriptions</componentName>
+                <identifier>c_contactListSubscriptions</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>

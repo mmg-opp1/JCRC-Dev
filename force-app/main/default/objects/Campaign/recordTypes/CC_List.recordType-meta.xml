@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CC_List</fullName>
+    <active>true</active>
+    <description>A Campaign of this record type represents one Constant Contact email list (subscription topic); its Campaign Members are constituents subscribed to that topic. JSI-108 / Jason Ott.</description>
+    <label>CC List</label>
+</RecordType>

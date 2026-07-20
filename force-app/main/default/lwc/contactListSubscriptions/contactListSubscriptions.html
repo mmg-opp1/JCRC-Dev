@@ -1,0 +1,34 @@
+<template>
+    <lightning-card title="Email Subscriptions" icon-name="standard:email">
+        <div class="slds-p-horizontal_medium slds-p-bottom_small">
+
+            <template if:true={hasSubscriptions}>
+                <ul class="slds-has-dividers_bottom-space">
+                    <template for:each={rows} for:item="row">
+                        <li key={row.key}
+                            class="slds-item slds-grid slds-grid_align-spread slds-grid_vertical-align-center">
+                            <span class="slds-truncate slds-p-right_small" title={row.topic}>{row.topic}</span>
+                            <span class={row.badgeClass}>{row.status}</span>
+                        </li>
+                    </template>
+                </ul>
+                <p class="slds-text-body_small slds-text-color_weak slds-p-top_x-small">
+                    View only — constituents manage these in the email preference center.
+                </p>
+            </template>
+
+            <template if:true={isEmpty}>
+                <p class="slds-text-body_regular slds-text-color_weak slds-p-vertical_x-small">
+                    No list subscriptions.
+                </p>
+            </template>
+
+            <template if:true={error}>
+                <p class="slds-text-color_error slds-p-vertical_x-small">
+                    Unable to load subscriptions.
+                </p>
+            </template>
+
+        </div>
+    </lightning-card>
+</template>

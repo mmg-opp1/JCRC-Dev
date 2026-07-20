@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CC_List_Id__c</fullName>
+    <description>Constant Contact list id this Campaign maps to (topic = Campaign = CC list). The JSI-108 inbound preference sync resolves a constituent's CC list membership to this Campaign via this field, then upserts a CampaignMember. Set on CC List record-type Campaigns. JSI-108 / Jason Ott.</description>
+    <externalId>true</externalId>
+    <inlineHelpText>The Constant Contact list ID this campaign represents. Used to sync topic subscriptions from CC. Do not edit unless remapping the list.</inlineHelpText>
+    <label>CC List ID</label>
+    <length>50</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>
