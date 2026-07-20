@@ -154,4 +154,6 @@ Per org standard (**profiles, not perm sets** — `feedback-security-at-profile-
 
 **Phase 4 — UI (Jason, App Builder) — ✅ DONE + RETRIEVED 2026-07-20 (not committed).** Jason built the record pages; retrieved to source: **`Contact_Record_Page`** (added a dynamic related list on `CC_Email_Activities__r` — the constituent's recent email activity, DoD #1); new **`CC_Email_Record_Page`** (`CC_Email__c` — highlights + fields + Email Activities related list); new **`CC_Email_Activity_Record_Page`** (`CC_Email_Activity__c` — highlights + fields). Page→record-type assignments are App-Builder activation (not source-tracked), Jason's. **⏳ DLRS rollups** (`Total_*` on `CC_Email__c`) still Jason's to wire.
 
-**Remaining:** DLRS rollups (Jason) · Phase 5 live verify + schedule (blocked on the shared CC authorize) · commit + push.
+**✅ COMMITTED + PUSHED to origin/main `9056c9f` 2026-07-20** (48 files; JSI-109 paths only — `.gitignore`/`PROJECT_CONTEXT.md` deliberately excluded).
+
+**Remaining (all outside the Claude build):** DLRS rollups (`Total_*` on `CC_Email__c`, Jason) · Phase 5 live verify + schedule the `ENGAGEMENT` job (blocked on the shared CC OAuth authorize — Account Owner).
