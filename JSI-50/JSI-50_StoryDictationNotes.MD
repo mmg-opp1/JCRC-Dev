@@ -1,0 +1,10 @@
+This is another research story, largely as I just want to make sure this is all taken care of from the Constant contact side of the functionality and that there's nothing to be built in sales force. The way that I interpreted this story and the way that I was planning on designing it, is that we would utilize the standard sales force integration to sync contact lists. To my understanding, this is done through the list views and the client themselves will be able to configure a list view as well as a sync that they would like to perform on any of the available and applicable schedules or anything like that. I don't see the need to build anything from a report interface when it can be done through the list view. Please take a look through all of the documentation on Constant Contact functionality as well as the Story and Definition of Done items and do this research very thoroughly. If there is anything that we need to do, we can come up with the implementation plan, but only if there's functionality that we need to build.
+
+
+Here are the steps that we need to take for this:
+1) Pull the story from jira using C:\Users\jott3\OneDrive\Documents\SF_Local\JCRC-Dev\.jira_creds.json and save the story details locally using the same format that we have been using. See JSI-80 for an example.
+2) Review the notes in this document and compare to the details we pull from Jira.  Identify any outstanding questions or holes in the story that we may need to answer or have the client answer.
+3) Come up with an implementation plan just like the other stories. Use JSI-80 as an example.
+4) Review the entire org structure in @force-app to get a solid handle on how things are built in this org. This should show you how to structure things like flows, lightning record pages, comments, record types, etc.
+5) Make sure you do some research on the best way to handle this and the best way to approach this given then NPSP structure.
+6) After all clarifications are done and implementation plan is reviewed we can start implementing.
