@@ -156,4 +156,6 @@ Per org standard (**profiles, not perm sets** — `feedback-security-at-profile-
 
 **✅ COMMITTED + PUSHED to origin/main `9056c9f` 2026-07-20** (48 files; JSI-109 paths only — `.gitignore`/`PROJECT_CONTEXT.md` deliberately excluded).
 
-**Remaining (all outside the Claude build):** DLRS rollups (`Total_*` on `CC_Email__c`, Jason) · Phase 5 live verify + schedule the `ENGAGEMENT` job (blocked on the shared CC OAuth authorize — Account Owner).
+**✅ UNBLOCKED & LIVE 2026-07-21:** CC authorize cleared. The engagement sync (`ConstantContactSyncQueueable('ENGAGEMENT')`) ran clean end-to-end as a Queueable (Integration_Log = Success) and is now **scheduled hourly** as part of `JSI CC Inbound Sync Hourly`. First run logged "no email campaigns to process" (only a Draft campaign exists) — the per-recipient tracking parse (`VERIFY-AGAINST-LIVE`) gets its final confirmation on the **first real sent campaign**.
+
+**Remaining (all outside the Claude build):** DLRS rollups (`Total_*` on `CC_Email__c`, Jason) · confirm engagement parse on the first live sent campaign.
