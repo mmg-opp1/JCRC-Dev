@@ -2,7 +2,7 @@
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Grant</fullName>
     <active>true</active>
-    <businessProcess>Pledge_Process</businessProcess>
+    <businessProcess>Grant_Process</businessProcess>
     <description>Grant award, typically installment-paid; treated like a pledge for payments. Excluded from auto-payment creation. JSI-82 / Jason Ott.</description>
     <label>Grant</label>
     <picklistValues>
@@ -212,14 +212,6 @@
         </values>
         <values>
             <fullName>Do Not Acknowledge</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Email Acknowledgment Not Sent</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Email Acknowledgment Now</fullName>
             <default>false</default>
         </values>
         <values>

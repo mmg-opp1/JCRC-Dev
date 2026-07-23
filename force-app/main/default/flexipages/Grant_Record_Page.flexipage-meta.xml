@@ -357,8 +357,8 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.npsp__Grant_Period_Start_Date__c</fieldItem>
-                <identifier>Recordnpsp_Grant_Period_Start_Date_cField2</identifier>
+                <fieldItem>Record.npsp__Grant_Period_End_Date__c</fieldItem>
+                <identifier>Recordnpsp_Grant_Period_End_Date_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -369,6 +369,46 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.npsp__Grant_Requirements_Website__c</fieldItem>
                 <identifier>Recordnpsp_Grant_Requirements_Website_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Program_Officer__c</fieldItem>
+                <identifier>RecordProgram_Officer_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.npsp__Requested_Amount__c</fieldItem>
+                <identifier>Recordnpsp_Requested_Amount_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.npsp__Grant_Program_Area_s__c</fieldItem>
+                <identifier>Recordnpsp_Grant_Program_Area_s_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.npsp__Next_Grant_Deadline_Due_Date__c</fieldItem>
+                <identifier>Recordnpsp_Next_Grant_Deadline_Due_Date_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-c50dd19c-243b-432d-9bf8-be35f96b5705</name>
@@ -1543,6 +1583,7 @@
                 <fieldItem>Record.Acknowledgment_Approved__c</fieldItem>
                 <identifier>ackf_gr_approved</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.npsp__Acknowledgment_Status__c}</leftValue>
                         <operator>EQUAL</operator>
@@ -1553,7 +1594,6 @@
                         <operator>EQUAL</operator>
                         <rightValue>Approval-Gated</rightValue>
                     </criteria>
-                    <booleanFilter>1 AND 2</booleanFilter>
                 </visibilityRule>
             </fieldInstance>
         </itemInstances>

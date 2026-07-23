@@ -2,6 +2,36 @@
 <StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <sorted>false</sorted>
     <standardValue>
+        <fullName>Identification</fullName>
+        <default>false</default>
+        <description>Grant lifecycle: a funding opportunity has been identified. JSI-120 / Jason Ott.</description>
+        <label>Identification</label>
+        <closed>false</closed>
+        <forecastCategory>Pipeline</forecastCategory>
+        <probability>10</probability>
+        <won>false</won>
+    </standardValue>
+    <standardValue>
+        <fullName>Request</fullName>
+        <default>false</default>
+        <description>Grant lifecycle: the application/request has been submitted to the funder. JSI-120 / Jason Ott.</description>
+        <label>Request</label>
+        <closed>false</closed>
+        <forecastCategory>BestCase</forecastCategory>
+        <probability>40</probability>
+        <won>false</won>
+    </standardValue>
+    <standardValue>
+        <fullName>Response</fullName>
+        <default>false</default>
+        <description>Grant lifecycle: awaiting the funder's decision. JSI-120 / Jason Ott.</description>
+        <label>Response</label>
+        <closed>false</closed>
+        <forecastCategory>BestCase</forecastCategory>
+        <probability>70</probability>
+        <won>false</won>
+    </standardValue>
+    <standardValue>
         <fullName>Qualification</fullName>
         <default>false</default>
         <description>You&apos;ve contacted the prospect and they&apos;re interested.</description>

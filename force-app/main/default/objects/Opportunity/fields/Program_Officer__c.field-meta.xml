@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Program_Officer__c</fullName>
+    <description>The funder's program officer for this grant — the Contact at the granting organization who manages the relationship. JSI-120 / Jason Ott.</description>
+    <inlineHelpText>The program officer at the funding organization for this grant.</inlineHelpText>
+    <label>Program Officer</label>
+    <referenceTo>Contact</referenceTo>
+    <relationshipLabel>Grants (as Program Officer)</relationshipLabel>
+    <relationshipName>Grants_As_Program_Officer</relationshipName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <required>false</required>
+    <type>Lookup</type>
+</CustomField>
