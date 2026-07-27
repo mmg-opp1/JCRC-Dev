@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Expiring_Soon_Window_Days__c</fullName>
+    <description>How many days before a term's End Date it counts as "expiring soon" (drives Board_Term__c.Expiring_Soon__c). PLACEHOLDER (default 90) pending JCRC confirmation (client Q4). JSI-123 / Jason Ott.</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Expiring Soon Window (Days)</label>
+    <required>false</required>
+    <precision>4</precision>
+    <scale>0</scale>
+    <type>Number</type>
+</CustomField>

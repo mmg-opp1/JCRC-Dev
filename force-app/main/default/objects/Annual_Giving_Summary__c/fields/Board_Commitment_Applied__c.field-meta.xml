@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Board_Commitment_Applied__c</fullName>
+    <description>The giving that counts toward this year's board commitment. *** SWAP POINT (client Q11/Q12) *** Defaults to Total Giving (hard + soft). If JCRC decides only certain giving counts (e.g. personal/hard credit only, or excluding event tickets), change ONLY this formula and every downstream Met/Remaining/% updates. JSI-123 / Jason Ott.</description>
+    <formula>BLANKVALUE(Total_Giving__c, 0)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Board Commitment Applied</label>
+    <required>false</required>
+    <precision>18</precision>
+    <scale>2</scale>
+    <type>Currency</type>
+</CustomField>

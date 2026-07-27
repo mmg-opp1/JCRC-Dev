@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Parent_Committee__c</fullName>
+    <description>If set, this row is a subcommittee of the referenced committee. Blank = a top-level committee. JSI-123 / Jason Ott.</description>
+    <label>Parent Committee</label>
+    <referenceTo>Committee__c</referenceTo>
+    <relationshipLabel>Subcommittees</relationshipLabel>
+    <relationshipName>Subcommittees</relationshipName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <required>false</required>
+    <type>Lookup</type>
+</CustomField>

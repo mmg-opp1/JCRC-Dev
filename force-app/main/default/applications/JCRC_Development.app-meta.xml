@@ -1147,6 +1147,7 @@
     <tabs>npsp__General_Accounting_Unit__c</tabs>
     <tabs>standard-report</tabs>
     <tabs>standard-Dashboard</tabs>
+    <tabs>Board_Members</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>Development_UtilityBar</utilityBar>
 </CustomApplication>

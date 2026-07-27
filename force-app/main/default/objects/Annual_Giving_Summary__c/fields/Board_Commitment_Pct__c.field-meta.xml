@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Board_Commitment_Pct__c</fullName>
+    <description>Percent of the board commitment fulfilled this year = Applied / Commitment. Zero when there is no commitment. JSI-123 / Jason Ott.</description>
+    <formula>IF(
+  BLANKVALUE(Board_Commitment__c, 0) &gt; 0,
+  Board_Commitment_Applied__c / Board_Commitment__c,
+  0
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Board Commitment % Met</label>
+    <precision>8</precision>
+    <scale>2</scale>
+    <type>Percent</type>
+</CustomField>

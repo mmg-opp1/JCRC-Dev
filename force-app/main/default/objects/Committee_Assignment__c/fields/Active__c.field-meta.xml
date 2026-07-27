@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Active__c</fullName>
+    <description>Whether the person is currently serving in this committee assignment. JSI-123 / Jason Ott.</description>
+    <label>Active</label>
+    <defaultValue>true</defaultValue>
+    <type>Checkbox</type>
+</CustomField>

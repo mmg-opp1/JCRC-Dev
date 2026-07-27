@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Board_Commitment_Remaining__c</fullName>
+    <description>Dollars still owed toward the board commitment this year = MAX(Commitment - Applied, 0). Zero when there is no commitment. JSI-123 / Jason Ott.</description>
+    <formula>IF(
+  BLANKVALUE(Board_Commitment__c, 0) &gt; 0,
+  MAX(Board_Commitment__c - Board_Commitment_Applied__c, 0),
+  0
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Board Commitment Remaining</label>
+    <required>false</required>
+    <precision>18</precision>
+    <scale>2</scale>
+    <type>Currency</type>
+</CustomField>

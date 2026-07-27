@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Default_Annual_Commitment__c</fullName>
+    <description>Default per-member annual giving commitment ($), used to seed each board year's Annual Giving Summary when no per-member value is set. PLACEHOLDER pending JCRC confirmation (client Q9/Q10). JSI-123 / Jason Ott.</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Default Annual Commitment ($)</label>
+    <required>false</required>
+    <precision>16</precision>
+    <scale>2</scale>
+    <type>Number</type>
+</CustomField>

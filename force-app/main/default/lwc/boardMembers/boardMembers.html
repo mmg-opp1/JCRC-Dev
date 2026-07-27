@@ -1,0 +1,19 @@
+<template>
+    <lightning-card title="Current Board Members" icon-name="standard:groups">
+        <span slot="actions" class="slds-badge slds-badge_lightest">{count}</span>
+        <div class="slds-p-horizontal_small slds-p-bottom_small">
+            <template lwc:if={hasRows}>
+                <lightning-datatable
+                    key-field="termId"
+                    data={rows}
+                    columns={columns}
+                    hide-checkbox-column
+                    column-widths-mode="auto">
+                </lightning-datatable>
+            </template>
+            <template lwc:else>
+                <p class="slds-p-around_medium slds-text-color_weak">No current board members yet.</p>
+            </template>
+        </div>
+    </lightning-card>
+</template>

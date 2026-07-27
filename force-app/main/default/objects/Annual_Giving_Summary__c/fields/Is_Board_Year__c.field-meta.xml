@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Is_Board_Year__c</fullName>
+    <description>TRUE when this summary carries a board commitment (Board Commitment greater than 0). Lets reports/dashboards isolate board-commitment years. JSI-123 / Jason Ott.</description>
+    <formula>BLANKVALUE(Board_Commitment__c, 0) &gt; 0</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Is Board Year</label>
+    <type>Checkbox</type>
+</CustomField>

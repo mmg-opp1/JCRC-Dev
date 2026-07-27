@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>One record per person per committee per fiscal year (July 1-June 30) capturing their role that year. Contacts need not be board members (staff/advisors can serve) - confirm with client (Q17). JSI-123 Board Tracking. Author: Jason Ott.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <label>Committee Assignment</label>
+    <nameField>
+        <displayFormat>CA-{00000}</displayFormat>
+        <label>Committee Assignment Number</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Committee Assignments</pluralLabel>
+    <sharingModel>ReadWrite</sharingModel>
+    <externalSharingModel>Private</externalSharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

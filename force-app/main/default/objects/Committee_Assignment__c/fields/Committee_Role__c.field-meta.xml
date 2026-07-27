@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Committee_Role__c</fullName>
+    <description>The person's role on this committee for the year. PLACEHOLDER value set pending JCRC's committee-role list (client Q16). JSI-123 / Jason Ott.</description>
+    <label>Committee Role</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Chair</fullName>
+                <default>false</default>
+                <label>Chair</label>
+            </value>
+            <value>
+                <fullName>Vice-Chair</fullName>
+                <default>false</default>
+                <label>Vice-Chair</label>
+            </value>
+            <value>
+                <fullName>Member</fullName>
+                <default>true</default>
+                <label>Member</label>
+            </value>
+            <value>
+                <fullName>Advisor</fullName>
+                <default>false</default>
+                <label>Advisor</label>
+            </value>
+            <value>
+                <fullName>Staff Liaison</fullName>
+                <default>false</default>
+                <label>Staff Liaison</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

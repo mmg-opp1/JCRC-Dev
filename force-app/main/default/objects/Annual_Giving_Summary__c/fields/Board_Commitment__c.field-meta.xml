@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Board_Commitment__c</fullName>
+    <description>The board giving commitment required of this member for this fiscal year. Seeded from the Board Term's default (automation, Phase 2) and overridable per year. Blank or 0 = this is not a board-commitment year. JSI-123 Board Tracking / Jason Ott.</description>
+    <label>Board Commitment</label>
+    <required>false</required>
+    <precision>18</precision>
+    <scale>2</scale>
+    <type>Currency</type>
+</CustomField>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Board_Role__c</fullName>
+    <description>The member's role on the board. PLACEHOLDER value set pending JCRC's definitive officer list (client Q7). JSI-123 / Jason Ott.</description>
+    <label>Board Role</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Chair</fullName>
+                <default>false</default>
+                <label>Chair</label>
+            </value>
+            <value>
+                <fullName>Vice-Chair</fullName>
+                <default>false</default>
+                <label>Vice-Chair</label>
+            </value>
+            <value>
+                <fullName>Treasurer</fullName>
+                <default>false</default>
+                <label>Treasurer</label>
+            </value>
+            <value>
+                <fullName>Secretary</fullName>
+                <default>false</default>
+                <label>Secretary</label>
+            </value>
+            <value>
+                <fullName>Member</fullName>
+                <default>true</default>
+                <label>Member</label>
+            </value>
+            <value>
+                <fullName>Immediate Past Chair</fullName>
+                <default>false</default>
+                <label>Immediate Past Chair</label>
+            </value>
+            <value>
+                <fullName>Emeritus</fullName>
+                <default>false</default>
+                <label>Emeritus</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

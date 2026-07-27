@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Committee__c</fullName>
+    <description>The committee or subcommittee served. Restrict delete to preserve history. JSI-123 / Jason Ott.</description>
+    <label>Committee</label>
+    <referenceTo>Committee__c</referenceTo>
+    <relationshipLabel>Committee Assignments</relationshipLabel>
+    <relationshipName>Committee_Assignments</relationshipName>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <required>true</required>
+    <type>Lookup</type>
+</CustomField>

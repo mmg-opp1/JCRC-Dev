@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Status__c</fullName>
+    <description>Lifecycle status of the term. Only "Active" terms within their date window count toward the current board (see Is Current). JSI-123 / Jason Ott.</description>
+    <label>Status</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Prospective</fullName>
+                <default>false</default>
+                <label>Prospective</label>
+            </value>
+            <value>
+                <fullName>Active</fullName>
+                <default>true</default>
+                <label>Active</label>
+            </value>
+            <value>
+                <fullName>On Leave</fullName>
+                <default>false</default>
+                <label>On Leave</label>
+            </value>
+            <value>
+                <fullName>Rolled Off</fullName>
+                <default>false</default>
+                <label>Rolled Off</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

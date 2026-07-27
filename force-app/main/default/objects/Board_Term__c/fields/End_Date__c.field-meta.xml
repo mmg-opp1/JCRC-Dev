@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>End_Date__c</fullName>
+    <description>Date the term expires. When reached, the member should roll off the board (see Roll-Off Action setting). Blank = open/indefinite (discouraged). JSI-123 / Jason Ott.</description>
+    <label>Term End Date</label>
+    <required>false</required>
+    <type>Date</type>
+</CustomField>

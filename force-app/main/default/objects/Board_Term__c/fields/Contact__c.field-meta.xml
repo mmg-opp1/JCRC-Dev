@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Contact__c</fullName>
+    <description>The board member. Restrict delete so a contact with board history cannot be removed. JSI-123 / Jason Ott.</description>
+    <label>Board Member</label>
+    <referenceTo>Contact</referenceTo>
+    <relationshipLabel>Board Terms</relationshipLabel>
+    <relationshipName>Board_Terms</relationshipName>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <required>true</required>
+    <type>Lookup</type>
+</CustomField>
