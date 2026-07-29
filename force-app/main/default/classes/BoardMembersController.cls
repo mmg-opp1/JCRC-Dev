@@ -91,4 +91,47 @@ public with sharing class BoardMembersController {
         }
         return rows;
     }
+
+    public class PicklistOption {
+        @AuraEnabled public String label;
+        @AuraEnabled public String value;
+    }
+
+    /** Active board member types for the "New Board Member" dropdown. */
+    @AuraEnabled(cacheable=true)
+    public static List<PicklistOption> getMemberTypes() {
+        List<PicklistOption> out = new List<PicklistOption>();
+        for (Board_Member_Type__c t : [
+                SELECT Id, Name FROM Board_Member_Type__c WHERE Active__c = true
+                WITH USER_MODE ORDER BY Sort_Order__c NULLS LAST, Name]) {
+            PicklistOption o = new PicklistOption();
+            o.label = t.Name;
+            o.value = t.Id;
+            out.add(o);
+        }
+        return out;
+    }
+
+    /** Create a board term — the trigger auto-fills the End Date and generates the per-year records. */
+    @AuraEnabled
+    public static Id createBoardTerm(Id contactId, Id memberTypeId, Date startDate) {
+        Board_Term__c bt = new Board_Term__c(
+            Contact__c = contactId, Member_Type__c = memberTypeId,
+            Status__c = 'Active', Start_Date__c = startDate);
+        Database.insert(bt, AccessLevel.USER_MODE);
+        return bt.Id;
+    }
+
+    /** End a board term on a given date and remove any board years that fall entirely after it. */
+    @AuraEnabled
+    public static void endBoardTerm(Id boardTermId, Date endDate) {
+        Database.update(new Board_Term__c(Id = boardTermId, End_Date__c = endDate), AccessLevel.USER_MODE);
+        List<Board_Membership_Year__c> future = [
+            SELECT Id FROM Board_Membership_Year__c
+            WHERE Board_Term__c = :boardTermId AND FY_Start__c > :endDate
+            WITH USER_MODE];
+        if (!future.isEmpty()) {
+            Database.delete(future, AccessLevel.USER_MODE);
+        }
+    }
 }

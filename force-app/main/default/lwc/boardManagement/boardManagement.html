@@ -21,10 +21,26 @@
                         <lightning-button slot="actions" label="Save Attendance" variant="brand"
                             onclick={saveAttendance}></lightning-button>
                         <div class="slds-p-horizontal_small slds-p-bottom_small">
-                            <lightning-datatable key-field="membershipYearId" data={attendees}
-                                columns={attendeeColumns} draft-values={draftValues} hide-checkbox-column
-                                oncellchange={handleCellChange} column-widths-mode="auto">
-                            </lightning-datatable>
+                            <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                                <thead>
+                                    <tr class="slds-line-height_reset">
+                                        <th scope="col"><div class="slds-truncate">Board Member</div></th>
+                                        <th scope="col"><div class="slds-truncate">Attended</div></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <template for:each={attendees} for:item="a">
+                                        <tr key={a.membershipYearId}>
+                                            <td><div class="slds-truncate">{a.name}</div></td>
+                                            <td>
+                                                <lightning-input type="checkbox" checked={a.attended}
+                                                    data-id={a.membershipYearId} onchange={handleAttendChange}
+                                                    variant="label-hidden" label="Attended"></lightning-input>
+                                            </td>
+                                        </tr>
+                                    </template>
+                                </tbody>
+                            </table>
                         </div>
                     </lightning-card>
                 </template>

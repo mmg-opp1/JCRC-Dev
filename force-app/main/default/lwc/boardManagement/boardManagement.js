@@ -22,10 +22,6 @@ const MEETING_COLUMNS = [
     { label: 'Attended', fieldName: 'attendedCount', type: 'number', cellAttributes: { alignment: 'left' } },
     { type: 'button', typeAttributes: { label: 'Take Attendance', name: 'open', variant: 'brand-outline' } }
 ];
-const ATTENDEE_COLUMNS = [
-    { label: 'Board Member', fieldName: 'name' },
-    { label: 'Attended', fieldName: 'attended', type: 'boolean', editable: true }
-];
 const COMMITTEE_COLUMNS = [
     { label: 'Committee', fieldName: 'name' },
     { label: 'Category', fieldName: 'category' },
@@ -54,7 +50,6 @@ const ROLE_OPTIONS = [
 
 export default class BoardManagement extends LightningElement {
     meetingColumns = MEETING_COLUMNS;
-    attendeeColumns = ATTENDEE_COLUMNS;
     committeeColumns = COMMITTEE_COLUMNS;
     assignmentColumns = ASSIGNMENT_COLUMNS;
     categoryOptions = CATEGORY_OPTIONS;
@@ -66,7 +61,6 @@ export default class BoardManagement extends LightningElement {
     attendees = [];
     selectedMeetingId;
     selectedMeetingName;
-    draftValues = [];
     showNewMeeting = false;
     newName = '';
     newDate = null;
@@ -128,22 +122,23 @@ export default class BoardManagement extends LightningElement {
         const row = event.detail.row;
         this.selectedMeetingId = row.id;
         this.selectedMeetingName = row.name;
-        this.draftValues = [];
         getAttendance({ meetingId: row.id })
-            .then((data) => { this.attendees = data; })
+            // copy into mutable rows so the checkboxes are directly editable
+            .then((data) => { this.attendees = data.map((r) => ({ ...r })); })
             .catch((err) => this.toast(this.msg(err), 'error'));
     }
-    handleCellChange(event) { this.draftValues = event.detail.draftValues; }
+    handleAttendChange(event) {
+        const id = event.target.dataset.id;
+        const checked = event.target.checked;
+        this.attendees = this.attendees.map((a) =>
+            a.membershipYearId === id ? { ...a, attended: checked } : a);
+    }
     saveAttendance() {
-        const drafts = {};
-        this.draftValues.forEach((d) => { drafts[d.membershipYearId] = d.attended; });
         const rows = this.attendees.map((a) => ({
-            membershipYearId: a.membershipYearId, contactId: a.contactId, name: a.name,
-            attended: drafts[a.membershipYearId] !== undefined ? drafts[a.membershipYearId] : a.attended
+            membershipYearId: a.membershipYearId, contactId: a.contactId, name: a.name, attended: a.attended
         }));
         saveAttendanceApex({ meetingId: this.selectedMeetingId, rows })
-            .then(() => { this.attendees = rows; this.draftValues = [];
-                this.toast('Attendance saved', 'success'); return refreshApex(this.wiredMeetings); })
+            .then(() => { this.toast('Attendance saved', 'success'); return refreshApex(this.wiredMeetings); })
             .catch((err) => this.toast(this.msg(err), 'error'));
     }
 

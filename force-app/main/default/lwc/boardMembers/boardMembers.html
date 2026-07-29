@@ -1,6 +1,9 @@
 <template>
     <lightning-card title="Current Board Members" icon-name="standard:groups">
-        <span slot="actions" class="slds-badge slds-badge_lightest">{count}</span>
+        <div slot="actions" class="slds-grid slds-grid_vertical-align-center">
+            <span class="slds-badge slds-badge_lightest slds-m-right_small">{count}</span>
+            <lightning-button label="New Board Member" onclick={openAddMember}></lightning-button>
+        </div>
         <div class="slds-p-horizontal_small slds-p-bottom_small">
             <template lwc:if={hasRows}>
                 <lightning-datatable
@@ -8,6 +11,7 @@
                     data={rows}
                     columns={columns}
                     hide-checkbox-column
+                    onrowaction={handleRowAction}
                     column-widths-mode="auto">
                 </lightning-datatable>
             </template>
@@ -16,4 +20,49 @@
             </template>
         </div>
     </lightning-card>
+
+    <!-- Add board member -->
+    <template lwc:if={showAddMember}>
+        <section role="dialog" tabindex="-1" aria-modal="true" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header"><h2 class="slds-modal__title">New Board Member</h2></header>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <lightning-record-picker label="Contact" object-api-name="Contact"
+                        value={newContactId} onchange={handleContact}></lightning-record-picker>
+                    <lightning-combobox label="Member Type" value={newMemberTypeId} options={memberTypeOptions}
+                        onchange={handleType} class="slds-m-top_small"></lightning-combobox>
+                    <lightning-input type="date" label="Term Start Date" value={newStartDate}
+                        onchange={handleStart} class="slds-m-top_small"></lightning-input>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button label="Cancel" onclick={closeAddMember}></lightning-button>
+                    <lightning-button label="Add Member" variant="brand" onclick={createMember}
+                        class="slds-m-left_x-small"></lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <!-- End term -->
+    <template lwc:if={showEndTerm}>
+        <section role="dialog" tabindex="-1" aria-modal="true" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header"><h2 class="slds-modal__title">{endTermTitle}</h2></header>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <p class="slds-m-bottom_small slds-text-color_weak">
+                        Sets the term's End Date and removes any board years that fall entirely after it.
+                    </p>
+                    <lightning-input type="date" label="New Term End Date" value={endDate}
+                        onchange={handleEndDate}></lightning-input>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button label="Cancel" onclick={closeEndTerm}></lightning-button>
+                    <lightning-button label="End Term" variant="destructive" onclick={confirmEndTerm}
+                        class="slds-m-left_x-small"></lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
 </template>

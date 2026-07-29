@@ -48,4 +48,32 @@ private class BoardMembersControllerTest {
 
         System.assertEquals(0, rows.size(), 'rolled-off / expired term should be excluded');
     }
+
+    @isTest
+    static void addMemberEndTermAndSummaryLink() {
+        Board_Member_Type__c jcrc = new Board_Member_Type__c(Name = 'JCRC Recruited R',
+            Default_Annual_Commitment__c = 5000, Default_Term_Length_Years__c = 6, Active__c = true);
+        insert jcrc;
+        Contact c = new Contact(LastName = 'Roster Add');
+        insert c;
+        Date fy = fyStartFor(Date.today());
+
+        Test.startTest();
+        List<BoardMembersController.PicklistOption> types = BoardMembersController.getMemberTypes();
+        System.assert(!types.isEmpty(), 'member types listed for the dropdown');
+        Id termId = BoardMembersController.createBoardTerm(c.Id, jcrc.Id, fy);
+        Test.stopTest();
+
+        System.assertEquals(6, [SELECT COUNT() FROM Board_Membership_Year__c WHERE Board_Term__c = :termId],
+            'creating a term auto-generates 6 board years');
+        // #5: the started (current) year is auto-linked to its Annual Giving Summary
+        Board_Membership_Year__c cur = [SELECT Annual_Giving_Summary__c FROM Board_Membership_Year__c
+            WHERE Board_Term__c = :termId AND FY_Start__c = :fy LIMIT 1];
+        System.assertNotEquals(null, cur.Annual_Giving_Summary__c, 'current board year linked to its AGS');
+
+        // #4: ending the term at the current fiscal-year end removes the future board years
+        BoardMembersController.endBoardTerm(termId, fy.addYears(1).addDays(-1));
+        System.assertEquals(1, [SELECT COUNT() FROM Board_Membership_Year__c WHERE Board_Term__c = :termId],
+            'only the current board year remains after ending the term');
+    }
 }

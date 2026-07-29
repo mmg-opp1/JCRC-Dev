@@ -44,7 +44,7 @@ public with sharing class BoardTermService {
             termIds.add(t.Id);
         }
         Map<Id, Board_Term__c> full = new Map<Id, Board_Term__c>([
-            SELECT Id, Contact__c, Start_Date__c, Member_Type__r.Default_Term_Length_Years__c
+            SELECT Id, Contact__c, Start_Date__c, End_Date__c, Member_Type__r.Default_Term_Length_Years__c
             FROM Board_Term__c WHERE Id IN :termIds]);
 
         Set<String> existing = new Set<String>();
@@ -56,6 +56,8 @@ public with sharing class BoardTermService {
         }
 
         List<Board_Membership_Year__c> toInsert = new List<Board_Membership_Year__c>();
+        Set<Id> contactIds = new Set<Id>();
+        Set<Date> fyStarts = new Set<Date>();
         for (Board_Term__c t : full.values()) {
             if (t.Start_Date__c == null || t.Member_Type__r == null
                     || t.Member_Type__r.Default_Term_Length_Years__c == null) {
@@ -65,6 +67,12 @@ public with sharing class BoardTermService {
             Date fyStart = fyStartFor(t.Start_Date__c);
             for (Integer i = 0; i < len; i++) {
                 Date ys = fyStart.addYears(i);
+                // stop at the term End Date (so a shortened/ended term doesn't regenerate future years)
+                if (t.End_Date__c != null && ys > t.End_Date__c) {
+                    break;
+                }
+                contactIds.add(t.Contact__c);
+                fyStarts.add(ys);
                 String label = 'FY' + String.valueOf(ys.year() + 1);
                 String yearKey = String.valueOf(t.Id) + '|' + label;
                 if (existing.contains(yearKey)) {
@@ -78,6 +86,43 @@ public with sharing class BoardTermService {
         }
         if (!toInsert.isEmpty()) {
             insert toInsert;
+        }
+        // link these board years to any matching Annual Giving Summary that already exists
+        linkSummaries(contactIds, fyStarts);
+    }
+
+    /**
+     * Two-way link between Board Membership Year and the Annual Giving Summary for the same contact +
+     * fiscal year. Board-member-scoped: it only ever updates Board Membership Years (which only board
+     * members have), so it does no work for ordinary donors. Called after board years are generated and
+     * from the Annual Giving Summary trigger when a new summary is created.
+     */
+    public static void linkSummaries(Set<Id> contactIds, Set<Date> fyStarts) {
+        if (contactIds == null || contactIds.isEmpty() || fyStarts == null || fyStarts.isEmpty()) {
+            return;
+        }
+        Map<String, Id> agsByKey = new Map<String, Id>();
+        for (Annual_Giving_Summary__c a : [
+                SELECT Id, Contact__c, FY_Start__c FROM Annual_Giving_Summary__c
+                WHERE Contact__c IN :contactIds AND FY_Start__c IN :fyStarts]) {
+            agsByKey.put(a.Contact__c + '|' + String.valueOf(a.FY_Start__c), a.Id);
+        }
+        if (agsByKey.isEmpty()) {
+            return;
+        }
+        List<Board_Membership_Year__c> toUpdate = new List<Board_Membership_Year__c>();
+        for (Board_Membership_Year__c y : [
+                SELECT Id, Contact__c, FY_Start__c, Annual_Giving_Summary__c
+                FROM Board_Membership_Year__c
+                WHERE Contact__c IN :contactIds AND FY_Start__c IN :fyStarts]) {
+            Id agsId = agsByKey.get(y.Contact__c + '|' + String.valueOf(y.FY_Start__c));
+            if (agsId != null && y.Annual_Giving_Summary__c != agsId) {
+                y.Annual_Giving_Summary__c = agsId;
+                toUpdate.add(y);
+            }
+        }
+        if (!toUpdate.isEmpty()) {
+            update toUpdate;
         }
     }
 
