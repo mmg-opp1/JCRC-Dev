@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Board_Term__c$Contact__c</field>
+    </columns>
+    <columns>
+        <field>Board_Term__c$Board_Role__c</field>
+    </columns>
+    <columns>
+        <field>Board_Term__c$Board_Years_Served__c</field>
+    </columns>
+    <description>Current board members grouped by member type. JSI-123 / Jason Ott.</description>
+    <filter>
+        <criteriaItems>
+            <column>Board_Term__c$Is_Current__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>true</value>
+        </criteriaItems>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Board_Term__c$Member_Type__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Current Board Roster</name>
+    <reportType>Board_Terms__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+</Report>

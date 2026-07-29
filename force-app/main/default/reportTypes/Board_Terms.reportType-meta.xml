@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ReportType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <baseObject>Board_Term__c</baseObject>
+    <category>other</category>
+    <deployed>true</deployed>
+    <description>Board Terms — member, member type, role, term dates, years served, expiring/roll-off status. JSI-123 / Jason Ott.</description>
+    <label>Board Terms</label>
+    <sections>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Contact__c</field>
+            <table>Board_Term__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Member_Type__c</field>
+            <table>Board_Term__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Board_Role__c</field>
+            <table>Board_Term__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Status__c</field>
+            <table>Board_Term__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Start_Date__c</field>
+            <table>Board_Term__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>End_Date__c</field>
+            <table>Board_Term__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Is_Current__c</field>
+            <table>Board_Term__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Expiring_Soon__c</field>
+            <table>Board_Term__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Board_Years_Served__c</field>
+            <table>Board_Term__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Must_Roll_Off__c</field>
+            <table>Board_Term__c</table>
+        </columns>
+        <masterLabel>Board Terms</masterLabel>
+    </sections>
+</ReportType>

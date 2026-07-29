@@ -9,9 +9,11 @@ import getCurrentBoardMembers from '@salesforce/apex/BoardMembersController.getC
 const COLUMNS = [
     { label: 'Board Member', fieldName: 'contactUrl', type: 'url',
       typeAttributes: { label: { fieldName: 'name' }, target: '_self' } },
+    { label: 'Type', fieldName: 'memberType' },
     { label: 'Role', fieldName: 'role' },
     { label: 'Term', fieldName: 'termYears' },
     { label: 'Expiring Soon', fieldName: 'expiringLabel' },
+    { label: 'Must Roll Off', fieldName: 'rollOffLabel' },
     { label: 'Commitment', fieldName: 'commitmentDisplay' },
     { label: '% Met', fieldName: 'pctDisplay' }
 ];
@@ -28,6 +30,7 @@ export default class BoardMembers extends LightningElement {
                 ...r,
                 contactUrl: '/' + r.contactId,
                 expiringLabel: r.expiringSoon ? '⚠ Yes' : '',
+                rollOffLabel: r.mustRollOff ? '⛔ Yes' : '',
                 commitmentDisplay: r.commitment != null ? '$' + Number(r.commitment).toLocaleString() : '—',
                 pctDisplay: r.pctMet != null ? Math.round(r.pctMet) + '%' : '—'
             }));

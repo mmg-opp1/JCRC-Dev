@@ -22,6 +22,8 @@ public with sharing class BoardMembersController {
         @AuraEnabled public Date endDate;
         @AuraEnabled public String termYears;
         @AuraEnabled public Boolean expiringSoon;
+        @AuraEnabled public String memberType;
+        @AuraEnabled public Boolean mustRollOff;
         @AuraEnabled public Decimal commitment;   // this board year's Board_Commitment__c
         @AuraEnabled public Decimal pctMet;        // percent value, e.g. 70 = 70%
         @AuraEnabled public Boolean met;
@@ -36,7 +38,7 @@ public with sharing class BoardMembersController {
         // 1) current board = Active terms whose date window includes today
         List<Board_Term__c> terms = [
             SELECT Id, Contact__c, Contact__r.Name, Board_Role__c, Start_Date__c, End_Date__c,
-                   Term_Year_Label__c, Expiring_Soon__c
+                   Term_Year_Label__c, Expiring_Soon__c, Must_Roll_Off__c, Member_Type__r.Name
             FROM Board_Term__c
             WHERE Is_Current__c = true
             WITH USER_MODE
@@ -77,6 +79,8 @@ public with sharing class BoardMembersController {
             r.endDate = t.End_Date__c;
             r.termYears = t.Term_Year_Label__c;
             r.expiringSoon = t.Expiring_Soon__c;
+            r.mustRollOff = t.Must_Roll_Off__c;
+            r.memberType = (t.Member_Type__r != null) ? t.Member_Type__r.Name : null;
             Annual_Giving_Summary__c ags = byContact.get(t.Contact__c);
             if (ags != null) {
                 r.commitment = ags.Board_Commitment__c;
