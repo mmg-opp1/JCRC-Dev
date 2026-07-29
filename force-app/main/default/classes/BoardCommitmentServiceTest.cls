@@ -1,117 +1,139 @@
 /**
- * @description Tests for BoardCommitmentService — commitment derivation (base tiers, $10k elevation via
- *              committee chair / Exec Committee, honorary $0, manual override) and before-save stamping
- *              (Counts Toward Limit, keys). JSI-123 Board Tracking.
+ * @description Tests for the board automation (JSI-123): Board Term auto-fills End Date and generates one
+ *              Board Membership Year per fiscal year; commitment auto-derives from member type + $10k
+ *              chair/exec elevation (honorary $0, override respected); Board Years Served counts only started
+ *              non-officer years and trips Must Roll Off at the term length.
  * @author Jason Ott
  * @created 2026-07-28
  */
 @isTest
 private class BoardCommitmentServiceTest {
 
-    private static final Date FY = Date.newInstance(2026, 7, 1);
-
-    private static Board__c board(String name, Decimal commitment, Integer termLen, Boolean observer) {
-        return new Board__c(Name = name, Default_Annual_Commitment__c = commitment,
-            Default_Term_Length_Years__c = termLen, Is_Observer__c = observer, Active__c = true);
+    private static Board_Member_Type__c mtype(String name, Decimal commitment, Integer len, Boolean obs) {
+        return new Board_Member_Type__c(Name = name, Default_Annual_Commitment__c = commitment,
+            Default_Term_Length_Years__c = len, Is_Observer__c = obs, Active__c = true);
     }
 
-    private static Board_Membership_Year__c bmy(Id termId, Id contactId, String role) {
-        return new Board_Membership_Year__c(Board_Term__c = termId, Contact__c = contactId,
-            Role__c = role, FY_Start__c = FY);
+    private static Date curFyStart() {
+        Date d = Date.today();
+        Integer y = d.year();
+        return (d.month() >= 7) ? Date.newInstance(y, 7, 1) : Date.newInstance(y - 1, 7, 1);
     }
 
-    private static Annual_Giving_Summary__c agsFor(Id contactId) {
-        return [SELECT Board_Commitment__c, Board_Commitment_Override__c
-                FROM Annual_Giving_Summary__c WHERE Contact__c = :contactId AND FY_Start__c = :FY LIMIT 1];
+    private static Decimal commitmentFor(Id contactId, Date fyStart) {
+        return [SELECT Board_Commitment__c FROM Annual_Giving_Summary__c
+                WHERE Contact__c = :contactId AND FY_Start__c = :fyStart LIMIT 1].Board_Commitment__c;
     }
 
     @isTest
-    static void baseTiersAndElevation() {
-        Board__c jcrc = board('JCRC Board T', 5000, 6, false);
-        Board__c obs  = board('UJA Observer T', 1800, 1, true);
-        insert new List<Board__c>{ jcrc, obs };
-        Committee__c exec = new Committee__c(Name = 'Executive T', Category__c = 'Board Committee',
-            Is_Executive_Committee__c = true, Active__c = true);
-        Committee__c dev = new Committee__c(Name = 'Development T', Category__c = 'Board Committee',
-            Is_Executive_Committee__c = false, Active__c = true);
-        insert new List<Committee__c>{ exec, dev };
-
-        Contact cJcrc = new Contact(LastName = 'JCRC Member');
-        Contact cObs = new Contact(LastName = 'Observer Member');
-        Contact cChair = new Contact(LastName = 'Committee Chair');
-        Contact cExec = new Contact(LastName = 'Exec Member');
-        insert new List<Contact>{ cJcrc, cObs, cChair, cExec };
-
-        List<Board_Term__c> terms = new List<Board_Term__c>{
-            new Board_Term__c(Contact__c = cJcrc.Id, Board__c = jcrc.Id, Status__c = 'Active', Start_Date__c = FY),
-            new Board_Term__c(Contact__c = cObs.Id, Board__c = obs.Id, Status__c = 'Active', Start_Date__c = FY),
-            new Board_Term__c(Contact__c = cChair.Id, Board__c = jcrc.Id, Status__c = 'Active', Start_Date__c = FY),
-            new Board_Term__c(Contact__c = cExec.Id, Board__c = jcrc.Id, Status__c = 'Active', Start_Date__c = FY)
-        };
-        insert terms;
+    static void autoGeneratesScheduleAndBaseCommitment() {
+        Board_Member_Type__c jcrc = mtype('JCRC Recruited T', 5000, 6, false);
+        Board_Member_Type__c obs = mtype('UJA Observer T', 1800, 1, true);
+        insert new List<Board_Member_Type__c>{ jcrc, obs };
+        Contact c = new Contact(LastName = 'JCRC Mbr');
+        Contact o = new Contact(LastName = 'Observer Mbr');
+        insert new List<Contact>{ c, o };
+        Date start = curFyStart();
 
         Test.startTest();
-        // membership years trigger commitment creation
-        insert new List<Board_Membership_Year__c>{
-            bmy(terms[0].Id, cJcrc.Id, 'Member'),
-            bmy(terms[1].Id, cObs.Id, 'Member'),
-            bmy(terms[2].Id, cChair.Id, 'Member'),
-            bmy(terms[3].Id, cExec.Id, 'Member')
-        };
-        // committee assignments raise chair + exec to $10k
-        insert new List<Committee_Assignment__c>{
-            new Committee_Assignment__c(Contact__c = cChair.Id, Committee__c = dev.Id,
-                Committee_Role__c = 'Chair', FY_Start__c = FY, Active__c = true),
-            new Committee_Assignment__c(Contact__c = cExec.Id, Committee__c = exec.Id,
-                Committee_Role__c = 'Member', FY_Start__c = FY, Active__c = true)
-        };
+        Board_Term__c bt = new Board_Term__c(Contact__c = c.Id, Member_Type__c = jcrc.Id,
+            Status__c = 'Active', Start_Date__c = start);
+        insert bt;
+        Board_Term__c bto = new Board_Term__c(Contact__c = o.Id, Member_Type__c = obs.Id,
+            Status__c = 'Active', Start_Date__c = start);
+        insert bto;
         Test.stopTest();
 
-        System.assertEquals(5000, agsFor(cJcrc.Id).Board_Commitment__c, 'JCRC board base = $5k');
-        System.assertEquals(1800, agsFor(cObs.Id).Board_Commitment__c, 'Observer base = $1.8k');
-        System.assertEquals(10000, agsFor(cChair.Id).Board_Commitment__c, 'committee chair -> $10k');
-        System.assertEquals(10000, agsFor(cExec.Id).Board_Commitment__c, 'Exec Committee member -> $10k');
+        Board_Term__c bt2 = [SELECT End_Date__c, Board_Years_Served__c FROM Board_Term__c WHERE Id = :bt.Id];
+        System.assertEquals(start.addYears(6).addDays(-1), bt2.End_Date__c, 'End Date = Start + 6y - 1d');
+        System.assertEquals(6, [SELECT COUNT() FROM Board_Membership_Year__c WHERE Board_Term__c = :bt.Id],
+            '6 membership years auto-generated');
+        System.assertEquals(1, [SELECT COUNT() FROM Board_Membership_Year__c WHERE Board_Term__c = :bto.Id],
+            'observer term generates 1 year');
+        System.assertEquals(5000, commitmentFor(c.Id, start), 'JCRC base commitment $5k for the current year');
+        System.assertEquals(1800, commitmentFor(o.Id, start), 'observer base commitment $1.8k');
+        System.assertEquals(1, bt2.Board_Years_Served__c, 'only the started (current) year counts yet');
     }
 
     @isTest
-    static void honoraryAndOverrideAndStamping() {
-        Board__c jcrc = board('JCRC Board H', 5000, 6, false);
+    static void elevationAndMustRollOff() {
+        Board_Member_Type__c jcrc = mtype('JCRC Recruited E', 5000, 6, false);
         insert jcrc;
-        Contact cPast = new Contact(LastName = 'Past President');
-        Contact cReg = new Contact(LastName = 'Regular Member');
-        insert new List<Contact>{ cPast, cReg };
-        Board_Term__c tPast = new Board_Term__c(Contact__c = cPast.Id, Board__c = jcrc.Id, Status__c = 'Active', Start_Date__c = FY);
-        Board_Term__c tReg = new Board_Term__c(Contact__c = cReg.Id, Board__c = jcrc.Id, Status__c = 'Active', Start_Date__c = FY);
-        insert new List<Board_Term__c>{ tPast, tReg };
+        Committee__c exec = new Committee__c(Name = 'Executive E', Category__c = 'Board Committee',
+            Is_Executive_Committee__c = true, Active__c = true);
+        insert exec;
+        Contact c = new Contact(LastName = 'Exec Mbr');
+        insert c;
+        Date start = curFyStart().addYears(-5); // 6-yr term, all 6 years started (last = current)
 
         Test.startTest();
-        Board_Membership_Year__c pastYr = bmy(tPast.Id, cPast.Id, 'Past President');
-        Board_Membership_Year__c regYr = bmy(tReg.Id, cReg.Id, 'Member');
-        Board_Membership_Year__c offYr = bmy(tReg.Id, cReg.Id, 'President'); // officer year, different key not needed here
-        offYr.FY_Start__c = Date.newInstance(2027, 7, 1);
-        insert new List<Board_Membership_Year__c>{ pastYr, regYr, offYr };
+        Board_Term__c bt = new Board_Term__c(Contact__c = c.Id, Member_Type__c = jcrc.Id,
+            Status__c = 'Active', Start_Date__c = start);
+        insert bt;
+        insert new Committee_Assignment__c(Contact__c = c.Id, Committee__c = exec.Id,
+            Committee_Role__c = 'Member', FY_Start__c = curFyStart(), Active__c = true);
         Test.stopTest();
 
-        // honorary = $0
-        System.assertEquals(0, agsFor(cPast.Id).Board_Commitment__c, 'Past President = $0 commitment');
-        // regular = $5k
-        System.assertEquals(5000, agsFor(cReg.Id).Board_Commitment__c, 'regular member = $5k');
+        Board_Term__c bt2 = [SELECT Board_Years_Served__c, Must_Roll_Off__c FROM Board_Term__c WHERE Id = :bt.Id];
+        System.assertEquals(6, bt2.Board_Years_Served__c, 'all 6 started years count');
+        System.assertEquals(true, bt2.Must_Roll_Off__c, '6 >= term length 6 => must roll off');
+        System.assertEquals(10000, commitmentFor(c.Id, curFyStart()),
+            'Exec Committee member this year => $10k');
+    }
 
-        // Counts Toward Limit stamping
-        Board_Membership_Year__c member = [SELECT Counts_Toward_Limit__c, Fiscal_Year_Label__c, Year_Key__c
-            FROM Board_Membership_Year__c WHERE Id = :regYr.Id];
-        System.assertEquals(true, member.Counts_Toward_Limit__c, 'Member year counts toward limit');
-        System.assertEquals('FY2027', member.Fiscal_Year_Label__c, 'label derived from FY start');
-        System.assertNotEquals(null, member.Year_Key__c, 'year key stamped');
-        Board_Membership_Year__c officer = [SELECT Counts_Toward_Limit__c FROM Board_Membership_Year__c WHERE Id = :offYr.Id];
-        System.assertEquals(false, officer.Counts_Toward_Limit__c, 'officer (President) year does not count');
+    @isTest
+    static void yearAdvanceFlipsStartedYears() {
+        Board_Member_Type__c jcrc = mtype('JCRC Recruited A', 5000, 6, false);
+        insert jcrc;
+        Contact c = new Contact(LastName = 'Advance Mbr');
+        insert c;
+        Board_Term__c bt = new Board_Term__c(Contact__c = c.Id, Member_Type__c = jcrc.Id,
+            Status__c = 'Active', Start_Date__c = curFyStart().addYears(-2));
+        insert bt;
+        // make a started year an officer year so it currently does NOT count -> gives the advance a row to touch
+        Board_Membership_Year__c started = [SELECT Id, Role__c FROM Board_Membership_Year__c
+            WHERE Board_Term__c = :bt.Id AND FY_Start__c <= :Date.today() ORDER BY FY_Start__c LIMIT 1];
+        started.Role__c = 'President';
+        update started;
 
-        // Override: manual value is not overwritten by re-derivation
-        Annual_Giving_Summary__c ags = agsFor(cReg.Id);
+        Test.startTest();
+        BoardYearAdvance.run();
+        System.schedule('BoardYearAdvance Test JSI123', '0 0 0 1 7 ?', new BoardYearAdvance());
+        Test.stopTest();
+
+        // officer year still excluded; the two non-officer started years count
+        Board_Term__c bt2 = [SELECT Board_Years_Served__c FROM Board_Term__c WHERE Id = :bt.Id];
+        System.assertEquals(2, bt2.Board_Years_Served__c, '2 non-officer started years count; officer year excluded');
+    }
+
+    @isTest
+    static void pastPresidentZeroAndOverride() {
+        Board_Member_Type__c jcrc = mtype('JCRC Recruited P', 5000, 6, false);
+        insert jcrc;
+        Contact c = new Contact(LastName = 'Past Pres');
+        insert c;
+        Date start = curFyStart();
+        Board_Term__c bt = new Board_Term__c(Contact__c = c.Id, Member_Type__c = jcrc.Id,
+            Status__c = 'Active', Start_Date__c = start);
+        insert bt;
+
+        Board_Membership_Year__c cur = [SELECT Id, Role__c FROM Board_Membership_Year__c
+            WHERE Board_Term__c = :bt.Id AND FY_Start__c = :start LIMIT 1];
+
+        Test.startTest();
+        cur.Role__c = 'Past President';
+        update cur;
+        Test.stopTest();
+
+        System.assertEquals(0, commitmentFor(c.Id, start), 'Past President => $0 commitment');
+
+        Annual_Giving_Summary__c ags = [SELECT Id, Board_Commitment__c, Board_Commitment_Override__c
+            FROM Annual_Giving_Summary__c WHERE Contact__c = :c.Id AND FY_Start__c = :start];
         ags.Board_Commitment_Override__c = true;
         ags.Board_Commitment__c = 7777;
         update ags;
-        update regYr; // re-fires recompute
-        System.assertEquals(7777, agsFor(cReg.Id).Board_Commitment__c, 'override preserved');
+        update cur; // re-fires recompute
+        System.assertEquals(7777, [SELECT Board_Commitment__c FROM Annual_Giving_Summary__c WHERE Id = :ags.Id]
+            .Board_Commitment__c, 'override preserved');
     }
 }

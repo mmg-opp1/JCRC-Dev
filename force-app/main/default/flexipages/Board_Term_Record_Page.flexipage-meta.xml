@@ -121,8 +121,8 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Term_Number__c</fieldItem>
-                <identifier>bt_f_termnum</identifier>
+                <fieldItem>Record.Member_Type__c</fieldItem>
+                <identifier>bt_f_membertype</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-bt-col1</name>
@@ -165,8 +165,8 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Annual_Commitment_Default__c</fieldItem>
-                <identifier>bt_f_commit</identifier>
+                <fieldItem>Record.Board_Years_Served__c</fieldItem>
+                <identifier>bt_f_yearsserved</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>

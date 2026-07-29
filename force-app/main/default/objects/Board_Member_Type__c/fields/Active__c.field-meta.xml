@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Active__c</fullName>
-    <description>Only active boards are offered for new Board Terms. JSI-123 / Jason Ott.</description>
+    <description>Only active member types are offered for new Board Terms. JSI-123 / Jason Ott.</description>
     <label>Active</label>
     <defaultValue>true</defaultValue>
     <type>Checkbox</type>

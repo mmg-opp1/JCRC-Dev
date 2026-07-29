@@ -3,8 +3,8 @@
     <fullName>Must_Roll_Off__c</fullName>
     <description>TRUE when board years served has reached this board's term length (6 for JCRC/UJA, 1 for UJA Observer) — the member must roll off. Officer years do not count, so an officer can serve beyond the base length. JSI-123 / Jason Ott.</description>
     <formula>AND(
-  NOT(ISBLANK(Board__r.Default_Term_Length_Years__c)),
-  Board_Years_Served__c &gt;= Board__r.Default_Term_Length_Years__c
+  NOT(ISBLANK(Member_Type__r.Default_Term_Length_Years__c)),
+  Board_Years_Served__c &gt;= Member_Type__r.Default_Term_Length_Years__c
 )</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Must Roll Off</label>

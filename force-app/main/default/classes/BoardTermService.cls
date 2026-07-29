@@ -1,0 +1,89 @@
+/**
+ * @description Board Term automation (JSI-123). On save of a Board Term:
+ *   1. BEFORE — auto-fill the End Date = Start Date + the member type's term length (when not set manually).
+ *   2. AFTER  — ensure one Board Membership Year exists for every fiscal year (Jul 1-Jun 30) of the term,
+ *      so each year of service has its own record to fill in (role, meeting attendance, giving). Idempotent
+ *      (keyed on Board Term + fiscal-year label, so re-saving never duplicates).
+ * @author Jason Ott
+ * @created 2026-07-28
+ *
+ * Change Log:
+ * -----------
+ * 2026-07-28 - Jason Ott - Initial version (JSI-123 correction: member types + auto-generated term schedule).
+ */
+public with sharing class BoardTermService {
+
+    /** BEFORE insert/update — default the End Date from the member type's term length. */
+    public static void setEndDates(List<Board_Term__c> terms) {
+        Set<Id> typeIds = new Set<Id>();
+        for (Board_Term__c t : terms) {
+            if (t.Member_Type__c != null) {
+                typeIds.add(t.Member_Type__c);
+            }
+        }
+        if (typeIds.isEmpty()) {
+            return;
+        }
+        Map<Id, Board_Member_Type__c> types = new Map<Id, Board_Member_Type__c>([
+            SELECT Default_Term_Length_Years__c FROM Board_Member_Type__c WHERE Id IN :typeIds]);
+        for (Board_Term__c t : terms) {
+            if (t.Start_Date__c == null || t.Member_Type__c == null || t.End_Date__c != null) {
+                continue; // respect a manually set End Date
+            }
+            Board_Member_Type__c mt = types.get(t.Member_Type__c);
+            if (mt != null && mt.Default_Term_Length_Years__c != null) {
+                t.End_Date__c = t.Start_Date__c.addYears((Integer) mt.Default_Term_Length_Years__c).addDays(-1);
+            }
+        }
+    }
+
+    /** AFTER insert/update — create the per-fiscal-year Board Membership Year records (idempotent). */
+    public static void generateMembershipYears(List<Board_Term__c> terms) {
+        Set<Id> termIds = new Set<Id>();
+        for (Board_Term__c t : terms) {
+            termIds.add(t.Id);
+        }
+        Map<Id, Board_Term__c> full = new Map<Id, Board_Term__c>([
+            SELECT Id, Contact__c, Start_Date__c, Member_Type__r.Default_Term_Length_Years__c
+            FROM Board_Term__c WHERE Id IN :termIds]);
+
+        Set<String> existing = new Set<String>();
+        for (Board_Membership_Year__c y : [
+                SELECT Year_Key__c FROM Board_Membership_Year__c WHERE Board_Term__c IN :termIds]) {
+            if (y.Year_Key__c != null) {
+                existing.add(y.Year_Key__c);
+            }
+        }
+
+        List<Board_Membership_Year__c> toInsert = new List<Board_Membership_Year__c>();
+        for (Board_Term__c t : full.values()) {
+            if (t.Start_Date__c == null || t.Member_Type__r == null
+                    || t.Member_Type__r.Default_Term_Length_Years__c == null) {
+                continue;
+            }
+            Integer len = (Integer) t.Member_Type__r.Default_Term_Length_Years__c;
+            Date fyStart = fyStartFor(t.Start_Date__c);
+            for (Integer i = 0; i < len; i++) {
+                Date ys = fyStart.addYears(i);
+                String label = 'FY' + String.valueOf(ys.year() + 1);
+                String yearKey = String.valueOf(t.Id) + '|' + label;
+                if (existing.contains(yearKey)) {
+                    continue;
+                }
+                toInsert.add(new Board_Membership_Year__c(
+                    Board_Term__c = t.Id, Contact__c = t.Contact__c, Role__c = 'Member',
+                    FY_Start__c = ys, FY_End__c = ys.addYears(1).addDays(-1),
+                    Fiscal_Year_Label__c = label, Year_Key__c = yearKey));
+            }
+        }
+        if (!toInsert.isEmpty()) {
+            insert toInsert;
+        }
+    }
+
+    /** The July-1 fiscal-year start on or before the given date. */
+    public static Date fyStartFor(Date d) {
+        Integer y = d.year();
+        return (d.month() >= 7) ? Date.newInstance(y, 7, 1) : Date.newInstance(y - 1, 7, 1);
+    }
+}

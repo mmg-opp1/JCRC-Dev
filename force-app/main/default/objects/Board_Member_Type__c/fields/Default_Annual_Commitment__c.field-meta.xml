@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Default_Annual_Commitment__c</fullName>
-    <description>Base annual giving commitment for a member of this board ($5,000 JCRC/UJA; $1,800 UJA Observer). The member's actual commitment is the higher of this base vs. the $10k chair/exec tier. JSI-123 / Jason Ott.</description>
+    <description>Base annual giving commitment for this member type ($5,000 JCRC/UJA; $1,800 UJA Observer). The member's actual commitment is the higher of this base vs. the $10k chair/exec tier. JSI-123 / Jason Ott.</description>
     <label>Default Annual Commitment</label>
     <required>false</required>
     <precision>18</precision>

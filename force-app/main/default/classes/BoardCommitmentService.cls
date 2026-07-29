@@ -45,9 +45,13 @@ public with sharing class BoardCommitmentService {
                     r.Fiscal_Year_Label__c = labelFor(r.FY_Start__c);
                 }
             }
-            // Counts toward the term limit = a regular board-member year (not officer, not Past President).
+            // Counts toward the term limit = a regular board-member year (not officer, not Past President)
+            // that has actually started (its fiscal year has begun). Future pre-created years don't count
+            // yet — the BoardYearAdvance schedulable flips them as each fiscal year begins.
             Boolean pastPresident = r.Role__c == 'Past President';
-            r.Counts_Toward_Limit__c = (r.Role__c != null) && !isOfficer(r.Role__c) && !pastPresident;
+            Boolean started = r.FY_Start__c != null && r.FY_Start__c <= Date.today();
+            r.Counts_Toward_Limit__c =
+                (r.Role__c != null) && !isOfficer(r.Role__c) && !pastPresident && started;
 
             if (r.Board_Term__c != null && String.isNotBlank(r.Fiscal_Year_Label__c)) {
                 r.Year_Key__c = String.valueOf(r.Board_Term__c) + '|' + r.Fiscal_Year_Label__c;
@@ -113,7 +117,7 @@ public with sharing class BoardCommitmentService {
             new Map<String, List<Board_Membership_Year__c>>();
         for (Board_Membership_Year__c b : [
                 SELECT Contact__c, FY_Start__c, Role__c,
-                       Board_Term__r.Board__r.Default_Annual_Commitment__c
+                       Board_Term__r.Member_Type__r.Default_Annual_Commitment__c
                 FROM Board_Membership_Year__c
                 WHERE Contact__c IN :contactIds AND FY_Start__c IN :allFy
                 WITH USER_MODE]) {
@@ -153,6 +157,9 @@ public with sharing class BoardCommitmentService {
 
         for (Id contactId : contactToFyStarts.keySet()) {
             for (Date fy : contactToFyStarts.get(contactId)) {
+                if (fy > Date.today()) {
+                    continue; // don't stamp commitment on future years — done as each year starts
+                }
                 String k = key(contactId, fy);
                 List<Board_Membership_Year__c> memberships = bmyByKey.get(k);
                 if (memberships == null || memberships.isEmpty()) {
@@ -190,8 +197,8 @@ public with sharing class BoardCommitmentService {
             if (b.Role__c == 'Past President') {
                 continue; // honorary — no financial commitment
             }
-            Decimal d = (b.Board_Term__r != null && b.Board_Term__r.Board__r != null)
-                ? b.Board_Term__r.Board__r.Default_Annual_Commitment__c : null;
+            Decimal d = (b.Board_Term__r != null && b.Board_Term__r.Member_Type__r != null)
+                ? b.Board_Term__r.Member_Type__r.Default_Annual_Commitment__c : null;
             if (d != null && (base == null || d > base)) {
                 base = d;
             }
