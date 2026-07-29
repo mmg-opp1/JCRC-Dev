@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Board_Role__c</fullName>
-    <description>The member's current/most-recent role on the board. Authoritative role history is per year on Board Membership Year. PLACEHOLDER-confirmed value set (client Q7). JSI-123 / Jason Ott.</description>
-    <label>Board Role (Current)</label>
+    <fullName>Role__c</fullName>
+    <description>The member's role during this fiscal year. Officer roles (President/Vice President/Secretary/Treasurer/Chair) mark an officer year, which pauses the 6-year board clock (does not count toward the limit). JSI-123 / Jason Ott.</description>
+    <label>Role (This Year)</label>
     <required>false</required>
     <type>Picklist</type>
     <valueSet>

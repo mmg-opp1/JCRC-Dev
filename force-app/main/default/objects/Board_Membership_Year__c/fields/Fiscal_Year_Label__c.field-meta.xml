@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Fiscal_Year_Label__c</fullName>
+    <description>The board/fiscal year (July 1-June 30) this record covers, matching Annual Giving Summary labels. The by-year key for point-in-time rosters + import. JSI-123 / Jason Ott.</description>
+    <externalId>false</externalId>
+    <label>Fiscal Year</label>
+    <length>40</length>
+    <required>false</required>
+    <type>Text</type>
+</CustomField>

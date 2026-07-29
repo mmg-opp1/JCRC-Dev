@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Annual_Giving_Summary__c</fullName>
+    <description>The member's Annual Giving Summary for this fiscal year — where the board commitment + fulfillment live. Linked by the commitment automation. JSI-123 / Jason Ott.</description>
+    <label>Annual Giving Summary</label>
+    <referenceTo>Annual_Giving_Summary__c</referenceTo>
+    <relationshipLabel>Board Membership Years</relationshipLabel>
+    <relationshipName>Board_Membership_Years</relationshipName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <required>false</required>
+    <type>Lookup</type>
+</CustomField>

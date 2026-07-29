@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Records that a board member attended (or was expected at) a specific board meeting. Master-detail child of Board Membership Year so attendance rolls up per member per year to verify the "3 of 4" requirement. JSI-123 Board Tracking. Author: Jason Ott.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <label>Board Meeting Attendance</label>
+    <nameField>
+        <displayFormat>BMA-{00000}</displayFormat>
+        <label>Attendance Number</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Board Meeting Attendance</pluralLabel>
+    <sharingModel>ControlledByParent</sharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

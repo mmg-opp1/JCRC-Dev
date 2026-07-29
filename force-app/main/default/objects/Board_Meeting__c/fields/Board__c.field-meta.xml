@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Board__c</fullName>
+    <description>Which board this meeting is for (defaults to the JCRC Board). JSI-123 / Jason Ott.</description>
+    <label>Board</label>
+    <referenceTo>Board__c</referenceTo>
+    <relationshipLabel>Board Meetings</relationshipLabel>
+    <relationshipName>Board_Meetings</relationshipName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <required>false</required>
+    <type>Lookup</type>
+</CustomField>

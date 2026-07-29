@@ -146,10 +146,84 @@ _Remaining items drive Step 3 research and Step 5 forks. **(C)** = likely needs 
     Confirm which profiles manage board data.
 11. **Push proposed DoD to Jira now or after review (J)?** (see Notes.)
 
-## Questions for JCRC (client)
+## Client Answers (2026-07-28)
 
-_Compiled 2026-07-27 for client feedback. 🔴 = blocks build / shapes schema; 🟡 = has a safe default, confirm.
-**⚙︎** = answer seeds a `Board_Setting__mdt` default (admin-editable later)._
+Raw answers received from JCRC. **These expand and partly re-architect the design** — see the
+"Design Impact" list below and the revised Implementation Plan. Key points + derived actions:
+
+> **⚠ CLARIFICATIONS (2026-07-28, from `BoardQuestionClarificationsDictation.MD`) — these OVERRIDE the
+> raw answers where they conflict:**
+> - **Three board-member types:** **JCRC-recruited** (6-yr, **$5k/yr**), **UJA-appointed** (6-yr, **$5k/yr**),
+>   **UJA Observer** (young leaders; **1-yr term**, **$1.8k/yr**) — the Observer is the only non-6-year term.
+> - **Commitment = the HIGHER of** the board-type base (5k / 1.8k) **vs. $10k** if the person is a **committee
+>   chair/co-chair OR on the Executive Committee**.
+> - **Only elected OFFICER roles pause the 6-yr board clock:** President, VP, Secretary, Treasurer — each a
+>   **3-yr officer term** (so max ~**9 years** = 6 board + 3 officer). **Executive Committee membership and
+>   committee chair/co-chair do NOT pause** the clock. At 6 board-member-years you are **forced to roll off**,
+>   then **off ≥1 year** before returning (hard rule).
+> - **Per-year record is explicitly required** — Board **Term** (multi-year container, e.g. 2025–2031) **plus a
+>   per-year record** capturing what they did each fiscal year.
+> - **Board meeting attendance IS tracked** (know who attended, to satisfy **3 of 4** annual meetings) — but no
+>   meeting notes / not full board management.
+> - **eTapestry historical import (board/committee-by-FY 'Group') is NOT in this story's scope** — the per-year
+>   model just needs to accommodate imported rows.
+> - **Open ambiguity:** is "Chair" (role list) the Board **Chair** (an officer that pauses) or only committee
+>   chair? Assume **Board Chair = officer (pauses)** unless told otherwise.
+
+**Terms & roll-off**
+- **Term length = 6 years** (not by role). ⚙︎ `Default_Term_Length_Years` → **6**.
+- **Term limits:** informal annual check-in on who's returning; **after year 6 you must roll off ≥1 year.**
+  Not everyone serves the full 6. **Moving from board → Executive Committee puts the board term ON HOLD**
+  (those years don't count against the 6).
+- **History granularity: keep history for EACH YEAR of the term** (per-year, not just per-term). → drives a
+  **per-year board membership record**.
+- **Expiration = flag/report only** (no auto-change). Notify **administrators** + a hoped-for **"Board
+  Coordinator" role**; **90-day** window. ⚙︎ already set.
+- **Prospects = Contacts flagged as "Board Prospect"**, likely via **Tag Manager (JSI-122)** — not a Board Term.
+- **Honorary = Past Presidents, NO financial commitment.**
+
+**Boards (NEW — multiple)**
+- Board affiliations tracked: **Board – JCRC, Board – UJA, Board – UJA Observer** (+ **Executive Committee**).
+  **Observer vs non-observer changes the commitment.** → reopens the single-board assumption (D13).
+
+**Roles / officers**
+- **Board roles: Chair, President, VP, Secretary, Treasurer** (+ Member; + Past President/Honorary).
+- **Officer/Exec-Committee roles have their own 3-year terms**, separate from the board term, and **interrupt/
+  hold** the 6-year board clock.
+
+**Commitment**
+- **Tiers:** Executive Committee **$10k** · Board non-observer **$5k** · Board observer **$1.8k**.
+- **Soft credits COUNT.** **In-Kind does NOT count** (already excluded via JSI-90 rollups). Gala tickets = **TBD**.
+- **Non-giving requirement: attend 3 of 4 annual board meetings.** No event/committee requirement.
+- **Board year = fiscal year July 1–June 30. No proration** for mid-year joins.
+
+**Committees**
+- **Board committees + special-event committees** (e.g., 50th Anniversary Steering Committee).
+  List: **Executive, Development, Government Affairs, Israel and Jewish Affairs, Finance, Audit, Nominating,
+  Shared Society, Israel Parade.** Each has a **Chair and/or Co-Chair.**
+- **Committee members can be non-board members** (already supported). **Membership + role only, no attendance.**
+- Assignments **carry forward but may change, case-by-case** (per-year, manual — already supported).
+
+**Reporting / access / history**
+- **Point-in-time history: YES.** Currently an **eTapestry UDF 'Group' = board membership by fiscal year →
+  importable.** Marc's **FRD dashboard** to be shared as reference (last year's differs from this year's).
+- **No printable roster** needed (handled outside CRM). → drop that item.
+- **Access:** Organization leadership, Exec Admin, Development team.
+
+**Additional new scope (flagged)**
+- **Skillsets** (annual survey; defined list: Finance/Accounting, PR, Comms/Social, Policy Analysis, Law,
+  Conflict Resolution, Strategic Planning, Middle East/Intl, Gov Relations, K-12, Campuses, Tech/IT, Data,
+  Jewish Text/Hebrew, Non-Profit Mgmt, Fundraising, Other) + **job titles**. → candidate for **Tag Manager**.
+- **Personal/cultivation info** (significant dates: birth/wedding; children's names; life facts) — **TBD**,
+  likely its **own story**.
+
+**Still TBD (client):** do gala tickets count toward commitment? · exact confidential-data sharing (Q19).
+
+---
+
+## Questions for JCRC (client) — ANSWERED 2026-07-28 (see Client Answers above)
+
+_Original questions retained for traceability. 🔴 = blocks build / shapes schema; 🟡 = has a safe default._
 
 **A. Terms & roll-off**
 1. 🟡 **⚙︎ Standard term length?** (e.g., 3 years.) Does it vary by role?

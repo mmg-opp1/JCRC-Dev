@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Config object: the governing bodies a member can serve on (JCRC Board, UJA Board, UJA Observer). Carries each board's default annual giving commitment and default term length, which seed a member's Board Term + that year's commitment. Executive Committee is a Committee, not a Board. JSI-123 Board Tracking. Author: Jason Ott.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <label>Board</label>
+    <nameField>
+        <label>Board Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Boards</pluralLabel>
+    <sharingModel>ReadWrite</sharingModel>
+    <externalSharingModel>Private</externalSharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

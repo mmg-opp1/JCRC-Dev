@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sort_Order__c</fullName>
+    <description>Display order for boards in lists/dashboards. JSI-123 / Jason Ott.</description>
+    <externalId>false</externalId>
+    <label>Sort Order</label>
+    <required>false</required>
+    <precision>3</precision>
+    <scale>0</scale>
+    <type>Number</type>
+</CustomField>

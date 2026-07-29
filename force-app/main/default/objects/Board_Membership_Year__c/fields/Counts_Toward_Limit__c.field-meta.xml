@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Counts_Toward_Limit__c</fullName>
+    <description>Stamped by the before-save flow: TRUE when this year counts toward the 6-year board limit (a regular board-member year — not an officer year and not Past President/Honorary). Stored (not formula) so the Board Term Years Served roll-up can filter on it. JSI-123 / Jason Ott.</description>
+    <label>Counts Toward Limit</label>
+    <defaultValue>false</defaultValue>
+    <type>Checkbox</type>
+</CustomField>

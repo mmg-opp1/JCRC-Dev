@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Board_Years_Served__c</fullName>
+    <description>Count of board-member years that count toward the term limit (roll-up of Board Membership Years where Counts Toward Limit = true — officer/Past-President years excluded). JSI-123 / Jason Ott.</description>
+    <label>Board Years Served</label>
+    <summaryForeignKey>Board_Membership_Year__c.Board_Term__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <summaryFilterItems>
+        <field>Board_Membership_Year__c.Counts_Toward_Limit__c</field>
+        <operation>equals</operation>
+        <value>true</value>
+    </summaryFilterItems>
+    <type>Summary</type>
+</CustomField>

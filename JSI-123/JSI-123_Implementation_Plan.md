@@ -56,7 +56,14 @@
 | D10 | Board surface implementation | **`Board_Members` LWC on a custom tab + Board Dashboard** | **Locked ✓ 2026-07-27** |
 | D11 | Also set NPSP **Primary Affiliation** for board members? | **Yes, optional additive automation** (keeps native "is-board" niceties) | J |
 | D12 | Security placement | **JCRC\* profiles** (org standard, not perm sets) | J confirm |
-| D13 | "Board" side of `Board_Term__c` | **No `Board__c` — single board.** `Board_Term__c` is a Contact-child; current board = `Is_Current__c=TRUE`. Board-level defaults in **`Board_Setting__mdt`**; leave a clean slot to add `Board__c` later if a 2nd governing body appears. | **Locked ✓ 2026-07-27** |
+| D13 | "Board" side of `Board_Term__c` | **SUPERSEDED by D14** (client revealed multiple boards). | ~~2026-07-27~~ |
+| D14 | Multiple boards (client 2026-07-28) | **`Board__c` config object** — JCRC Board / UJA Board / UJA Observer, each w/ default commitment (5k/5k/1.8k) + default term length (6/6/1). `Board_Term__c` → `Board__c` lookup. Exec Committee is a **committee**, not a board. | **Locked ✓ 2026-07-28** |
+| D15 | Per-year history grain | **`Board_Membership_Year__c`** (Master-Detail child of `Board_Term__c`) — one per member per board per FY: role, meetings-attended, links to that year's AGS. `Board_Term__c` = multi-year container. | **Locked ✓ 2026-07-28** |
+| D16 | Term limits / officer pause | **Compute `Board_Years_Served__c`** (COUNT of per-year records that count toward the limit — officer years excluded) + **`Must_Roll_Off__c`** (≥ board's term length). **Only elected officers pause** (President/VP/Secretary/Treasurer + Board Chair, 3-yr terms → max ~9 yrs). Exec-committee/committee-chair do NOT pause. **Defer** the 1-yr-off re-eligibility enforcement. | **Locked ✓ 2026-07-28** |
+| D17 | Board meeting attendance | **`Board_Meeting__c` + `Board_Meeting_Attendance__c`** → rollup `Meetings_Attended__c` + `Meeting_Requirement_Met__c` (≥3 of 4) on the per-year record. | **Locked ✓ 2026-07-28** |
+| D18 | Commitment derivation | **Auto-derive** each FY = MAX(board-type base $5k/$1.8k, **$10k** if committee **chair/co-chair** OR **Exec Committee** member); honorary/Past-President = $0. Stamp AGS `Board_Commitment__c` unless **`Board_Commitment_Override__c`**. Applied swap point stays = Total Giving (In-Kind already excluded; **gala-ticket deductible portion = TBD**). | **Locked ✓ 2026-07-28** |
+| D19 | Skills + Board Prospect flag | **Tag Manager (JSI-122)** — skills = tags (Skills category), Board Prospect = a tag; job title = standard Contact Title. No net-new objects. | **Locked ✓ 2026-07-28** |
+| D20 | eTapestry historical import | **Out of scope** for this story — the per-year model just accommodates imported rows (board/committee membership by FY). | **Locked ✓ 2026-07-28** |
 
 ---
 
@@ -213,6 +220,48 @@ Add `Contact.Current_Board_Member__c` — either a **DLRS/native rollup** (count
 
 ---
 
+## 5A. Revised design (2026-07-28 client clarifications)
+
+The single-board Phase-1 model is **extended**, not thrown away — `Board_Term__c`, `Committee__c`,
+`Committee_Assignment__c`, and the AGS commitment fields all stay; the changes below layer on top.
+
+**New objects**
+- **`Board__c`** (config, data-seeded): `Name`, `Default_Annual_Commitment__c` (5000/5000/1800),
+  `Default_Term_Length_Years__c` (6/6/1), `Is_Observer__c`, `Active__c`. Seed: JCRC Board, UJA Board, UJA Observer.
+- **`Board_Membership_Year__c`** (per-year record, **Master-Detail → `Board_Term__c`**): `Contact__c` (lookup,
+  denormalized for import + Contact-page related list), `Fiscal_Year_Label__c` + `FY_Start__c`/`FY_End__c`,
+  `Role__c` (Member/Chair/President/VP/Secretary/Treasurer/Past President), `Is_Officer_Year__c` (formula: role
+  ∈ officer set), `Counts_Toward_Limit__c` (**stored** checkbox set by before-save flow = not officer & not
+  Past President — RUS can't filter on a formula), `Meetings_Attended__c` (RUS count of attendance),
+  `Meeting_Requirement_Met__c` (formula ≥3), `Annual_Giving_Summary__c` (lookup, that year's AGS), unique `Year_Key__c`.
+- **`Board_Meeting__c`**: `Name`, `Meeting_Date__c`, `Fiscal_Year_Label__c`, `Board__c` (lookup).
+- **`Board_Meeting_Attendance__c`** (**MD → `Board_Membership_Year__c`** + lookup → `Board_Meeting__c`):
+  `Attended__c` (checkbox), `Contact__c` (lookup), unique `Attendance_Key__c`.
+
+**Revised objects**
+- **`Board_Term__c`**: **+`Board__c` lookup** (required); **role picklist updated** to Chair/President/VP/Secretary/
+  Treasurer/Member/Past President (this stays a convenience "current role"; authoritative role is per-year);
+  **+`Board_Years_Served__c`** (RUS COUNT of per-year records where `Counts_Toward_Limit__c`=true);
+  **+`Must_Roll_Off__c`** (formula: `Board_Years_Served__c >= Board__r.Default_Term_Length_Years__c`).
+- **`Committee__c`**: **+`Category__c`** (Board Committee / Special Event Committee), **+`Is_Executive_Committee__c`**
+  (drives the $10k tier). Seed 9 committees (Executive flagged).
+- **`Committee_Assignment__c`**: role picklist → **Chair / Co-Chair / Member** (Chair/Co-Chair → $10k tier).
+- **`Annual_Giving_Summary__c`**: **+`Board_Commitment_Override__c`** (checkbox; automation won't overwrite when true).
+
+**Automation (Phase 2)**
+- **`BoardCommitmentService`** (Apex): for a Contact+FY, commitment = honorary?0 : MAX(base over that year's board
+  memberships, $10k if any Chair/Co-Chair committee assignment OR Exec-Committee membership that FY); find/create
+  the AGS and stamp `Board_Commitment__c` unless `Board_Commitment_Override__c`. Triggered by Board_Membership_Year
+  + Committee_Assignment changes.
+- **Before-save flow** on `Board_Membership_Year__c` stamps `Counts_Toward_Limit__c` + `Year_Key__c` + FY fields.
+- **Native RUS**: `Board_Years_Served__c` (on Board_Term), `Meetings_Attended__c` (on per-year record).
+
+**UI additions:** Contact "Board" tab → add **Board Membership Years** related list; record pages for the 4 new
+objects; `boardMembers` LWC extended to read board type + must-roll-off. Board Dashboard (later).
+
+**Out of scope (this story):** eTapestry import (D20), personal/cultivation info (own story), full board-meeting
+management/notes, the 1-yr-off re-eligibility auto-enforcement (D16).
+
 ## 6. Security & FLS
 Per org standard (**profiles, not permission sets** — see `feedback-security-at-profile-not-permsets`):
 grant object CRUD + FLS on the new objects/fields and Apex class access on **`Admin` + `JCRC – Development /
@@ -295,4 +344,13 @@ on 5 profiles. (Right-sized after forks.) **No `Board__c`** (D13).
 - **3 record pages:** `Board_Term_Record_Page`, `Committee_Record_Page` (+ Subcommittees & Committee Assignments related lists), `Committee_Assignment_Record_Page` (simple-view template). **⏳ Jason:** assign each as the object's org-default page in App Builder (page→assignment isn't in source).
 - **GOTCHA:** `lst:dynamicRelatedList` **requires `relatedListFieldAliases`** — a related list without it fails deploy "missing required property [relatedListFieldAliases]".
 
-**Deferred to later phases (some pending client answers):** Phase 2 automation (ensure-AGS-for-board-year + commitment stamping + roll-off), Contact "★ Board Member" banner + `Current_Board_Member__c` flag (needs DLRS/flow — no native RUS over a lookup), AGS record-page commitment fields, Phase 4 reports + Board Dashboard, optional App Page hosting the LWC + dashboard together.
+**Phase 2 — client-clarification re-architecture (BUILT + DEPLOYED + VERIFIED 2026-07-28):**
+- **`Board__c`** config + seeded 3 boards (JCRC 6yr/$5k, UJA 6yr/$5k, UJA Observer 1yr/$1.8k); seeded 9 committees (Executive flagged `Is_Executive_Committee`).
+- **`Board_Membership_Year__c`** (MD child of Board_Term): per-year Role, `Is_Officer_Year` formula, stored `Counts_Toward_Limit`, `Meetings_Attended` (RUS) + `Meeting_Requirement_Met`, AGS link, unique `Year_Key`.
+- **`Board_Meeting__c`** + **`Board_Meeting_Attendance__c`** (MD child of the per-year record) → rolls up meetings attended for the 3-of-4 check.
+- **Board_Term** revised: `Board__c` lookup, roles → Chair/President/VP/Secretary/Treasurer/Member/Past President, `Board_Years_Served__c` (RUS COUNT of counted years) + `Must_Roll_Off__c` (≥ board term length).
+- **Committee** +`Category__c`/`Is_Executive_Committee__c`; **Committee_Assignment** role → Chair/Co-Chair/Member; **AGS** +`Board_Commitment_Override__c`.
+- **Automation:** `BoardCommitmentService` + `BoardMembershipYearTrigger` + `CommitteeAssignmentTrigger` — before-save stamps (Counts/Year_Key/FY label/Assignment_Key); after-save **auto-derives commitment** = $0 honorary/Past-President else MAX(highest board base, $10k if committee chair/co-chair or Exec member) → stamps AGS unless override. **Test 2/2 pass**; end-to-end verified vs seeded boards ($5k base → $10k with Exec).
+- **UI:** Contact "Board" tab +Board Membership Years related list. FLS on 5 profiles (repo synced).
+- **NEW GOTCHAS:** (1) MD-detail objects — **Allow Sharing/Bulk/Streaming must all match** (set `enableSharing=true` on ControlledByParent detail objects); (2) from a per-year child, the board is **`Board_Term__r.Board__r.…`** (2-hop) — there is no `Board__c` on the per-year record.
+- **⏳ Deferred:** record pages for the 4 new objects (auto-pages work); extend `boardMembers` LWC (board type + must-roll-off column); Contact "★ Board Member" banner; reports + Board Dashboard (need Marc's FRD as reference); the 1-yr-off re-eligibility enforcement (D16). **Client TBD:** gala-ticket deductible portion counting; honorary confirmation; confidential-data sharing.

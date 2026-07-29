@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Attended__c</fullName>
+    <description>TRUE if the member attended. Only attended records count toward the 3-of-4 requirement (lets you also record an expected-but-absent row). JSI-123 / Jason Ott.</description>
+    <label>Attended</label>
+    <defaultValue>true</defaultValue>
+    <type>Checkbox</type>
+</CustomField>

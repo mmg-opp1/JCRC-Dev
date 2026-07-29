@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Contact__c</fullName>
+    <description>The board member (denormalized for reporting). JSI-123 / Jason Ott.</description>
+    <label>Board Member</label>
+    <referenceTo>Contact</referenceTo>
+    <relationshipLabel>Board Meeting Attendance</relationshipLabel>
+    <relationshipName>Board_Meeting_Attendance</relationshipName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <required>false</required>
+    <type>Lookup</type>
+</CustomField>

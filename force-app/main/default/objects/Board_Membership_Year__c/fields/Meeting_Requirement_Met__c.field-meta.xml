@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Meeting_Requirement_Met__c</fullName>
+    <description>TRUE when the member attended at least 3 board meetings this year (the "3 of 4" requirement). JSI-123 / Jason Ott.</description>
+    <formula>Meetings_Attended__c &gt;= 3</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Meeting Requirement Met</label>
+    <type>Checkbox</type>
+</CustomField>
