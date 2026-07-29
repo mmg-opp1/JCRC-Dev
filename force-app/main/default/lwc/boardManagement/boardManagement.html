@@ -1,0 +1,74 @@
+<template>
+    <lightning-tabset variant="scoped">
+        <lightning-tab label="Dashboard">
+            <div class="slds-p-around_medium slds-text-color_weak">
+                The Board Dashboard (native Salesforce dashboard) will be embedded here.
+            </div>
+        </lightning-tab>
+
+        <lightning-tab label="Meetings &amp; Attendance">
+            <div class="slds-p-around_small">
+                <lightning-card title="Board Meetings" icon-name="standard:event">
+                    <lightning-button slot="actions" label="New Meeting" onclick={openNewMeeting}></lightning-button>
+                    <div class="slds-p-horizontal_small slds-p-bottom_small">
+                        <lightning-datatable
+                            key-field="id"
+                            data={meetings}
+                            columns={meetingColumns}
+                            hide-checkbox-column
+                            onrowaction={handleMeetingAction}
+                            column-widths-mode="auto">
+                        </lightning-datatable>
+                    </div>
+                </lightning-card>
+
+                <template lwc:if={selectedMeetingId}>
+                    <lightning-card title={attendanceTitle} icon-name="standard:groups" class="slds-m-top_small">
+                        <lightning-button slot="actions" label="Save Attendance" variant="brand"
+                            onclick={saveAttendance}></lightning-button>
+                        <div class="slds-p-horizontal_small slds-p-bottom_small">
+                            <lightning-datatable
+                                key-field="membershipYearId"
+                                data={attendees}
+                                columns={attendeeColumns}
+                                draft-values={draftValues}
+                                hide-checkbox-column
+                                oncellchange={handleCellChange}
+                                column-widths-mode="auto">
+                            </lightning-datatable>
+                        </div>
+                    </lightning-card>
+                </template>
+            </div>
+        </lightning-tab>
+
+        <lightning-tab label="Committees">
+            <div class="slds-p-around_medium slds-text-color_weak">Committee management — coming next.</div>
+        </lightning-tab>
+
+        <lightning-tab label="Roster">
+            <c-board-members></c-board-members>
+        </lightning-tab>
+    </lightning-tabset>
+
+    <template lwc:if={showNewMeeting}>
+        <section role="dialog" tabindex="-1" aria-modal="true" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 class="slds-modal__title slds-hyphenate">New Board Meeting</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <lightning-input label="Meeting Name" value={newName} onchange={handleName}></lightning-input>
+                    <lightning-input type="date" label="Meeting Date" value={newDate} onchange={handleDate}
+                        class="slds-m-top_small"></lightning-input>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button label="Cancel" onclick={closeNewMeeting}></lightning-button>
+                    <lightning-button label="Create" variant="brand" onclick={createMeeting}
+                        class="slds-m-left_x-small"></lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

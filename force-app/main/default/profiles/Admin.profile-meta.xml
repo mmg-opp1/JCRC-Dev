@@ -333,6 +333,10 @@
         <apexClass>BoardMembersController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <classAccesses>
+        <apexClass>BoardManagementController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <custom>false</custom>
     <customMetadataTypeAccesses>
         <enabled>true</enabled>
