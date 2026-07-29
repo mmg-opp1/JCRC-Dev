@@ -11,30 +11,19 @@
                 <lightning-card title="Board Meetings" icon-name="standard:event">
                     <lightning-button slot="actions" label="New Meeting" onclick={openNewMeeting}></lightning-button>
                     <div class="slds-p-horizontal_small slds-p-bottom_small">
-                        <lightning-datatable
-                            key-field="id"
-                            data={meetings}
-                            columns={meetingColumns}
-                            hide-checkbox-column
-                            onrowaction={handleMeetingAction}
-                            column-widths-mode="auto">
+                        <lightning-datatable key-field="id" data={meetings} columns={meetingColumns}
+                            hide-checkbox-column onrowaction={handleMeetingAction} column-widths-mode="auto">
                         </lightning-datatable>
                     </div>
                 </lightning-card>
-
                 <template lwc:if={selectedMeetingId}>
                     <lightning-card title={attendanceTitle} icon-name="standard:groups" class="slds-m-top_small">
                         <lightning-button slot="actions" label="Save Attendance" variant="brand"
                             onclick={saveAttendance}></lightning-button>
                         <div class="slds-p-horizontal_small slds-p-bottom_small">
-                            <lightning-datatable
-                                key-field="membershipYearId"
-                                data={attendees}
-                                columns={attendeeColumns}
-                                draft-values={draftValues}
-                                hide-checkbox-column
-                                oncellchange={handleCellChange}
-                                column-widths-mode="auto">
+                            <lightning-datatable key-field="membershipYearId" data={attendees}
+                                columns={attendeeColumns} draft-values={draftValues} hide-checkbox-column
+                                oncellchange={handleCellChange} column-widths-mode="auto">
                             </lightning-datatable>
                         </div>
                     </lightning-card>
@@ -43,7 +32,27 @@
         </lightning-tab>
 
         <lightning-tab label="Committees">
-            <div class="slds-p-around_medium slds-text-color_weak">Committee management — coming next.</div>
+            <div class="slds-p-around_small">
+                <lightning-card title="Committees" icon-name="standard:groups">
+                    <lightning-button slot="actions" label="New Committee" onclick={openNewCommittee}></lightning-button>
+                    <div class="slds-p-horizontal_small slds-p-bottom_small">
+                        <lightning-datatable key-field="id" data={committees} columns={committeeColumns}
+                            hide-checkbox-column onrowaction={handleCommitteeAction} column-widths-mode="auto">
+                        </lightning-datatable>
+                    </div>
+                </lightning-card>
+                <template lwc:if={selectedCommitteeId}>
+                    <lightning-card title={assignmentsTitle} icon-name="standard:user_role" class="slds-m-top_small">
+                        <lightning-button slot="actions" label="Add Member" variant="brand"
+                            onclick={openAddMember}></lightning-button>
+                        <div class="slds-p-horizontal_small slds-p-bottom_small">
+                            <lightning-datatable key-field="id" data={assignments} columns={assignmentColumns}
+                                hide-checkbox-column onrowaction={handleAssignmentAction} column-widths-mode="auto">
+                            </lightning-datatable>
+                        </div>
+                    </lightning-card>
+                </template>
+            </div>
         </lightning-tab>
 
         <lightning-tab label="Roster">
@@ -51,12 +60,11 @@
         </lightning-tab>
     </lightning-tabset>
 
+    <!-- New meeting modal -->
     <template lwc:if={showNewMeeting}>
         <section role="dialog" tabindex="-1" aria-modal="true" class="slds-modal slds-fade-in-open">
             <div class="slds-modal__container">
-                <header class="slds-modal__header">
-                    <h2 class="slds-modal__title slds-hyphenate">New Board Meeting</h2>
-                </header>
+                <header class="slds-modal__header"><h2 class="slds-modal__title">New Board Meeting</h2></header>
                 <div class="slds-modal__content slds-p-around_medium">
                     <lightning-input label="Meeting Name" value={newName} onchange={handleName}></lightning-input>
                     <lightning-input type="date" label="Meeting Date" value={newDate} onchange={handleDate}
@@ -65,6 +73,55 @@
                 <footer class="slds-modal__footer">
                     <lightning-button label="Cancel" onclick={closeNewMeeting}></lightning-button>
                     <lightning-button label="Create" variant="brand" onclick={createMeeting}
+                        class="slds-m-left_x-small"></lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <!-- Committee create/edit modal -->
+    <template lwc:if={showCommitteeModal}>
+        <section role="dialog" tabindex="-1" aria-modal="true" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header"><h2 class="slds-modal__title">Committee</h2></header>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <lightning-input label="Committee Name" value={cmName} onchange={handleCmName}></lightning-input>
+                    <lightning-combobox label="Category" value={cmCategory} options={categoryOptions}
+                        onchange={handleCmCategory} class="slds-m-top_small"></lightning-combobox>
+                    <lightning-record-picker label="Parent Committee (for a subcommittee)" object-api-name="Committee__c"
+                        value={cmParentId} onchange={handleCmParent} class="slds-m-top_small"></lightning-record-picker>
+                    <lightning-input type="checkbox" label="Executive Committee" checked={cmIsExec}
+                        onchange={handleCmExec} class="slds-m-top_small"></lightning-input>
+                    <lightning-input type="checkbox" label="Active" checked={cmActive}
+                        onchange={handleCmActive}></lightning-input>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button label="Cancel" onclick={closeCommitteeModal}></lightning-button>
+                    <lightning-button label="Save" variant="brand" onclick={saveCommittee}
+                        class="slds-m-left_x-small"></lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <!-- Add committee member modal -->
+    <template lwc:if={showAddMember}>
+        <section role="dialog" tabindex="-1" aria-modal="true" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header"><h2 class="slds-modal__title">Add Committee Member</h2></header>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <lightning-record-picker label="Contact" object-api-name="Contact"
+                        value={amContactId} onchange={handleAmContact}></lightning-record-picker>
+                    <lightning-combobox label="Role" value={amRole} options={roleOptions}
+                        onchange={handleAmRole} class="slds-m-top_small"></lightning-combobox>
+                    <lightning-input type="date" label="Fiscal Year (any date in the year)" value={amDate}
+                        onchange={handleAmDate} class="slds-m-top_small"></lightning-input>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button label="Cancel" onclick={closeAddMember}></lightning-button>
+                    <lightning-button label="Add" variant="brand" onclick={saveAssignment}
                         class="slds-m-left_x-small"></lightning-button>
                 </footer>
             </div>

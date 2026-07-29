@@ -45,4 +45,34 @@ private class BoardManagementControllerTest {
             WHERE Id = :rows[0].membershipYearId];
         System.assertEquals(0, y2.Meetings_Attended__c, 'un-attend updates, not duplicates');
     }
+
+    @isTest
+    static void committeesAndAssignments() {
+        Test.startTest();
+        Id cid = BoardManagementController.saveCommittee(null, 'Finance X', 'Board Committee', false, null, true);
+        System.assertNotEquals(null, cid, 'committee created');
+        BoardManagementController.saveCommittee(cid, 'Finance X2', 'Board Committee', true, null, true);
+
+        Contact c = new Contact(LastName = 'Committee Member');
+        insert c;
+        BoardManagementController.saveAssignment(cid, c.Id, 'Chair', Date.today());
+        Test.stopTest();
+
+        List<BoardManagementController.CommitteeInfo> comms = BoardManagementController.getCommittees();
+        Boolean found = false;
+        for (BoardManagementController.CommitteeInfo ci : comms) {
+            if (ci.id == cid) {
+                found = true;
+                System.assertEquals('Finance X2', ci.name, 'edit persisted');
+                System.assertEquals(true, ci.isExecutive, 'exec flag persisted');
+            }
+        }
+        System.assert(found, 'committee listed');
+
+        List<BoardManagementController.AssignmentInfo> asgs = BoardManagementController.getAssignments(cid);
+        System.assertEquals(1, asgs.size(), 'one assignment');
+        System.assertEquals('Chair', asgs[0].role, 'role saved');
+        BoardManagementController.removeAssignment(asgs[0].id);
+        System.assertEquals(0, BoardManagementController.getAssignments(cid).size(), 'assignment removed');
+    }
 }
