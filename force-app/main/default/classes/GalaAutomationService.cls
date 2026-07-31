@@ -138,9 +138,10 @@ public with sharing class GalaAutomationService {
     }
 
     /**
-     * BEFORE save: for guests with "Add as Contact" ticked and no Contact yet, find a matching Contact
-     * (exact first+last, and email when present) or create one, then set the Contact lookup and clear the
-     * flag. (v1 uses a name/email match; can be upgraded to Datacloud.FindDuplicates fuzzy matching.)
+     * BEFORE save: for guests with "Add as Contact" ticked and no Contact yet, run the org's active
+     * duplicate rules (via Datacloud.FindDuplicates — the JSI-89 fuzzy first-name + last-name rule applies)
+     * and:  0 matches → create the Contact + link;  1 match → link it;  2+ matches → flag for manual review
+     * (leave the lookup blank). Clears the flag once handled.
      */
     public static void resolveContacts(List<Gala_Guest__c> guests) {
         List<Gala_Guest__c> todo = new List<Gala_Guest__c>();
@@ -153,29 +154,28 @@ public with sharing class GalaAutomationService {
         if (todo.isEmpty()) {
             return;
         }
-        // find existing contacts by first+last
-        Set<String> firsts = new Set<String>();
-        Set<String> lasts = new Set<String>();
+        // Build one probe per guest (same order) and run duplicate detection in bulk.
+        List<Contact> probes = new List<Contact>();
         for (Gala_Guest__c g : todo) {
-            firsts.add(g.First_Name__c);
-            lasts.add(g.Last_Name__c);
+            probes.add(new Contact(FirstName = g.First_Name__c, LastName = g.Last_Name__c));
         }
-        Map<String, Id> byName = new Map<String, Id>();
-        for (Contact c : [
-                SELECT Id, FirstName, LastName FROM Contact
-                WHERE LastName IN :lasts AND (FirstName IN :firsts OR FirstName = null)]) {
-            byName.put(nameKey(c.FirstName, c.LastName), c.Id);
-        }
+        List<Set<Id>> matches = findDuplicateContactIds(probes);
+
         List<Contact> toCreate = new List<Contact>();
         List<Gala_Guest__c> needCreate = new List<Gala_Guest__c>();
-        for (Gala_Guest__c g : todo) {
-            Id existing = byName.get(nameKey(g.First_Name__c, g.Last_Name__c));
-            if (existing != null) {
-                g.Contact__c = existing;
-                g.Add_as_Contact__c = false;
-            } else {
+        for (Integer i = 0; i < todo.size(); i++) {
+            Gala_Guest__c g = todo.get(i);
+            Set<Id> ids = matches.get(i);
+            if (ids.isEmpty()) {
                 toCreate.add(new Contact(FirstName = g.First_Name__c, LastName = g.Last_Name__c));
                 needCreate.add(g);
+            } else if (ids.size() == 1) {
+                g.Contact__c = new List<Id>(ids)[0];
+                g.Add_as_Contact__c = false;
+            } else {
+                // 2+ candidates — don't guess; flag for a person to pick the right one.
+                g.Contact_Match_Needs_Review__c = true;
+                g.Add_as_Contact__c = false;
             }
         }
         if (!toCreate.isEmpty()) {
@@ -187,8 +187,29 @@ public with sharing class GalaAutomationService {
         }
     }
 
-    private static String nameKey(String first, String last) {
-        return (String.isBlank(first) ? '' : first.trim().toLowerCase())
-            + '|' + (String.isBlank(last) ? '' : last.trim().toLowerCase());
+    /**
+     * Runs the org's active Contact duplicate rules for each probe and returns one match-Id set per probe,
+     * in input order. Mirrors the FindDuplicates walk in JSI-89 TributeContactResolver.
+     */
+    private static List<Set<Id>> findDuplicateContactIds(List<Contact> probes) {
+        List<Set<Id>> out = new List<Set<Id>>();
+        for (Integer i = 0; i < probes.size(); i++) {
+            out.add(new Set<Id>());
+        }
+        List<Datacloud.FindDuplicatesResult> results = Datacloud.FindDuplicates.findDuplicates(probes);
+        for (Integer i = 0; i < results.size(); i++) {
+            Set<Id> ids = out.get(i);
+            for (Datacloud.DuplicateResult dr : results.get(i).getDuplicateResults()) {
+                for (Datacloud.MatchResult mr : dr.getMatchResults()) {
+                    for (Datacloud.MatchRecord rec : mr.getMatchRecords()) {
+                        SObject so = rec.getRecord();
+                        if (so != null && so.Id != null) {
+                            ids.add(so.Id);
+                        }
+                    }
+                }
+            }
+        }
+        return out;
     }
 }

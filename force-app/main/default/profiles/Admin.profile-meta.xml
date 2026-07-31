@@ -9056,6 +9056,11 @@
         <field>Opportunity.Gala_Level__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Gala_Guest__c.Contact_Match_Needs_Review__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <flowAccesses>
         <enabled>false</enabled>
         <flow>Datatable_Configuration_Wizard5</flow>

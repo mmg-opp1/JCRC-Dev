@@ -83,4 +83,23 @@ private class GalaAutomationServiceTest {
         System.assertEquals(1, [SELECT Seats_Filled__c FROM Gala_Table__c WHERE Id = :t.Id].Seats_Filled__c,
             'seats filled decrements when a guest is removed');
     }
+
+    @isTest
+    static void ambiguousMatchFlagsForReview() {
+        insert new List<Contact>{
+            new Contact(FirstName = 'John', LastName = 'Ambiguous'),
+            new Contact(FirstName = 'John', LastName = 'Ambiguous')
+        };
+        Test.startTest();
+        Gala_Guest__c g = new Gala_Guest__c(First_Name__c = 'John', Last_Name__c = 'Ambiguous',
+            Add_as_Contact__c = true);
+        insert g;
+        Test.stopTest();
+
+        Gala_Guest__c r = [SELECT Contact__c, Add_as_Contact__c, Contact_Match_Needs_Review__c
+            FROM Gala_Guest__c WHERE Id = :g.Id];
+        System.assertEquals(null, r.Contact__c, '2+ matches -> lookup left blank');
+        System.assertEquals(true, r.Contact_Match_Needs_Review__c, '2+ matches -> flagged for review');
+        System.assertEquals(false, r.Add_as_Contact__c, 'flag cleared after handling');
+    }
 }

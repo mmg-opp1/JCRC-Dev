@@ -102,6 +102,16 @@
                 <identifier>gg_f_addc</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Contact_Match_Needs_Review__c</fieldItem>
+                <identifier>gg_f_review</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-gg-col1</name>
         <type>Facet</type>
     </flexiPageRegions>
