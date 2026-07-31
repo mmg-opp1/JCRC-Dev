@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Add_as_Contact__c</fullName>
+    <description>Tick to promote this named guest to a Contact: automation (Phase B) finds a matching Contact or creates one, then back-fills the Contact lookup. Gala Event Gifts / Jason Ott.</description>
+    <label>Add as Contact</label>
+    <defaultValue>false</defaultValue>
+    <type>Checkbox</type>
+</CustomField>

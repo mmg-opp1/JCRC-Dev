@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Seats_Included__c</fullName>
+    <description>How many seats/tickets this level includes (e.g. individual = 1, table = 10). Gala Event Gifts / Jason Ott.</description>
+    <externalId>false</externalId>
+    <label>Seats Included</label>
+    <required>false</required>
+    <precision>4</precision>
+    <scale>0</scale>
+    <type>Number</type>
+</CustomField>

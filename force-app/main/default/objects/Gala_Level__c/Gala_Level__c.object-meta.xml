@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Config object: the sellable gala levels (individual ticket, table, sponsorship tiers, etc.). Each level sets its price, seats/tables included, the non-deductible (fair-market) value, and benefits — so recording a gala purchase is just picking a level. Admin-maintained; client provides the exact list. Gala Event Gifts. Author: Jason Ott.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <label>Gala Level</label>
+    <nameField>
+        <label>Level Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Gala Levels</pluralLabel>
+    <sharingModel>ReadWrite</sharingModel>
+    <externalSharingModel>Private</externalSharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Seats_Filled__c</fullName>
+    <description>How many guests are assigned to this table (maintained by automation, Phase B). Gala Event Gifts / Jason Ott.</description>
+    <externalId>false</externalId>
+    <label>Seats Filled</label>
+    <required>false</required>
+    <defaultValue>0</defaultValue>
+    <precision>4</precision>
+    <scale>0</scale>
+    <type>Number</type>
+</CustomField>

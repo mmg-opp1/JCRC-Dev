@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Host__c</fullName>
+    <description>The table host / captain. Gala Event Gifts / Jason Ott.</description>
+    <label>Host</label>
+    <referenceTo>Contact</referenceTo>
+    <relationshipLabel>Hosted Gala Tables</relationshipLabel>
+    <relationshipName>Hosted_Gala_Tables</relationshipName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <required>false</required>
+    <type>Lookup</type>
+</CustomField>

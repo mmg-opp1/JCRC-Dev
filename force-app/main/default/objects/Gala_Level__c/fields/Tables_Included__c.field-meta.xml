@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Tables_Included__c</fullName>
+    <description>How many tables this level includes (individual ticket = 0; table = 1; major sponsor = multiple). Drives auto-creation of the table records. Gala Event Gifts / Jason Ott.</description>
+    <externalId>false</externalId>
+    <label>Tables Included</label>
+    <required>false</required>
+    <precision>3</precision>
+    <scale>0</scale>
+    <type>Number</type>
+</CustomField>

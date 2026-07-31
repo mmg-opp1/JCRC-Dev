@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>One guest / seat at the gala. Can be an existing Contact OR just a typed name (added over time); tick "Add as Contact" to find-or-create the Contact and back-fill the lookup. Captures dietary restrictions, meal choice, and RSVP. Gala Event Gifts. Author: Jason Ott.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <label>Gala Guest</label>
+    <nameField>
+        <displayFormat>GG-{00000}</displayFormat>
+        <label>Gala Guest Number</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Gala Guests</pluralLabel>
+    <sharingModel>ReadWrite</sharingModel>
+    <externalSharingModel>Private</externalSharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Gala_Level__c</fullName>
+    <description>The gala level this purchase bought (individual ticket, table, sponsorship...). Drives seats/tables + the deductible split. Gala Event Gifts / Jason Ott.</description>
+    <label>Gala Level</label>
+    <referenceTo>Gala_Level__c</referenceTo>
+    <relationshipLabel>Gala Purchases</relationshipLabel>
+    <relationshipName>Gala_Opportunities</relationshipName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <required>false</required>
+    <type>Lookup</type>
+</CustomField>

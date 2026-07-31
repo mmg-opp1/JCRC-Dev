@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Gala_Table__c</fullName>
+    <description>The table this guest is seated at (optional — individual-ticket guests need not have a table). Gala Event Gifts / Jason Ott.</description>
+    <label>Gala Table</label>
+    <referenceTo>Gala_Table__c</referenceTo>
+    <relationshipLabel>Gala Guests</relationshipLabel>
+    <relationshipName>Gala_Guests</relationshipName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <required>false</required>
+    <type>Lookup</type>
+</CustomField>

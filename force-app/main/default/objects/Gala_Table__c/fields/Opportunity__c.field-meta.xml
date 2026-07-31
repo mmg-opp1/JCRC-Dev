@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Opportunity__c</fullName>
+    <description>The gala purchase that paid for this table (the hub). Gala Event Gifts / Jason Ott.</description>
+    <label>Purchase (Opportunity)</label>
+    <referenceTo>Opportunity</referenceTo>
+    <relationshipLabel>Gala Tables</relationshipLabel>
+    <relationshipName>Gala_Tables</relationshipName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <required>false</required>
+    <type>Lookup</type>
+</CustomField>
