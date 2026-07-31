@@ -24,9 +24,15 @@
 ## Build status (2026-07-31) — BUILT + DEPLOYED + PUSHED to JCRC-Dev
 - **Phase A (schema)** `47a255a` — `Gala_Level__c` / `Gala_Table__c` / `Gala_Guest__c` + `Opportunity.Gala_Level__c`; FLS on 5 profiles; verified.
 - **Phase C (UI)** `b58ecfc` — record pages for all 3 objects; **"Gala" tab** on the Event Registration Opportunity page (Tables + Guests related lists) + the Gala Level field in Opp Info.
-- **Phase B (automation)** `ff756c9` — `GalaAutomationService` + `GalaGuestTrigger` + `OpportunityGalaTrigger`: pick a level → FMV split stamped + tables auto-created (idempotent); Seats Filled live; guest inherits the Opportunity; **Add as Contact** finds-or-creates the Contact + back-fills the lookup. Tests 2/2.
+- **Phase B (automation)** `ff756c9` — `GalaAutomationService` + `GalaGuestTrigger` + `OpportunityGalaTrigger`: pick a level → FMV split stamped + tables auto-created (idempotent); Seats Filled live; guest inherits the Opportunity; **Add as Contact** finds-or-creates the Contact + back-fills the lookup.
+- **Add-as-Contact fuzzy upgrade** `d1d6649` — resolver rewritten to `Datacloud.FindDuplicates` (JSI-89 fuzzy first+last rule): 0 matches → create+link · 1 → link · 2+ → leave blank + set new `Contact_Match_Needs_Review__c`. Tests **3/3**.
+- **Record pages finalized** `2109320` + `a72d7ea` — Jason customized the 3 pages in App Builder (App Builder cloned them under the `...Record_Page1` API name; display labels unchanged) and **activated them as Org Default**. Pulled into the repo; the orphaned scaffold pages deleted from org + repo. Each gala object now has exactly one record page.
 
-**⏳ Remaining:** the client's exact **levels/prices/deductible splits** (seed `Gala_Level__c` records) + confirm the **dietary/meal** picklist values; **reports** (dietary caterer list, table fill status, revenue by level); optionally upgrade the Add-as-Contact resolver to **`Datacloud.FindDuplicates`** fuzzy matching (JSI-89). **Jason:** assign the 3 record pages as org defaults in App Builder. Future: the 3rd-party event module integration.
+**⏳ Remaining (weekend carryover):**
+- **CLIENT (blocking seed):** exact **levels / prices / deductible (FMV) splits** → seed `Gala_Level__c` records; confirm the **dietary-restriction** and **meal-choice** picklist values (currently placeholders incl. Kosher).
+- **Reports (buildable now):** dietary/caterer list, table fill-status roster, revenue by level.
+- **Prod caveat (no action in sandbox):** the record-page **Org Default activation is UI-only** — Salesforce doesn't store org-default assignments in metadata, so at prod cutover Jason re-activates the 3 pages in App Builder (one click each). To make it deploy automatically, assign as **App Default** inside an app instead and re-pull.
+- **Future:** 3rd-party event module integration (ticket purchasing) — schema is intentionally Opportunity-anchored, not Campaign-locked, to accommodate it.
 
 ## Decisions (Jason, 2026-07-31)
 1. **`Gala_Level__c` is a CONFIG object** — seats, tables, price, deductible, etc. are set in config (admin-maintained), not hard-coded. **(Fork 1 locked.)**
