@@ -94,26 +94,50 @@ public with sharing class BoardManagementController {
     }
 
     /**
-     * Save the attendance check-offs for a meeting (upsert on the unique attendance key). System-mode DML:
-     * the read in getAttendance already enforced the user's access, and the dedupe key is a read-only field
-     * that a strict USER_MODE write would reject. Any real error is surfaced to the UI.
+     * Save the attendance check-offs for a meeting. The client sends membership-year ids + their attended
+     * flag; the dedupe key and contact are re-derived SERVER-SIDE from the year record (so they can never be
+     * null) and we upsert on record Id — robust against any client-side data loss. System-mode DML: the read
+     * in getAttendance already enforced access, and the dedupe key is a read-only field.
      */
     @AuraEnabled
     public static void saveAttendance(Id meetingId, List<AttendeeRow> rows) {
-        if (rows == null || rows.isEmpty()) {
+        Map<Id, Boolean> desired = new Map<Id, Boolean>();
+        if (rows != null) {
+            for (AttendeeRow r : rows) {
+                if (r.membershipYearId != null) {
+                    desired.put(r.membershipYearId, r.attended == true);
+                }
+            }
+        }
+        if (desired.isEmpty()) {
             return;
         }
         try {
-            List<Board_Meeting_Attendance__c> ups = new List<Board_Meeting_Attendance__c>();
-            for (AttendeeRow r : rows) {
-                ups.add(new Board_Meeting_Attendance__c(
-                    Board_Meeting__c = meetingId,
-                    Board_Membership_Year__c = r.membershipYearId,
-                    Contact__c = r.contactId,
-                    Attended__c = r.attended == true,
-                    Attendance_Key__c = String.valueOf(meetingId) + '|' + String.valueOf(r.membershipYearId)));
+            // contacts for these years, derived server-side (never null)
+            Map<Id, Id> yearToContact = new Map<Id, Id>();
+            for (Board_Membership_Year__c y : [
+                    SELECT Id, Contact__c FROM Board_Membership_Year__c WHERE Id IN :desired.keySet()]) {
+                yearToContact.put(y.Id, y.Contact__c);
             }
-            upsert ups Attendance_Key__c;
+            // existing attendance for this meeting + these years (update in place, don't duplicate)
+            Map<Id, Board_Meeting_Attendance__c> existing = new Map<Id, Board_Meeting_Attendance__c>();
+            for (Board_Meeting_Attendance__c a : [
+                    SELECT Id, Board_Membership_Year__c FROM Board_Meeting_Attendance__c
+                    WHERE Board_Meeting__c = :meetingId AND Board_Membership_Year__c IN :desired.keySet()]) {
+                existing.put(a.Board_Membership_Year__c, a);
+            }
+            List<Board_Meeting_Attendance__c> ups = new List<Board_Meeting_Attendance__c>();
+            for (Id yearId : desired.keySet()) {
+                Board_Meeting_Attendance__c a = existing.containsKey(yearId)
+                    ? existing.get(yearId)
+                    : new Board_Meeting_Attendance__c(
+                        Board_Meeting__c = meetingId, Board_Membership_Year__c = yearId,
+                        Contact__c = yearToContact.get(yearId),
+                        Attendance_Key__c = String.valueOf(meetingId) + '|' + String.valueOf(yearId));
+                a.Attended__c = desired.get(yearId);
+                ups.add(a);
+            }
+            upsert ups;
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
         }

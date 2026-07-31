@@ -123,8 +123,15 @@ export default class BoardManagement extends LightningElement {
         this.selectedMeetingId = row.id;
         this.selectedMeetingName = row.name;
         getAttendance({ meetingId: row.id })
-            // copy into mutable rows so the checkboxes are directly editable
-            .then((data) => { this.attendees = data.map((r) => ({ ...r })); })
+            // copy explicit fields into mutable rows (avoids any read-only-proxy spread quirk)
+            .then((data) => {
+                this.attendees = data.map((r) => ({
+                    membershipYearId: r.membershipYearId,
+                    contactId: r.contactId,
+                    name: r.name,
+                    attended: r.attended
+                }));
+            })
             .catch((err) => this.toast(this.msg(err), 'error'));
     }
     handleAttendChange(event) {
