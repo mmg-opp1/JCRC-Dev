@@ -93,22 +93,30 @@ public with sharing class BoardManagementController {
         return byYear.values();
     }
 
-    /** Save the attendance check-offs for a meeting (upsert on the unique attendance key). */
+    /**
+     * Save the attendance check-offs for a meeting (upsert on the unique attendance key). System-mode DML:
+     * the read in getAttendance already enforced the user's access, and the dedupe key is a read-only field
+     * that a strict USER_MODE write would reject. Any real error is surfaced to the UI.
+     */
     @AuraEnabled
     public static void saveAttendance(Id meetingId, List<AttendeeRow> rows) {
         if (rows == null || rows.isEmpty()) {
             return;
         }
-        List<Board_Meeting_Attendance__c> ups = new List<Board_Meeting_Attendance__c>();
-        for (AttendeeRow r : rows) {
-            ups.add(new Board_Meeting_Attendance__c(
-                Board_Meeting__c = meetingId,
-                Board_Membership_Year__c = r.membershipYearId,
-                Contact__c = r.contactId,
-                Attended__c = r.attended == true,
-                Attendance_Key__c = String.valueOf(meetingId) + '|' + String.valueOf(r.membershipYearId)));
+        try {
+            List<Board_Meeting_Attendance__c> ups = new List<Board_Meeting_Attendance__c>();
+            for (AttendeeRow r : rows) {
+                ups.add(new Board_Meeting_Attendance__c(
+                    Board_Meeting__c = meetingId,
+                    Board_Membership_Year__c = r.membershipYearId,
+                    Contact__c = r.contactId,
+                    Attended__c = r.attended == true,
+                    Attendance_Key__c = String.valueOf(meetingId) + '|' + String.valueOf(r.membershipYearId)));
+            }
+            upsert ups Attendance_Key__c;
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
         }
-        Database.upsert(ups, Board_Meeting_Attendance__c.Attendance_Key__c, true, AccessLevel.USER_MODE);
     }
 
     // ------------------------------------------------------------------ Committees

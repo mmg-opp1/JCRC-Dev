@@ -118,5 +118,12 @@ export default class BoardMembers extends LightningElement {
     }
 
     toast(message, variant) { this.dispatchEvent(new ShowToastEvent({ title: message, variant })); }
-    msg(err) { return (err && err.body && err.body.message) ? err.body.message : 'Something went wrong'; }
+    msg(err) {
+        if (!err) { return 'Something went wrong'; }
+        if (Array.isArray(err.body)) { return err.body.map((e) => e.message).join(', '); }
+        if (err.body && err.body.message) { return err.body.message; }
+        if (err.body && err.body.pageErrors && err.body.pageErrors.length) { return err.body.pageErrors[0].message; }
+        if (err.message) { return err.message; }
+        return 'Something went wrong';
+    }
 }
