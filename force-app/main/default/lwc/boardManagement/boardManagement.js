@@ -142,9 +142,9 @@ export default class BoardManagement extends LightningElement {
     }
     saveAttendance() {
         const rows = this.attendees.map((a) => ({
-            membershipYearId: a.membershipYearId, contactId: a.contactId, name: a.name, attended: a.attended
+            membershipYearId: a.membershipYearId, attended: a.attended === true
         }));
-        saveAttendanceApex({ meetingId: this.selectedMeetingId, rows })
+        saveAttendanceApex({ meetingId: this.selectedMeetingId, rowsJson: JSON.stringify(rows) })
             .then(() => { this.toast('Attendance saved', 'success'); return refreshApex(this.wiredMeetings); })
             .catch((err) => this.toast(this.msg(err), 'error'));
     }

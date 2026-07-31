@@ -63,7 +63,7 @@ public with sharing class BoardManagementController {
     }
 
     /** The board members eligible for a meeting (those with a membership year in the meeting's FY) + attended flag. */
-    @AuraEnabled(cacheable=true)
+    @AuraEnabled
     public static List<AttendeeRow> getAttendance(Id meetingId) {
         Board_Meeting__c m = [SELECT Id, FY_Start__c FROM Board_Meeting__c WHERE Id = :meetingId WITH USER_MODE];
         Map<Id, AttendeeRow> byYear = new Map<Id, AttendeeRow>();
@@ -100,12 +100,15 @@ public with sharing class BoardManagementController {
      * in getAttendance already enforced access, and the dedupe key is a read-only field.
      */
     @AuraEnabled
-    public static void saveAttendance(Id meetingId, List<AttendeeRow> rows) {
+    public static void saveAttendance(Id meetingId, String rowsJson) {
+        // Parse the payload untyped (robust — avoids typed inner-class param deserialization dropping fields).
         Map<Id, Boolean> desired = new Map<Id, Boolean>();
-        if (rows != null) {
-            for (AttendeeRow r : rows) {
-                if (r.membershipYearId != null) {
-                    desired.put(r.membershipYearId, r.attended == true);
+        if (String.isNotBlank(rowsJson)) {
+            for (Object o : (List<Object>) JSON.deserializeUntyped(rowsJson)) {
+                Map<String, Object> m = (Map<String, Object>) o;
+                Object idVal = m.get('membershipYearId');
+                if (idVal != null && String.isNotBlank(String.valueOf(idVal))) {
+                    desired.put(Id.valueOf(String.valueOf(idVal)), m.get('attended') == true);
                 }
             }
         }

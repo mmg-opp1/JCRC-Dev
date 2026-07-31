@@ -27,7 +27,7 @@ private class BoardManagementControllerTest {
         System.assertEquals(1, rows.size(), 'current-FY board member is an eligible attendee');
         System.assertEquals(false, rows[0].attended, 'not attended by default');
         rows[0].attended = true;
-        BoardManagementController.saveAttendance(meetingId, rows);
+        BoardManagementController.saveAttendance(meetingId, JSON.serialize(rows));
         Test.stopTest();
 
         Board_Membership_Year__c y = [SELECT Meetings_Attended__c FROM Board_Membership_Year__c
@@ -40,7 +40,7 @@ private class BoardManagementControllerTest {
 
         // toggling off updates the same record (upsert on key)
         rows[0].attended = false;
-        BoardManagementController.saveAttendance(meetingId, rows);
+        BoardManagementController.saveAttendance(meetingId, JSON.serialize(rows));
         Board_Membership_Year__c y2 = [SELECT Meetings_Attended__c FROM Board_Membership_Year__c
             WHERE Id = :rows[0].membershipYearId];
         System.assertEquals(0, y2.Meetings_Attended__c, 'un-attend updates, not duplicates');
