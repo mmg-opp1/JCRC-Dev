@@ -21,6 +21,13 @@
   purchase or later**, **dietary/meal capture**, **partial table fill**, and **sync to SF** as Contacts +
   Opportunities + custom table/attendee fields. → Keep our model close to what a module maps to.
 
+## Build status (2026-07-31) — BUILT + DEPLOYED + PUSHED to JCRC-Dev
+- **Phase A (schema)** `47a255a` — `Gala_Level__c` / `Gala_Table__c` / `Gala_Guest__c` + `Opportunity.Gala_Level__c`; FLS on 5 profiles; verified.
+- **Phase C (UI)** `b58ecfc` — record pages for all 3 objects; **"Gala" tab** on the Event Registration Opportunity page (Tables + Guests related lists) + the Gala Level field in Opp Info.
+- **Phase B (automation)** `ff756c9` — `GalaAutomationService` + `GalaGuestTrigger` + `OpportunityGalaTrigger`: pick a level → FMV split stamped + tables auto-created (idempotent); Seats Filled live; guest inherits the Opportunity; **Add as Contact** finds-or-creates the Contact + back-fills the lookup. Tests 2/2.
+
+**⏳ Remaining:** the client's exact **levels/prices/deductible splits** (seed `Gala_Level__c` records) + confirm the **dietary/meal** picklist values; **reports** (dietary caterer list, table fill status, revenue by level); optionally upgrade the Add-as-Contact resolver to **`Datacloud.FindDuplicates`** fuzzy matching (JSI-89). **Jason:** assign the 3 record pages as org defaults in App Builder. Future: the 3rd-party event module integration.
+
 ## Decisions (Jason, 2026-07-31)
 1. **`Gala_Level__c` is a CONFIG object** — seats, tables, price, deductible, etc. are set in config (admin-maintained), not hard-coded. **(Fork 1 locked.)**
 2. **Guest can be a Contact OR a name, plus an `Add as Contact` checkbox + a flow** that checks whether the contact already exists, creates it if not, and **populates the Contact lookup** when created. **(Fork 3 locked + extended.)** Reuse the JSI-89 resolver pattern (`Datacloud.FindDuplicates` + matching rule + name-parser CMDT) so we don't reinvent dedupe/fuzzy-match.
