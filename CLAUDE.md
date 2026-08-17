@@ -3,6 +3,12 @@
 ## Project Overview
 This is a Salesforce project (JCRC-Dev). Claude serves as an expert Salesforce developer assistant for this codebase.
 
+> **🆕 First session on this machine?** Read **[`START_HERE.md`](./START_HERE.md)** first and run its
+> checklist — restore Claude memory, authenticate the two orgs, refresh metadata from the sandbox,
+> report status, **then stop**. Signs you're on a fresh machine: you have no memory of the Gala or
+> JSI-123 workstreams, or `sf org list` doesn't show `JCRC-Dev` and `JCRC-Prod` as Connected.
+> Machine-to-machine transfer is documented in `_ClaudeTransfer/RESTORE_ON_OTHER_PC.md`.
+
 Work is organized as **JSI Jira stories**, each in a repo folder `JSI-XX/`. **Before starting a story, read [`JSI_Story_Workflow.md`](./JSI_Story_Workflow.md)** — the repeatable 6-step playbook (dictation → pull Jira → research/due-diligence → implementation plan → settle decisions → build/verify/commit/push) we follow for every story.
 
 ## Core Development Tenets
