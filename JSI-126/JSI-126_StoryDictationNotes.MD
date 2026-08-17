@@ -1,0 +1,10 @@
+Most of the story should be accomplished by JSI 125 but there is something else that we need to focus on for this and that is the reports I want to make sure that we comb through all of the reports that are currently set up in the system so that we see if we actually have a monthly report for existing installments that are paid and unpaid but this story also looks like it includes a final email or a final notification to the donor themselves when their plan is complete the same steps should be applied or the same filtering I should say as JSI 125 where they should only be on the opportunities that have multiple payments or multiple installments and it should only be pledges major gifts or grants and even on those if there's only one payment we don't need to do this so we need to make sure there's that filtering the last Definition of Done item we should have already accomplished via JSI 125.
+
+
+Here are the steps that we need to take for this:
+1) Pull the story from jira using C:\Users\jott3\OneDrive\Documents\SF_Local\JCRC-Dev\.jira_creds.json and save the story details locally using the same format that we have been using. See JSI-80 for an example.
+2) Review the notes in this document and compare to the details we pull from Jira.  Identify any outstanding questions or holes in the story that we may need to answer or have the client answer.
+3) Come up with an implementation plan just like the other stories. Use JSI-80 as an example.
+4) Review the entire org structure in @force-app to get a solid handle on how things are built in this org. This should show you how to structure things like flows, lightning record pages, comments, record types, etc.
+5) Make sure you do some research on the best way to handle this and the best way to approach this given then NPSP structure.
+6) After all clarifications are done and implementation plan is reviewed we can start implementing.

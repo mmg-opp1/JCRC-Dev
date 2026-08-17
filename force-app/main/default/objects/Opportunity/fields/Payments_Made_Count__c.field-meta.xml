@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Payments_Made_Count__c</fullName>
+    <description>How many payments have actually been made on this gift (COUNT of payments where Paid = true). NPSP&apos;s npe01__Number_of_Payments__c counts EVERY payment including unpaid scheduled ones, so it cannot answer &quot;how many payments has this donor made&quot; - verified: three unpaid installments read 3. Pairs with npe01__Payments_Made__c (how much). JSI-126 / Jason Ott.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Number of payments actually paid on this gift (not counting unpaid scheduled installments).</inlineHelpText>
+    <label>Payments Made (Count)</label>
+    <summaryFilterItems>
+        <field>npe01__OppPayment__c.npe01__Paid__c</field>
+        <operation>equals</operation>
+        <value>true</value>
+    </summaryFilterItems>
+    <summaryForeignKey>npe01__OppPayment__c.npe01__Opportunity__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Summary</type>
+</CustomField>
