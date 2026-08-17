@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Campaign_Name__c</fullName>
+    <description>Name of the primary Campaign on this gift, exposed as a text formula so it can be merged into acknowledgment email templates (a classic template can merge CampaignId but not the campaign&apos;s name through the lookup). JSI-124 / Jason Ott.</description>
+    <externalId>false</externalId>
+    <formula>Campaign.Name</formula>
+    <formulaTreatBlanksAs>BlankAsBlank</formulaTreatBlanksAs>
+    <inlineHelpText>The campaign this gift is attributed to. Used by acknowledgment templates.</inlineHelpText>
+    <label>Campaign Name</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

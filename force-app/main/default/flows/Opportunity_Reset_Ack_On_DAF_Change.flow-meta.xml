@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <assignments>
+        <name>Clear_Ack_Routing</name>
+        <label>Clear Acknowledgment Routing</label>
+        <locationX>176</locationX>
+        <locationY>134</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Acknowledgment_Channel__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Acknowledgment_Send_Mode__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Acknowledgment_Template__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Acknowledgment_Approved__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <description>Before-save: when the DAF Gift flag is toggled on a gift that has not yet been acknowledged, clears the acknowledgment routing fields (Channel / Send Mode / Template) and un-approves it. Clearing Channel is what lets the after-save Acknowledgment Router re-classify the gift, because that router only fires while Channel is null - without this, a gift flagged as DAF *after* it was first routed would keep its standard, tax-language template. Approval is reset deliberately: a letter approved as a standard acknowledgment must not stay approved once it becomes a DAF acknowledgment. JSI-124 / Jason Ott.
+
+Change Log:
+-----------
+2026-08-17 - Jason Ott - Created (JSI-124).</description>
+    <environments>Default</environments>
+    <interviewLabel>Opportunity Reset Ack On DAF Change {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Opportunity - Reset Acknowledgment On DAF Change</label>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Clear_Ack_Routing</targetReference>
+        </connector>
+        <filterFormula>AND(
+  ISCHANGED({!$Record.DAF_Gift__c}),
+  NOT(ISPICKVAL({!$Record.npsp__Acknowledgment_Status__c}, &quot;Acknowledged&quot;))
+)</filterFormula>
+        <object>Opportunity</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

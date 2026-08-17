@@ -174,7 +174,11 @@
             <label>Skip (Not Won or Already Done)</label>
         </rules>
     </decisions>
-    <description>After-save router: classifies each won gift against Acknowledgment_Rule__mdt (lowest-priority match) and stamps Acknowledgment Channel / Send Mode / Template. Skips gifts already Acknowledged or Do Not Acknowledge. Email sending is handled by a separate flow (pending OWEA). JSI-87 / Jason Ott.</description>
+    <description>After-save router: classifies each won gift against Acknowledgment_Rule__mdt (lowest-priority match) and stamps Acknowledgment Channel / Send Mode / Template. Skips gifts already Acknowledged or Do Not Acknowledge. Email sending is handled by a separate flow (pending OWEA). JSI-87 / Jason Ott.
+
+Change Log:
+-----------
+2026-08-17 - Jason Ott - JSI-124: added the DAF_Gift__c clause to formIsMatch so DAF gifts route to their own template and can never match a standard (tax-language) rule. Blank on a rule means "ignore DAF status", preserving the existing blank-means-any convention.</description>
     <environments>Default</environments>
     <formulas>
         <name>formIsMatch</name>
@@ -182,7 +186,8 @@
         <expression>AND(
   OR(ISBLANK({!Loop_Rules.Record_Type__c}), {!Get_RecordType.DeveloperName} = {!Loop_Rules.Record_Type__c}),
   OR(ISBLANK({!Loop_Rules.Min_Amount__c}), {!$Record.Amount} &gt;= {!Loop_Rules.Min_Amount__c}),
-  OR(ISBLANK({!Loop_Rules.Max_Amount__c}), {!$Record.Amount} &lt;= {!Loop_Rules.Max_Amount__c})
+  OR(ISBLANK({!Loop_Rules.Max_Amount__c}), {!$Record.Amount} &lt;= {!Loop_Rules.Max_Amount__c}),
+  OR(ISBLANK(TEXT({!Loop_Rules.DAF_Gift__c})), TEXT({!Loop_Rules.DAF_Gift__c}) = IF({!$Record.DAF_Gift__c}, &quot;Yes&quot;, &quot;No&quot;))
 )</expression>
     </formulas>
     <formulas>

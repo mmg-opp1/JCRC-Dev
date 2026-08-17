@@ -3,6 +3,10 @@
     <label>Major Gift</label>
     <protected>false</protected>
     <values>
+        <field>DAF_Gift__c</field>
+        <value xsi:type="xsd:string">No</value>
+    </values>
+    <values>
         <field>Record_Type__c</field>
         <value xsi:type="xsd:string">Major_Gift</value>
     </values>
