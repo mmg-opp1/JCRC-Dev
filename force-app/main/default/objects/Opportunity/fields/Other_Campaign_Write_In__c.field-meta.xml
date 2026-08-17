@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Other_Campaign_Write_In__c</fullName>
+    <description>The campaign name the donor typed into the &quot;other&quot; free-text box on the JCRC donate page, when their intended campaign was not one of the listed options. Such gifts land on the static &quot;Website Donation - Other&quot; Campaign; staff work the &quot;Other Campaign Write-Ins to Review&quot; report and reassign each gift to a real Campaign. This text is KEPT after reassignment as an audit record of the donor&apos;s own words. JSI-127 / Jason Ott.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Campaign name the donor typed into the website&apos;s &quot;other&quot; box. Kept for audit after the gift is reassigned.</inlineHelpText>
+    <label>Other Campaign Write-In</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Other_Campaign_Write_In__c</fullName>
+    <description>Data Import / Gift Entry source field for the donor&apos;s written-in campaign name, mapped to Opportunity.Other_Campaign_Write_In__c by the advanced field mapping. Mirrors the Approach__c pattern established in JSI-80 so the value can be captured through Gift Entry as well as an online feed. JSI-127 / Jason Ott.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Campaign name the donor typed into the website&apos;s &quot;other&quot; box.</inlineHelpText>
+    <label>Other Campaign Write-In</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>
