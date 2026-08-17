@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Notifies the donor that the FINAL payment against a multi-payment commitment has been received and the commitment is now fully paid (DoD #3). Carries NO tax or receipt language. PLACEHOLDER copy pending client content. JSI-125 / Jason Ott.</description>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Payment Notification - Final Payment Received</name>
+    <style>none</style>
+    <subject>Your commitment is now fully paid - thank you</subject>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <actionCalls>
+        <name>Send_Payment_Notification</name>
+        <label>Send Payment Notification</label>
+        <locationX>176</locationX>
+        <locationY>566</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <inputParameters>
+            <name>emailTemplateId</name>
+            <value>
+                <elementReference>Get_Template.Id</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>recipientId</name>
+            <value>
+                <elementReference>Get_Opportunity.npsp__Primary_Contact__c</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>relatedRecordId</name>
+            <value>
+                <elementReference>Get_Opportunity.Id</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderType</name>
+            <value>
+                <stringValue>OrgWideEmailAddress</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderAddress</name>
+            <value>
+                <stringValue>development@jcrcny.org</stringValue>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <decisions>
+        <name>Should_Notify</name>
+        <label>Should Notify?</label>
+        <locationX>176</locationX>
+        <locationY>350</locationY>
+        <defaultConnectorLabel>No - stay silent</defaultConnectorLabel>
+        <rules>
+            <name>Qualifies</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formQualifies</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Template</targetReference>
+            </connector>
+            <label>Qualifies</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Template_Found</name>
+        <label>Template Found?</label>
+        <locationX>176</locationX>
+        <locationY>458</locationY>
+        <defaultConnectorLabel>Not Found</defaultConnectorLabel>
+        <rules>
+            <name>Found</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Template.Id</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_Payment_Notification</targetReference>
+            </connector>
+            <label>Found</label>
+        </rules>
+    </decisions>
+    <description>Notifies the donor when an installment payment is marked Paid on a multi-payment commitment (Pledge / Major Gift / Grant). Sends the running totals - payment date, paid to date, remaining balance, total commitment - using one of two templates: the final-payment message when the remaining balance reaches zero, otherwise the installment message.
+
+The send runs on the ASYNCHRONOUS (after-commit) path deliberately. A failing email inside a synchronous record-triggered flow throws CANNOT_EXECUTE_FLOW_TRIGGER and rolls back the save (proven on JSI-124 while the org-wide address is unverified). Marking a payment Paid must never fail because of email configuration - it drives deposits, reconciliation and the JSI-82 pledge stage automation. Running after commit also guarantees the roll-up summaries are final before the body is built.
+
+Stays silent - by design - when the gift is not one of the three record types, has only one payment, is written off, or has no primary contact (common on organisational pledges). JSI-125 / Jason Ott.
+
+Change Log:
+-----------
+2026-08-17 - Jason Ott - Created (JSI-125).</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>formQualifies</name>
+        <dataType>Boolean</dataType>
+        <expression>AND(
+  OR({!Get_RecordType.DeveloperName} = &quot;Pledge&quot;,
+     {!Get_RecordType.DeveloperName} = &quot;Major_Gift&quot;,
+     {!Get_RecordType.DeveloperName} = &quot;Grant&quot;),
+  {!Get_Opportunity.npe01__Number_of_Payments__c} &gt; 1,
+  NOT({!$Record.npe01__Written_Off__c}),
+  NOT(ISBLANK({!Get_Opportunity.npsp__Primary_Contact__c}))
+)</expression>
+    </formulas>
+    <formulas>
+        <name>formTemplateName</name>
+        <dataType>String</dataType>
+        <expression>IF({!Get_Opportunity.npe01__Amount_Outstanding__c} &lt;= 0, &quot;Pmt_Email_Final_Payment&quot;, &quot;Pmt_Email_Installment&quot;)</expression>
+    </formulas>
+    <interviewLabel>Payment Notify Donor On Paid {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Payment - Notify Donor On Paid</label>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_Opportunity</name>
+        <label>Get Opportunity</label>
+        <locationX>176</locationX>
+        <locationY>134</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_RecordType</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.npe01__Opportunity__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Opportunity</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_RecordType</name>
+        <label>Get Record Type</label>
+        <locationX>176</locationX>
+        <locationY>242</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Should_Notify</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Opportunity.RecordTypeId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>RecordType</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Template</name>
+        <label>Get Email Template</label>
+        <locationX>176</locationX>
+        <locationY>458</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Template_Found</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>DeveloperName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>formTemplateName</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>EmailTemplate</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>npe01__Paid__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <object>npe01__OppPayment__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <scheduledPaths>
+            <name>Run_Async</name>
+            <connector>
+                <targetReference>Get_Opportunity</targetReference>
+            </connector>
+            <pathType>AsyncAfterCommit</pathType>
+        </scheduledPaths>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

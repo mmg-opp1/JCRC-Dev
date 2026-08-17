@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Notifies the donor that JCRC has received an installment payment against a multi-payment commitment. States the payment date, total paid to date, remaining balance and total commitment. Carries NO tax or receipt language - this is a payment notification, not an acknowledgment (JSI-87 owns those). PLACEHOLDER copy pending client content. JSI-125 / Jason Ott.</description>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Payment Notification - Installment Received</name>
+    <style>none</style>
+    <subject>We have received your payment</subject>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>
