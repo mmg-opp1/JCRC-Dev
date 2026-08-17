@@ -195,6 +195,12 @@
                 <identifier>f_oppinfo_c0_Type</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldItem>Record.DAF_Gift__c</fieldItem>
+                <identifier>RecordDAF_Gift__cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet_oppinfo_col0</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -1408,6 +1414,7 @@
                 <fieldItem>Record.Acknowledgment_Approved__c</fieldItem>
                 <identifier>ackf_mgt_approved</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.npsp__Acknowledgment_Status__c}</leftValue>
                         <operator>EQUAL</operator>
@@ -1418,7 +1425,6 @@
                         <operator>EQUAL</operator>
                         <rightValue>Approval-Gated</rightValue>
                     </criteria>
-                    <booleanFilter>1 AND 2</booleanFilter>
                 </visibilityRule>
             </fieldInstance>
         </itemInstances>
