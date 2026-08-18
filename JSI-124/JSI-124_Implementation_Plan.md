@@ -286,16 +286,31 @@ announced they **are considering proposed regulations** that would treat a DAF d
 paying for tickets enabling the advisor to attend a charity-sponsored event as more than
 incidental — **even where the advisor pays the non-deductible portion out of pocket**.
 
-*Status — do not overstate this.* Those §4967 regulations are **still not final**. The
-November 2023 proposed regulations addressed **§4966** (taxable distributions) and did not
-resolve §4967; §4967 guidance remains on the Treasury/IRS **2025–2026 Priority Guidance Plan**.
-So this is **announced intent plus sponsor practice, not settled regulation**.
+*Status — the statute is in force. Only one interpretive regulation is outstanding.*
+**§4967 is enacted law and has applied to taxable years beginning after 17 August 2006**
+(Pension Protection Act of 2006). It is not proposed and not pending. The tax is **125% of the
+prohibited benefit**, payable by the donor/advisor who advised the distribution or received the
+benefit, plus a separate **10% on any fund manager** who knowingly agreed to it.
 
-*Why it still binds JCRC in practice.* Sponsors enforce it regardless of the regs' status —
-Fidelity Charitable and most community foundations (including the kind of sponsor JCRC's
-donors use) decline grant recommendations for event tickets or tables outright. The practical
-failure mode is therefore **operational, not just legal**: a donor recommends a grant for a
-gala table, the sponsor rejects it, and the seat is already promised.
+What is *not* final is only the **regulation** that would codify how the more-than-incidental
+test applies to this particular fact pattern: Notice 2017-73 announced Treasury's intent, the
+November 2023 proposed regulations addressed **§4966** and left §4967 for later, and §4967
+guidance remains on the Priority Guidance Plan.
+
+> **Correction (2026-08-18).** An earlier draft of this section led with "the regulations are
+> still not final" and characterised the position as *"announced intent plus sponsor practice,
+> not settled regulation."* **That understated it.** The operative statute is settled and
+> enforceable, the IRS has stated its position on event tickets, and sponsors apply that
+> position today. JCRC reported it as enforced, and JCRC is right. Treat this as a live rule,
+> not a forthcoming one.
+
+*How it is enforced in practice — at the sponsor.* The sponsoring organisation is the
+enforcement point, because its own fund managers carry §4966/§4967 exposure. Fidelity
+Charitable and community foundations decline event-ticket and table grants outright, and
+specifically **will not cover any part of a ticket even where part of the price is
+deductible** — which is exactly the bifurcation route donors propose. The practical failure
+mode is therefore **operational as well as legal**: a donor recommends a grant for a gala
+table, the sponsor rejects it, and the seat is already promised.
 
 *The clean pattern* most nonprofits land on: DAF money is accepted only where the donor takes
 **no benefit at all** — a sponsorship with the tickets formally declined, i.e. fully
