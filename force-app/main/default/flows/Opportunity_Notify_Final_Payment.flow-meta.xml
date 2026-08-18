@@ -2,10 +2,10 @@
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>58.0</apiVersion>
     <actionCalls>
-        <name>Send_Payment_Notification</name>
-        <label>Send Payment Notification</label>
+        <name>Send_Final_Payment_Notification</name>
+        <label>Send Final Payment Notification</label>
         <locationX>176</locationX>
-        <locationY>566</locationY>
+        <locationY>350</locationY>
         <actionName>emailSimple</actionName>
         <actionType>emailSimple</actionType>
         <inputParameters>
@@ -17,13 +17,13 @@
         <inputParameters>
             <name>recipientId</name>
             <value>
-                <elementReference>Get_Opportunity.npsp__Primary_Contact__c</elementReference>
+                <elementReference>$Record.npsp__Primary_Contact__c</elementReference>
             </value>
         </inputParameters>
         <inputParameters>
             <name>relatedRecordId</name>
             <value>
-                <elementReference>Get_Opportunity.Id</elementReference>
+                <elementReference>$Record.Id</elementReference>
             </value>
         </inputParameters>
         <inputParameters>
@@ -43,7 +43,7 @@
         <name>Should_Notify</name>
         <label>Should Notify?</label>
         <locationX>176</locationX>
-        <locationY>350</locationY>
+        <locationY>242</locationY>
         <defaultConnectorLabel>No - stay silent</defaultConnectorLabel>
         <rules>
             <name>Qualifies</name>
@@ -61,18 +61,21 @@
             <label>Qualifies</label>
         </rules>
     </decisions>
-    <description>Notifies the donor when an installment payment is marked Paid on a multi-payment commitment (Pledge / Major Gift / Grant). Sends the running totals - payment date, paid to date, remaining balance, total commitment - using the installment template.
+    <description>Sends the single "your commitment is now fully paid" message when an installment plan is completed. Fires at the OPPORTUNITY level, once, when the remaining balance transitions to zero.
 
-The send runs on the ASYNCHRONOUS (after-commit) path deliberately. A failing email inside a synchronous record-triggered flow throws CANNOT_EXECUTE_FLOW_TRIGGER and rolls back the save (proven on JSI-124 while the org-wide address is unverified). Marking a payment Paid must never fail because of email configuration - it drives deposits, reconciliation and the JSI-82 pledge stage automation. Running after commit also guarantees the roll-up summaries are final before the body is built.
+Why here and not on the Payment: the completion message is an Opportunity-level event, not a payment-level one. Sending it per payment duplicated it whenever one save cleared several installments - a deposit batch of two produced two "fully paid" emails (verified in JCRC-Dev 2026-08-18). Firing on the parent makes duplicates structurally impossible rather than guarded against. The per-installment message stays on Payment_Notify_Donor_On_Paid, which now deliberately stays silent when a payment clears the balance.
 
-Stays silent - by design - when the gift is not one of the three record types, has only one payment, is written off, or has no primary contact (common on organisational pledges).
+Entry uses a filter FORMULA rather than field filters because Amount Outstanding is a formula field and formula fields do not work in record-triggered entry filters in this org (JSI-87 gotcha).
 
-Deliberately silent too when this payment CLEARS the balance: that case is the plan completing, and the single completion message is sent by Opportunity_Notify_Final_Payment at the Opportunity level. Sending it from here produced one duplicate per payment whenever a deposit batch cleared several installments in one save (verified: two installments in one save produced two "fully paid" emails). JSI-125 / Jason Ott.
+Runs on the ASYNCHRONOUS after-commit path for the same reason as the payment flow: a donor-email failure must never be able to roll back a payment save.
+
+Stays silent when the gift is not Pledge / Major Gift / Grant, has only one payment, or has no primary contact. A missing email template is deliberately NOT swallowed - it fails visibly, because a silent not-found path previously hid a missing template for a full day.
+
+JSI-125 / Jason Ott.
 
 Change Log:
 -----------
-2026-08-17 - Jason Ott - Created (JSI-125).
-2026-08-18 - Jason Ott - Now sends ONLY the per-installment message; the completion message moved to Opportunity_Notify_Final_Payment so a bulk save cannot duplicate it. Removed the silent template-not-found path so a missing template fails visibly.</description>
+2026-08-18 - Jason Ott - Created (JSI-125 duplicate-notification fix).</description>
     <environments>Default</environments>
     <formulas>
         <name>formQualifies</name>
@@ -81,46 +84,19 @@ Change Log:
   OR({!Get_RecordType.DeveloperName} = &quot;Pledge&quot;,
      {!Get_RecordType.DeveloperName} = &quot;Major_Gift&quot;,
      {!Get_RecordType.DeveloperName} = &quot;Grant&quot;),
-  {!Get_Opportunity.npe01__Number_of_Payments__c} &gt; 1,
-  {!Get_Opportunity.npe01__Amount_Outstanding__c} &gt; 0,
-  NOT({!$Record.npe01__Written_Off__c}),
-  NOT(ISBLANK({!Get_Opportunity.npsp__Primary_Contact__c}))
+  {!$Record.npe01__Number_of_Payments__c} &gt; 1,
+  {!$Record.Payments_Made_Count__c} &gt; 0,
+  NOT(ISBLANK({!$Record.npsp__Primary_Contact__c}))
 )</expression>
     </formulas>
-    <formulas>
-        <name>formTemplateName</name>
-        <dataType>String</dataType>
-        <expression>&quot;Pmt_Email_Installment&quot;</expression>
-    </formulas>
-    <interviewLabel>Payment Notify Donor On Paid {!$Flow.CurrentDateTime}</interviewLabel>
-    <label>Payment - Notify Donor On Paid</label>
+    <interviewLabel>Opportunity Notify Final Payment {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Opportunity - Notify Final Payment</label>
     <processType>AutoLaunchedFlow</processType>
-    <recordLookups>
-        <name>Get_Opportunity</name>
-        <label>Get Opportunity</label>
-        <locationX>176</locationX>
-        <locationY>134</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>Get_RecordType</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>$Record.npe01__Opportunity__c</elementReference>
-            </value>
-        </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>Opportunity</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
     <recordLookups>
         <name>Get_RecordType</name>
         <label>Get Record Type</label>
         <locationX>176</locationX>
-        <locationY>242</locationY>
+        <locationY>134</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Should_Notify</targetReference>
@@ -130,7 +106,7 @@ Change Log:
             <field>Id</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>Get_Opportunity.RecordTypeId</elementReference>
+                <elementReference>$Record.RecordTypeId</elementReference>
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
@@ -141,17 +117,17 @@ Change Log:
         <name>Get_Template</name>
         <label>Get Email Template</label>
         <locationX>176</locationX>
-        <locationY>458</locationY>
+        <locationY>350</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Send_Payment_Notification</targetReference>
+            <targetReference>Send_Final_Payment_Notification</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
             <field>DeveloperName</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>formTemplateName</elementReference>
+                <stringValue>Pmt_Email_Final_Payment</stringValue>
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
@@ -162,20 +138,15 @@ Change Log:
         <locationX>50</locationX>
         <locationY>0</locationY>
         <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>npe01__Paid__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <booleanValue>true</booleanValue>
-            </value>
-        </filters>
-        <object>npe01__OppPayment__c</object>
-        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <filterFormula>AND(
+  {!$Record.npe01__Amount_Outstanding__c} = 0,
+  {!$Record.npe01__Payments_Made__c} &gt; 0
+)</filterFormula>
+        <object>Opportunity</object>
+        <recordTriggerType>Update</recordTriggerType>
         <scheduledPaths>
-            <name>Run_Async</name>
             <connector>
-                <targetReference>Get_Opportunity</targetReference>
+                <targetReference>Get_RecordType</targetReference>
             </connector>
             <pathType>AsyncAfterCommit</pathType>
         </scheduledPaths>
