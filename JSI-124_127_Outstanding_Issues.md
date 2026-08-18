@@ -10,36 +10,110 @@
 
 ---
 
-## 🔴 1. BLOCKING — the org-wide email address (affects JSI-124, JSI-125, and JSI-87)
+## 🔴 1. BLOCKING — email sending (affects JSI-124, JSI-125, and JSI-87)
 
-**Two org settings, both Jason's to do, both UI-only:**
+**Status 2026-08-18: ✅ RESOLVED — both settings now in place.** The remaining email problem
+is inbox placement, not sending — see section 1b.
 
-1. **Verify the OWEA `development@jcrcny.org`** — click the confirmation email Salesforce sends.
-2. **Setup → Deliverability → *Access to Send Email* = All email** — sending a template to a
-   `recipientId` requires single-email to be enabled.
+| Setting | State | Who |
+|---|---|---|
+| OWEA `development@jcrcny.org` verified | **✅ DONE** — confirmed in-org, `IsVerified = true` | Jason, done |
+| Setup → Email → **Deliverability** → *Access to Send Email* = **All email** | **✅ DONE** — re-probed, single email enabled | Jason, done |
 
-**Why this is now urgent rather than merely outstanding.** It does not just stop email from
-sending — it **makes records unsaveable**:
+**The second one is not deployable.** `EmailAdministrationSettings` carries no
+`sendEmailAccessLevel` field, so it cannot be set from the CLI. It has to be changed in
+Setup.
 
-| Discovered in | Symptom |
+**Verified in-org 2026-08-18, not assumed:**
+
+- Non-sending probe: `Messaging.reserveSingleEmailCapacity(1)` →
+  `System.NoAccessException: The organization is not permitted to send email`.
+- Re-ran the JSI-125 repro: inserting a **$50 donation still fails outright** —
+  `CANNOT_EXECUTE_FLOW_TRIGGER … **Single email is not enabled for your organization or
+  profile**`.
+
+The error text **changed** from *"Org-Wide Email provided is not valid"* to *"Single email is
+not enabled"*, which is how we know the OWEA half genuinely landed and the deliverability
+half is what remains.
+
+**Now verified working (2026-08-18)**
+
+- **Ordinary donations under $100 save again** — a $50 donation inserts cleanly and
+  auto-acknowledges (status → Acknowledged, date stamped). This was completely unsaveable
+  before.
+- **Approving an approval-gated email acknowledgment saves** — a DAF gift routed to
+  `Ack_Email_DAF` / Approval-Gated, correctly did **not** send on insert, then sent and
+  stamped Acknowledged when approved.
+- **Installment and final-payment conditions verified** — paying 1 of 3 gave paid-to-date
+  1,000 / remaining 2,000 / last-payment-date stamped; paying the rest took remaining to 0.00
+  and flipped the stage to Posted. No notification-flow interviews errored.
+
+**Caveat on what "verified" means here.** These confirm the records save and the flows
+complete without error. They do **not** confirm a donor received anything — see 1b. Salesforce
+returning `isSuccess = true` is not delivery.
+
+**Note:** JSI-125's notification runs on an **asynchronous after-commit path** specifically so
+it can never block a payment save. That protection is working — the failures above are all in
+JSI-87's *synchronous* send flow, not in JSI-125.
+
+**Test plan, ready to run the moment deliverability is on** (all of it previously blocked):
+
+| # | Test | Expected |
+|---|---|---|
+| T1 | Insert a $50 Donation | Saves; auto acknowledgment sends; status → Acknowledged |
+| T2 | Insert a DAF gift, then tick `Acknowledgment_Approved__c` | Saves; `Ack_Email_DAF` sends to the donor; no tax language |
+| T3 | Pay installment 1 of 3 on a pledge | Async path fires; `Pmt_Email_Installment` with correct running totals |
+| T4 | Pay the final installment | `Pmt_Email_Final_Payment` |
+| T5 | Confirm negative cases stay silent | Single-payment gift, wrong record type, no primary contact |
+
+⚠️ **T1–T5 send real email.** The only Contact in the sandbox with an address is
+`jott326@gmail.com`, so the test messages land in Jason's inbox. T3/T4 also need **committed**
+records rather than savepoint/rollback, because an after-commit async path does not fire
+inside a rolled-back transaction — those test records get cleaned up afterwards.
+
+---
+
+## 🔴 1b. NEW — donor email lands in SPAM (prod-blocking for every email feature)
+
+**Found 2026-08-18 while testing the now-unblocked send path.**
+
+Email now genuinely leaves the org — but **Gmail files it as spam**. Two plain isolation
+emails sent straight from Apex (one from the running user, one from the OWEA
+`development@jcrcny.org`) both returned `success=true` and both **arrived in the spam
+folder**, not the inbox.
+
+**What this rules in and out**
+
+| Checked | Result |
 |---|---|
-| JSI-124 | Ticking `Acknowledgment_Approved__c` on any approval-gated **email** acknowledgment throws `CANNOT_EXECUTE_FLOW_TRIGGER … Org-Wide Email provided is not valid` and **the save fails**. |
-| JSI-125 | **Inserting an ordinary small donation fails outright.** The `Donation - Small (Auto Email)` rule covers gifts up to **$99.99** on Send Mode **Auto**, so the JSI-87 send flow fires immediately on insert and the record cannot be saved. That is the **highest-volume gift type in the org**. |
+| Deliverability enabled | ✅ `Messaging.reserveSingleEmailCapacity(1)` succeeds |
+| Recipient contact healthy | ✅ not opted out, no bounce date |
+| Salesforce dispatches | ✅ `SendEmailResult.isSuccess() = true` |
+| OWEA sender works at all | ✅ the OWEA-sent test arrived (in spam) |
+| **Inbox placement** | ❌ **both tests spam-foldered** |
 
-Both are pre-existing JSI-87 behaviour, not caused by JSI-124/125.
+**Likely cause — domain authentication, which is a DNS job, not a Salesforce one.**
+A verified OWEA only proves somebody at that address clicked a confirmation link. It does
+**not** authorise Salesforce to send *as* `jcrcny.org`. Unless the domain's DNS says
+Salesforce may do so, receiving servers treat the mail as spoofed. Consistent with the org's
+own settings: `enableVerifyEmailDomainByDkim` is **false**.
 
-**What is blocked until it is fixed**
+**What production needs (JCRC IT / whoever holds jcrcny.org DNS):**
 
-- JSI-124: the DAF acknowledgment email cannot be sent or end-to-end tested.
-- JSI-125: the installment/final notification send is **unproven**. Everything upstream —
-  trigger, qualification, template selection, merge values — is verified; only the
-  `emailSimple` call itself is untested. Exercising it would mean sending real email to a
-  real donor address, which was deliberately not done unasked.
-- JSI-87: the whole email acknowledgment path.
+1. **DKIM** — generate a key in Setup → Email → DKIM Keys, publish the CNAME/TXT records in
+   `jcrcny.org` DNS, then activate the key.
+2. **SPF** — add Salesforce to the `jcrcny.org` SPF record (`include:_spf.salesforce.com`).
+3. **DMARC** — confirm alignment once SPF and DKIM pass, so the policy does not reject.
+4. Re-test inbox placement afterwards, to Gmail **and** to a corporate recipient.
 
-**Note:** JSI-125's notification deliberately sends on an **asynchronous after-commit path**
-precisely so it can never do this to a payment save. That design choice was made *because* of
-this finding.
+**Why this matters more than a test annoyance.** Every donor-facing email built so far routes
+through this address: JSI-87 acknowledgments, JSI-124 DAF acknowledgments, JSI-125 installment
+and final-payment notifications. **If it ships unauthenticated, donor acknowledgments go to
+spam** — the feature technically works and practically does not. Treat inbox placement, not
+`isSuccess = true`, as the definition of done.
+
+**Sandbox note:** spam-foldering in the sandbox is not itself alarming; what matters is that
+the same domain authentication gap exists for production and must be closed before go-live.
 
 ---
 
