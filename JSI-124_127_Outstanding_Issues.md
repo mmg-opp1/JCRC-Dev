@@ -73,47 +73,69 @@ inside a rolled-back transaction — those test records get cleaned up afterward
 
 ---
 
-## 🔴 1b. NEW — donor email lands in SPAM (prod-blocking for every email feature)
+## 🟡 1b. Email placement + an open question on flow email
 
-**Found 2026-08-18 while testing the now-unblocked send path.**
+**Found 2026-08-18. Two separate things, previously conflated in this document — corrected.**
 
-Email now genuinely leaves the org — but **Gmail files it as spam**. Two plain isolation
-emails sent straight from Apex (one from the running user, one from the OWEA
-`development@jcrcny.org`) both returned `success=true` and both **arrived in the spam
-folder**, not the inbox.
+### (a) Plain email reaches Gmail but is spam-foldered — DKIM key exists, not yet active
 
-**What this rules in and out**
+Two plain isolation emails sent straight from Apex (one from the running user, one from the
+OWEA `development@jcrcny.org`) both returned `success = true` and **both arrived — in the
+spam folder**.
 
-| Checked | Result |
+**Cause: a DKIM key exists in the org but has not been activated.** Jason confirmed this and
+is activating it.
+
+> **Correction.** An earlier version of this section claimed no DKIM was configured, inferred
+> from `enableVerifyEmailDomainByDkim = false` in `EmailAdministrationSettings`. That flag is
+> a different setting and says nothing about whether a DKIM key exists. The inference was
+> wrong and should not have been written as a finding.
+
+Once the key is active, re-test inbox placement to Gmail **and** a corporate recipient. SPF
+alignment for `jcrcny.org` is worth confirming at the same time, but DKIM activation is the
+known gap, not a supposition.
+
+### (b) OPEN — flow-sent emails have not been observed arriving at all
+
+Distinct from (a), and unresolved. The isolation emails arrived (in spam); the emails the
+**flows** send have not turned up in inbox **or** spam.
+
+> **Correction.** This document previously assumed the flow emails were sitting in spam
+> alongside the isolation tests. They are not. That was an assumption presented as likelihood,
+> with no evidence behind it, and it obscured a real signal.
+
+**What differs between the two, and the leading hypothesis:**
+
+| | Mechanism | Committed? | Arrived |
+|---|---|---|---|
+| Isolation A/B | `Messaging.sendEmail` + raw `setToAddresses` | yes | ✅ (spam) |
+| T1, T2 | Flow `emailSimple` + template + `recipientId` | **no — savepoint rolled back** | ❌ |
+| T3, T4 | Flow `emailSimple`, async after-commit path | yes | ❌ |
+
+- **T1/T2 may never have dispatched.** Flow-invoked email is queued and sent on commit,
+  unlike `Messaging.sendEmail`, which dispatches immediately. Rolling those transactions back
+  plausibly discarded the emails. The test script asserted "emails already dispatched" — that
+  claim was never verified and is probably false.
+- **T3/T4 were committed**, so their absence is the real open question. The async path may not
+  have fired. "No error interview appeared" was taken as evidence it ran; a path that never
+  runs produces no interview either, so that was not evidence.
+
+**Live experiment (records deliberately left in the org):**
+
+| Record | Path | Subject to look for |
+|---|---|---|
+| `ZZ COMMIT TEST donation` (006iI000000avcTQAQ) | JSI-87 synchronous auto-send, committed | *Thank You for Your Generous Gift* |
+| `ZZ COMMIT TEST pledge` (006iI000000avcUQAQ) | JSI-125 **async** after-commit path, committed | *We have received your payment* |
+
+| Outcome | Conclusion |
 |---|---|
-| Deliverability enabled | ✅ `Messaging.reserveSingleEmailCapacity(1)` succeeds |
-| Recipient contact healthy | ✅ not opted out, no bounce date |
-| Salesforce dispatches | ✅ `SendEmailResult.isSuccess() = true` |
-| OWEA sender works at all | ✅ the OWEA-sent test arrived (in spam) |
-| **Inbox placement** | ❌ **both tests spam-foldered** |
+| Both arrive | Flow email is fine; T1/T2 died with the rollback and T3/T4 were likely checked too early |
+| Donation arrives, pledge does not | **The async path is not firing — a real JSI-125 defect** |
+| Neither arrives | Flow email dispatch is broken independently of (a) |
 
-**Likely cause — domain authentication, which is a DNS job, not a Salesforce one.**
-A verified OWEA only proves somebody at that address clicked a confirmation link. It does
-**not** authorise Salesforce to send *as* `jcrcny.org`. Unless the domain's DNS says
-Salesforce may do so, receiving servers treat the mail as spoofed. Consistent with the org's
-own settings: `enableVerifyEmailDomainByDkim` is **false**.
-
-**What production needs (JCRC IT / whoever holds jcrcny.org DNS):**
-
-1. **DKIM** — generate a key in Setup → Email → DKIM Keys, publish the CNAME/TXT records in
-   `jcrcny.org` DNS, then activate the key.
-2. **SPF** — add Salesforce to the `jcrcny.org` SPF record (`include:_spf.salesforce.com`).
-3. **DMARC** — confirm alignment once SPF and DKIM pass, so the policy does not reject.
-4. Re-test inbox placement afterwards, to Gmail **and** to a corporate recipient.
-
-**Why this matters more than a test annoyance.** Every donor-facing email built so far routes
-through this address: JSI-87 acknowledgments, JSI-124 DAF acknowledgments, JSI-125 installment
-and final-payment notifications. **If it ships unauthenticated, donor acknowledgments go to
-spam** — the feature technically works and practically does not. Treat inbox placement, not
-`isSuccess = true`, as the definition of done.
-
-**Sandbox note:** spam-foldering in the sandbox is not itself alarming; what matters is that
-the same domain authentication gap exists for production and must be closed before go-live.
+**Standing correction to how results are reported here:** `isSuccess = true`, and a record
+stamped `Acknowledged`, prove the flow completed — **not** that a donor received anything.
+Delivery is only established by observing the message arrive.
 
 ---
 
