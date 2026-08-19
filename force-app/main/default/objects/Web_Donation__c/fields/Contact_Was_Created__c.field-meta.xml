@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Contact_Was_Created__c</fullName>
+    <description>True when no existing contact matched and a new one was created. Makes it easy to review who the website is introducing to the database. Website Donations phase 2 / Jason Ott.</description>
+    <externalId>false</externalId>
+    <defaultValue>false</defaultValue>
+    <label>Contact Was Created</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>
