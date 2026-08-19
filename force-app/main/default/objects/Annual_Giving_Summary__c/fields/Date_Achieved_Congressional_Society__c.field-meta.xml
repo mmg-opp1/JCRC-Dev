@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Date_Achieved_Congressional_Society__c</fullName>
+    <description>Date the donor first reached Congressional Society during this giving year. Stamped by GiftAllocationService, which derives this field&apos;s API name from the Giving Level record name - so the level must stay named exactly &quot;Congressional Society&quot; or the stamp is silently skipped. JSI-90 / Jason Ott.</description>
+    <externalId>false</externalId>
+    <label>Date Achieved — Congressional Society</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Date</type>
+</CustomField>
