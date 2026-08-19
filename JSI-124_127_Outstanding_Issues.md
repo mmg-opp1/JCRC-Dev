@@ -1,14 +1,71 @@
-# JSI-124 – JSI-127 — Outstanding Issues
+# Outstanding Issues — JSI-87, JSI-90, JSI-124 to JSI-127
 
-> **Written:** 2026-08-17 by Jason Ott
-> Everything still open across the four stories built on 2026-08-17. All four are
-> **built, deployed to JCRC-Dev, verified by anonymous Apex, and committed**.
-> Commits: `f5d1b71` (124), `ec4a1a3` (125), `faafd55` (126), `a9ae9a6` (127).
+> **Started:** 2026-08-17 · **Last updated:** 2026-08-19 by Jason Ott
+> Everything open across the current cluster of stories. All builds below are **deployed to
+> JCRC-Dev, verified by anonymous Apex, and committed**.
 >
-> **Nothing below is a defect in the four stories.** They are external dependencies,
-> client decisions, and pre-existing issues surfaced while building them.
+> **Nothing here is a known defect in shipped work.** These are external dependencies, client
+> decisions, and pre-existing issues surfaced while building.
 
 ---
+
+## 0. Status board (2026-08-19)
+
+### Jason's queue — things only he can do
+
+| # | Item | Why it matters | Blocks |
+|---|---|---|---|
+| J1 | **Activate the DKIM key** (with the client's domain manager) | Salesforce mail reaches Gmail but is spam-foldered. A verified OWEA proves someone clicked a link; it does not authorise Salesforce to send *as* jcrcny.org. | Every donor email actually landing |
+| J2 | **Create an Israel Parade campaign** (name must contain "Parade") | The parade routing rule matches on campaign name. No such campaign exists yet. | The parade branch of the acknowledgment demo |
+| J3 | **Re-test inbox placement after DKIM** — Gmail *and* a corporate address | `isSuccess = true` is not delivery | Calling the email path done |
+| J4 | **Decide whether small gifts should still get letters** | Replacing the email tiers means an $18 online gift now produces a letter to approve and print | Client session |
+| J5 | **Assign the 4 new fields to record pages** if wanted | `Last_Payment_Date__c`, `Payments_Made_Count__c` are on Pledge/Grant only; `Campaign_Name__c` is not on any page | Nothing — cosmetic |
+
+### Pending with the client
+
+| # | Item | Story |
+|---|---|---|
+| C1 | **Gala tickets paid from a DAF** — block, warn, or stay silent? IRC §4967 is enforced law; sponsors refuse these grants today | 124 |
+| C2 | **The two "non-board" templates contain the board paragraph** — almost certainly a copy/paste slip. Omitted for non-board pending their word | 87 |
+| C3 | **A fresh letterhead image** whenever the board changes — the roster is baked into the JPEG and cannot be merged | 87 |
+| C4 | **Confirm the letter copy** now that it renders — wording, and whether the tax block position is right | 87 |
+| C5 | **Payment notification copy** — installment and final-payment emails are placeholders | 125 |
+| C6 | **What platform runs the donate page**, and who maps the write-in field | 127 — story is inert until answered |
+| C7 | **Gala levels/prices/deductible splits + dietary and meal picklists** | Gala Gifts |
+| C8 | **Marc's FRD** to tailor the Board Dashboard | 123 |
+
+### On my side — ready to build, nothing blocking
+
+| # | Item |
+|---|---|
+| M1 | Seed a Parade campaign + ready-made demo gifts so the acknowledgment demo needs no setup |
+| M2 | Gala reports — dietary/caterer list, table fill status, revenue by level (buildable without the client seed) |
+| M3 | Widen JSI-82's four `Stage = Pledged` reports, or accept they are pledge/grant-only (Major Gift has no Pledged stage, so it can never appear) |
+| M4 | Report of qualifying paid installments with **no primary contact** — the notification stays silent by design, and silence is invisible |
+| M5 | Apex tests for the newest classes: `ThankYouLetterController`, `BoardMemberFlagRefresh`, and the board-flag path in `BoardTermService`. Org-wide coverage still reads low and would block a prod deploy |
+| M6 | A gala letter variant — priorities 1–9 are reserved for it, so it is config plus one template branch |
+
+### Done and verified since 2026-08-17
+
+- **JSI-124** DAF acknowledgments — routing, fail-closed, re-classification fix
+- **JSI-125** installment + final-payment notifications, duplicate-on-bulk defect fixed
+- **JSI-126** outstanding-installments report + `Payments_Made_Count__c`
+- **JSI-127** write-in campaign capture + review queue
+- **JSI-90** four real giving societies, all ten boundaries verified
+- **JSI-87** six client letters rendering on the letterhead, routed by campaign/board/tax, full workflow closing
+- **P3** hardcoded record-type Ids removed from `Opportunity_FullyPaidPledgeToPosted`
+- Pledge record-page design propagated to the seven other gift pages
+- `$$50.00` bug fixed in four acknowledgment templates
+
+### Housekeeping
+
+- **6 `ZZ LETTER` preview records** still in JCRC-Dev — delete when the demo is done
+- **12 commits unpushed** to origin
+- **Nothing is in production.** Report folders, CMDT records, campaigns and seeded records are data or UI-managed and do not travel in a metadata deploy
+
+---
+
+
 
 ## 🔴 1. BLOCKING — email sending (affects JSI-124, JSI-125, and JSI-87)
 
