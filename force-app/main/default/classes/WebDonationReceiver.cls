@@ -17,8 +17,15 @@
  *
  *              IDEMPOTENCY: Gravity Forms retries. Web_Donation__c.GF_Entry_Id__c is unique,
  *              and this class INSERTS and catches the duplicate error rather than querying
- *              first - so the guest user needs only Create on the object, never Read. A retry
- *              is answered 200 "duplicate ignored" so Gravity Forms stops retrying.
+ *              first. A retry is answered 200 "duplicate ignored" so Gravity Forms stops.
+ *
+ *              NOTE on guest permissions: the intent was Create WITHOUT Read, but Salesforce
+ *              refuses that - "Permission Create depends on permission(s): Read". So the guest
+ *              profile carries object Read whether we want it or not. Data exposure is blocked
+ *              at two other layers instead: the object's OWD is Private and records are owned
+ *              by the site's default owner, so the guest can see no rows; and the guest has no
+ *              route to query anyway, since the REST data API rejects the guest session. The
+ *              insert-and-catch design still earns its keep - it means no query runs as guest.
  *
  *              SECURITY: runs as the Site guest user. It must never return anything that
  *              tells an anonymous caller what the org stores or why something failed.
