@@ -1,0 +1,121 @@
+<apex:page standardController="Opportunity" extensions="ThankYouLetterController"
+           renderAs="{!IF($CurrentPage.parameters.html == '1', '', 'pdf')}"
+           applyBodyTag="false" showHeader="false" sidebar="false" standardStylesheets="false">
+<!--
+  JCRC thank-you letter. Renders the client's letterhead as a full-page background with the
+  letter body positioned in the clear area to the right of the officers/board sidebar.
+
+  Add ?html=1 to view as HTML in the browser instead of PDF (useful for tuning the geometry).
+
+  GEOMETRY - all offsets are here so the layout can be nudged without touching the prose.
+  Derived from the letterhead image (1870x2420 = 8.5x11in):
+    sidebar rule ends ~1.67in from the left, so the body starts at 2.30in
+    logo clears at ~2.37in from the top, so the body starts at 2.60in
+    address footer begins ~9.85in down, so the body must finish above that
+    decorative strip starts ~8.16in from the left, so the body is 5.60in wide
+
+  JSI-87 / Jason Ott. Created 2026-08-19.
+-->
+<html>
+<head>
+<style type="text/css">
+    @page { size: 8.5in 11in; margin: 0; }
+    body  { margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; color: #1a1a1a; }
+    .page { position: relative; width: 8.5in; height: 11in; overflow: hidden; }
+    .bg   { position: absolute; top: 0; left: 0; width: 8.5in; height: 11in; }
+    .body { position: absolute; left: 2.30in; top: 2.60in; width: 5.60in;
+            font-size: 10.5pt; line-height: 1.45; }
+    .body p { margin: 0 0 10pt 0; }
+    .addr   { margin-bottom: 14pt; }
+    .addr div { line-height: 1.25; }
+    .sig    { margin-top: 18pt; }
+    .sigrow { width: 100%; margin-top: 2pt; }
+    .sigrow td { font-size: 9.5pt; padding-right: 10pt; vertical-align: top; }
+    .signames td { font-size: 10.5pt; padding-bottom: 1pt; }
+    .taxblock { position: absolute; left: 2.30in; top: 8.35in; width: 5.60in;
+                font-size: 8.5pt; line-height: 1.35; }
+    .taxblock .amt { font-size: 10pt; margin-bottom: 3pt; }
+</style>
+</head>
+<body>
+<div class="page">
+    <img class="bg" src="{!$Resource.JCRC_Letterhead}" alt=""/>
+
+    <div class="body">
+        <p>{!letterDate}</p>
+
+        <div class="addr">
+            <div>{!recipientName}</div>
+            <apex:repeat value="{!addressLines}" var="ln"><div>{!ln}</div></apex:repeat>
+        </div>
+
+        <p>Dear {!firstName}:</p>
+
+        <!-- Opening line: the amount appears only on the tax-receipt variants. -->
+        <apex:outputPanel layout="none" rendered="{!isParade}">
+            <p>On behalf of the Jewish Community Relations Council of NY, our officers and your
+            fellow Board members, we would like to express our gratitude for your most generous
+            donation<apex:outputText rendered="{!showTaxBlock}"> of ${!giftAmount}</apex:outputText>
+            on {!paymentDate} for the annual Israel Parade.</p>
+
+            <p>Your support allows the parade participants and audience to enjoy this important
+            annual tradition. In today&rsquo;s complex and often challenging times, your gift
+            strengthens our efforts to insure the enjoyment and security of our participants and
+            attendees, who come from all over the tri-state New York City area, and beyond.</p>
+
+            <p>It is our pleasure to have you as part of the JCRC-NY family!</p>
+        </apex:outputPanel>
+
+        <apex:outputPanel layout="none" rendered="{!NOT(isParade)}">
+            <p>On behalf of the Jewish Community Relations Council of NY, our officers and your
+            fellow Board members, we would like to express our gratitude for your most generous
+            donation<apex:outputText rendered="{!showTaxBlock}"> of ${!giftAmount}</apex:outputText>
+            on {!paymentDate} for the {!campaignName} campaign.</p>
+
+            <p>Your support enables JCRC-NY to continue building vital bridges within the Jewish
+            community and with New Yorkers of all backgrounds and faiths. In today&rsquo;s complex
+            and often challenging times, your gift strengthens our efforts to advance the values,
+            interests, and security of the Jewish community and creates a more connected,
+            inclusive, and resilient New York.</p>
+
+            <!-- Board paragraph: ONLY on the board variants. The client's "non-board" Word files
+                 also carry this paragraph, which appears to be a copy/paste slip from the board
+                 version - it thanks a non-board donor for serving on the Board. Omitted here
+                 pending client confirmation. See JSI-87 plan. -->
+            <apex:outputPanel layout="none" rendered="{!isBoard}">
+            <p>We are truly fortunate to have you on the Board and are indebted to you for your
+            leadership, dedication and commitment. Your guidance and input on the important issues
+            and initiatives in which we engage is always welcome, and it is our pleasure to have
+            you as part of the JCRC-NY family!</p>
+            </apex:outputPanel>
+
+            <apex:outputPanel layout="none" rendered="{!NOT(isBoard)}">
+            <p>It is our pleasure to have you as part of the JCRC-NY family!</p>
+            </apex:outputPanel>
+        </apex:outputPanel>
+
+        <div class="sig">
+            <p style="margin-bottom:4pt;">Sincerely,</p>
+            <table class="sigrow signames" cellpadding="0" cellspacing="0">
+                <tr><td>David L. Moore</td><td>Bennett W. Golub</td><td>Mark Treyger</td></tr>
+            </table>
+            <table class="sigrow" cellpadding="0" cellspacing="0">
+                <tr><td>President</td><td>Chair of the Board</td><td>CEO</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- Tax receipt block. Suppressed entirely on DAF (NoTax) letters. -->
+    <apex:outputPanel layout="none" rendered="{!showTaxBlock}">
+    <div class="taxblock">
+        <div class="amt"><b>CONTRIBUTION:</b> ${!giftAmount}<br/>
+                         <b>DATE:</b> {!paymentDate}</div>
+        <div><b>PLEASE NOTE:</b> Our Federal ID # is 13-2869041. We are a Federally tax-exempt
+        organization as determined by the Internal Revenue Code, section 501(c)3. All contributions
+        are tax deductible as provided by law. The donor did not receive any goods or services.</div>
+    </div>
+    </apex:outputPanel>
+</div>
+</body>
+</html>
+</apex:page>
