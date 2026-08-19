@@ -1,6 +1,7 @@
 <apex:page standardController="Opportunity" extensions="ThankYouLetterController"
            renderAs="{!IF($CurrentPage.parameters.html == '1', '', 'pdf')}"
-           applyBodyTag="false" showHeader="false" sidebar="false" standardStylesheets="false">
+           applyHtmlTag="false" applyBodyTag="false" showHeader="false" sidebar="false"
+           standardStylesheets="false">
 <!--
   JCRC thank-you letter. Renders the client's letterhead as a full-page background with the
   letter body positioned in the clear area to the right of the officers/board sidebar.
@@ -14,6 +15,18 @@
     address footer begins ~9.85in down, so the body must finish above that
     decorative strip starts ~8.16in from the left, so the body is 5.60in wide
 
+  TWO LOAD-BEARING DETAILS - both verified by probing the generated PDF, do not "tidy" them:
+
+  1. applyHtmlTag="false" is REQUIRED. Without it Visualforce emits its own <html><head>,
+     this page's <head> nests inside it, and the @page rule is silently dropped - the
+     renderer then forces a fixed 42pt (0.583in) margin on all four sides that cannot be
+     overridden, and a full-page background spills onto extra pages.
+
+  2. The background image is sized by its HTML width/height ATTRIBUTES, not CSS. The PDF
+     renderer ignores CSS width/height on an img and falls back to natural pixel size
+     (1870x2420 px = 19.5 x 25.2in, which is what produced a five-page letter).
+     816 x 1056 px * 0.75 = 612 x 792 pt = exactly 8.5 x 11in.
+
   JSI-87 / Jason Ott. Created 2026-08-19.
 -->
 <html>
@@ -22,7 +35,12 @@
     @page { size: 8.5in 11in; margin: 0; }
     body  { margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; color: #1a1a1a; }
     .page { position: relative; width: 8.5in; height: 11in; overflow: hidden; }
-    .bg   { position: absolute; top: 0; left: 0; width: 8.5in; height: 11in; }
+    /* NOTE: the size MUST come from the img's HTML width/height attributes below.
+       The VF PDF renderer (Flying Saucer/iText) IGNORES CSS width/height on an img and
+       falls back to the natural pixel size - verified by probe. 816x1056 px * 0.75
+       = 612x792 pt = exactly 8.5x11in. The full-resolution image is still embedded,
+       so print quality is unaffected. */
+    .bg   { position: absolute; top: 0; left: 0; }
     .body { position: absolute; left: 2.30in; top: 2.60in; width: 5.60in;
             font-size: 10.5pt; line-height: 1.45; }
     .body p { margin: 0 0 10pt 0; }
@@ -39,7 +57,7 @@
 </head>
 <body>
 <div class="page">
-    <img class="bg" src="{!$Resource.JCRC_Letterhead}" alt=""/>
+    <img class="bg" width="816" height="1056" src="{!$Resource.JCRC_Letterhead}" alt=""/>
 
     <div class="body">
         <p>{!letterDate}</p>
