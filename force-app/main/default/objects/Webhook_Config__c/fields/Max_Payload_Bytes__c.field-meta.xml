@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Max_Payload_Bytes__c</fullName>
+    <description>Reject any request body larger than this before parsing it. A ceiling configurable without a deploy, so an unexpectedly large legitimate submission can be accommodated without a release. Website Donations phase 1 / Jason Ott.</description>
+    <externalId>false</externalId>
+    <label>Max Payload Bytes</label>
+    <precision>9</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

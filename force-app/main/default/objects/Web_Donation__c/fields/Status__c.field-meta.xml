@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Status__c</fullName>
+    <description>Where this submission is in processing. Received = stored, not yet interpreted. Failed records are the review queue and can be replayed. Website Donations phase 1 / Jason Ott.</description>
+    <label>Status</label>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value><fullName>Received</fullName><default>true</default><label>Received</label></value>
+            <value><fullName>Processed</fullName><default>false</default><label>Processed</label></value>
+            <value><fullName>Failed</fullName><default>false</default><label>Failed</label></value>
+            <value><fullName>Ignored</fullName><default>false</default><label>Ignored</label></value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

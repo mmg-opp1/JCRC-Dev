@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Payload__c</fullName>
+    <description>The raw JSON exactly as Gravity Forms sent it, stored before any interpretation. If parsing has a bug the donation is recoverable and can be reprocessed. Never contains card data - see the payment boundary in the design. Website Donations phase 1 / Jason Ott.</description>
+    <label>Raw Payload</label>
+    <length>131072</length>
+    <trackHistory>false</trackHistory>
+    <type>LongTextArea</type>
+    <visibleLines>10</visibleLines>
+</CustomField>
