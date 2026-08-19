@@ -223,6 +223,40 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Other_Campaign_Write_In__c</fieldItem>
+                <identifier>RecordOther_Campaign_Write_In_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Campaign.Name}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>Website Donation - Other</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Campaign_Name__c</fieldItem>
+                <identifier>RecordCampaign_Name_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Campaign.Name}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Website Donation - Other</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
                     <value>required</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.StageName</fieldItem>
@@ -247,26 +281,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.npsp__Batch__c</fieldItem>
                 <identifier>Recordnpsp_Batch_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.npsp__Acknowledgment_Status__c</fieldItem>
-                <identifier>Recordnpsp_Acknowledgment_Status_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.npsp__Acknowledgment_Date__c</fieldItem>
-                <identifier>Recordnpsp_Acknowledgment_Date_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-597b0fe8-0778-426a-9848-c0d58886cc88</name>
