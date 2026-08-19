@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Current_Board_Member__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>True while this contact holds a current Board Term. Maintained by automation, not entered by hand: BoardTermService refreshes it whenever a Board Term changes, and BoardMemberFlagRefresh re-checks every board contact nightly because Board_Term__c.Is_Current__c is date-driven and can flip with no DML on the record. Cannot be a roll-up summary - Board Term relates to Contact by lookup, not master-detail. Used by the JSI-87 acknowledgment router to pick the board thank-you letter. JSI-87 / JSI-123 / Jason Ott.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Set automatically. Ticked while the contact holds a current Board Term.</inlineHelpText>
+    <label>Current Board Member</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Checkbox</type>
+</CustomField>

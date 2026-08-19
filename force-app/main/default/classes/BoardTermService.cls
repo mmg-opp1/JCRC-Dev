@@ -10,6 +10,7 @@
  * Change Log:
  * -----------
  * 2026-07-28 - Jason Ott - Initial version (JSI-123 correction: member types + auto-generated term schedule).
+ * 2026-08-19 - Jason Ott - Added Contact.Current_Board_Member__c maintenance (JSI-87 board letter routing).
  */
 public with sharing class BoardTermService {
 
@@ -127,6 +128,58 @@ public with sharing class BoardTermService {
     }
 
     /** The July-1 fiscal-year start on or before the given date. */
+
+    /**
+     * Recomputes Contact.Current_Board_Member__c for the given contacts.
+     *
+     * Board Term relates to Contact by LOOKUP, so this cannot be a roll-up summary - it has to
+     * be maintained. Two triggers of maintenance, because Is_Current__c is a formula over dates:
+     *   - this method, called whenever a Board Term is inserted, updated, deleted or undeleted;
+     *   - BoardMemberFlagRefresh, nightly, because a term can stop being current purely through
+     *     the passage of time, with no DML on the record to react to.
+     *
+     * System-mode DML on purpose: this is a trusted backend stamp of a field users hold
+     * read-only, and a USER_MODE write would throw FLS on exactly the profiles that need it
+     * (the JSI-123 lesson).
+     */
+    public static void refreshBoardFlags(Set<Id> contactIds) {
+        if (contactIds == null || contactIds.isEmpty()) {
+            return;
+        }
+        // Single source of truth: reuse the Is_Current__c formula rather than re-implementing
+        // its date logic here, so the two can never drift apart. Filtering on it was verified
+        // to agree with reading it, including for a term whose End Date had just moved into the
+        // past, despite the formula containing TODAY().
+        Set<Id> current = new Set<Id>();
+        for (Board_Term__c t : [
+                SELECT Contact__c FROM Board_Term__c
+                WHERE Contact__c IN :contactIds AND Is_Current__c = true]) {
+            current.add(t.Contact__c);
+        }
+        List<Contact> toUpdate = new List<Contact>();
+        for (Contact c : [SELECT Id, Current_Board_Member__c FROM Contact WHERE Id IN :contactIds]) {
+            Boolean shouldBe = current.contains(c.Id);
+            if (c.Current_Board_Member__c != shouldBe) {
+                toUpdate.add(new Contact(Id = c.Id, Current_Board_Member__c = shouldBe));
+            }
+        }
+        if (!toUpdate.isEmpty()) {
+            update toUpdate;
+        }
+    }
+
+    /** Every contact who has ever held a board term, plus anyone still flagged - used nightly. */
+    public static void refreshAllBoardFlags() {
+        Set<Id> ids = new Set<Id>();
+        for (Board_Term__c t : [SELECT Contact__c FROM Board_Term__c WHERE Contact__c != null]) {
+            ids.add(t.Contact__c);
+        }
+        for (Contact c : [SELECT Id FROM Contact WHERE Current_Board_Member__c = true]) {
+            ids.add(c.Id);      // catches anyone whose last term was deleted outright
+        }
+        refreshBoardFlags(ids);
+    }
+
     public static Date fyStartFor(Date d) {
         Integer y = d.year();
         return (d.month() >= 7) ? Date.newInstance(y, 7, 1) : Date.newInstance(y - 1, 7, 1);
