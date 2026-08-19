@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <assignments>
+        <name>Stamp_Date_And_User</name>
+        <label>Stamp Date and Sender</label>
+        <locationX>176</locationX>
+        <locationY>134</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.npsp__Acknowledgment_Date__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Acknowledgment_Sent_By__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$User.Id</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <description>Before-save: when a gift is marked Acknowledged, stamps the acknowledgment date and who did it, if they are not already set.
+
+This is what closes the loop on the PRINT path. Email acknowledgments stamp themselves when they send, but a printed letter is finished by a person - they open the letter from the Acknowledgement tab, print it, and set the status. Without this they would also have to type the date and their own name, and in practice would not.
+
+Only fills blanks, so it never overwrites what the email flow already recorded, and re-saving an acknowledged gift does not move the date.
+
+JSI-87 / Jason Ott.
+
+Change Log:
+-----------
+2026-08-19 - Jason Ott - Created (JSI-87 print acknowledgment completion).</description>
+    <environments>Default</environments>
+    <interviewLabel>Opportunity Stamp Acknowledged {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Opportunity - Stamp Acknowledged</label>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Stamp_Date_And_User</targetReference>
+        </connector>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterFormula>AND(
+  ISPICKVAL({!$Record.npsp__Acknowledgment_Status__c}, &quot;Acknowledged&quot;),
+  ISBLANK({!$Record.npsp__Acknowledgment_Date__c})
+)</filterFormula>
+        <object>Opportunity</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

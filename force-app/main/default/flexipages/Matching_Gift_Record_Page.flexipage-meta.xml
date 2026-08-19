@@ -1505,7 +1505,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>pageName</name>
-                    <value>AcknowledgmentLetter</value>
+                    <value>ThankYouLetter</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>showLabel</name>

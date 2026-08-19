@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ApexPage xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>58.0</apiVersion>
-    <availableInTouch>false</availableInTouch>
+    <availableInTouch>true</availableInTouch>
     <confirmationTokenRequired>false</confirmationTokenRequired>
+    <description>Renders the JCRC thank-you letter as a PDF on the client letterhead. Embedded on the Acknowledgement tab of every gift record page, and reachable directly at /apex/ThankYouLetter?id=OPP_ID. availableInTouch must stay true or it cannot be placed on a Lightning record page. JSI-87.</description>
     <label>Thank You Letter</label>
 </ApexPage>
