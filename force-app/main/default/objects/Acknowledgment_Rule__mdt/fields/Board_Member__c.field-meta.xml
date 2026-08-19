@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Board_Member__c</fullName>
+    <description>Restricts this rule by whether the donor is a current board member (Contact.Current_Board_Member__c). Leave BLANK to ignore board status - preserving the engine&apos;s blank-means-any convention so existing rules are unaffected. Yes = only current board members. No = only non-board donors. JSI-87 / Jason Ott.</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Board Member</label>
+    <required>false</required>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value><fullName>Yes</fullName><default>false</default><label>Yes</label></value>
+            <value><fullName>No</fullName><default>false</default><label>No</label></value>
+        </valueSetDefinition>
+    </valueSet>
+    <type>Picklist</type>
+</CustomField>

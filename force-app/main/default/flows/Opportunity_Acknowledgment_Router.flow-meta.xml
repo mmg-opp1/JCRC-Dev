@@ -178,7 +178,8 @@
 
 Change Log:
 -----------
-2026-08-17 - Jason Ott - JSI-124: added the DAF_Gift__c clause to formIsMatch so DAF gifts route to their own template and can never match a standard (tax-language) rule. Blank on a rule means "ignore DAF status", preserving the existing blank-means-any convention.</description>
+2026-08-17 - Jason Ott - JSI-124: added the DAF_Gift__c clause to formIsMatch so DAF gifts route to their own template and can never match a standard (tax-language) rule. Blank on a rule means "ignore DAF status", preserving the existing blank-means-any convention.
+2026-08-19 - Jason Ott - JSI-87: activated the Campaign__c criterion (matched with CONTAINS against Opportunity.Campaign_Name__c) and added a Board_Member__c criterion backed by a Contact lookup, so the client's six real thank-you letters route by campaign, board status and tax treatment. Campaign-specific rules take the lowest priority numbers so they always win, per Jason.</description>
     <environments>Default</environments>
     <formulas>
         <name>formIsMatch</name>
@@ -187,7 +188,9 @@ Change Log:
   OR(ISBLANK({!Loop_Rules.Record_Type__c}), {!Get_RecordType.DeveloperName} = {!Loop_Rules.Record_Type__c}),
   OR(ISBLANK({!Loop_Rules.Min_Amount__c}), {!$Record.Amount} &gt;= {!Loop_Rules.Min_Amount__c}),
   OR(ISBLANK({!Loop_Rules.Max_Amount__c}), {!$Record.Amount} &lt;= {!Loop_Rules.Max_Amount__c}),
-  OR(ISBLANK(TEXT({!Loop_Rules.DAF_Gift__c})), TEXT({!Loop_Rules.DAF_Gift__c}) = IF({!$Record.DAF_Gift__c}, &quot;Yes&quot;, &quot;No&quot;))
+  OR(ISBLANK(TEXT({!Loop_Rules.DAF_Gift__c})), TEXT({!Loop_Rules.DAF_Gift__c}) = IF({!$Record.DAF_Gift__c}, &quot;Yes&quot;, &quot;No&quot;)),
+  OR(ISBLANK({!Loop_Rules.Campaign__c}), CONTAINS({!$Record.Campaign_Name__c}, {!Loop_Rules.Campaign__c})),
+  OR(ISBLANK(TEXT({!Loop_Rules.Board_Member__c})), TEXT({!Loop_Rules.Board_Member__c}) = IF({!Get_Contact.Current_Board_Member__c}, &quot;Yes&quot;, &quot;No&quot;))
 )</expression>
     </formulas>
     <formulas>
@@ -219,7 +222,7 @@ Change Log:
         <locationY>218</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Get_Rules</targetReference>
+            <targetReference>Get_Contact</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -231,6 +234,27 @@ Change Log:
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
         <object>RecordType</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Contact</name>
+        <label>Get Donor Contact</label>
+        <locationX>176</locationX>
+        <locationY>230</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Rules</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.npsp__Primary_Contact__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Contact</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
