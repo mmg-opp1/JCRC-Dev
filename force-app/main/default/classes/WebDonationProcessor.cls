@@ -21,6 +21,16 @@
  */
 public with sharing class WebDonationProcessor implements Queueable {
 
+    /**
+     * Lets a test stage a record without the trigger also queuing the job. Needed because
+     * Status__c DEFAULTS to 'Received', so simply omitting it on insert does not stop the
+     * trigger - the default fills it in, the work runs twice, and the second run sees what
+     * the first created.
+     *
+     * Public rather than @TestVisible because a trigger cannot see a @TestVisible member.
+     */
+    public static Boolean bypassTrigger = false;
+
     private final Id stagingId;
 
     public WebDonationProcessor(Id stagingId) {

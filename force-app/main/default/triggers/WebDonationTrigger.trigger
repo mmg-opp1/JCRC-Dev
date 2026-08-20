@@ -4,6 +4,9 @@
  *              HTTP request the website is still waiting on. JSI Website Donations / Jason Ott.
  */
 trigger WebDonationTrigger on Web_Donation__c (after insert) {
+    if (WebDonationProcessor.bypassTrigger) {
+        return;
+    }
     for (Web_Donation__c wd : Trigger.new) {
         if (wd.Status__c == 'Received') {
             System.enqueueJob(new WebDonationProcessor(wd.Id));
