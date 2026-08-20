@@ -1,0 +1,14 @@
+<template>
+    <div class="slds-p-around_x-small">
+        <lightning-button
+            label="Replay"
+            icon-name="utility:refresh"
+            variant="brand"
+            disabled={replayDisabled}
+            onclick={handleReplay}>
+        </lightning-button>
+        <lightning-spinner if:true={running} alternative-text="Replaying" size="small">
+        </lightning-spinner>
+        <p class="slds-text-body_small slds-text-color_weak slds-p-top_x-small">{helpText}</p>
+    </div>
+</template>

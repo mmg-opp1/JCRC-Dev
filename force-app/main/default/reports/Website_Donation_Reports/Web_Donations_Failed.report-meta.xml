@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns><field>CUST_NAME</field></columns>
+    <columns><field>Web_Donation__c.GF_Entry_Id__c</field></columns>
+    <columns><field>Web_Donation__c.Received_At__c</field></columns>
+    <columns><field>Web_Donation__c.Processed_At__c</field></columns>
+    <columns><field>Web_Donation__c.Error_Message__c</field></columns>
+    <description>Website submissions that failed to process. Each one is a donation sitting in Salesforce that has NOT become a gift - fix the cause, then use Replay on the record. JSI Website Donations / Jason Ott.</description>
+    <filter>
+        <criteriaItems>
+            <column>Web_Donation__c.Status__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>Failed</value>
+        </criteriaItems>
+    </filter>
+    <format>Tabular</format>
+    <name>Web Donations - Failed</name>
+    <reportType>CustomEntity$Web_Donation__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <sortColumn>Web_Donation__c.Received_At__c</sortColumn>
+    <sortOrder>Desc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>CUST_CREATED_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

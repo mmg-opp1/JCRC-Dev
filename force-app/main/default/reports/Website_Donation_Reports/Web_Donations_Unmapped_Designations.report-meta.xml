@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns><field>CUST_NAME</field></columns>
+    <columns><field>Web_Donation__c.Received_At__c</field></columns>
+    <columns><field>Web_Donation__c.Unmapped_Designations__c</field></columns>
+    <columns><field>Web_Donation__c.Opportunity__c</field></columns>
+    <description>Gifts that processed successfully but named a designation with no GAU mapping, so no allocation was created for it. Add the mapping, then Replay - or allocate by hand. JSI Website Donations / Jason Ott.</description>
+    <filter>
+        <criteriaItems>
+            <column>Web_Donation__c.Unmapped_Designations__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>notEqual</operator>
+            <value></value>
+        </criteriaItems>
+    </filter>
+    <format>Tabular</format>
+    <name>Web Donations - Unmapped Designations</name>
+    <reportType>CustomEntity$Web_Donation__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <sortColumn>Web_Donation__c.Received_At__c</sortColumn>
+    <sortOrder>Desc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>CUST_CREATED_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>
