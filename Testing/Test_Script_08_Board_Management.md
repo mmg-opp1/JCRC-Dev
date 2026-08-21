@@ -97,9 +97,12 @@ Send a message and move on.
 
 # Part 1: Scenarios
 
-Each one is a real thing someone at JCRC would do. We have told you what to achieve and what you
-should see, but not which buttons to press. Finding your way around is part of what we are
-testing.
+Each one is meant to be a real thing someone at JCRC would do. We have given you a starting point
+and told you what you should see at the end, but not every click in between. If you cannot get
+from one to the other, that is worth telling us.
+
+Everything in this part happens on the **Board Members** tab, which has four tabs of its own
+across the top: **Dashboard**, **Roster**, **Committees**, and **Meetings & Attendance**.
 
 ---
 
@@ -107,24 +110,27 @@ testing.
 
 **The situation.** Someone asks you who is currently serving on the board.
 
-**What to do.** Open the Board Members screen and find the current roster.
+**What to do.** Open the **Board Members** tab, then the **Roster** tab inside it.
 
-**What you should see.** Three current board members, each showing what type of member they are,
-when their term runs, and how they are tracking against their giving commitment.
+**What you should see.** Three current board members. For each one the roster shows their member
+type, their role, the dates their term runs, their giving commitment, and how much of that
+commitment they have met so far. It also flags anyone whose term is expiring soon or who must
+roll off.
 
 ---
 
 ### Scenario 2: Add a new board member
 
 **The situation.** The Nominating Committee has elected a new JCRC Recruited board member,
-starting at the beginning of this fiscal year.
+starting at the beginning of this fiscal year (1 July 2026).
 
-**What to do.** Add them. Use any name you like, make one up. You will need to pick an existing
-person, so if the name you want does not exist, create the person first.
+**What to do.** On the **Roster** tab, click **New Board Member**. You will be asked for three
+things: the person, their Member Type, and the Term Start Date. Pick anyone from the list. If the
+person you want does not exist, create them on the **Contacts** tab first, then come back.
 
-**What you should see.** Once saved, you should not have to work out the end date yourself. The
-system should know a JCRC Recruited term runs six years. You should also see their annual
-commitment appear without you typing it.
+**What you should see.** Notice that you are never asked for an end date. Once saved, the new
+member appears on the roster with a six-year term already worked out, and a commitment amount
+already filled in.
 
 ---
 
@@ -133,11 +139,15 @@ commitment appear without you typing it.
 **The situation.** The board met last Tuesday. You have the attendance list and need to record
 who was there.
 
-**What to do.** Create the meeting, then mark who attended. Mark some members present and at
-least one absent.
+**What to do.** Go to the **Meetings & Attendance** tab and click **New Meeting**. Give it a
+name, set the meeting date to last Tuesday, and set the fiscal year (any date inside the year you
+want will do). Once the meeting is created, the board members appear underneath with an
+**Attended** box against each one. Tick some, leave at least one unticked, then click **Save
+Attendance**.
 
-**What you should see.** Attendance saves without you having to press save on every person
-individually, and the meeting shows who was there.
+**What you should see.** One click of **Save Attendance** records everyone at once, rather than
+saving each person separately. Come back to the meeting afterwards and the attendance should
+still be there.
 
 ---
 
@@ -145,11 +155,13 @@ individually, and the meeting shows who was there.
 
 **The situation.** One of your board members has agreed to chair the Development Committee.
 
-**What to do.** Record that.
+**What to do.** Go to the **Committees** tab and find **Development** in the list. On that row,
+choose **Manage Members**, then **Add Member**. You will be asked for the person, their role
+(Chair, Co-Chair, or Member), and the fiscal year.
 
-**What you should see.** Their committee role recorded against the current fiscal year. Watch
-their giving commitment while you do it. Under the rules we were given, chairing a committee
-raises a member's commitment to $10,000. If that rule is wrong, tell us.
+**What you should see.** The role recorded against the current fiscal year. Now go back to the
+**Roster** tab and look at that person's commitment. Under the rules we were given, chairing a
+committee raises a member's commitment to $10,000. If that rule is wrong, tell us.
 
 ---
 
@@ -157,10 +169,12 @@ raises a member's commitment to $10,000. If that rule is wrong, tell us.
 
 **The situation.** A board member is stepping down at the end of this fiscal year.
 
-**What to do.** End their term.
+**What to do.** On the **Roster** tab, find them and use **End Term** on their row. You will be
+asked for a new term end date. Use 30 June 2027.
 
-**What you should see.** They drop off the current roster, but their history of service stays.
-You should still be able to see that they served, and for how long.
+**What you should see.** They come off the current roster, but their history of service stays.
+You should still be able to find that they served, and for how long. If the roster no longer
+shows them, try their Contact record.
 
 ---
 
@@ -169,7 +183,10 @@ You should still be able to see that they served, and for how long.
 **The situation.** The Chair wants to know how the board is doing on its giving commitments, and
 who is coming up against their term limit.
 
-**What to do.** Find that out. There is a board dashboard and a set of board reports.
+**What to do.** There are two places to look. The **Dashboard** tab inside Board Members, and the
+**Reports** tab, where the **Board Reports** folder holds **Current Board Roster**, **Board
+Commitment Fulfillment**, and **Board Roll-Off Watch**. The board dashboard itself lives in the
+**Board Dashboards** folder on the **Dashboards** tab.
 
 **What you should see.** Numbers you would be willing to put in front of the Chair. If you would
 not send it as-is, tell us what is missing.
