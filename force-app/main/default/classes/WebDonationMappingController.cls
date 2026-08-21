@@ -55,6 +55,31 @@ public with sharing class WebDonationMappingController {
         @AuraEnabled public Boolean active;
         @AuraEnabled public String notes;
         @AuraEnabled public Boolean targetExists;   // false when the field has since been deleted
+        @AuraEnabled public String mappingType;     // Payload | Static | Lookup
+        @AuraEnabled public String staticValue;
+        @AuraEnabled public String lookupObject;
+    }
+
+    public class ValueMapRow {
+        @AuraEnabled public String developerName;
+        @AuraEnabled public String label;
+        @AuraEnabled public String payloadKey;
+        @AuraEnabled public String incomingValue;
+        @AuraEnabled public String targetObject;
+        @AuraEnabled public String targetRecordName;
+        @AuraEnabled public Boolean active;
+        @AuraEnabled public Boolean recordExists;   // false when the named record cannot be found
+    }
+
+    public class Settings {
+        @AuraEnabled public String developerName;
+        @AuraEnabled public String contactMatchRule;
+        @AuraEnabled public String onNoMatch;
+        @AuraEnabled public String multipleMatchRule;
+        @AuraEnabled public String accountHandling;
+        @AuraEnabled public String organizationPayloadKey;
+        @AuraEnabled public String onOrganizationNoMatch;
+        @AuraEnabled public String contactRole;
     }
 
     public class FieldOption {
@@ -89,7 +114,8 @@ public with sharing class WebDonationMappingController {
         List<MappingRow> out = new List<MappingRow>();
         for (Web_Donation_Field_Map__mdt m : [
                 SELECT DeveloperName, MasterLabel, Payload_Key__c, Target_Object__c,
-                       Target_Field__c, Active__c, Notes__c
+                       Target_Field__c, Active__c, Notes__c, Mapping_Type__c,
+                       Static_Value__c, Lookup_Object__c
                 FROM Web_Donation_Field_Map__mdt ORDER BY Payload_Key__c]) {
             MappingRow r = new MappingRow();
             r.developerName = m.DeveloperName;
@@ -99,6 +125,9 @@ public with sharing class WebDonationMappingController {
             r.targetField   = m.Target_Field__c;
             r.active        = m.Active__c;
             r.notes         = m.Notes__c;
+            r.mappingType   = String.isBlank(m.Mapping_Type__c) ? 'Payload' : m.Mapping_Type__c;
+            r.staticValue   = m.Static_Value__c;
+            r.lookupObject  = m.Lookup_Object__c;
             r.targetExists  = String.isNotBlank(m.Target_Object__c)
                               && known.containsKey(m.Target_Object__c)
                               && known.get(m.Target_Object__c).contains(
@@ -225,6 +254,9 @@ public with sharing class WebDonationMappingController {
             md.values.add(field('Target_Field__c',  r.targetField));
             md.values.add(field('Active__c',        r.active == null ? true : r.active));
             md.values.add(field('Notes__c',         r.notes));
+            md.values.add(field('Mapping_Type__c',  String.isBlank(r.mappingType) ? 'Payload' : r.mappingType));
+            md.values.add(field('Static_Value__c',  r.staticValue));
+            md.values.add(field('Lookup_Object__c', r.lookupObject));
             container.addMetadata(md);
         }
 
@@ -236,8 +268,14 @@ public with sharing class WebDonationMappingController {
 
     /** Rejects anything that would let the endpoint write somewhere it should not. */
     private static void validate(MappingRow r, Map<String, Set<String>> known) {
-        if (String.isBlank(r.payloadKey)) {
-            throw new AuraHandledException('Every mapping needs a payload key.');
+        String type = String.isBlank(r.mappingType) ? 'Payload' : r.mappingType;
+        if (type != 'Static' && String.isBlank(r.payloadKey)) {
+            throw new AuraHandledException(
+                'A ' + type + ' mapping needs a payload key. Only Static mappings can omit it.');
+        }
+        if (type == 'Static' && String.isBlank(r.staticValue)) {
+            throw new AuraHandledException(
+                'Give a static value for ' + r.targetField + ', or change its type.');
         }
         if (!ALLOWED_OBJECTS.contains(r.targetObject)) {
             throw new AuraHandledException('Not an allowed target object: ' + r.targetObject);
@@ -265,6 +303,167 @@ public with sharing class WebDonationMappingController {
         }
         // Deploy status lives on the Tooling API, not in Apex describe.
         return 'Pending';
+    }
+
+
+    // ---- value translations --------------------------------------------------------------
+
+    @AuraEnabled
+    public static List<ValueMapRow> getValueMaps() {
+        assertAdmin();
+        List<ValueMapRow> out = new List<ValueMapRow>();
+        for (Web_Donation_Value_Map__mdt m : [
+                SELECT DeveloperName, MasterLabel, Payload_Key__c, Incoming_Value__c,
+                       Target_Object__c, Target_Record_Name__c, Active__c
+                FROM Web_Donation_Value_Map__mdt ORDER BY Incoming_Value__c]) {
+            ValueMapRow r = new ValueMapRow();
+            r.developerName    = m.DeveloperName;
+            r.label            = m.MasterLabel;
+            r.payloadKey       = m.Payload_Key__c;
+            r.incomingValue    = m.Incoming_Value__c;
+            r.targetObject     = m.Target_Object__c;
+            r.targetRecordName = m.Target_Record_Name__c;
+            r.active           = m.Active__c;
+            // Surfaces a translation pointing at a record that has been renamed or deleted,
+            // which would otherwise fail silently the moment a donation arrives.
+            r.recordExists     = resolveRecord(m.Target_Object__c, m.Target_Record_Name__c) != null;
+            out.add(r);
+        }
+        return out;
+    }
+
+    @AuraEnabled
+    public static String saveValueMaps(String rowsJson) {
+        assertAdmin();
+        List<ValueMapRow> rows =
+            (List<ValueMapRow>) JSON.deserialize(rowsJson, List<ValueMapRow>.class);
+
+        Metadata.DeployContainer container = new Metadata.DeployContainer();
+        for (ValueMapRow r : rows) {
+            if (String.isBlank(r.incomingValue)) {
+                throw new AuraHandledException('Every translation needs an incoming value.');
+            }
+            if (String.isBlank(r.targetRecordName)) {
+                throw new AuraHandledException('Give a target for "' + r.incomingValue + '".');
+            }
+            Metadata.CustomMetadata md = new Metadata.CustomMetadata();
+            String devName = String.isBlank(r.developerName)
+                ? ('vm_' + r.incomingValue.replaceAll('[^a-zA-Z0-9]', '_')).abbreviate(30)
+                  + '_' + String.valueOf(Crypto.getRandomInteger()).right(5).replaceAll('[^0-9]', '')
+                : r.developerName;
+            md.fullName = 'Web_Donation_Value_Map__mdt.' + devName;
+            md.label    = String.isBlank(r.label) ? r.incomingValue.abbreviate(38) : r.label;
+            md.values.add(field('Payload_Key__c',        r.payloadKey));
+            md.values.add(field('Incoming_Value__c',     r.incomingValue));
+            md.values.add(field('Target_Object__c',      r.targetObject));
+            md.values.add(field('Target_Record_Name__c', r.targetRecordName));
+            md.values.add(field('Active__c',             r.active == null ? true : r.active));
+            container.addMetadata(md);
+        }
+        if (Test.isRunningTest()) { return 'TEST-DEPLOY'; }
+        return Metadata.Operations.enqueueDeployment(container, null);
+    }
+
+    /** Objects a value translation may resolve to. */
+    @AuraEnabled(cacheable=true)
+    public static List<String> getLookupObjects() {
+        assertAdmin();
+        return new List<String>{'Campaign', 'General Accounting Unit', 'Literal'};
+    }
+
+    /** Records available for the chosen lookup object, so a target is picked rather than typed. */
+    @AuraEnabled(cacheable=true)
+    public static List<String> getLookupRecords(String objectName) {
+        assertAdmin();
+        List<String> out = new List<String>();
+        if (objectName == 'Campaign') {
+            for (Campaign c : [SELECT Name FROM Campaign ORDER BY Name LIMIT 500]) {
+                out.add(c.Name);
+            }
+        } else if (objectName == 'General Accounting Unit') {
+            for (npsp__General_Accounting_Unit__c g : [
+                    SELECT Name FROM npsp__General_Accounting_Unit__c
+                    WHERE npsp__Active__c = true ORDER BY Name LIMIT 500]) {
+                out.add(g.Name);
+            }
+        }
+        return out;
+    }
+
+    private static Id resolveRecord(String objectName, String recordName) {
+        if (String.isBlank(objectName) || String.isBlank(recordName)) { return null; }
+        if (objectName == 'Campaign') {
+            List<Campaign> c = [SELECT Id FROM Campaign WHERE Name = :recordName LIMIT 1];
+            return c.isEmpty() ? null : c[0].Id;
+        }
+        if (objectName == 'General Accounting Unit') {
+            List<npsp__General_Accounting_Unit__c> g = [
+                SELECT Id FROM npsp__General_Accounting_Unit__c WHERE Name = :recordName LIMIT 1];
+            return g.isEmpty() ? null : g[0].Id;
+        }
+        return null;   // Literal needs no record
+    }
+
+    // ---- settings --------------------------------------------------------------------------
+
+    @AuraEnabled
+    public static Settings getSettings() {
+        assertAdmin();
+        Settings s = new Settings();
+        List<Web_Donation_Setting__mdt> rows = [
+            SELECT DeveloperName, Contact_Match_Rule__c, On_No_Match__c, Multiple_Match_Rule__c,
+                   Account_Handling__c, Organization_Payload_Key__c, On_Organization_No_Match__c,
+                   Contact_Role__c
+            FROM Web_Donation_Setting__mdt WHERE Active__c = true LIMIT 1];
+        if (rows.isEmpty()) {
+            // Defaults match what the processor does today, so an org with no setting record
+            // behaves exactly as it did before this screen existed.
+            s.contactMatchRule       = 'Email';
+            s.onNoMatch              = 'Create';
+            s.multipleMatchRule      = 'Oldest';
+            s.accountHandling        = 'NPSPDefault';
+            s.onOrganizationNoMatch  = 'UseHousehold';
+        } else {
+            Web_Donation_Setting__mdt m = rows[0];
+            s.developerName          = m.DeveloperName;
+            s.contactMatchRule       = m.Contact_Match_Rule__c;
+            s.onNoMatch              = m.On_No_Match__c;
+            s.multipleMatchRule      = m.Multiple_Match_Rule__c;
+            s.accountHandling        = m.Account_Handling__c;
+            s.organizationPayloadKey = m.Organization_Payload_Key__c;
+            s.onOrganizationNoMatch  = m.On_Organization_No_Match__c;
+            s.contactRole            = m.Contact_Role__c;
+        }
+        return s;
+    }
+
+    @AuraEnabled
+    public static String saveSettings(String settingsJson) {
+        assertAdmin();
+        Settings s = (Settings) JSON.deserialize(settingsJson, Settings.class);
+
+        if (s.accountHandling == 'MatchOrganization' && String.isBlank(s.organizationPayloadKey)) {
+            throw new AuraHandledException(
+                'Matching an organisation needs the payload key holding the company name.');
+        }
+
+        Metadata.CustomMetadata md = new Metadata.CustomMetadata();
+        String devName = String.isBlank(s.developerName) ? 'Default' : s.developerName;
+        md.fullName = 'Web_Donation_Setting__mdt.' + devName;
+        md.label    = 'Default';
+        md.values.add(field('Contact_Match_Rule__c',       s.contactMatchRule));
+        md.values.add(field('On_No_Match__c',              s.onNoMatch));
+        md.values.add(field('Multiple_Match_Rule__c',      s.multipleMatchRule));
+        md.values.add(field('Account_Handling__c',         s.accountHandling));
+        md.values.add(field('Organization_Payload_Key__c', s.organizationPayloadKey));
+        md.values.add(field('On_Organization_No_Match__c', s.onOrganizationNoMatch));
+        md.values.add(field('Contact_Role__c',             s.contactRole));
+        md.values.add(field('Active__c',                   true));
+
+        Metadata.DeployContainer container = new Metadata.DeployContainer();
+        container.addMetadata(md);
+        if (Test.isRunningTest()) { return 'TEST-DEPLOY'; }
+        return Metadata.Operations.enqueueDeployment(container, null);
     }
 
     // ---- helpers -------------------------------------------------------------------------

@@ -1,102 +1,254 @@
 <template>
     <lightning-card title="Web Donation Mapping" icon-name="standard:data_mapping">
         <div slot="actions">
-            <lightning-button label="Add mapping" onclick={handleAdd} class="slds-m-right_x-small">
-            </lightning-button>
             <lightning-button label="Refresh" onclick={handleRefresh} class="slds-m-right_x-small">
             </lightning-button>
-            <lightning-button variant="brand" label="Save" onclick={handleSave} disabled={busy}>
+            <lightning-button variant="brand" label="Save all" onclick={handleSave} disabled={busy}>
             </lightning-button>
         </div>
 
         <lightning-spinner if:true={busy} alternative-text="Working" size="small"></lightning-spinner>
 
-        <div class="slds-p-horizontal_medium">
-            <p class="slds-text-body_small slds-text-color_weak slds-p-bottom_small">
-                Decides which Gravity Forms payload key fills which Salesforce field. Gravity Forms
-                sends numeric keys such as <b>1.3</b> for first name, so the safest way to find one
-                is to copy the Raw Payload from a Web Donation record and use Dry run below.
-            </p>
+        <lightning-tabset variant="scoped" class="slds-p-horizontal_small">
 
-            <table class="slds-table slds-table_bordered slds-table_cell-buffer" if:true={hasRows}>
-                <thead>
-                    <tr class="slds-line-height_reset">
-                        <th scope="col"><div class="slds-truncate">Payload key</div></th>
-                        <th scope="col"><div class="slds-truncate">Object</div></th>
-                        <th scope="col"><div class="slds-truncate">Field</div></th>
-                        <th scope="col"><div class="slds-truncate">Notes</div></th>
-                        <th scope="col"><div class="slds-truncate">Active</div></th>
-                        <th scope="col"><div class="slds-truncate"></div></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <template for:each={rows} for:item="row">
-                        <tr key={row.key}>
-                            <td>
-                                <lightning-input variant="label-hidden" label="Payload key"
-                                    value={row.payloadKey} data-key={row.key} data-field="payloadKey"
-                                    onchange={handleChange}>
-                                </lightning-input>
-                            </td>
-                            <td>
-                                <lightning-combobox variant="label-hidden" label="Object"
-                                    value={row.targetObject} options={objectOptions}
-                                    data-key={row.key} data-field="targetObject"
-                                    onchange={handleChange}>
-                                </lightning-combobox>
-                            </td>
-                            <td>
-                                <lightning-combobox variant="label-hidden" label="Field"
-                                    value={row.targetField} options={row.fieldOptions}
-                                    data-key={row.key} data-field="targetField"
-                                    onchange={handleChange}>
-                                </lightning-combobox>
-                                <div if:true={row.warning}
-                                     class="slds-text-color_error slds-text-body_small">
-                                    {row.warning}
-                                </div>
-                            </td>
-                            <td>
-                                <lightning-input variant="label-hidden" label="Notes"
-                                    value={row.notes} data-key={row.key} data-field="notes"
-                                    onchange={handleChange}>
-                                </lightning-input>
-                            </td>
-                            <td>
-                                <lightning-input type="checkbox" variant="label-hidden" label="Active"
-                                    checked={row.active} data-key={row.key} data-field="active"
-                                    onchange={handleChange}>
-                                </lightning-input>
-                            </td>
-                            <td>
-                                <lightning-button-icon icon-name="utility:delete"
-                                    alternative-text="Remove" data-key={row.key}
-                                    onclick={handleRemove}>
-                                </lightning-button-icon>
-                            </td>
+            <!-- ============ FIELD MAPPING ============ -->
+            <lightning-tab label="Field mapping" value="fields">
+                <p class="slds-text-body_small slds-text-color_weak slds-p-vertical_x-small">
+                    Where each value comes from. <b>Payload</b> takes it from the submission &mdash;
+                    Gravity Forms sends numeric keys such as <b>1.3</b> for first name.
+                    <b>Static</b> writes a fixed value and ignores the payload, for things like Stage.
+                    <b>Lookup</b> translates a payload value into a record using the Value
+                    translation tab.
+                </p>
+                <lightning-button label="Add mapping" onclick={handleAdd}
+                    class="slds-m-bottom_x-small"></lightning-button>
+
+                <table class="slds-table slds-table_bordered slds-table_cell-buffer" if:true={hasRows}>
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            <th><div class="slds-truncate">Source</div></th>
+                            <th><div class="slds-truncate">Payload key / value</div></th>
+                            <th><div class="slds-truncate">Object</div></th>
+                            <th><div class="slds-truncate">Field</div></th>
+                            <th><div class="slds-truncate">Notes</div></th>
+                            <th><div class="slds-truncate">Active</div></th>
+                            <th></th>
                         </tr>
-                    </template>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <template for:each={rows} for:item="row">
+                            <tr key={row.key}>
+                                <td>
+                                    <lightning-combobox variant="label-hidden" label="Source"
+                                        value={row.mappingType} options={typeOptions}
+                                        data-key={row.key} data-field="mappingType"
+                                        onchange={handleChange}></lightning-combobox>
+                                </td>
+                                <td>
+                                    <lightning-input if:false={row.isStatic} variant="label-hidden"
+                                        label="Payload key" value={row.payloadKey}
+                                        placeholder="e.g. 1.3"
+                                        data-key={row.key} data-field="payloadKey"
+                                        onchange={handleChange}></lightning-input>
+                                    <lightning-input if:true={row.isStatic} variant="label-hidden"
+                                        label="Static value" value={row.staticValue}
+                                        placeholder="e.g. Posted"
+                                        data-key={row.key} data-field="staticValue"
+                                        onchange={handleChange}></lightning-input>
+                                </td>
+                                <td>
+                                    <lightning-combobox variant="label-hidden" label="Object"
+                                        value={row.targetObject} options={objectOptions}
+                                        data-key={row.key} data-field="targetObject"
+                                        onchange={handleChange}></lightning-combobox>
+                                </td>
+                                <td>
+                                    <lightning-combobox variant="label-hidden" label="Field"
+                                        value={row.targetField} options={row.fieldOptions}
+                                        data-key={row.key} data-field="targetField"
+                                        onchange={handleChange}></lightning-combobox>
+                                    <div if:true={row.warning}
+                                         class="slds-text-color_error slds-text-body_small">
+                                        {row.warning}
+                                    </div>
+                                </td>
+                                <td>
+                                    <lightning-input variant="label-hidden" label="Notes"
+                                        value={row.notes} data-key={row.key} data-field="notes"
+                                        onchange={handleChange}></lightning-input>
+                                </td>
+                                <td>
+                                    <lightning-input type="checkbox" variant="label-hidden"
+                                        label="Active" checked={row.active}
+                                        data-key={row.key} data-field="active"
+                                        onchange={handleChange}></lightning-input>
+                                </td>
+                                <td>
+                                    <lightning-button-icon icon-name="utility:delete"
+                                        alternative-text="Remove" data-key={row.key}
+                                        onclick={handleRemove}></lightning-button-icon>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
 
-            <p if:false={hasRows} class="slds-text-body_regular slds-p-vertical_medium">
-                No mappings yet. Add one, or paste a payload below to see which keys a real
-                submission contains.
-            </p>
+                <p if:false={hasRows} class="slds-p-vertical_medium">
+                    No mappings yet. Add one, or paste a payload on the Dry run tab to see which
+                    keys a real submission contains.
+                </p>
+            </lightning-tab>
 
-            <div class="slds-box slds-m-top_medium">
-                <h3 class="slds-text-heading_small slds-p-bottom_x-small">Dry run</h3>
-                <p class="slds-text-body_small slds-text-color_weak slds-p-bottom_x-small">
+            <!-- ============ VALUE TRANSLATION ============ -->
+            <lightning-tab label="Value translation" value="values">
+                <p class="slds-text-body_small slds-text-color_weak slds-p-vertical_x-small">
+                    Turns a value the form sends into a Salesforce record. The designation
+                    <b>Other:</b> becoming the <b>Website Donation - Other</b> campaign is the
+                    obvious case. Matching ignores capitalisation and a trailing colon. Leave the
+                    payload key blank to apply the translation to any key.
+                </p>
+                <lightning-button label="Add translation" onclick={handleAddValue}
+                    class="slds-m-bottom_x-small"></lightning-button>
+
+                <table class="slds-table slds-table_bordered slds-table_cell-buffer"
+                       if:true={hasValueRows}>
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            <th><div class="slds-truncate">Payload key (optional)</div></th>
+                            <th><div class="slds-truncate">Incoming value</div></th>
+                            <th><div class="slds-truncate">Becomes</div></th>
+                            <th><div class="slds-truncate">Record</div></th>
+                            <th><div class="slds-truncate">Active</div></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={valueRows} for:item="v">
+                            <tr key={v.key}>
+                                <td>
+                                    <lightning-input variant="label-hidden" label="Payload key"
+                                        value={v.payloadKey} placeholder="any key"
+                                        data-key={v.key} data-field="payloadKey"
+                                        onchange={handleValueChange}></lightning-input>
+                                </td>
+                                <td>
+                                    <lightning-input variant="label-hidden" label="Incoming value"
+                                        value={v.incomingValue} placeholder="e.g. Other:"
+                                        data-key={v.key} data-field="incomingValue"
+                                        onchange={handleValueChange}></lightning-input>
+                                </td>
+                                <td>
+                                    <lightning-combobox variant="label-hidden" label="Becomes"
+                                        value={v.targetObject} options={lookupObjectOptions}
+                                        data-key={v.key} data-field="targetObject"
+                                        onchange={handleValueChange}></lightning-combobox>
+                                </td>
+                                <td>
+                                    <lightning-combobox variant="label-hidden" label="Record"
+                                        value={v.targetRecordName} options={v.recordOptions}
+                                        data-key={v.key} data-field="targetRecordName"
+                                        onchange={handleValueChange}></lightning-combobox>
+                                    <div if:true={v.warning}
+                                         class="slds-text-color_error slds-text-body_small">
+                                        {v.warning}
+                                    </div>
+                                </td>
+                                <td>
+                                    <lightning-input type="checkbox" variant="label-hidden"
+                                        label="Active" checked={v.active}
+                                        data-key={v.key} data-field="active"
+                                        onchange={handleValueChange}></lightning-input>
+                                </td>
+                                <td>
+                                    <lightning-button-icon icon-name="utility:delete"
+                                        alternative-text="Remove" data-key={v.key}
+                                        onclick={handleRemoveValue}></lightning-button-icon>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+
+                <p if:false={hasValueRows} class="slds-p-vertical_medium">
+                    No translations yet.
+                </p>
+            </lightning-tab>
+
+            <!-- ============ DONOR & ACCOUNT ============ -->
+            <lightning-tab label="Donor &amp; account" value="settings">
+                <p class="slds-text-body_small slds-text-color_weak slds-p-vertical_x-small">
+                    How a submission becomes a donor, and where the gift is accounted. These
+                    decide the Opportunity's account and primary contact, so they drive how gifts
+                    are credited.
+                </p>
+
+                <div class="slds-grid slds-wrap slds-gutters">
+                    <div class="slds-col slds-size_1-of-2 slds-p-bottom_small">
+                        <lightning-combobox label="Match an incoming donor on"
+                            value={settings.contactMatchRule} options={matchRuleOptions}
+                            data-field="contactMatchRule" onchange={handleSettingChange}
+                            field-level-help="Email only is safest. Attaching a gift to the wrong donor is far more damaging than a duplicate staff can merge.">
+                        </lightning-combobox>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-bottom_small">
+                        <lightning-combobox label="When nothing matches"
+                            value={settings.onNoMatch} options={noMatchOptions}
+                            data-field="onNoMatch" onchange={handleSettingChange}>
+                        </lightning-combobox>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-bottom_small">
+                        <lightning-combobox label="When several contacts match"
+                            value={settings.multipleMatchRule} options={multiMatchOptions}
+                            data-field="multipleMatchRule" onchange={handleSettingChange}>
+                        </lightning-combobox>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-bottom_small">
+                        <lightning-input label="Primary Contact Role"
+                            value={settings.contactRole} placeholder="blank uses the NPSP default"
+                            data-field="contactRole" onchange={handleSettingChange}>
+                        </lightning-input>
+                    </div>
+
+                    <div class="slds-col slds-size_1-of-1">
+                        <hr/>
+                        <h3 class="slds-text-title_bold slds-p-bottom_x-small">
+                            Account &mdash; where the gift is credited
+                        </h3>
+                    </div>
+
+                    <div class="slds-col slds-size_1-of-2 slds-p-bottom_small">
+                        <lightning-combobox label="Account handling"
+                            value={settings.accountHandling} options={accountOptions}
+                            data-field="accountHandling" onchange={handleSettingChange}
+                            field-level-help="NPSP default puts an individual gift on their household account. Match organisation routes a gift to an Organization account when the form supplies a company name.">
+                        </lightning-combobox>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-bottom_small" if:true={needsOrgKey}>
+                        <lightning-input label="Payload key holding the company name"
+                            value={settings.organizationPayloadKey} placeholder="e.g. 9"
+                            data-field="organizationPayloadKey" onchange={handleSettingChange}>
+                        </lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-bottom_small" if:true={needsOrgKey}>
+                        <lightning-combobox label="When no organisation matches"
+                            value={settings.onOrganizationNoMatch} options={orgNoMatchOptions}
+                            data-field="onOrganizationNoMatch" onchange={handleSettingChange}>
+                        </lightning-combobox>
+                    </div>
+                </div>
+            </lightning-tab>
+
+            <!-- ============ DRY RUN ============ -->
+            <lightning-tab label="Dry run" value="dryrun">
+                <p class="slds-text-body_small slds-text-color_weak slds-p-vertical_x-small">
                     Paste the Raw Payload from a real Web Donation. Nothing is written &mdash; this
-                    only shows what the current mapping <i>would</i> do, and lists any keys with no
-                    mapping.
+                    shows what the current mapping <i>would</i> do, and lists keys nothing handles.
                 </p>
                 <lightning-textarea label="Sample payload" variant="label-hidden"
                     value={samplePayload} onchange={handleSampleChange}
-                    placeholder="Paste the Raw Payload JSON here">
-                </lightning-textarea>
-                <lightning-button label="Dry run" onclick={handleDryRun} class="slds-m-top_x-small">
-                </lightning-button>
+                    placeholder="Paste the Raw Payload JSON here"></lightning-textarea>
+                <lightning-button label="Dry run" onclick={handleDryRun}
+                    class="slds-m-top_x-small"></lightning-button>
 
                 <template if:true={dry}>
                     <div if:true={dryRunHasProblems}
@@ -127,7 +279,7 @@
                         Keys with no mapping
                     </h4>
                     <p class="slds-text-body_small slds-text-color_weak" if:true={hasUnmapped}>
-                        Many of these are Gravity Forms housekeeping and can be ignored. A new
+                        Many are Gravity Forms housekeeping and can be ignored. A new
                         <i>form field</i> shows up here too &mdash; that is the point.
                     </p>
                     <table class="slds-table slds-table_bordered slds-table_cell-buffer"
@@ -143,7 +295,7 @@
                         </tbody>
                     </table>
                 </template>
-            </div>
-        </div>
+            </lightning-tab>
+        </lightning-tabset>
     </lightning-card>
 </template>
