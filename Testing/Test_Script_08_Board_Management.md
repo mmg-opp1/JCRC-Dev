@@ -152,8 +152,8 @@ when their term runs, and how they are tracking against their giving commitment.
 
 | | |
 |---|---|
-| **Verdict** | ☐ ✅ Pass ☐ 🟨 Pass with comments ☐ ❌ Fail |
-| **Severity** (if not a Pass) | ☐ 🔴 Blocker ☐ 🟠 Major ☐ 🟡 Minor |
+| **Verdict** | ☐ Pass  ☐ Pass with comments  ☐ Fail |
+| **Severity** (if not a Pass) | ☐ Blocker  ☐ Major  ☐ Minor |
 | What actually happened | |
 | Is this the information you would want here? What is missing? | |
 
@@ -173,8 +173,8 @@ commitment appear without you typing it.
 
 | | |
 |---|---|
-| **Verdict** | ☐ ✅ Pass ☐ 🟨 Pass with comments ☐ ❌ Fail |
-| **Severity** (if not a Pass) | ☐ 🔴 Blocker ☐ 🟠 Major ☐ 🟡 Minor |
+| **Verdict** | ☐ Pass  ☐ Pass with comments  ☐ Fail |
+| **Severity** (if not a Pass) | ☐ Blocker  ☐ Major  ☐ Minor |
 | What end date did it give them? | |
 | What commitment amount did it give them? | |
 | Was anything about this confusing? | |
@@ -194,8 +194,8 @@ individually, and the meeting shows who was there.
 
 | | |
 |---|---|
-| **Verdict** | ☐ ✅ Pass ☐ 🟨 Pass with comments ☐ ❌ Fail |
-| **Severity** (if not a Pass) | ☐ 🔴 Blocker ☐ 🟠 Major ☐ 🟡 Minor |
+| **Verdict** | ☐ Pass  ☐ Pass with comments  ☐ Fail |
+| **Severity** (if not a Pass) | ☐ Blocker  ☐ Major  ☐ Minor |
 | What actually happened | |
 | Is this quicker or slower than how you do it now? | |
 
@@ -213,8 +213,8 @@ member's commitment to $10,000.
 
 | | |
 |---|---|
-| **Verdict** | ☐ ✅ Pass ☐ 🟨 Pass with comments ☐ ❌ Fail |
-| **Severity** (if not a Pass) | ☐ 🔴 Blocker ☐ 🟠 Major ☐ 🟡 Minor |
+| **Verdict** | ☐ Pass  ☐ Pass with comments  ☐ Fail |
+| **Severity** (if not a Pass) | ☐ Blocker  ☐ Major  ☐ Minor |
 | Did their commitment change? To what? | |
 | **Is that rule right?** | |
 
@@ -231,8 +231,8 @@ you should still be able to see that they served, and for how long.
 
 | | |
 |---|---|
-| **Verdict** | ☐ ✅ Pass ☐ 🟨 Pass with comments ☐ ❌ Fail |
-| **Severity** (if not a Pass) | ☐ 🔴 Blocker ☐ 🟠 Major ☐ 🟡 Minor |
+| **Verdict** | ☐ Pass  ☐ Pass with comments  ☐ Fail |
+| **Severity** (if not a Pass) | ☐ Blocker  ☐ Major  ☐ Minor |
 | Could you still see their service history afterwards? | |
 | Is "ending a term" the way you would describe this? What do you call it? | |
 
@@ -249,8 +249,8 @@ who is coming up against their term limit.
 
 | | |
 |---|---|
-| **Verdict** | ☐ ✅ Pass ☐ 🟨 Pass with comments ☐ ❌ Fail |
-| **Severity** (if not a Pass) | ☐ 🔴 Blocker ☐ 🟠 Major ☐ 🟡 Minor |
+| **Verdict** | ☐ Pass  ☐ Pass with comments  ☐ Fail |
+| **Severity** (if not a Pass) | ☐ Blocker  ☐ Major  ☐ Minor |
 | **Would you send this to the Chair as-is?** If not, what is missing? | |
 
 ---
@@ -330,9 +330,9 @@ or something you expected to be there and was not.
 **Small things are worth writing down.** "We call that a 'trustee', not a 'board member'" is a
 genuinely useful finding.
 
-| | |
-|---|---|
-| | |
+| |
+|---|
+| |
 
 ---
 
