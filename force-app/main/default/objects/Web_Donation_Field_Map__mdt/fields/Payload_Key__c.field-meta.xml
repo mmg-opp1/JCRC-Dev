@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Payload_Key__c</fullName>
+    <description>The key Gravity Forms sends, e.g. "1.3" for first name or "10.1" for street. Gravity Forms uses numeric field ids rather than labels, so this is the whole contract with the form. Website Donations phase 3 / Jason Ott.</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Payload Key</label>
+    <length>100</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

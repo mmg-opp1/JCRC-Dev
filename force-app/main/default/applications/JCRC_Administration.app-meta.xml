@@ -16,6 +16,7 @@
     <navType>Standard</navType>
     <tabs>standard-home</tabs>
     <tabs>Web_Donation__c</tabs>
+    <tabs>Web_Donation_Mapping</tabs>
     <tabs>standard-report</tabs>
     <tabs>standard-Dashboard</tabs>
     <uiType>Lightning</uiType>

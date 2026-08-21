@@ -1,0 +1,149 @@
+<template>
+    <lightning-card title="Web Donation Mapping" icon-name="standard:data_mapping">
+        <div slot="actions">
+            <lightning-button label="Add mapping" onclick={handleAdd} class="slds-m-right_x-small">
+            </lightning-button>
+            <lightning-button label="Refresh" onclick={handleRefresh} class="slds-m-right_x-small">
+            </lightning-button>
+            <lightning-button variant="brand" label="Save" onclick={handleSave} disabled={busy}>
+            </lightning-button>
+        </div>
+
+        <lightning-spinner if:true={busy} alternative-text="Working" size="small"></lightning-spinner>
+
+        <div class="slds-p-horizontal_medium">
+            <p class="slds-text-body_small slds-text-color_weak slds-p-bottom_small">
+                Decides which Gravity Forms payload key fills which Salesforce field. Gravity Forms
+                sends numeric keys such as <b>1.3</b> for first name, so the safest way to find one
+                is to copy the Raw Payload from a Web Donation record and use Dry run below.
+            </p>
+
+            <table class="slds-table slds-table_bordered slds-table_cell-buffer" if:true={hasRows}>
+                <thead>
+                    <tr class="slds-line-height_reset">
+                        <th scope="col"><div class="slds-truncate">Payload key</div></th>
+                        <th scope="col"><div class="slds-truncate">Object</div></th>
+                        <th scope="col"><div class="slds-truncate">Field</div></th>
+                        <th scope="col"><div class="slds-truncate">Notes</div></th>
+                        <th scope="col"><div class="slds-truncate">Active</div></th>
+                        <th scope="col"><div class="slds-truncate"></div></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template for:each={rows} for:item="row">
+                        <tr key={row.key}>
+                            <td>
+                                <lightning-input variant="label-hidden" label="Payload key"
+                                    value={row.payloadKey} data-key={row.key} data-field="payloadKey"
+                                    onchange={handleChange}>
+                                </lightning-input>
+                            </td>
+                            <td>
+                                <lightning-combobox variant="label-hidden" label="Object"
+                                    value={row.targetObject} options={objectOptions}
+                                    data-key={row.key} data-field="targetObject"
+                                    onchange={handleChange}>
+                                </lightning-combobox>
+                            </td>
+                            <td>
+                                <lightning-combobox variant="label-hidden" label="Field"
+                                    value={row.targetField} options={row.fieldOptions}
+                                    data-key={row.key} data-field="targetField"
+                                    onchange={handleChange}>
+                                </lightning-combobox>
+                                <div if:true={row.warning}
+                                     class="slds-text-color_error slds-text-body_small">
+                                    {row.warning}
+                                </div>
+                            </td>
+                            <td>
+                                <lightning-input variant="label-hidden" label="Notes"
+                                    value={row.notes} data-key={row.key} data-field="notes"
+                                    onchange={handleChange}>
+                                </lightning-input>
+                            </td>
+                            <td>
+                                <lightning-input type="checkbox" variant="label-hidden" label="Active"
+                                    checked={row.active} data-key={row.key} data-field="active"
+                                    onchange={handleChange}>
+                                </lightning-input>
+                            </td>
+                            <td>
+                                <lightning-button-icon icon-name="utility:delete"
+                                    alternative-text="Remove" data-key={row.key}
+                                    onclick={handleRemove}>
+                                </lightning-button-icon>
+                            </td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+
+            <p if:false={hasRows} class="slds-text-body_regular slds-p-vertical_medium">
+                No mappings yet. Add one, or paste a payload below to see which keys a real
+                submission contains.
+            </p>
+
+            <div class="slds-box slds-m-top_medium">
+                <h3 class="slds-text-heading_small slds-p-bottom_x-small">Dry run</h3>
+                <p class="slds-text-body_small slds-text-color_weak slds-p-bottom_x-small">
+                    Paste the Raw Payload from a real Web Donation. Nothing is written &mdash; this
+                    only shows what the current mapping <i>would</i> do, and lists any keys with no
+                    mapping.
+                </p>
+                <lightning-textarea label="Sample payload" variant="label-hidden"
+                    value={samplePayload} onchange={handleSampleChange}
+                    placeholder="Paste the Raw Payload JSON here">
+                </lightning-textarea>
+                <lightning-button label="Dry run" onclick={handleDryRun} class="slds-m-top_x-small">
+                </lightning-button>
+
+                <template if:true={dry}>
+                    <div if:true={dryRunHasProblems}
+                         class="slds-box slds-theme_error slds-m-top_small">
+                        <template for:each={dry.problems} for:item="p">
+                            <div key={p}>{p}</div>
+                        </template>
+                    </div>
+
+                    <h4 class="slds-text-title_bold slds-m-top_small">Would write</h4>
+                    <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                        <thead>
+                            <tr><th>Key</th><th>Value</th><th>Target</th><th>Problem</th></tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={dry.mapped} for:item="m">
+                                <tr key={m.payloadKey}>
+                                    <td>{m.payloadKey}</td>
+                                    <td>{m.payloadValue}</td>
+                                    <td>{m.target}</td>
+                                    <td class="slds-text-color_error">{m.problem}</td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+
+                    <h4 class="slds-text-title_bold slds-m-top_small" if:true={hasUnmapped}>
+                        Keys with no mapping
+                    </h4>
+                    <p class="slds-text-body_small slds-text-color_weak" if:true={hasUnmapped}>
+                        Many of these are Gravity Forms housekeeping and can be ignored. A new
+                        <i>form field</i> shows up here too &mdash; that is the point.
+                    </p>
+                    <table class="slds-table slds-table_bordered slds-table_cell-buffer"
+                           if:true={hasUnmapped}>
+                        <thead><tr><th>Key</th><th>Value</th></tr></thead>
+                        <tbody>
+                            <template for:each={dry.unmapped} for:item="u">
+                                <tr key={u.payloadKey}>
+                                    <td>{u.payloadKey}</td>
+                                    <td>{u.payloadValue}</td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </template>
+            </div>
+        </div>
+    </lightning-card>
+</template>
