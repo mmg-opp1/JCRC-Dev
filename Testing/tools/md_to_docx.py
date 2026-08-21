@@ -80,6 +80,84 @@ def add_page_numbers(section):
 
 
 
+def continues_list(lines, ix):
+    """True if the numbered item at `ix` continues an existing list rather than starting one.
+
+    Walks back over blank lines and wrapped continuation lines. Anything else in between (a
+    heading, a paragraph, a table) means this is a new list and must restart at 1.
+    """
+    j = ix - 1
+    while j >= 0:
+        prev = lines[j]
+        if not prev.strip():
+            j -= 1
+            continue
+        if NUMBER_RE.match(prev.strip()):
+            return True
+        # an indented, non-block line is the wrapped tail of the item above
+        if prev.startswith((" ", "	")) and not starts_new_block(prev.strip()):
+            j -= 1
+            continue
+        return False
+    return False
+
+
+def _abstract_id_for_style(doc, style_name="List Number"):
+    """Find which abstract numbering definition the built-in numbered-list style points at."""
+    style = doc.styles[style_name]
+    num_pr = style.element.find(qn("w:pPr"))
+    num_pr = None if num_pr is None else num_pr.find(qn("w:numPr"))
+    if num_pr is None:
+        return None
+    num_id_el = num_pr.find(qn("w:numId"))
+    if num_id_el is None:
+        return None
+    num_id = num_id_el.get(qn("w:val"))
+    numbering = doc.part.numbering_part._element
+    for num in numbering.findall(qn("w:num")):
+        if num.get(qn("w:numId")) == num_id:
+            ab = num.find(qn("w:abstractNumId"))
+            return None if ab is None else ab.get(qn("w:val"))
+    return None
+
+
+def restart_numbering(doc, paragraph, abstract_id):
+    """Force a numbered list to begin at 1.
+
+    Word's List Number style keeps one running counter for the whole document, so a second list
+    carries on from where the first stopped: "What you were trying to do" came out as item 4.
+    The fix is a fresh w:num pointing at the same abstract definition with startOverride 1.
+    """
+    if abstract_id is None:
+        return
+    numbering = doc.part.numbering_part._element
+    used = [int(n.get(qn("w:numId"))) for n in numbering.findall(qn("w:num"))]
+    new_id = (max(used) if used else 0) + 1
+
+    num = OxmlElement("w:num")
+    num.set(qn("w:numId"), str(new_id))
+    ab = OxmlElement("w:abstractNumId")
+    ab.set(qn("w:val"), str(abstract_id))
+    num.append(ab)
+    override = OxmlElement("w:lvlOverride")
+    override.set(qn("w:ilvl"), "0")
+    start = OxmlElement("w:startOverride")
+    start.set(qn("w:val"), "1")
+    override.append(start)
+    num.append(override)
+    numbering.append(num)
+
+    p_pr = paragraph._p.get_or_add_pPr()
+    num_pr = OxmlElement("w:numPr")
+    ilvl = OxmlElement("w:ilvl")
+    ilvl.set(qn("w:val"), "0")
+    num_id_el = OxmlElement("w:numId")
+    num_id_el.set(qn("w:val"), str(new_id))
+    num_pr.append(ilvl)
+    num_pr.append(num_id_el)
+    p_pr.append(num_pr)
+
+
 BULLET_RE = re.compile(r"^[-*]\s+(.*)$")
 NUMBER_RE = re.compile(r"^\d+\.\s+(.*)$")
 
@@ -231,6 +309,7 @@ def convert(md_path, docx_path):
         section.right_margin = Inches(0.9)
         add_page_numbers(section)
 
+    list_abstract_id = _abstract_id_for_style(doc)
     i = 0
     while i < len(lines):
         raw = lines[i]
@@ -304,11 +383,14 @@ def convert(md_path, docx_path):
         # ---- numbered
         m = NUMBER_RE.match(line)
         if m:
+            start_ix = i
             i += 1
             rest, i = gather_continuation(lines, i)
             p = doc.add_paragraph(style="List Number")
             p.paragraph_format.space_after = Pt(4)
             add_inline(p, " ".join([m.group(1)] + rest))
+            if not continues_list(lines, start_ix):
+                restart_numbering(doc, p, list_abstract_id)
             continue
 
         # ---- checkbox line outside a table
