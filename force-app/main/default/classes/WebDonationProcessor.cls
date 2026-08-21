@@ -7,6 +7,11 @@
  *              so a slow donor match or a failure here can never make Gravity Forms think the
  *              submission failed - the payload is safely stored either way and can be replayed.
  *
+ *              CONFIGURATION-DRIVEN. Which payload key fills which field, how a donor is
+ *              matched, what happens when nothing (or too much) matches, and where the gift is
+ *              accounted all come from the Web Donation Mapping screen. Nothing about the shape
+ *              of the form is hard-coded here any more.
+ *
  *              Failure policy: a failure marks the staging record Failed with the reason and
  *              stops. It never leaves a half-built gift behind, and never silently drops a
  *              designation - anything it cannot map is recorded on Unmapped_Designations__c so
@@ -18,6 +23,8 @@
  * Change Log:
  * -----------
  * 2026-08-19 - Jason Ott - Created (Website Donations phase 2).
+ * 2026-08-21 - Jason Ott - Now driven by the Web Donation Mapping configuration rather than
+ *                          hard-coded field ids, match rules and account behaviour.
  */
 public with sharing class WebDonationProcessor implements Queueable {
 
@@ -50,27 +57,40 @@ public with sharing class WebDonationProcessor implements Queueable {
 
         Savepoint sp = Database.setSavepoint();
         try {
-            WebDonationParser.Parsed p = WebDonationParser.parse(wd.Payload__c);
+            Map<String, Object> payload =
+                (Map<String, Object>) JSON.deserializeUntyped(wd.Payload__c);
+            WebDonationConfig.Settings cfg = WebDonationConfig.settings();
 
-            if (String.isBlank(p.email)) {
-                throw new ProcessingException('No email address in the payload - cannot identify the donor.');
-            }
-            if (p.amount == null || p.amount <= 0) {
-                throw new ProcessingException('No usable gift amount in the payload.');
+            // ---- donor -------------------------------------------------------------------
+            Contact incoming = buildContact(payload);
+            if (String.isBlank(incoming.LastName)) {
+                incoming.LastName = 'Unknown';
             }
 
             Boolean created = false;
-            Contact c = findContact(p.email);
-            if (c == null) {
-                c = createContact(p);
+            Contact donor = findContact(incoming, cfg);
+            if (donor == null) {
+                if (cfg.onNoMatch == 'Fail') {
+                    throw new ProcessingException(
+                        'No existing contact matched, and the configuration says to hold '
+                        + 'unmatched submissions for review.');
+                }
+                insert incoming;
+                donor = incoming;
                 created = true;
             }
 
-            Opportunity opp = buildOpportunity(p, c);
+            // ---- gift ---------------------------------------------------------------------
+            Opportunity opp = buildOpportunity(payload, donor, cfg);
             insert opp;
 
+            if (String.isNotBlank(cfg.contactRole)) {
+                setPrimaryRole(opp.Id, donor.Id, cfg.contactRole);
+            }
+
+            // ---- allocations ---------------------------------------------------------------
             List<String> unmapped = new List<String>();
-            List<npsp__Allocation__c> allocs = buildAllocations(p, opp, unmapped);
+            List<npsp__Allocation__c> allocs = buildAllocations(payload, opp, unmapped);
             if (!allocs.isEmpty()) {
                 insert allocs;
             }
@@ -79,7 +99,7 @@ public with sharing class WebDonationProcessor implements Queueable {
                 Id                       = wd.Id,
                 Status__c                = 'Processed',
                 Processed_At__c          = System.now(),
-                Contact__c               = c.Id,
+                Contact__c               = donor.Id,
                 Contact_Was_Created__c   = created,
                 Opportunity__c           = opp.Id,
                 Unmapped_Designations__c = unmapped.isEmpty() ? null : String.join(unmapped, '\n'),
@@ -99,142 +119,325 @@ public with sharing class WebDonationProcessor implements Queueable {
         }
     }
 
-    // ---- donor ------------------------------------------------------------------------
+    // ---- donor -------------------------------------------------------------------------
 
-    /**
-     * Matches on email. Deliberately conservative: an exact email match is a strong signal,
-     * and anything looser risks attaching a gift to the wrong donor, which is far more
-     * damaging than creating a duplicate that staff can merge.
-     * Oldest match wins, so repeat donors converge on their established record.
-     */
-    private static Contact findContact(String email) {
-        List<Contact> found = [
-            SELECT Id, FirstName, LastName, Email
-            FROM Contact WHERE Email = :email
-            ORDER BY CreatedDate ASC LIMIT 1
-        ];
-        return found.isEmpty() ? null : found[0];
-    }
-
-    private static Contact createContact(WebDonationParser.Parsed p) {
-        Contact c = new Contact(
-            FirstName          = p.firstName,
-            LastName           = String.isBlank(p.lastName) ? 'Unknown' : p.lastName,
-            Email              = p.email,
-            Phone              = p.phone,
-            MailingStreet      = joinStreet(p.street, p.street2),
-            MailingCity        = p.city,
-            MailingState       = p.state,
-            MailingPostalCode  = p.postalCode
-        );
-        insert c;
+    /** Builds a Contact from whatever the configuration maps onto Contact. */
+    private static Contact buildContact(Map<String, Object> payload) {
+        Contact c = new Contact();
+        for (WebDonationConfig.Mapping m : WebDonationConfig.mappingsFor('Contact')) {
+            WebDonationConfig.applyValue(c, m.targetField, valueFor(m, payload));
+        }
         return c;
     }
 
-    private static String joinStreet(String a, String b) {
-        if (String.isBlank(a)) { return b; }
-        if (String.isBlank(b)) { return a; }
-        return a + '\n' + b;
-    }
-
-    // ---- gift -------------------------------------------------------------------------
-
-    private static Opportunity buildOpportunity(WebDonationParser.Parsed p, Contact c) {
-        String donorName = ((p.firstName == null ? '' : p.firstName) + ' '
-                          + (p.lastName == null ? '' : p.lastName)).trim();
-        if (String.isBlank(donorName)) {
-            donorName = p.email;
+    /**
+     * Applies the configured match rule.
+     *
+     * Email-only is the loosest of the matching rules and the historical default; the stricter
+     * ones exist because a shared household email would otherwise merge two people. Whatever
+     * the rule, attaching a gift to the WRONG donor is far more damaging than a duplicate staff
+     * can merge - so a rule that finds several candidates can be configured to stop rather than
+     * guess.
+     */
+    private static Contact findContact(Contact incoming, WebDonationConfig.Settings cfg) {
+        if (cfg.contactMatchRule == 'None') {
+            return null;
         }
+        String email = incoming.Email;
+        String first = incoming.FirstName;
+        String last  = incoming.LastName;
 
-        Opportunity o = new Opportunity(
-            Name                     = donorName + ' - Website Donation',
-            Amount                   = p.amount,
-            CloseDate                = p.submittedOn,
-            StageName                = 'Posted',
-            npsp__Primary_Contact__c = c.Id,
-            Approach__c              = 'Online',
-            npe01__Do_Not_Automatically_Create_Payment__c = false
-        );
+        List<Contact> found = new List<Contact>();
 
-        Id rt = recordTypeId('NPSP_Default');
-        if (rt != null) {
-            o.RecordTypeId = rt;
-        }
+        if (cfg.contactMatchRule == 'Email') {
+            if (String.isBlank(email)) {
+                throw new ProcessingException(
+                    'The match rule is email only, but this submission has no email address.');
+            }
+            found = [SELECT Id, FirstName, LastName, Email FROM Contact
+                     WHERE Email = :email ORDER BY CreatedDate ASC];
 
-        // The donor typed their own programme name, so park the gift on the review campaign
-        // and keep what they wrote - JSI-127's queue picks it up from there.
-        if (String.isNotBlank(p.writeIn)) {
-            o.Other_Campaign_Write_In__c = p.writeIn;
-            Id reviewCampaign = campaignId('Website Donation - Other');
-            if (reviewCampaign != null) {
-                o.CampaignId = reviewCampaign;
+        } else if (cfg.contactMatchRule == 'FirstLastEmail') {
+            // All three must agree - distinguishes family members sharing one address.
+            if (String.isBlank(email) || String.isBlank(first) || String.isBlank(last)) {
+                throw new ProcessingException(
+                    'The match rule needs first name, last name and email, and this submission '
+                    + 'is missing at least one of them.');
+            }
+            found = [SELECT Id, FirstName, LastName, Email FROM Contact
+                     WHERE Email = :email AND FirstName = :first AND LastName = :last
+                     ORDER BY CreatedDate ASC];
+
+        } else if (cfg.contactMatchRule == 'EmailOrFirstLast') {
+            if (String.isNotBlank(email)) {
+                found = [SELECT Id, FirstName, LastName, Email FROM Contact
+                         WHERE Email = :email ORDER BY CreatedDate ASC];
+            }
+            if (found.isEmpty() && String.isNotBlank(first) && String.isNotBlank(last)) {
+                found = [SELECT Id, FirstName, LastName, Email FROM Contact
+                         WHERE FirstName = :first AND LastName = :last
+                         ORDER BY CreatedDate ASC];
             }
         }
+
+        if (found.isEmpty()) {
+            return null;
+        }
+        if (found.size() > 1 && cfg.multipleMatchRule == 'Fail') {
+            throw new ProcessingException(
+                found.size() + ' contacts match this donor, and the configuration says to hold '
+                + 'ambiguous submissions for review rather than guess.');
+        }
+        return (cfg.multipleMatchRule == 'Newest') ? found[found.size() - 1] : found[0];
+    }
+
+    // ---- gift --------------------------------------------------------------------------
+
+    private static Opportunity buildOpportunity(Map<String, Object> payload, Contact donor,
+                                                WebDonationConfig.Settings cfg) {
+        Opportunity o = new Opportunity();
+
+        for (WebDonationConfig.Mapping m : WebDonationConfig.mappingsFor('Opportunity')) {
+            String raw = valueFor(m, payload);
+            if (m.mappingType == 'Lookup') {
+                Web_Donation_Value_Map__mdt t = WebDonationConfig.translate(m.payloadKey, raw);
+                if (t != null) {
+                    Id recId = WebDonationConfig.resolveRecord(
+                        t.Target_Object__c, t.Target_Record_Name__c);
+                    if (recId != null) {
+                        o.put(m.targetField, recId);
+                        continue;
+                    }
+                }
+            }
+            WebDonationConfig.applyValue(o, m.targetField, raw);
+        }
+
+        // Any translation that resolves to a Campaign sets the gift's campaign, wherever in the
+        // payload it came from - this is how "Other:" lands on the review campaign.
+        if (o.CampaignId == null) {
+            Id camp = campaignFromTranslations(payload);
+            if (camp != null) {
+                o.CampaignId = camp;
+            }
+        }
+
+        // The donor is always the primary contact; NPSP derives the household account from it
+        // unless the configuration says to use an organisation instead.
+        o.npsp__Primary_Contact__c = donor.Id;
+
+        if (String.isBlank(o.Name)) {
+            String donorName = ((donor.FirstName == null ? '' : donor.FirstName) + ' '
+                              + (donor.LastName == null ? '' : donor.LastName)).trim();
+            o.Name = (String.isBlank(donorName) ? donor.Email : donorName) + ' - Website Donation';
+        }
+        if (o.CloseDate == null) {
+            o.CloseDate = submittedDate(payload);
+        }
+        if (String.isBlank(o.StageName)) {
+            throw new ProcessingException(
+                'No stage. Add a Static mapping for Opportunity.StageName on the mapping screen.');
+        }
+        if (o.Amount == null || o.Amount <= 0) {
+            throw new ProcessingException(
+                'No usable gift amount. Check the mapping for Opportunity.Amount.');
+        }
+        if (o.RecordTypeId == null) {
+            Id rt = recordTypeId('NPSP_Default');
+            if (rt != null) { o.RecordTypeId = rt; }
+        }
+
+        applyAccountHandling(o, payload, cfg);
         return o;
     }
 
-    // ---- allocations -------------------------------------------------------------------
+    /** First payload value that translates to a Campaign. */
+    private static Id campaignFromTranslations(Map<String, Object> payload) {
+        for (String key : payload.keySet()) {
+            String val = str(payload, key);
+            if (String.isBlank(val)) {
+                continue;
+            }
+            Web_Donation_Value_Map__mdt t = WebDonationConfig.translate(key, val);
+            if (t != null && t.Target_Object__c == 'Campaign') {
+                Id c = WebDonationConfig.resolveRecord(t.Target_Object__c, t.Target_Record_Name__c);
+                if (c != null) {
+                    return c;
+                }
+            }
+        }
+        return null;
+    }
 
     /**
-     * One allocation per ticked designation, split evenly across them. Even splitting is a
-     * placeholder: the form does not ask the donor how to divide the gift, so any split is an
-     * assumption - this one at least is obvious and reversible. Rounding remainder goes to the
-     * first allocation so the parts always sum to the gift exactly.
+     * Decides where the gift is credited. NPSP default leaves AccountId unset and lets NPSP put
+     * an individual gift on their household account. The organisation options matter because a
+     * corporate gift landing on someone's household account is credited to the wrong donor.
      */
-    private static List<npsp__Allocation__c> buildAllocations(
-            WebDonationParser.Parsed p, Opportunity opp, List<String> unmapped) {
+    private static void applyAccountHandling(Opportunity o, Map<String, Object> payload,
+                                             WebDonationConfig.Settings cfg) {
+        if (cfg.accountHandling == 'NPSPDefault') {
+            return;
+        }
+        String company = String.isBlank(cfg.organizationPayloadKey)
+            ? null : str(payload, cfg.organizationPayloadKey);
 
-        List<npsp__Allocation__c> out = new List<npsp__Allocation__c>();
-        if (p.designations.isEmpty()) {
-            return out;
+        if (String.isBlank(company)) {
+            if (cfg.accountHandling == 'AlwaysOrganization') {
+                throw new ProcessingException(
+                    'Account handling is set to always use an organisation, but this submission '
+                    + 'has no company name.');
+            }
+            return;   // MatchOrganization with no company supplied: fall through to NPSP
         }
 
-        Map<String, Web_Donation_Designation__mdt> mapping = designationMap();
-        Map<String, Id> gauByName = gauMap();
+        List<Account> found = [SELECT Id FROM Account WHERE Name = :company LIMIT 2];
+        if (!found.isEmpty()) {
+            o.AccountId = found[0].Id;
+            return;
+        }
+        if (cfg.onOrganizationNoMatch == 'CreateAccount') {
+            Account a = new Account(Name = company);
+            insert a;
+            o.AccountId = a.Id;
+        } else if (cfg.onOrganizationNoMatch == 'Fail') {
+            throw new ProcessingException(
+                'No Account named "' + company + '", and the configuration says to hold rather '
+                + 'than create one.');
+        }
+        // UseHousehold: leave AccountId unset and let NPSP handle it
+    }
 
+    private static void setPrimaryRole(Id oppId, Id contactId, String role) {
+        List<OpportunityContactRole> existing = [
+            SELECT Id FROM OpportunityContactRole
+            WHERE OpportunityId = :oppId AND ContactId = :contactId LIMIT 1];
+        if (existing.isEmpty()) {
+            insert new OpportunityContactRole(
+                OpportunityId = oppId, ContactId = contactId, Role = role, IsPrimary = true);
+        } else {
+            update new OpportunityContactRole(Id = existing[0].Id, Role = role);
+        }
+    }
+
+    // ---- allocations --------------------------------------------------------------------
+
+    /**
+     * One allocation per designation that translates to a GAU, split evenly. Even splitting is
+     * a placeholder: the form never asks the donor how to divide a gift, so any split is an
+     * assumption - this one is at least obvious and reversible. The rounding remainder goes to
+     * the last allocation so the parts always sum to the gift exactly.
+     */
+    private static List<npsp__Allocation__c> buildAllocations(
+            Map<String, Object> payload, Opportunity opp, List<String> unmapped) {
+
+        List<npsp__Allocation__c> out = new List<npsp__Allocation__c>();
+        Map<String, Id> gauByName = gauMap();
+        Set<String> desigGroups = designationGroups();
         List<Id> targets = new List<Id>();
-        for (String d : p.designations) {
-            Web_Donation_Designation__mdt row = mapping.get(normalise(d));
-            Id gau = (row == null) ? null : gauByName.get(row.GAU_Name__c.toLowerCase());
+
+        for (String key : payload.keySet()) {
+            String val = str(payload, key);
+            if (String.isBlank(val) || !isDesignationKey(key, desigGroups)) {
+                continue;
+            }
+            Web_Donation_Value_Map__mdt t = WebDonationConfig.translate(key, val);
+            if (t == null) {
+                // A designation nothing knows about - record it rather than lose it silently.
+                if (!unmapped.contains(val)) {
+                    unmapped.add(val);
+                }
+                continue;
+            }
+            if (t.Target_Object__c != 'General Accounting Unit') {
+                continue;   // e.g. a Campaign translation, already handled on the gift
+            }
+            Id gau = gauByName.get(String.valueOf(t.Target_Record_Name__c).toLowerCase());
             if (gau == null) {
-                unmapped.add(d);
+                if (!unmapped.contains(val)) {
+                    unmapped.add(val);
+                }
             } else {
                 targets.add(gau);
             }
         }
-        if (targets.isEmpty()) {
+
+        if (targets.isEmpty() || opp.Amount == null) {
             return out;
         }
-
         Decimal each = (opp.Amount / targets.size()).setScale(2, System.RoundingMode.DOWN);
         Decimal running = 0;
         for (Integer i = 0; i < targets.size(); i++) {
             Decimal amt = (i == targets.size() - 1) ? (opp.Amount - running) : each;
             running += amt;
             out.add(new npsp__Allocation__c(
-                npsp__Opportunity__c            = opp.Id,
+                npsp__Opportunity__c             = opp.Id,
                 npsp__General_Accounting_Unit__c = targets[i],
-                npsp__Amount__c                  = amt
-            ));
+                npsp__Amount__c                  = amt));
         }
         return out;
     }
 
-    /** Case-insensitive, and tolerant of the trailing colon the form sends ("Other:"). */
-    private static String normalise(String s) {
-        return String.isBlank(s) ? '' : s.trim().removeEnd(':').trim().toLowerCase();
+    /**
+     * Which payload keys are designations.
+     *
+     * Derived from the configuration rather than guessed: a key is a designation if the value
+     * translation table has a row scoped to that key, or to its checkbox group. An earlier
+     * version assumed "any dotted key numbered 20 or above", which swept in the processing-fee
+     * and tribute groups and reported "Yes, I want to pay the processing fee" as an unmapped
+     * designation.
+     *
+     * The consequence of deriving it: a designation the table has never seen is only recognised
+     * once at least one sibling in its group has been mapped. That is the right trade - it means
+     * the unmapped list holds real designations rather than every stray checkbox on the form.
+     */
+    private static Set<String> designationGroups() {
+        Set<String> groups = new Set<String>();
+        for (Web_Donation_Value_Map__mdt v : [
+                SELECT Payload_Key__c FROM Web_Donation_Value_Map__mdt
+                WHERE Active__c = true AND Payload_Key__c != null]) {
+            String k = v.Payload_Key__c;
+            groups.add(k.contains('.') ? k.substringBefore('.') : k);
+        }
+        return groups;
     }
 
-    private static Map<String, Web_Donation_Designation__mdt> designationMap() {
-        Map<String, Web_Donation_Designation__mdt> m = new Map<String, Web_Donation_Designation__mdt>();
-        for (Web_Donation_Designation__mdt r : [
-                SELECT Form_Value__c, GAU_Name__c, Campaign_Name__c
-                FROM Web_Donation_Designation__mdt WHERE Active__c = true]) {
-            if (String.isNotBlank(r.Form_Value__c) && String.isNotBlank(r.GAU_Name__c)) {
-                m.put(normalise(r.Form_Value__c), r);
-            }
+    private static Boolean isDesignationKey(String key, Set<String> groups) {
+        if (String.isBlank(key)) {
+            return false;
         }
-        return m;
+        String g = key.contains('.') ? key.substringBefore('.') : key;
+        return groups.contains(g);
+    }
+
+    // ---- helpers ---------------------------------------------------------------------------
+
+    /** The value a mapping contributes: a static, or whatever the payload holds. */
+    private static String valueFor(WebDonationConfig.Mapping m, Map<String, Object> payload) {
+        if (m.mappingType == 'Static') {
+            return m.staticValue;
+        }
+        return str(payload, m.payloadKey);
+    }
+
+    private static String str(Map<String, Object> m, String key) {
+        if (m == null || String.isBlank(key)) {
+            return null;
+        }
+        Object v = m.get(key);
+        return (v == null) ? null : String.valueOf(v).trim();
+    }
+
+    private static Date submittedDate(Map<String, Object> payload) {
+        String s = str(payload, 'date_created');
+        if (String.isBlank(s)) {
+            return Date.today();
+        }
+        try {
+            return Date.valueOf(s.substring(0, 10));
+        } catch (Exception e) {
+            return Date.today();
+        }
     }
 
     private static Map<String, Id> gauMap() {
@@ -250,11 +453,6 @@ public with sharing class WebDonationProcessor implements Queueable {
         List<RecordType> rt = [SELECT Id FROM RecordType
                                WHERE SobjectType = 'Opportunity' AND DeveloperName = :devName LIMIT 1];
         return rt.isEmpty() ? null : rt[0].Id;
-    }
-
-    private static Id campaignId(String name) {
-        List<Campaign> c = [SELECT Id FROM Campaign WHERE Name = :name LIMIT 1];
-        return c.isEmpty() ? null : c[0].Id;
     }
 
     public class ProcessingException extends Exception {}
