@@ -77,18 +77,27 @@ us. Those came from our reading of the requirements, and this is the moment to c
 
 ## Recording your feedback
 
-Use the **feedback spreadsheet** sent with this document. One row per item.
+Use the **JCRC Implementation Testing Feedback Log**, the shared spreadsheet on SharePoint, on
+the **Sprint 1** tab. There is an example row at the top showing the kind of thing we are after.
+One row per item.
+
+Please fill in these columns:
+
+- **Testing Script**: put "Board Management", so we can tell which part of the system your
+  feedback is about
+- **Tester**: your name
+- **Feedback Description**: what you were trying to do, what you expected to happen, and what
+  actually happened. All three, please. A description missing any one of them is hard to act on.
+- **URL of Error/Issue**: copy the address out of your browser bar on the screen where it
+  happened. This saves us a great deal of hunting.
+- **Screenshot**: insert one as an object if you can. It helps, but do not let the lack of one
+  stop you telling us.
+
+Leave **Status**, **MMG Response**, and **JCRC Additional Comments** alone. We use those to reply
+to you, so check back on your rows.
 
 **If you have nothing to say about a scenario, leave it out.** Nothing recorded means it worked
 the way you expect it to work. There is no box to tick and nothing to sign.
-
-When something is worth raising, we need three things:
-
-1. What you were trying to do
-2. What you expected to happen
-3. What actually happened
-
-Screenshots help if you can take them, but do not let the lack of one stop you telling us.
 
 **If you get stuck, ask.** Getting stuck is worth recording, but do not lose an afternoon to it.
 Send a message and move on.
