@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Payment_Method__c</fullName>
+    <label>Payment Method</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Cash</fullName>
+                <default>false</default>
+                <label>Cash</label>
+            </value>
+            <value>
+                <fullName>Check</fullName>
+                <default>false</default>
+                <label>Check</label>
+            </value>
+            <value>
+                <fullName>Credit Card</fullName>
+                <default>false</default>
+                <label>Credit Card</label>
+            </value>
+            <value>
+                <fullName>ACH/Wire</fullName>
+                <default>false</default>
+                <label>ACH/Wire</label>
+            </value>
+            <value>
+                <fullName>PayPal</fullName>
+                <default>false</default>
+                <label>PayPal</label>
+            </value>
+            <value>
+                <fullName>Stock/Securities/Crypto</fullName>
+                <default>false</default>
+                <label>Stock/Securities/Crypto</label>
+            </value>
+            <value>
+                <fullName>DAF</fullName>
+                <default>false</default>
+                <label>DAF</label>
+            </value>
+            <value>
+                <fullName>Benevity</fullName>
+                <default>false</default>
+                <label>Benevity</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
