@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Contact__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Who attended. Carried here as well as on the assignment so attendance can be reported on by person without a join. JSI-123 / Jason Ott.</description>
+    <label>Contact</label>
+    <referenceTo>Contact</referenceTo>
+    <relationshipLabel>Committee Meeting Attendance</relationshipLabel>
+    <relationshipName>Committee_Meeting_Attendance</relationshipName>
+    <required>false</required>
+    <type>Lookup</type>
+</CustomField>

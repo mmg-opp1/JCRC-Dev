@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Committee_Meeting__c</fullName>
+    <description>The meeting this attendance was taken at. Primary master-detail, so deleting a meeting removes its attendance rather than leaving it stranded. JSI-123 / Jason Ott.</description>
+    <label>Committee Meeting</label>
+    <referenceTo>Committee_Meeting__c</referenceTo>
+    <relationshipLabel>Attendance</relationshipLabel>
+    <relationshipName>Attendance</relationshipName>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <type>MasterDetail</type>
+</CustomField>

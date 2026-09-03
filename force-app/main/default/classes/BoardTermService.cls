@@ -11,8 +11,33 @@
  * -----------
  * 2026-07-28 - Jason Ott - Initial version (JSI-123 correction: member types + auto-generated term schedule).
  * 2026-08-19 - Jason Ott - Added Contact.Current_Board_Member__c maintenance (JSI-87 board letter routing).
+ * 2026-09-01 - Jason Ott - Stamp Term_Key__c so a duplicate term cannot be saved at all (UAT: a console
+ *                          double-click created the same board member two and three times over).
+ * 2026-09-01 - Jason Ott - Roll the Status to "Rolled Off" once a term's End Date has passed. It used
+ *                          to sit on "Active" for ever, so an ended term read as active on the record
+ *                          even though the roster had correctly dropped it (UAT).
  */
 public with sharing class BoardTermService {
+
+    /**
+     * BEFORE insert/update — stamp the dedupe key.
+     *
+     * Contact + Member Type + Start Date identifies a term uniquely: the same person cannot begin the
+     * same kind of term twice on the same day. Term_Key__c is a unique field, so the database itself
+     * rejects the second one. That covers every entry path, not just the console button, and it holds
+     * even if two requests race past an application-level check. Left null when any part is missing,
+     * because nulls do not collide and a half-filled term should not be blocked.
+     */
+    public static void setTermKeys(List<Board_Term__c> terms) {
+        for (Board_Term__c t : terms) {
+            if (t.Contact__c == null || t.Member_Type__c == null || t.Start_Date__c == null) {
+                t.Term_Key__c = null;
+                continue;
+            }
+            t.Term_Key__c = String.valueOf(t.Contact__c) + '|' + String.valueOf(t.Member_Type__c)
+                + '|' + String.valueOf(t.Start_Date__c);
+        }
+    }
 
     /** BEFORE insert/update — default the End Date from the member type's term length. */
     public static void setEndDates(List<Board_Term__c> terms) {
@@ -36,6 +61,50 @@ public with sharing class BoardTermService {
                 t.End_Date__c = t.Start_Date__c.addYears((Integer) mt.Default_Term_Length_Years__c).addDays(-1);
             }
         }
+    }
+
+    /**
+     * BEFORE insert/update — a term whose End Date has passed is over, so say so.
+     *
+     * Status and the roster were telling different stories: Is_Current__c already went false the day
+     * the End Date passed, so the member correctly dropped off the roster, but Status stayed on
+     * "Active" and the term record still read as active. Nothing downstream changes — Is_Current__c
+     * requires Status = Active *and* an unexpired date window, so it was already false either way.
+     *
+     * Runs after setEndDates, which is what fills in an End Date that was left blank; a term entered
+     * with a start date years ago is therefore recognised as historical on the way in.
+     *
+     * "Prospective" is left alone on purpose: that term never began, and calling it rolled off would
+     * assert something about it that nobody has said.
+     */
+    public static void setStatusForEndedTerms(List<Board_Term__c> terms) {
+        Date today = Date.today();
+        for (Board_Term__c t : terms) {
+            if (t.End_Date__c == null || t.End_Date__c >= today) {
+                continue;
+            }
+            if (t.Status__c == 'Active' || t.Status__c == 'On Leave') {
+                t.Status__c = 'Rolled Off';
+            }
+        }
+    }
+
+    /**
+     * Nightly sweep — roll off terms whose End Date passed with no DML to react to.
+     *
+     * The same gap refreshBoardFlags exists for: a term expires through the passage of time, so
+     * nothing touches the record on the day it happens. Without this, an ended term keeps saying
+     * "Active" until somebody edits it.
+     */
+    public static void rollOffExpiredTerms() {
+        List<Board_Term__c> expired = [
+            SELECT Id, Status__c FROM Board_Term__c
+            WHERE End_Date__c < TODAY AND Status__c IN ('Active', 'On Leave')];
+        if (expired.isEmpty()) {
+            return;
+        }
+        // The before-trigger sets the value; this only has to present the records for saving.
+        update expired;
     }
 
     /** AFTER insert/update — create the per-fiscal-year Board Membership Year records (idempotent). */

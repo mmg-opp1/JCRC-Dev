@@ -7,7 +7,10 @@
 trigger BoardTermTrigger on Board_Term__c (before insert, before update,
                                            after insert, after update, after delete, after undelete) {
     if (Trigger.isBefore) {
+        BoardTermService.setTermKeys(Trigger.new);
         BoardTermService.setEndDates(Trigger.new);
+        // After setEndDates, which may be what supplied the End Date this decision rests on.
+        BoardTermService.setStatusForEndedTerms(Trigger.new);
     } else {
         if (Trigger.new != null) {
             BoardTermService.generateMembershipYears(Trigger.new);

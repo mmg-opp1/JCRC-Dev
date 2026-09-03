@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Committee__c</fullName>
+    <description>The committee that met. Master-detail so a deleted committee takes its meetings with it rather than orphaning them. JSI-123 / Jason Ott.</description>
+    <label>Committee</label>
+    <referenceTo>Committee__c</referenceTo>
+    <relationshipLabel>Meetings</relationshipLabel>
+    <relationshipName>Committee_Meetings</relationshipName>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <type>MasterDetail</type>
+</CustomField>

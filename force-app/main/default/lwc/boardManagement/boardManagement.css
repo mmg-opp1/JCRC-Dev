@@ -1,0 +1,5 @@
+/* Keep a long committee roster inside the modal rather than pushing its footer off the screen. */
+.members-scroll {
+    max-height: 45vh;
+    overflow-y: auto;
+}

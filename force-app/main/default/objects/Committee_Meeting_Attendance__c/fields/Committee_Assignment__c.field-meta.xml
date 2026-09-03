@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Committee_Assignment__c</fullName>
+    <description>The member's place on the committee that this attendance counts toward. Second master-detail, which is what lets Committee Assignment roll up a meetings-attended count. JSI-123 / Jason Ott.</description>
+    <label>Committee Assignment</label>
+    <referenceTo>Committee_Assignment__c</referenceTo>
+    <relationshipLabel>Meeting Attendance</relationshipLabel>
+    <relationshipName>Meeting_Attendance</relationshipName>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <type>MasterDetail</type>
+</CustomField>

@@ -2,9 +2,15 @@
     <lightning-card title="Current Board Members" icon-name="standard:groups">
         <div slot="actions" class="slds-grid slds-grid_vertical-align-center">
             <span class="slds-badge slds-badge_lightest slds-m-right_small">{count}</span>
+            <lightning-button-icon icon-name="utility:refresh" alternative-text="Refresh the roster"
+                title="Refresh" onclick={loadRoster} disabled={loadingRoster}
+                class="slds-m-right_x-small"></lightning-button-icon>
             <lightning-button label="New Board Member" onclick={openAddMember}></lightning-button>
         </div>
-        <div class="slds-p-horizontal_small slds-p-bottom_small">
+        <div class="slds-p-horizontal_small slds-p-bottom_small slds-is-relative">
+            <template lwc:if={loadingRoster}>
+                <lightning-spinner alternative-text="Loading the roster" size="small"></lightning-spinner>
+            </template>
             <template lwc:if={hasRows}>
                 <lightning-datatable
                     key-field="termId"
@@ -26,18 +32,69 @@
         <section role="dialog" tabindex="-1" aria-modal="true" class="slds-modal slds-fade-in-open">
             <div class="slds-modal__container">
                 <header class="slds-modal__header"><h2 class="slds-modal__title">New Board Member</h2></header>
-                <div class="slds-modal__content slds-p-around_medium">
-                    <lightning-record-picker label="Contact" object-api-name="Contact"
+                <!-- slds-is-relative anchors the spinner to the modal body while the save is in flight -->
+                <div class="slds-modal__content slds-p-around_medium slds-is-relative">
+                    <template lwc:if={isSaving}>
+                        <lightning-spinner alternative-text="Adding board member" size="small"></lightning-spinner>
+                    </template>
+                    <lightning-record-picker label="Contact" object-api-name="Contact" disabled={isSaving}
                         value={newContactId} onchange={handleContact}></lightning-record-picker>
                     <lightning-combobox label="Member Type" value={newMemberTypeId} options={memberTypeOptions}
-                        onchange={handleType} class="slds-m-top_small"></lightning-combobox>
-                    <lightning-input type="date" label="Term Start Date" value={newStartDate}
+                        disabled={isSaving} onchange={handleType} class="slds-m-top_small"></lightning-combobox>
+                    <lightning-input type="date" label="Term Start Date" value={newStartDate} disabled={isSaving}
                         onchange={handleStart} class="slds-m-top_small"></lightning-input>
                 </div>
                 <footer class="slds-modal__footer">
-                    <lightning-button label="Cancel" onclick={closeAddMember}></lightning-button>
-                    <lightning-button label="Add Member" variant="brand" onclick={createMember}
-                        class="slds-m-left_x-small"></lightning-button>
+                    <lightning-button label="Cancel" onclick={closeAddMember} disabled={isSaving}></lightning-button>
+                    <lightning-button label={addMemberLabel} variant="brand" onclick={createMember}
+                        disabled={isSaving} class="slds-m-left_x-small"></lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <!-- Delete board member. One modal, two faces: it either explains why the delete cannot happen
+         or asks to confirm it, decided by what the server reported. -->
+    <template lwc:if={showDelete}>
+        <section role="dialog" tabindex="-1" aria-modal="true" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header"><h2 class="slds-modal__title">{deleteTitle}</h2></header>
+                <div class="slds-modal__content slds-p-around_medium slds-is-relative">
+                    <template lwc:if={isDeleting}>
+                        <lightning-spinner alternative-text="Deleting the board member" size="small"></lightning-spinner>
+                    </template>
+
+                    <template lwc:if={deleteBlocked}>
+                        <p>{deleteBlockedDetail}</p>
+                        <p class="slds-m-top_small slds-text-color_weak">
+                            If this person is leaving the board, use End Term instead — that keeps their
+                            history and takes them off the current roster.
+                        </p>
+                    </template>
+
+                    <template lwc:else>
+                        <p>
+                            This permanently removes {deleteName}'s board record — {deleteSummary}.
+                        </p>
+                        <p class="slds-m-top_small">
+                            Their contact record is <strong>not</strong> deleted, and their giving history
+                            is untouched. Use this only for someone added by mistake; if they are leaving
+                            the board, End Term is the right action.
+                        </p>
+                    </template>
+                </div>
+                <footer class="slds-modal__footer">
+                    <template lwc:if={deleteBlocked}>
+                        <lightning-button label="Close" onclick={closeDelete}></lightning-button>
+                    </template>
+                    <template lwc:else>
+                        <lightning-button label="Cancel" onclick={closeDelete}
+                            disabled={isDeleting}></lightning-button>
+                        <lightning-button label={deleteButtonLabel} variant="destructive"
+                            onclick={confirmDelete} disabled={isDeleting}
+                            class="slds-m-left_x-small"></lightning-button>
+                    </template>
                 </footer>
             </div>
         </section>
@@ -49,17 +106,20 @@
         <section role="dialog" tabindex="-1" aria-modal="true" class="slds-modal slds-fade-in-open">
             <div class="slds-modal__container">
                 <header class="slds-modal__header"><h2 class="slds-modal__title">{endTermTitle}</h2></header>
-                <div class="slds-modal__content slds-p-around_medium">
+                <div class="slds-modal__content slds-p-around_medium slds-is-relative">
+                    <template lwc:if={isEndingTerm}>
+                        <lightning-spinner alternative-text="Ending the term" size="small"></lightning-spinner>
+                    </template>
                     <p class="slds-m-bottom_small slds-text-color_weak">
                         Sets the term's End Date and removes any board years that fall entirely after it.
                     </p>
                     <lightning-input type="date" label="New Term End Date" value={endDate}
-                        onchange={handleEndDate}></lightning-input>
+                        disabled={isEndingTerm} onchange={handleEndDate}></lightning-input>
                 </div>
                 <footer class="slds-modal__footer">
-                    <lightning-button label="Cancel" onclick={closeEndTerm}></lightning-button>
-                    <lightning-button label="End Term" variant="destructive" onclick={confirmEndTerm}
-                        class="slds-m-left_x-small"></lightning-button>
+                    <lightning-button label="Cancel" onclick={closeEndTerm} disabled={isEndingTerm}></lightning-button>
+                    <lightning-button label={endTermLabel} variant="destructive" onclick={confirmEndTerm}
+                        disabled={isEndingTerm} class="slds-m-left_x-small"></lightning-button>
                 </footer>
             </div>
         </section>

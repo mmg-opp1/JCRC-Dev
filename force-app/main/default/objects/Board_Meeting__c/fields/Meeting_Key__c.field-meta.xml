@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Meeting_Key__c</fullName>
+    <description>Dedupe backstop = Meeting Date + '|' + lower-cased Meeting Name. Unique, case-insensitive, stamped by BoardMeetingService. Two board meetings with the same name on the same day are the same meeting entered twice. Same pattern as Board Term.Term Key and Committee Assignment.Assignment Key. JSI-123 / Jason Ott.</description>
+    <caseSensitive>false</caseSensitive>
+    <externalId>true</externalId>
+    <label>Meeting Key</label>
+    <length>255</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>
