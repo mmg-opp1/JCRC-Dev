@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Source__c</fullName>
+    <description>Where this transaction came from. QuickBooks = the ACH/wire feed; Manual = entered on the Pending Transactions screen; Gala Sponsor (Stripe) = Pay Now submissions from the gala sponsorship page (separate intake work). JSI-121 / Jason Ott.</description>
+    <inlineHelpText>Where this transaction came from.</inlineHelpText>
+    <label>Source</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>QuickBooks</fullName>
+                <default>false</default>
+                <label>QuickBooks</label>
+            </value>
+            <value>
+                <fullName>Manual</fullName>
+                <default>false</default>
+                <label>Manual</label>
+            </value>
+            <value>
+                <fullName>Gala Sponsor (Stripe)</fullName>
+                <default>false</default>
+                <label>Gala Sponsor (Stripe)</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

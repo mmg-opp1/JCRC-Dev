@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Match_Status__c</fullName>
+    <description>How the donor was determined. Suggested = automatic match awaiting confirmation; Confirmed = a user chose or confirmed the donor. JSI-121 / Jason Ott.</description>
+    <label>Match Status</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Suggested</fullName>
+                <default>false</default>
+                <label>Suggested</label>
+            </value>
+            <value>
+                <fullName>Confirmed</fullName>
+                <default>false</default>
+                <label>Confirmed</label>
+            </value>
+            <value>
+                <fullName>No Match</fullName>
+                <default>false</default>
+                <label>No Match</label>
+            </value>
+            <value>
+                <fullName>Multiple Matches</fullName>
+                <default>false</default>
+                <label>Multiple Matches</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

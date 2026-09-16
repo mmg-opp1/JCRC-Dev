@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Payment_Method__c</fullName>
+    <description>How the money arrived. Same values as Opportunity Payment Method so a new gift copies it directly; PaymentMethodService translates it onto payments. JSI-121 / Jason Ott.</description>
+    <label>Payment Method</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Cash</fullName>
+                <default>false</default>
+                <label>Cash</label>
+            </value>
+            <value>
+                <fullName>Check</fullName>
+                <default>false</default>
+                <label>Check</label>
+            </value>
+            <value>
+                <fullName>Credit Card</fullName>
+                <default>false</default>
+                <label>Credit Card</label>
+            </value>
+            <value>
+                <fullName>ACH/Wire</fullName>
+                <default>true</default>
+                <label>ACH/Wire</label>
+            </value>
+            <value>
+                <fullName>PayPal</fullName>
+                <default>false</default>
+                <label>PayPal</label>
+            </value>
+            <value>
+                <fullName>Stock/Securities/Crypto</fullName>
+                <default>false</default>
+                <label>Stock/Securities/Crypto</label>
+            </value>
+            <value>
+                <fullName>DAF</fullName>
+                <default>false</default>
+                <label>DAF</label>
+            </value>
+            <value>
+                <fullName>Benevity</fullName>
+                <default>false</default>
+                <label>Benevity</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

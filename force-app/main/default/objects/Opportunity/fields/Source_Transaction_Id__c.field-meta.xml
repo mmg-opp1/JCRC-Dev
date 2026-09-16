@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Source_Transaction_Id__c</fullName>
+    <caseSensitive>false</caseSensitive>
+    <description>Id of the source transaction (QuickBooks ACH/wire, or Stripe for gala Pay Now) this record was created from on the Pending Transactions screen. Unique: the duplicate guard that stops the same transaction being committed twice after its holding record is deleted. JSI-121 / Jason Ott.</description>
+    <externalId>true</externalId>
+    <inlineHelpText>The QuickBooks or Stripe transaction this was created from.</inlineHelpText>
+    <label>Source Transaction ID</label>
+    <length>255</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>
