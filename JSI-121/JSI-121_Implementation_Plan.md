@@ -309,3 +309,55 @@ duplicate `External_Id__c` blocked case-insensitively (`DUPLICATE_VALUE`) ✓ ·
 `Source_Transaction_Id__c` blocked on Payment ✓ and on Opportunity ✓ · object/field permissions confirmed
 via `ObjectPermissions` / `FieldPermissions` ✓.
 
+### Phase 2 — Engine ✅ deployed + verified in JCRC-Dev (2026-09-16)
+**Deployed:** `PendingTransactionService` (+ test), `PendingTransactionTrigger` (before insert/update),
+`PaymentMethodService.toPaymentValue` made public (reused, not copied). **45/45 tests pass**
+(`PendingTransactionServiceTest` 25 + `PaymentMethodServiceTest` + `WebDonationProcessorTest` as
+regression). Coverage: service **92.2%**, trigger 100%.
+
+**What the engine does**
+- **Status on every save** (trigger): Ready or Needs Review, with plain-English reasons from `problems()` —
+  amount, date, donor, *confirm the suggested donor*, pledge chosen / is a Pledge or Grant / not closed /
+  has an outstanding balance / amount fits, gift record type active and not In-Kind, source id not already
+  committed. A user edit clears a previous commit Error.
+- **Donor suggestion** on arrival: payer email (all four NPSP email fields) → exact Account name → the
+  org's Contact duplicate rules (fuzzy first + last). One hit = *Suggested* (not Ready until confirmed via
+  `confirmDonors`), several = *Multiple Matches* (left blank), none = *No Match*. A donor set by a person =
+  *Confirmed*. Account is filled from the Contact only when blank (organization gifts keep their org).
+  Note: Accounts have **no active duplicate rule**, so account matching is exact-name only.
+- **`getOpenPledges(contact, account)`** and **`previewPledgePayment(pledge, amount)`** for the screen.
+- **`planPledgePayment`** — the D2/D11 rules as pure logic (no DML).
+- **`commitTransactions(ids)`** — max **20** per call; per-row savepoint; new gift = Opportunity (stage
+  Posted, NPSP naming, typed Gift Name restored, Source Transaction ID stamped) + reference/deposit onto
+  NPSP's auto-created payment + 100% fund allocation; pledge payment = installment changes + the paid
+  installment stamped; then the holding row is deleted and emptied from the Recycle Bin. Failures roll
+  back alone, set Status = Error + message, and are logged with a stack trace.
+
+**Verified NPSP behavior (probe, rolled back):** NPSP renames a new gift on insert; auto-creates one paid
+payment dated the close date with `ACH/Wire` → `ACH`; creates Donor + Household Member contact roles; a
+100% GAU allocation **replaces** the default General Fund allocation. `npe01__Amount_Outstanding__c` =
+Amount − paid (− written off), so editing the unpaid schedule does not move it.
+
+**Live check against real data (rolled back, nothing left behind):** $10,000 wire against the Ilana
+Newman $50,000 pledge (11 unpaid × ~$4,166.67) → installment due 10/8/2026 paid at $10,000 (ACH, WIRE-555,
+stamped), the 8/8/2027 installment removed, 7/8/2027 reduced to $2,499.99; schedule still totals $50,000,
+outstanding $48,000 → $38,000. A $2,500 gift row to Israel Fund in the same commit → gift created.
+Two rows: 22 SOQL, 1.7 s CPU, 15 DML.
+
+**Security changes found during the build (profile, JCRC - Fundraising, Pending Transactions only)**
+- **Delete** granted — commit deletes the holding row and Apex enforces the object permission (it also
+  lets staff discard a row that isn't a donation).
+- **View All + Modify All** granted — deleting a row someone else owns (the QuickBooks sync user, a
+  colleague) is refused otherwise, even from `without sharing` code. JCRC - Development already has this
+  through Modify All Data.
+- Commit writes run in an inner **`without sharing` Writer**: Opportunity sharing is Read org-wide, so a
+  Fundraising user could not otherwise update installments on a pledge someone else owns. Reads stay
+  `with sharing`. Covered by a `runAs` JCRC - Fundraising test on an admin-owned pledge.
+
+**Build-time notes**
+- `emptyRecycleBin` succeeds, but Salesforce purges in the background: an `ALL ROWS` query still returns the
+  row (IsDeleted = true) well after the call — not asserted in tests.
+- Gotchas hit: `when` is reserved (again); `FOR UPDATE` can't be combined with `ORDER BY` (lock, then read
+  in order); updating a queried payment that still carries its master-detail parent fails — write through
+  fresh records holding only changed fields.
+

@@ -13,6 +13,7 @@
  * -----------
  * 2026-09-03 - Jason Ott - Initial version.
  * 2026-09-03 - Jason Ott - Does not apply to Pledge or Grant.
+ * 2026-09-16 - Jason Ott - toPaymentValue made public for PendingTransactionService (JSI-121).
  */
 public with sharing class PaymentMethodService {
 
@@ -73,9 +74,10 @@ public with sharing class PaymentMethodService {
      * The Opportunity's value expressed as a Payment value, or null when it cannot be represented.
      * Returning null on purpose: writing nothing is better than writing a value the picklist does
      * not recognise, and it leaves whatever a person entered by hand alone.
+     * Public so the JSI-121 Pending Transactions engine translates the same way when it applies money
+     * to a pledge installment directly.
      */
-    @TestVisible
-    private static String toPaymentValue(String opportunityValue) {
+    public static String toPaymentValue(String opportunityValue) {
         if (String.isBlank(opportunityValue)) {
             return null;
         }
