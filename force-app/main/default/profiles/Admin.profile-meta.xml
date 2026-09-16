@@ -347,6 +347,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>PendingTransactionController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>QueryWithLimit</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -11451,6 +11455,10 @@
     </tabVisibilities>
     <tabVisibilities>
         <tab>Pending_Transaction__c</tab>
+        <visibility>DefaultOn</visibility>
+    </tabVisibilities>
+    <tabVisibilities>
+        <tab>Pending_Transactions</tab>
         <visibility>DefaultOn</visibility>
     </tabVisibilities>
     <tabVisibilities>

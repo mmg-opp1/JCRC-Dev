@@ -1,0 +1,43 @@
+<!--
+  pendingTransactionBulkEdit - set gift details on many pending transactions at once (JSI-121).
+  Author: Jason Ott.
+-->
+<template>
+    <lightning-modal-header label={label}></lightning-modal-header>
+    <lightning-modal-body>
+        <p class="be-intro">Tick a field to change it on all {count} selected transactions. Leave a ticked field empty to clear it.</p>
+        <div class="be-rows">
+            <div class="be-row">
+                <lightning-input type="checkbox" label="Campaign" data-key="campaign" checked={setCampaign}
+                    onchange={handleToggle}></lightning-input>
+                <lightning-record-picker label="Campaign" variant="label-hidden" object-api-name="Campaign"
+                    placeholder="Search active campaigns…" filter={campaignFilter} value={campaignId}
+                    onchange={handleCampaign} disabled={campaignDisabled}></lightning-record-picker>
+            </div>
+            <div class="be-row">
+                <lightning-input type="checkbox" label="Fund" data-key="fund" checked={setFund}
+                    onchange={handleToggle}></lightning-input>
+                <lightning-combobox label="Fund" variant="label-hidden" options={fundOptions} value={fundId}
+                    onchange={handleFund} disabled={fundDisabled}></lightning-combobox>
+            </div>
+            <div class="be-row">
+                <lightning-input type="checkbox" label="Approach" data-key="approach" checked={setApproach}
+                    onchange={handleToggle}></lightning-input>
+                <lightning-combobox label="Approach" variant="label-hidden" options={approachOptions}
+                    value={approach} onchange={handleApproach} disabled={approachDisabled}></lightning-combobox>
+            </div>
+            <div class="be-row">
+                <lightning-input type="checkbox" label="Gift record type" data-key="recordType"
+                    checked={setRecordType} onchange={handleToggle}></lightning-input>
+                <lightning-combobox label="Gift record type" variant="label-hidden" options={recordTypeOptions}
+                    value={giftRecordType} onchange={handleRecordType} disabled={recordTypeDisabled}></lightning-combobox>
+            </div>
+        </div>
+        <p class="be-note">These apply when a transaction is committed as a new gift; pledge payments ignore them.</p>
+    </lightning-modal-body>
+    <lightning-modal-footer>
+        <lightning-button label="Cancel" onclick={handleCancel}></lightning-button>
+        <lightning-button label="Apply" variant="brand" onclick={handleApply} disabled={applyDisabled}
+            class="slds-m-left_x-small"></lightning-button>
+    </lightning-modal-footer>
+</template>

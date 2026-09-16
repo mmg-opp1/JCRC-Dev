@@ -1670,6 +1670,7 @@
     <tabs>standard-Contact</tabs>
     <tabs>standard-Account</tabs>
     <tabs>standard-Opportunity</tabs>
+    <tabs>Pending_Transactions</tabs>
     <tabs>npe03__Recurring_Donation__c</tabs>
     <tabs>standard-Campaign</tabs>
     <tabs>Board_Members</tabs>

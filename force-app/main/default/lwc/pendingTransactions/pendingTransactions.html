@@ -1,0 +1,183 @@
+<!--
+  pendingTransactions - the Pending Transactions work queue (JSI-121). List on the left, editor on the
+  right, selection bar along the bottom. Author: Jason Ott.
+-->
+<template>
+    <div class="pt-shell">
+        <!-- Header -->
+        <header class="pt-header">
+            <div class="pt-title">
+                <lightning-icon icon-name="custom:custom16" size="medium" class="pt-title-icon"></lightning-icon>
+                <div>
+                    <h1 class="pt-h1">Pending Transactions</h1>
+                    <p class="pt-subtitle">ACH, wire and sponsorship money waiting to become gifts or pledge payments</p>
+                </div>
+            </div>
+            <lightning-button-icon icon-name="utility:refresh" alternative-text="Refresh" title="Refresh"
+                variant="border-filled" onclick={handleRefresh} disabled={busy}></lightning-button-icon>
+        </header>
+
+        <!-- Summary tiles: each one filters the list -->
+        <div class="pt-tiles">
+            <template for:each={tiles} for:item="tile">
+                <button key={tile.key} class={tile.cssClass} data-filter={tile.filter} onclick={handleTile}
+                    aria-pressed={tile.active}>
+                    <span class="pt-tile-label">{tile.label}</span>
+                    <span class="pt-tile-value">{tile.count}</span>
+                    <span class="pt-tile-sub">
+                        <lightning-formatted-number value={tile.total} format-style="currency"
+                            currency-code="USD"></lightning-formatted-number>
+                    </span>
+                </button>
+            </template>
+        </div>
+
+        <template lwc:if={truncated}>
+            <div class="pt-banner pt-banner_warning">
+                Showing the first 500 transactions. Commit some to see the rest.
+            </div>
+        </template>
+
+        <!-- Results of the last commit -->
+        <template lwc:if={showResults}>
+            <section class="pt-results" aria-live="polite">
+                <div class="pt-results-head">
+                    <span class="pt-results-title">
+                        <template lwc:if={lastResults.failed}>
+                            {lastResults.succeeded} committed · {lastResults.failed} need attention
+                        </template>
+                        <template lwc:else>{lastResults.succeeded} committed</template>
+                    </span>
+                    <lightning-button-icon icon-name="utility:close" variant="bare" alternative-text="Dismiss"
+                        onclick={dismissResults}></lightning-button-icon>
+                </div>
+                <ul class="pt-results-list">
+                    <template for:each={lastResults.items} for:item="r">
+                        <li key={r.rowId} class={r.cssClass}>
+                            <lightning-icon icon-name={r.icon} size="x-small" class="pt-result-icon"></lightning-icon>
+                            <span class="pt-result-row">{r.rowName}</span>
+                            <template lwc:if={r.recordUrl}>
+                                <a href={r.recordUrl} target="_blank" class="pt-result-link">{r.recordName}</a>
+                            </template>
+                            <span class="pt-result-msg">{r.message}</span>
+                        </li>
+                    </template>
+                </ul>
+            </section>
+        </template>
+
+        <div class="pt-body">
+            <!-- LIST -->
+            <section class="pt-list" aria-label="Transactions">
+                <div class="pt-list-tools">
+                    <lightning-input type="search" label="Search" variant="label-hidden" class="pt-search"
+                        placeholder="Search payer, donor, memo, reference, amount…" value={search}
+                        onchange={handleSearch}></lightning-input>
+                    <lightning-combobox label="Source" variant="label-hidden" class="pt-source" value={sourceFilter}
+                        options={sourceOptions} onchange={handleSource}></lightning-combobox>
+                </div>
+
+                <div class="pt-list-head">
+                    <lightning-input type="checkbox" label="Select all shown" variant="label-hidden"
+                        checked={allVisibleChecked} onchange={handleCheckAll} disabled={noVisibleRows}></lightning-input>
+                    <span class="pt-col-date">Date</span>
+                    <span class="pt-col-who">Payer · Donor</span>
+                    <span class="pt-col-amt">Amount</span>
+                </div>
+
+                <template lwc:if={loading}>
+                    <div class="pt-list-loading"><lightning-spinner alternative-text="Loading" size="small"></lightning-spinner></div>
+                </template>
+                <template lwc:elseif={noVisibleRows}>
+                    <div class="pt-empty">
+                        <lightning-icon icon-name="utility:success" size="small"></lightning-icon>
+                        <p class="pt-empty-title">{emptyTitle}</p>
+                        <p class="pt-empty-sub">{emptySubtitle}</p>
+                    </div>
+                </template>
+                <template lwc:else>
+                    <ul class="pt-rows" role="listbox" aria-label="Pending transactions" tabindex="0"
+                        onkeydown={handleListKey}>
+                        <template for:each={visibleRows} for:item="row">
+                            <li key={row.id} class={row.cssClass} role="option" aria-selected={row.isActive}
+                                data-id={row.id} onclick={handleRowClick}>
+                                <span class="pt-row-check" onclick={stop}>
+                                    <lightning-input type="checkbox" label={row.checkLabel} variant="label-hidden"
+                                        data-id={row.id} checked={row.isChecked} onchange={handleRowCheck}></lightning-input>
+                                </span>
+                                <span class="pt-col-date">
+                                    <template lwc:if={row.transactionDate}>
+                                        <lightning-formatted-date-time value={row.transactionDate} month="short"
+                                            day="numeric" time-zone="UTC"></lightning-formatted-date-time>
+                                    </template>
+                                    <template lwc:else>—</template>
+                                </span>
+                                <span class="pt-col-who">
+                                    <span class="pt-row-payer">{row.payerLabel}</span>
+                                    <span class="pt-row-donor">
+                                        <span class={row.dotClass} title={row.status}></span>
+                                        {row.donorLabel}
+                                        <template lwc:if={row.isPledgePayment}>
+                                            <span class="pt-chip">Pledge payment</span>
+                                        </template>
+                                    </span>
+                                </span>
+                                <span class="pt-col-amt">
+                                    <lightning-formatted-number value={row.amount} format-style="currency"
+                                        currency-code="USD"></lightning-formatted-number>
+                                </span>
+                            </li>
+                        </template>
+                    </ul>
+                </template>
+            </section>
+
+            <!-- EDITOR -->
+            <section class="pt-editor-wrap" aria-label="Transaction details">
+                <template lwc:if={activeRow}>
+                    <c-pending-transaction-editor row={activeRow} options={options} has-prev={hasPrev}
+                        has-next={hasNext} busy={busy} onrowsaved={handleRowSaved} oncommit={handleCommitOne}
+                        onnavigate={handleNavigate}></c-pending-transaction-editor>
+                </template>
+                <template lwc:else>
+                    <div class="pt-editor-empty">
+                        <lightning-icon icon-name="utility:touch_action" size="small"></lightning-icon>
+                        <p>Choose a transaction to review it.</p>
+                    </div>
+                </template>
+            </section>
+        </div>
+
+        <!-- Selection bar -->
+        <template lwc:if={hasChecked}>
+            <div class="pt-selbar" role="region" aria-label="Selected transactions">
+                <span class="pt-selbar-info">
+                    <strong>{checkedCount} selected</strong>
+                    <span class="pt-sep">·</span>
+                    <lightning-formatted-number value={checkedTotal} format-style="currency"
+                        currency-code="USD"></lightning-formatted-number>
+                    <span class="pt-sep">·</span>
+                    {checkedReadyCount} ready
+                </span>
+                <span class="pt-selbar-actions">
+                    <lightning-button label="Clear" variant="base" onclick={clearChecked} disabled={busy}></lightning-button>
+                    <template lwc:if={checkedSuggestedCount}>
+                        <lightning-button label={confirmDonorsLabel} onclick={handleConfirmDonors}
+                            disabled={busy}></lightning-button>
+                    </template>
+                    <lightning-button label="Set fields…" icon-name="utility:edit" onclick={handleBulkEdit}
+                        disabled={busy}></lightning-button>
+                    <lightning-button label={commitSelectedLabel} variant="brand" icon-name="utility:check"
+                        onclick={handleCommitSelected} disabled={commitSelectedDisabled}></lightning-button>
+                </span>
+            </div>
+        </template>
+
+        <template lwc:if={committing}>
+            <div class="pt-overlay">
+                <lightning-spinner alternative-text="Committing" size="medium"></lightning-spinner>
+                <p class="pt-overlay-text">{commitProgress}</p>
+            </div>
+        </template>
+    </div>
+</template>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomTab xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Pending Transactions work queue: review ACH, wire and sponsorship money and commit it as gifts or pledge payments. JSI-121.</description>
+    <label>Pending Transactions</label>
+    <lwcComponent>pendingTransactions</lwcComponent>
+    <motif>Custom16: Bank</motif>
+</CustomTab>

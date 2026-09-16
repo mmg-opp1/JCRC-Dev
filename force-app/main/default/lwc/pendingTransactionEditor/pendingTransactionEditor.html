@@ -1,0 +1,220 @@
+<!--
+  pendingTransactionEditor - review and edit one pending transaction, then commit it (JSI-121).
+  Author: Jason Ott.
+-->
+<template>
+    <div class="ed">
+        <!-- Header -->
+        <header class="ed-head">
+            <div class="ed-head-main">
+                <div class="ed-head-line">
+                    <span class="ed-amount">{amountDisplay}</span>
+                    <span class={statusClass}>{statusLabel}</span>
+                </div>
+                <div class="ed-meta">
+                    <span>{row.name}</span>
+                    <template lwc:if={row.source}><span class="ed-sep">·</span><span>{row.source}</span></template>
+                    <template lwc:if={row.externalType}><span class="ed-sep">·</span><span>{row.externalType}</span></template>
+                    <template lwc:if={isDirty}><span class="ed-sep">·</span><span class="ed-unsaved">Unsaved changes</span></template>
+                </div>
+            </div>
+            <div class="ed-nav">
+                <lightning-button-icon icon-name="utility:chevronup" alternative-text="Previous transaction"
+                    title="Previous" variant="border-filled" disabled={prevDisabled} data-dir="prev"
+                    onclick={handleNav}></lightning-button-icon>
+                <lightning-button-icon icon-name="utility:chevrondown" alternative-text="Next transaction"
+                    title="Next" variant="border-filled" disabled={nextDisabled} data-dir="next"
+                    onclick={handleNav}></lightning-button-icon>
+            </div>
+        </header>
+
+        <div class="ed-scroll">
+            <!-- What still blocks a commit -->
+            <template lwc:if={row.errorMessage}>
+                <div class="ed-alert ed-alert_error" role="alert">
+                    <lightning-icon icon-name="utility:error" size="x-small"></lightning-icon>
+                    <div><strong>Last commit failed.</strong> {row.errorMessage}</div>
+                </div>
+            </template>
+            <template lwc:if={hasProblems}>
+                <div class="ed-alert ed-alert_review">
+                    <lightning-icon icon-name="utility:warning" size="x-small"></lightning-icon>
+                    <ul class="ed-problems">
+                        <template for:each={row.problems} for:item="p">
+                            <li key={p}>{p}</li>
+                        </template>
+                    </ul>
+                </div>
+            </template>
+
+            <!-- As received -->
+            <section class="ed-card ed-card_quiet">
+                <h2 class="ed-card-title">As received</h2>
+                <dl class="ed-facts">
+                    <div><dt>Payer</dt><dd>{payerDisplay}</dd></div>
+                    <template lwc:if={row.payerEmail}><div><dt>Email</dt><dd>{row.payerEmail}</dd></div></template>
+                    <template lwc:if={row.memo}><div class="ed-fact_wide"><dt>Memo</dt><dd>{row.memo}</dd></div></template>
+                </dl>
+            </section>
+
+            <!-- Donor -->
+            <section class="ed-card">
+                <div class="ed-card-head">
+                    <h2 class="ed-card-title">Donor</h2>
+                    <lightning-button label="New contact" icon-name="utility:add" variant="base"
+                        onclick={handleNewContact} disabled={locked}></lightning-button>
+                </div>
+                <template lwc:if={isSuggested}>
+                    <div class="ed-suggest">
+                        <lightning-icon icon-name="utility:magicwand" size="x-small"></lightning-icon>
+                        <span>Suggested from the payer details. Is this the right donor?</span>
+                        <lightning-button label="Yes, confirm" variant="brand-outline" onclick={handleConfirmDonor}
+                            disabled={locked}></lightning-button>
+                    </div>
+                </template>
+                <template lwc:if={isMultiple}>
+                    <div class="ed-suggest ed-suggest_multi">
+                        <lightning-icon icon-name="utility:people" size="x-small"></lightning-icon>
+                        <span>Several donors match this payer. Search for the right one below.</span>
+                    </div>
+                </template>
+                <div class="ed-grid">
+                    <lightning-record-picker label="Contact" placeholder="Search contacts…" object-api-name="Contact"
+                        value={draft.contactId} display-info={contactDisplayInfo} matching-info={contactMatchingInfo}
+                        onchange={handleContact} disabled={locked}></lightning-record-picker>
+                    <lightning-record-picker label="Account" placeholder="Household or organization…"
+                        object-api-name="Account" value={draft.accountId} onchange={handleAccount}
+                        disabled={locked}></lightning-record-picker>
+                </div>
+            </section>
+
+            <!-- Money -->
+            <section class="ed-card">
+                <h2 class="ed-card-title">Transaction</h2>
+                <div class="ed-grid">
+                    <lightning-input type="number" label="Amount" formatter="currency" step="0.01" min="0.01"
+                        value={draft.amount} data-field="amount" onchange={handleField} disabled={locked}
+                        required></lightning-input>
+                    <lightning-input type="date" label="Date received" value={draft.transactionDate}
+                        data-field="transactionDate" onchange={handleField} disabled={locked} required></lightning-input>
+                    <lightning-combobox label="Payment method" options={options.paymentMethods}
+                        value={draft.paymentMethod} data-field="paymentMethod" onchange={handleField}
+                        disabled={locked}></lightning-combobox>
+                    <lightning-input label="Reference number" value={draft.referenceNumber} max-length="255"
+                        data-field="referenceNumber" onchange={handleField} disabled={locked}></lightning-input>
+                    <lightning-input type="date" label="Deposit date" value={draft.depositDate}
+                        data-field="depositDate" onchange={handleField} disabled={locked}></lightning-input>
+                    <lightning-input label="Deposit reference" value={draft.depositReference} max-length="30"
+                        data-field="depositReference" onchange={handleField} disabled={locked}></lightning-input>
+                </div>
+            </section>
+
+            <!-- What it becomes -->
+            <section class="ed-card">
+                <h2 class="ed-card-title">Apply as</h2>
+                <div class="ed-segment" role="radiogroup" aria-label="Apply as">
+                    <button class={newGiftSegmentClass} role="radio" aria-checked={isNewGift} data-value="New Gift"
+                        onclick={handleApplyAs} disabled={locked}>
+                        <lightning-icon icon-name="utility:moneybag" size="x-small"></lightning-icon>
+                        New gift
+                    </button>
+                    <button class={pledgeSegmentClass} role="radio" aria-checked={isPledgePayment}
+                        data-value="Pledge Payment" onclick={handleApplyAs} disabled={locked}>
+                        <lightning-icon icon-name="utility:event" size="x-small"></lightning-icon>
+                        Payment on a pledge
+                        <template lwc:if={pledgeCountLabel}><span class="ed-count">{pledgeCountLabel}</span></template>
+                    </button>
+                </div>
+
+                <!-- Pledge payment -->
+                <template lwc:if={isPledgePayment}>
+                    <template lwc:if={loadingPledges}>
+                        <div class="ed-loading"><lightning-spinner size="small" alternative-text="Finding pledges"></lightning-spinner></div>
+                    </template>
+                    <template lwc:elseif={noDonor}>
+                        <p class="ed-hint">Choose the donor first - their open pledges and grants will appear here.</p>
+                    </template>
+                    <template lwc:elseif={noPledges}>
+                        <p class="ed-hint">This donor has no open pledges or grants. Apply it as a new gift instead.</p>
+                    </template>
+                    <template lwc:else>
+                        <div class="ed-pledges" role="radiogroup" aria-label="Open pledges">
+                            <template for:each={pledgeCards} for:item="p">
+                                <button key={p.id} class={p.cssClass} role="radio" aria-checked={p.selected}
+                                    data-id={p.id} onclick={handlePledge} disabled={locked}>
+                                    <span class="ed-pledge-top">
+                                        <span class="ed-pledge-name">{p.name}</span>
+                                        <span class="ed-badge">{p.recordType}</span>
+                                    </span>
+                                    <span class="ed-pledge-money">
+                                        <span><strong>{p.outstandingDisplay}</strong> outstanding</span>
+                                        <span class="ed-muted">of {p.amountDisplay}</span>
+                                    </span>
+                                    <span class="ed-progress" aria-hidden="true">
+                                        <span class="ed-progress-bar" style={p.progressStyle}></span>
+                                    </span>
+                                    <span class="ed-pledge-next ed-muted">{p.nextLabel}</span>
+                                </button>
+                            </template>
+                        </div>
+                        <template lwc:if={previewSteps}>
+                            <div class="ed-preview">
+                                <h3 class="ed-preview-title">What committing will do</h3>
+                                <ol>
+                                    <template for:each={previewSteps} for:item="s">
+                                        <li key={s}>{s}</li>
+                                    </template>
+                                </ol>
+                            </div>
+                        </template>
+                        <template lwc:if={previewRefusal}>
+                            <div class="ed-alert ed-alert_error">
+                                <lightning-icon icon-name="utility:error" size="x-small"></lightning-icon>
+                                <div>{previewRefusal}</div>
+                            </div>
+                        </template>
+                    </template>
+                </template>
+
+                <!-- New gift -->
+                <template lwc:else>
+                    <div class="ed-grid">
+                        <lightning-combobox label="Gift record type" options={options.giftRecordTypes}
+                            value={giftRecordTypeValue} data-field="giftRecordType" onchange={handleField}
+                            disabled={locked}></lightning-combobox>
+                        <lightning-combobox label="Fund" options={fundOptions} value={fundValue}
+                            placeholder="Default fund" data-field="fundId" onchange={handleField}
+                            disabled={locked}></lightning-combobox>
+                        <lightning-record-picker label="Campaign" placeholder="Search active campaigns…"
+                            object-api-name="Campaign" value={draft.campaignId} filter={campaignFilter}
+                            onchange={handleCampaign} disabled={locked}></lightning-record-picker>
+                        <lightning-combobox label="Approach" options={approachOptions} value={approachValue}
+                            placeholder="None" data-field="approach" onchange={handleField}
+                            disabled={locked}></lightning-combobox>
+                        <lightning-input label="Gift name" value={draft.giftName} max-length="120"
+                            placeholder="Named automatically if blank" data-field="giftName" onchange={handleField}
+                            disabled={locked} class="ed-span-2"></lightning-input>
+                    </div>
+                </template>
+            </section>
+
+            <section class="ed-card">
+                <lightning-textarea label="Notes" value={draft.notes} max-length="4000"
+                    placeholder="Saved on the gift's description when committed" data-field="notes"
+                    onchange={handleField} disabled={locked}></lightning-textarea>
+            </section>
+        </div>
+
+        <!-- Actions -->
+        <footer class="ed-foot">
+            <template lwc:if={saving}>
+                <span class="ed-saving"><lightning-spinner size="small" variant="brand" alternative-text="Saving"></lightning-spinner></span>
+            </template>
+            <lightning-button label="Discard changes" variant="base" onclick={handleReset}
+                disabled={discardDisabled}></lightning-button>
+            <lightning-button label="Save" onclick={handleSave} disabled={saveDisabled}></lightning-button>
+            <lightning-button label="Commit" variant="brand" icon-name="utility:check" icon-position="right"
+                onclick={handleCommit} disabled={commitDisabled} title={commitTitle}></lightning-button>
+        </footer>
+    </div>
+</template>

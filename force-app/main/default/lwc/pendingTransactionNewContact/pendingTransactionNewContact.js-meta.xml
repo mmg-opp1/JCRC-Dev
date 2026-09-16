@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>67.0</apiVersion>
+    <description>New donor contact modal for the Pending Transactions screen. JSI-121.</description>
+    <isExposed>false</isExposed>
+</LightningComponentBundle>

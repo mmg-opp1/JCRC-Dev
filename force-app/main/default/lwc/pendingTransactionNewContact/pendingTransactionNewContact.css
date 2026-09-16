@@ -1,0 +1,10 @@
+/* pendingTransactionNewContact (JSI-121). Author: Jason Ott. */
+.nc-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.5rem 1rem; }
+.nc-span-2 { grid-column: 1 / -1; }
+.nc-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+.nc-hint { margin-top: 0.75rem; font-size: 0.75rem; color: var(--slds-g-color-neutral-base-50, #747474); }
+.nc-dupes { margin-bottom: 1rem; padding: 0.75rem; border-radius: 0.5rem; background: #fef1e0; }
+.nc-dupes-title { font-weight: 700; }
+.nc-dupes-sub { font-size: 0.8125rem; margin-bottom: 0.5rem; }
+.nc-dupes-list li { display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; padding: 0.25rem 0; }
+@media (max-width: 40em) { .nc-grid { grid-template-columns: minmax(0, 1fr); } }

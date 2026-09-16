@@ -1,0 +1,7 @@
+/* pendingTransactionBulkEdit (JSI-121). Author: Jason Ott. */
+.be-intro, .be-note { font-size: 0.8125rem; color: var(--slds-g-color-neutral-base-50, #747474); }
+.be-intro { margin-bottom: 0.75rem; }
+.be-note { margin-top: 0.75rem; }
+.be-rows { display: flex; flex-direction: column; gap: 0.5rem; }
+.be-row { display: grid; grid-template-columns: 11rem minmax(0, 1fr); gap: 0.75rem; align-items: center; }
+@media (max-width: 40em) { .be-row { grid-template-columns: minmax(0, 1fr); } }

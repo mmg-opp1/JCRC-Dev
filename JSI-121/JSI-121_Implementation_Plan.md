@@ -361,3 +361,39 @@ Two rows: 22 SOQL, 1.7 s CPU, 15 DML.
   in order); updating a queried payment that still carries its master-detail parent fails — write through
   fresh records holding only changed fields.
 
+### Phase 3 — Screen ✅ deployed to JCRC-Dev (2026-09-16) — browser UAT pending (Jason)
+**Deployed** (10 components + 3 profiles, 0 errors): `PendingTransactionController` (+ test), LWCs
+`pendingTransactions` (tab page), `pendingTransactionEditor`, `pendingTransactionBulkEdit` (modal),
+`pendingTransactionNewContact` (modal), `pendingTransactionUtils` (shared helpers); **Pending Transactions**
+tab (Bank icon) added to the **JCRC Development** app after Opportunities. **32/32 tests**; coverage
+controller **94.3%**, service **93.3%**. Access confirmed via `SetupEntityAccess` / `PermissionSetTabSetting`:
+controller class + tab **DefaultOn** for System Administrator, JCRC - Fundraising, JCRC - Development.
+
+**Screen**
+- Tiles: Waiting / Ready to commit / Needs review / Errors — count + total; each filters the list.
+- Search (payer, donor, memo, reference, amount…) + Source filter. List: date, payer, donor with status dot,
+  "Pledge payment" chip, amount. Arrow keys move through rows; switching rows saves unsaved edits first.
+- Editor: amount + status pill header, prev/next; what still blocks a commit (server reasons) and the last
+  commit error; "As received" payer facts; Donor pickers (Contact shows email) with a **"Yes, confirm"**
+  banner for suggestions and a **New contact** modal (duplicate-rule check → "Use this contact" or create
+  anyway; NPSP household auto-created); Transaction fields; **Apply as** segmented control:
+  - *Payment on a pledge* → donor's open Pledges/Grants as cards (outstanding, progress bar, next installment)
+    and a live **"What committing will do"** preview from the same server logic as commit;
+  - *New gift* → record type (no In-Kind), fund, active-campaign picker, approach, gift name.
+  Notes; Discard changes / Save / Commit (saves first, commits only if the saved row is Ready).
+- Selection bar: count · total · ready; **Confirm N suggested donors**, **Set fields…** (bulk Campaign /
+  Fund / Approach / Record type, each with its own tick box so leave-alone ≠ clear), **Commit N ready**
+  (confirm dialog summarising gifts vs payments and skipped rows; sent in chunks of 20; results panel with
+  links to created gifts/pledges and failures with their reasons).
+- House rules kept: reload on arrival (CurrentPageReference) + refresh button; nothing cacheable; edits sent
+  as JSON strings; buttons lock while Apex runs; errors read from wherever Salesforce puts them.
+
+**Sample rows seeded in JCRC-Dev for UAT** (External ID `SAMPLE-PT-1..5`, memo says so): email-suggested
+donor with a pledge (Ilana Newman $5,000), exact-name organization (Living Torah Foundation $2,500), bank
+text with no match ($1,000), a Ready $5,000 payment on David Kaplan's pledge, and a $20,000 row that exceeds
+that pledge (Needs Review with the reason). Delete with
+`DELETE [SELECT Id FROM Pending_Transaction__c WHERE External_Id__c LIKE 'SAMPLE-PT-%']` when done.
+
+**Not built (not asked for):** a Discard/delete-row action on the screen. Fundraising now has Delete on the
+object, so it's a small addition if wanted.
+

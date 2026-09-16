@@ -1,0 +1,53 @@
+<!--
+  pendingTransactionNewContact - create a donor contact without leaving the queue (JSI-121).
+  Author: Jason Ott.
+-->
+<template>
+    <lightning-modal-header label={label}></lightning-modal-header>
+    <lightning-modal-body>
+        <template lwc:if={hasDuplicates}>
+            <div class="nc-dupes" role="alert">
+                <p class="nc-dupes-title">This person may already be in Salesforce</p>
+                <p class="nc-dupes-sub">Use an existing contact, or create a new one anyway.</p>
+                <ul class="nc-dupes-list">
+                    <template for:each={duplicates} for:item="d">
+                        <li key={d.value}>
+                            <span>{d.label}</span>
+                            <lightning-button label="Use this contact" variant="brand-outline" data-id={d.value}
+                                onclick={handleUseExisting} disabled={saving}></lightning-button>
+                        </li>
+                    </template>
+                </ul>
+            </div>
+        </template>
+        <div class="nc-grid">
+            <lightning-input label="First name" value={firstName} data-field="firstName" onchange={handleInput}
+                disabled={saving}></lightning-input>
+            <lightning-input label="Last name" value={lastName} data-field="lastName" onchange={handleInput}
+                disabled={saving} required></lightning-input>
+            <lightning-input type="email" label="Email" value={email} data-field="email" onchange={handleInput}
+                disabled={saving}></lightning-input>
+            <lightning-input type="tel" label="Phone" value={phone} data-field="phone" onchange={handleInput}
+                disabled={saving}></lightning-input>
+            <lightning-input label="Street" value={street} data-field="street" onchange={handleInput}
+                disabled={saving} class="nc-span-2"></lightning-input>
+            <lightning-input label="City" value={city} data-field="city" onchange={handleInput}
+                disabled={saving}></lightning-input>
+            <div class="nc-row">
+                <lightning-input label="State" value={state} data-field="state" onchange={handleInput}
+                    disabled={saving}></lightning-input>
+                <lightning-input label="ZIP" value={postalCode} data-field="postalCode" onchange={handleInput}
+                    disabled={saving}></lightning-input>
+            </div>
+        </div>
+        <p class="nc-hint">Salesforce creates their household automatically.</p>
+    </lightning-modal-body>
+    <lightning-modal-footer>
+        <template lwc:if={saving}>
+            <lightning-spinner size="small" alternative-text="Saving"></lightning-spinner>
+        </template>
+        <lightning-button label="Cancel" onclick={handleCancel} disabled={saving}></lightning-button>
+        <lightning-button label={saveLabel} variant="brand" onclick={handleSave} disabled={saving}
+            class="slds-m-left_x-small"></lightning-button>
+    </lightning-modal-footer>
+</template>

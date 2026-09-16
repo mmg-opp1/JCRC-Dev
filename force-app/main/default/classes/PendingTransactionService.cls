@@ -65,10 +65,10 @@ public with sharing class PendingTransactionService {
     public static final Set<String> PAYABLE_RECORD_TYPES = new Set<String>{ 'Pledge', 'Grant' };
 
     /** Record types a new gift can NOT be created as: in-kind gifts carry no cash. */
-    @TestVisible private static final Set<String> NON_CASH_RECORD_TYPES = new Set<String>{ 'In_Kind_Gift' };
+    public static final Set<String> NON_CASH_RECORD_TYPES = new Set<String>{ 'In_Kind_Gift' };
 
     /** Default record type for a new gift when the row does not name one. */
-    @TestVisible private static final String DEFAULT_GIFT_RECORD_TYPE = 'NPSP_Default';
+    public static final String DEFAULT_GIFT_RECORD_TYPE = 'NPSP_Default';
 
     /** Set while this class writes rows itself, so the trigger does not re-evaluate over the top. */
     @TestVisible private static Boolean suppressTrigger = false;
