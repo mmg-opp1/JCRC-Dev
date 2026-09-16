@@ -9,14 +9,28 @@
  *              Everything is loaded once per transaction and cached, because a submission can
  *              touch every mapping several times over.
  *
+ *              READS CONFIG VIA getAll(), NOT SOQL, and runs WITHOUT SHARING. Both exist for
+ *              the same reason: the website's Site Guest User is what ultimately drives this.
+ *              SOQL against a custom metadata type is refused outright in a guest context
+ *              ("sObject type is not supported"), and guest object permissions cannot be
+ *              granted to cover it - getAll() reads the metadata cache instead, so it works in
+ *              any context and costs no query. Sharing is off so resolveRecord() can still find
+ *              the Campaign or GAU a translation points at; a guest sees no rows otherwise.
+ *              Nothing here is donor-supplied - it reads administrator-authored configuration.
+ *
  * @author Jason Ott
  * @created 2026-08-21
  *
  * Change Log:
  * -----------
  * 2026-08-21 - Jason Ott - Created (Website Donations - configuration-driven processing).
+ * 2026-09-10 - Jason Ott - getAll() instead of SOQL for the three metadata types, and
+ *                          without sharing, so website donations process in the guest
+ *                          context instead of failing on every submission. applyValue no
+ *                          longer gates on FLS, which was silently emptying every mapped
+ *                          Contact and Opportunity field for the guest user.
  */
-public with sharing class WebDonationConfig {
+public without sharing class WebDonationConfig {
 
     // ---- settings ------------------------------------------------------------------------
 
@@ -42,11 +56,12 @@ public with sharing class WebDonationConfig {
             return cachedSettings;
         }
         Settings s = new Settings();
-        for (Web_Donation_Setting__mdt m : [
-                SELECT Contact_Match_Rule__c, On_No_Match__c, Multiple_Match_Rule__c,
-                       Account_Handling__c, Organization_Payload_Key__c,
-                       On_Organization_No_Match__c, Contact_Role__c
-                FROM Web_Donation_Setting__mdt WHERE Active__c = true LIMIT 1]) {
+        // getAll() rather than SOQL - see the class header. Only one row is ever active, so
+        // the first match wins, exactly as the old LIMIT 1 did.
+        for (Web_Donation_Setting__mdt m : Web_Donation_Setting__mdt.getAll().values()) {
+            if (m.Active__c != true) {
+                continue;
+            }
             if (String.isNotBlank(m.Contact_Match_Rule__c))      s.contactMatchRule      = m.Contact_Match_Rule__c;
             if (String.isNotBlank(m.On_No_Match__c))             s.onNoMatch             = m.On_No_Match__c;
             if (String.isNotBlank(m.Multiple_Match_Rule__c))     s.multipleMatchRule     = m.Multiple_Match_Rule__c;
@@ -54,6 +69,7 @@ public with sharing class WebDonationConfig {
             if (String.isNotBlank(m.On_Organization_No_Match__c)) s.onOrganizationNoMatch = m.On_Organization_No_Match__c;
             s.organizationPayloadKey = m.Organization_Payload_Key__c;
             s.contactRole            = m.Contact_Role__c;
+            break;
         }
         cachedSettings = s;
         return s;
@@ -76,10 +92,10 @@ public with sharing class WebDonationConfig {
             return cachedMappings;
         }
         cachedMappings = new List<Mapping>();
-        for (Web_Donation_Field_Map__mdt m : [
-                SELECT Payload_Key__c, Mapping_Type__c, Static_Value__c,
-                       Target_Object__c, Target_Field__c
-                FROM Web_Donation_Field_Map__mdt WHERE Active__c = true]) {
+        for (Web_Donation_Field_Map__mdt m : Web_Donation_Field_Map__mdt.getAll().values()) {
+            if (m.Active__c != true) {
+                continue;
+            }
             if (String.isBlank(m.Target_Object__c) || String.isBlank(m.Target_Field__c)) {
                 continue;
             }
@@ -111,9 +127,12 @@ public with sharing class WebDonationConfig {
 
     private static List<Web_Donation_Value_Map__mdt> valueMaps() {
         if (cachedValueMaps == null) {
-            cachedValueMaps = [
-                SELECT Payload_Key__c, Incoming_Value__c, Target_Object__c, Target_Record_Name__c
-                FROM Web_Donation_Value_Map__mdt WHERE Active__c = true];
+            cachedValueMaps = new List<Web_Donation_Value_Map__mdt>();
+            for (Web_Donation_Value_Map__mdt v : Web_Donation_Value_Map__mdt.getAll().values()) {
+                if (v.Active__c == true) {
+                    cachedValueMaps.add(v);
+                }
+            }
         }
         return cachedValueMaps;
     }
@@ -186,7 +205,15 @@ public with sharing class WebDonationConfig {
             return false;
         }
         Schema.DescribeFieldResult d = token.getDescribe();
-        if (!d.isCreateable() && !d.isUpdateable()) {
+        // Deliberately NOT gated on isCreateable()/isUpdateable(). Those are FLS-aware, and the
+        // Site Guest User behind a website donation holds no field-level security on the Contact
+        // and Opportunity fields an administrator mapped - so gating on them dropped every single
+        // mapped value and handed the matcher a blank Contact. What this genuinely needs to know
+        // is whether the field can be written AT ALL, which is a property of the field and not of
+        // the user: a formula or auto-number cannot. put() throws on those, and the catch below
+        // already turns that into a skip, which is the "stale mapping must not stop a gift"
+        // behaviour this method was written for.
+        if (d.isCalculated() || d.isAutoNumber()) {
             return false;
         }
         try {

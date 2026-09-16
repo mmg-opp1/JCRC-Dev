@@ -42,22 +42,11 @@ private class WebDonationProcessorTest {
     }
 
     /**
-     * Stages a submission WITHOUT triggering processing, for tests that drive the processor
-     * directly. Omitting Status__c is not enough - it DEFAULTS to 'Received', so the trigger
-     * still fires and the work runs twice, the second run seeing what the first created.
-     * Hence an explicit bypass.
+     * Stages a submission exactly as the endpoint does: stored and waiting, nothing interpreted
+     * yet. Arriving no longer starts any processing of its own - the sweeper is what picks it
+     * up - so tests that drive the processor directly and tests that exercise the sweeper both
+     * start from this same state.
      */
-    private static Web_Donation__c stageOnly(String body, String entryId) {
-        WebDonationProcessor.bypassTrigger = true;
-        Web_Donation__c wd = new Web_Donation__c(
-            GF_Entry_Id__c = entryId, Form_Id__c = '15', Payload__c = body,
-            Status__c = 'Received', Received_At__c = System.now());
-        insert wd;
-        WebDonationProcessor.bypassTrigger = false;
-        return wd;
-    }
-
-    /** Stages a submission the way the endpoint does, so the trigger queues processing. */
     private static Web_Donation__c stage(String body, String entryId) {
         Web_Donation__c wd = new Web_Donation__c(
             GF_Entry_Id__c = entryId, Form_Id__c = '15', Payload__c = body,
@@ -68,7 +57,7 @@ private class WebDonationProcessorTest {
 
     @IsTest
     static void createsDonorAndGiftWhenNobodyMatches() {
-        Web_Donation__c wd = stageOnly(payload(null), 'T-1');
+        Web_Donation__c wd = stage(payload(null), 'T-1');
 
         Test.startTest();
         WebDonationProcessor.process(wd.Id);
@@ -96,7 +85,7 @@ private class WebDonationProcessorTest {
         insert existing;
         Integer before = [SELECT COUNT() FROM Contact WHERE Email = 'web.donor@example.com'];
 
-        Web_Donation__c wd = stageOnly(payload(null), 'T-2');
+        Web_Donation__c wd = stage(payload(null), 'T-2');
         Test.startTest();
         WebDonationProcessor.process(wd.Id);
         Test.stopTest();
@@ -110,7 +99,7 @@ private class WebDonationProcessorTest {
 
     @IsTest
     static void refusesPayloadWithNoEmail() {
-        Web_Donation__c wd = stageOnly(payload(new Map<String, String>{'2' => null}), 'T-3');
+        Web_Donation__c wd = stage(payload(new Map<String, String>{'2' => null}), 'T-3');
 
         Test.startTest();
         WebDonationProcessor.process(wd.Id);
@@ -125,7 +114,7 @@ private class WebDonationProcessorTest {
 
     @IsTest
     static void refusesPayloadWithNoAmount() {
-        Web_Donation__c wd = stageOnly(payload(new Map<String, String>{'5' => null}), 'T-4');
+        Web_Donation__c wd = stage(payload(new Map<String, String>{'5' => null}), 'T-4');
 
         Test.startTest();
         WebDonationProcessor.process(wd.Id);
@@ -140,7 +129,7 @@ private class WebDonationProcessorTest {
     @IsTest
     static void recordsDesignationsItCannotMap() {
         // "Not A Real Fund" has no mapping and never will - it must be reported, not dropped.
-        Web_Donation__c wd = stageOnly(
+        Web_Donation__c wd = stage(
             payload(new Map<String, String>{'28.1' => 'Not A Real Fund'}), 'T-5');
 
         Test.startTest();
@@ -159,7 +148,7 @@ private class WebDonationProcessorTest {
     static void allocationsSumToTheGiftWhenMappingsExist() {
         // Uses whatever mappings the org actually has. If none match, the test still asserts
         // the invariant that matters: allocations never total more than the gift.
-        Web_Donation__c wd = stageOnly(payload(null), 'T-6');
+        Web_Donation__c wd = stage(payload(null), 'T-6');
 
         Test.startTest();
         WebDonationProcessor.process(wd.Id);
@@ -178,7 +167,7 @@ private class WebDonationProcessorTest {
 
     @IsTest
     static void capturesWriteInForReview() {
-        Web_Donation__c wd = stageOnly(
+        Web_Donation__c wd = stage(
             payload(new Map<String, String>{'23' => 'A Programme They Typed'}), 'T-7');
 
         Test.startTest();
@@ -192,14 +181,38 @@ private class WebDonationProcessorTest {
     }
 
     @IsTest
-    static void triggerQueuesProcessingOnInsert() {
-        Test.startTest();
+    static void sweeperProcessesWhatHasArrived() {
         stage(payload(null), 'T-8');
-        Test.stopTest();   // forces the queued job to run
+
+        Test.startTest();
+        Database.executeBatch(new WebDonationSweeper(), 1);
+        Test.stopTest();   // forces the batch to run
 
         Web_Donation__c r = [SELECT Status__c, Opportunity__c FROM Web_Donation__c
                              WHERE GF_Entry_Id__c = 'T-8'];
-        System.assertEquals('Processed', r.Status__c, 'the trigger enqueued processing on arrival');
+        System.assertEquals('Processed', r.Status__c,
+            'the sweeper picked up the donation and turned it into a gift');
         System.assertNotEquals(null, r.Opportunity__c);
+    }
+
+    /**
+     * A donation already marked Failed must NOT be swept up again - it needs a human to read
+     * the reason and replay it, and a retry loop would hide that.
+     */
+    @IsTest
+    static void sweeperLeavesFailedDonationsAlone() {
+        Web_Donation__c wd = stage(payload(null), 'T-9');
+        wd.Status__c = 'Failed';
+        wd.Error_Message__c = 'something a person needs to look at';
+        update wd;
+
+        Test.startTest();
+        Database.executeBatch(new WebDonationSweeper(), 1);
+        Test.stopTest();
+
+        Web_Donation__c r = [SELECT Status__c, Opportunity__c FROM Web_Donation__c
+                             WHERE GF_Entry_Id__c = 'T-9'];
+        System.assertEquals('Failed', r.Status__c, 'a failed donation is not retried');
+        System.assertEquals(null, r.Opportunity__c, 'and no gift was created for it');
     }
 }

@@ -17,6 +17,16 @@
  *              designation - anything it cannot map is recorded on Unmapped_Designations__c so
  *              a new option on the website surfaces for review instead of vanishing.
  *
+ *              WITHOUT SHARING, deliberately. Async Apex runs as the user who enqueued it, and
+ *              the only user who ever enqueues this one is the Site Guest User behind the
+ *              webhook. Web_Donation__c is Private, guest-created records are reassigned away
+ *              from the guest by the platform the moment they are saved, and the guest profile
+ *              has neither View All nor Edit on the object - so under 'with sharing' this class
+ *              could not read back the very record it was handed, and every automatic run
+ *              failed. Record-level sharing is meaningless here anyway: the job is handed one
+ *              specific staging id by its own trigger, it never queries on behalf of a person,
+ *              and nothing a donor submits chooses which record it opens.
+ *
  * @author Jason Ott
  * @created 2026-08-19
  *
@@ -25,18 +35,12 @@
  * 2026-08-19 - Jason Ott - Created (Website Donations phase 2).
  * 2026-08-21 - Jason Ott - Now driven by the Web Donation Mapping configuration rather than
  *                          hard-coded field ids, match rules and account behaviour.
+ * 2026-09-10 - Jason Ott - Fixed: no website donation had ever processed automatically. Runs
+ *                          without sharing so the guest-user context can read its own staging
+ *                          record, and the read is now inside the try so a failure lands on the
+ *                          record as Failed instead of disappearing.
  */
-public with sharing class WebDonationProcessor implements Queueable {
-
-    /**
-     * Lets a test stage a record without the trigger also queuing the job. Needed because
-     * Status__c DEFAULTS to 'Received', so simply omitting it on insert does not stop the
-     * trigger - the default fills it in, the work runs twice, and the second run sees what
-     * the first created.
-     *
-     * Public rather than @TestVisible because a trigger cannot see a @TestVisible member.
-     */
-    public static Boolean bypassTrigger = false;
+public without sharing class WebDonationProcessor implements Queueable {
 
     private final Id stagingId;
 
@@ -50,13 +54,23 @@ public with sharing class WebDonationProcessor implements Queueable {
 
     /** Separated from execute() so it can be driven directly when replaying a payload. */
     public static void process(Id stagingId) {
-        Web_Donation__c wd = [
-            SELECT Id, Payload__c, Status__c, GF_Entry_Id__c
-            FROM Web_Donation__c WHERE Id = :stagingId LIMIT 1
-        ];
-
         Savepoint sp = Database.setSavepoint();
         try {
+            // Queried INSIDE the try, and as a List rather than straight into an SObject. A
+            // single-row assignment that matches nothing throws before the catch below is in
+            // scope, so the staging record was left sitting at 'Received' with an empty
+            // Error_Message__c - which is exactly how the guest-context failure above stayed
+            // invisible for three weeks. A List cannot throw, so a miss is now reportable.
+            List<Web_Donation__c> staged = [
+                SELECT Id, Payload__c, Status__c, GF_Entry_Id__c
+                FROM Web_Donation__c WHERE Id = :stagingId LIMIT 1
+            ];
+            if (staged.isEmpty()) {
+                throw new ProcessingException(
+                    'Staging record ' + stagingId + ' could not be read back for processing.');
+            }
+            Web_Donation__c wd = staged[0];
+
             Map<String, Object> payload =
                 (Map<String, Object>) JSON.deserializeUntyped(wd.Payload__c);
             WebDonationConfig.Settings cfg = WebDonationConfig.settings();
