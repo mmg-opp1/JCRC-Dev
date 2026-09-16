@@ -3,8 +3,9 @@
     <fullName>Price__c</fullName>
     <description>The purchase price for this level. Gala Event Gifts / Jason Ott.</description>
     <label>Price</label>
-    <required>false</required>
     <precision>18</precision>
+    <required>false</required>
     <scale>2</scale>
+    <trackTrending>false</trackTrending>
     <type>Currency</type>
 </CustomField>

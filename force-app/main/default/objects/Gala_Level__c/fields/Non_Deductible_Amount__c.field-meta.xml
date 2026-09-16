@@ -3,8 +3,9 @@
     <fullName>Non_Deductible_Amount__c</fullName>
     <description>The non-deductible / fair-market value for this level (the dinner + benefits received). The tax-deductible portion of a purchase = Price - this (feeds the JSI-86 deductible fields on the Opportunity). Gala Event Gifts / Jason Ott.</description>
     <label>Non-Deductible Amount (FMV)</label>
-    <required>false</required>
     <precision>18</precision>
+    <required>false</required>
     <scale>2</scale>
+    <trackTrending>false</trackTrending>
     <type>Currency</type>
 </CustomField>

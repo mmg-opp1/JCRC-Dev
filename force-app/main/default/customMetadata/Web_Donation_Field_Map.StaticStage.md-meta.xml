@@ -3,27 +3,35 @@
     <label>Stage is always Posted</label>
     <protected>false</protected>
     <values>
+        <field>Active__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Lookup_Object__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
         <field>Mapping_Type__c</field>
         <value xsi:type="xsd:string">Static</value>
-    </values>
-    <values>
-        <field>Static_Value__c</field>
-        <value xsi:type="xsd:string">Posted</value>
-    </values>
-    <values>
-        <field>Target_Object__c</field>
-        <value xsi:type="xsd:string">Opportunity</value>
-    </values>
-    <values>
-        <field>Target_Field__c</field>
-        <value xsi:type="xsd:string">StageName</value>
     </values>
     <values>
         <field>Notes__c</field>
         <value xsi:type="xsd:string">Website gifts are already paid, so the stage is fixed rather than mapped.</value>
     </values>
     <values>
-        <field>Active__c</field>
-        <value xsi:type="xsd:boolean">true</value>
+        <field>Payload_Key__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Static_Value__c</field>
+        <value xsi:type="xsd:string">Posted</value>
+    </values>
+    <values>
+        <field>Target_Field__c</field>
+        <value xsi:type="xsd:string">StageName</value>
+    </values>
+    <values>
+        <field>Target_Object__c</field>
+        <value xsi:type="xsd:string">Opportunity</value>
     </values>
 </CustomMetadata>

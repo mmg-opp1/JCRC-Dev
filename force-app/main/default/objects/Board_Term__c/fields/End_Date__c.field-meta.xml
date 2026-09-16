@@ -4,5 +4,7 @@
     <description>Date the term expires. When reached, the member should roll off the board (see Roll-Off Action setting). Blank = open/indefinite (discouraged). JSI-123 / Jason Ott.</description>
     <label>Term End Date</label>
     <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
     <type>Date</type>
 </CustomField>

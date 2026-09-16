@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Dietary Restrictions --></label>
+    <name>Dietary_Restrictions__c</name>
+    <picklistValues>
+        <masterLabel>Dairy-Free</masterLabel>
+        <translation><!-- Dairy-Free --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Gluten-Free</masterLabel>
+        <translation><!-- Gluten-Free --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Kosher</masterLabel>
+        <translation><!-- Kosher --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Nut Allergy</masterLabel>
+        <translation><!-- Nut Allergy --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Other</masterLabel>
+        <translation><!-- Other --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Shellfish Allergy</masterLabel>
+        <translation><!-- Shellfish Allergy --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Vegan</masterLabel>
+        <translation><!-- Vegan --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Vegetarian</masterLabel>
+        <translation><!-- Vegetarian --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

@@ -4,12 +4,13 @@
     <description>Sum of Hard-credit Gift Allocations for this donor and giving year (native roll-up summary over the master-detail child, filtered to Credit Type = Hard). JSI-90 / Jason Ott.</description>
     <label>Total Hard Credit</label>
     <summarizedField>Gift_Allocation__c.Amount__c</summarizedField>
-    <summaryForeignKey>Gift_Allocation__c.Annual_Giving_Summary__c</summaryForeignKey>
-    <summaryOperation>sum</summaryOperation>
     <summaryFilterItems>
         <field>Gift_Allocation__c.Credit_Type__c</field>
         <operation>equals</operation>
         <value>Hard</value>
     </summaryFilterItems>
+    <summaryForeignKey>Gift_Allocation__c.Annual_Giving_Summary__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackTrending>false</trackTrending>
     <type>Summary</type>
 </CustomField>

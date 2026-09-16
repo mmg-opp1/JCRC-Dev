@@ -16,7 +16,7 @@
             <columnToColumn>false</columnToColumn>
             <isUnlocked>false</isUnlocked>
             <operator>equals</operator>
-            <value>true</value>
+            <value>1</value>
         </criteriaItems>
     </filter>
     <format>Summary</format>
@@ -26,9 +26,17 @@
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
     <name>Current Board Roster</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
     <reportType>Board_Terms__c</reportType>
     <scope>organization</scope>
     <showDetails>true</showDetails>
     <showGrandTotal>true</showGrandTotal>
     <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Board_Term__c$Start_Date__c</dateColumn>
+        <interval>INTERVAL_CURRENT</interval>
+    </timeFrameFilter>
 </Report>

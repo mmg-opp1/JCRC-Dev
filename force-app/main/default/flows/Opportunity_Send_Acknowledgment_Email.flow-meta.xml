@@ -10,6 +10,7 @@
         <connector>
             <targetReference>Stamp_Acknowledged</targetReference>
         </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>emailTemplateId</name>
             <value>
@@ -40,7 +41,10 @@
                 <stringValue>development@jcrcny.org</stringValue>
             </value>
         </inputParameters>
+        <nameSegment>emailSimple</nameSegment>
     </actionCalls>
+    <apiVersion>49.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
     <decisions>
         <name>Check_Send</name>
         <label>Check Send</label>
@@ -152,9 +156,9 @@
             </value>
         </filters>
         <inputAssignments>
-            <field>npsp__Acknowledgment_Status__c</field>
+            <field>Acknowledgment_Sent_By__c</field>
             <value>
-                <stringValue>Acknowledged</stringValue>
+                <elementReference>$User.Id</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -164,9 +168,9 @@
             </value>
         </inputAssignments>
         <inputAssignments>
-            <field>Acknowledgment_Sent_By__c</field>
+            <field>npsp__Acknowledgment_Status__c</field>
             <value>
-                <elementReference>$User.Id</elementReference>
+                <stringValue>Acknowledged</stringValue>
             </value>
         </inputAssignments>
         <object>Opportunity</object>
@@ -177,6 +181,7 @@
         <connector>
             <targetReference>Get_Contact</targetReference>
         </connector>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>Acknowledgment_Channel__c</field>
             <operator>EqualTo</operator>

@@ -4,6 +4,7 @@
     <description>Whether this allocation is a Hard credit (the donor gave directly) or a Soft credit (influence/household/matched). Both accumulate on the summary; qualification uses the combined total. JSI-90 / Jason Ott.</description>
     <label>Credit Type</label>
     <required>true</required>
+    <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>
         <restricted>true</restricted>

@@ -185,22 +185,6 @@
                 <identifier>f_oppinfo_c0_CloseDate</identifier>
             </fieldInstance>
         </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Type</fieldItem>
-                <identifier>f_oppinfo_c0_Type</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldItem>Record.DAF_Gift__c</fieldItem>
-                <identifier>RecordDAF_Gift__cField</identifier>
-            </fieldInstance>
-        </itemInstances>
         <name>Facet_oppinfo_col0</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -269,26 +253,6 @@
                 <identifier>f_oppinfo_c1_StageName</identifier>
             </fieldInstance>
         </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Probability</fieldItem>
-                <identifier>f_oppinfo_c1_Probability</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.npsp__Batch__c</fieldItem>
-                <identifier>f_oppinfo_c1_npsp_Batch</identifier>
-            </fieldInstance>
-        </itemInstances>
         <name>Facet_oppinfo_col1</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -314,6 +278,34 @@
             </componentInstance>
         </itemInstances>
         <name>Facet_oppinfo_cols</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Description</fieldItem>
+                <identifier>f_desc_c0_Description</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet_desc_col0</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet_desc_col0</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>col_desc_0</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet_desc_cols</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
@@ -393,6 +385,211 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Non_Deductible_Amount__c</fieldItem>
+                <identifier>f_tax_c0_Non_Deductible_Amount</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet_tax_col0</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Deductible_Amount__c</fieldItem>
+                <identifier>f_tax_c1_Deductible_Amount</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet_tax_col1</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet_tax_col0</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>col_tax_0</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet_tax_col1</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>col_tax_1</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet_tax_cols</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.npsp__Acknowledgment_Status__c</fieldItem>
+                <identifier>ackf_ik_status</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Acknowledgment_Channel__c</fieldItem>
+                <identifier>ackf_ik_channel</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.npsp__Acknowledgment_Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>To Be Acknowledged</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Acknowledgment_Send_Mode__c</fieldItem>
+                <identifier>ackf_ik_sendmode</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.npsp__Acknowledgment_Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>To Be Acknowledged</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Acknowledgment_Template__c</fieldItem>
+                <identifier>ackf_ik_template</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.npsp__Acknowledgment_Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>To Be Acknowledged</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Acknowledgment_Age_Business_Days__c</fieldItem>
+                <identifier>ackf_ik_age</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.npsp__Acknowledgment_Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>To Be Acknowledged</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Acknowledgment_Approved__c</fieldItem>
+                <identifier>ackf_ik_approved</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.npsp__Acknowledgment_Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>To Be Acknowledged</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Acknowledgment_Send_Mode__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Approval-Gated</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.npsp__Acknowledgment_Date__c</fieldItem>
+                <identifier>ackf_ik_date</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.npsp__Acknowledgment_Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Acknowledged</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Acknowledgment_Sent_By__c</fieldItem>
+                <identifier>ackf_ik_sentby</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.npsp__Acknowledgment_Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Acknowledged</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet_ackfields_ik</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet_ackfields_ik</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>ackcol_ik</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet_ackwrap_ik</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
                     <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.OwnerId</fieldItem>
@@ -462,34 +659,6 @@
     </flexiPageRegions>
     <flexiPageRegions>
         <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Description</fieldItem>
-                <identifier>f_desc_c0_Description</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <name>Facet_desc_col0</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>body</name>
-                    <value>Facet_desc_col0</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:column</componentName>
-                <identifier>col_desc_0</identifier>
-            </componentInstance>
-        </itemInstances>
-        <name>Facet_desc_cols</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
                     <name>columns</name>
@@ -505,6 +674,24 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>fs_oppinfo</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>columns</name>
+                    <value>Facet_desc_cols</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>@@@SFDCDescription_InformationSFDC@@@</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:fieldSection</componentName>
+                <identifier>fs_desc</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -577,24 +764,6 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>fs_sysinfo</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>columns</name>
-                    <value>Facet_desc_cols</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>horizontalAlignment</name>
-                    <value>false</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>label</name>
-                    <value>@@@SFDCDescription_InformationSFDC@@@</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:fieldSection</componentName>
-                <identifier>fs_desc</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-detail</name>
@@ -950,6 +1119,31 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
+                    <name>height</name>
+                    <value>600</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>pageName</name>
+                    <value>ThankYouLetter</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showLabel</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:visualforcePage</componentName>
+                <identifier>ackvf_ik</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet_ackvf_ik</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
                     <name>active</name>
                     <value>true</value>
                 </componentInstanceProperties>
@@ -1103,236 +1297,6 @@
         </itemInstances>
         <name>sidebar</name>
         <type>Region</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Non_Deductible_Amount__c</fieldItem>
-                <identifier>f_tax_c0_Non_Deductible_Amount</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <name>Facet_tax_col0</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>readonly</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Deductible_Amount__c</fieldItem>
-                <identifier>f_tax_c1_Deductible_Amount</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <name>Facet_tax_col1</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>body</name>
-                    <value>Facet_tax_col0</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:column</componentName>
-                <identifier>col_tax_0</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>body</name>
-                    <value>Facet_tax_col1</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:column</componentName>
-                <identifier>col_tax_1</identifier>
-            </componentInstance>
-        </itemInstances>
-        <name>Facet_tax_cols</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.npsp__Acknowledgment_Status__c</fieldItem>
-                <identifier>ackf_ik_status</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Acknowledgment_Channel__c</fieldItem>
-                <identifier>ackf_ik_channel</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.npsp__Acknowledgment_Status__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>To Be Acknowledged</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Acknowledgment_Send_Mode__c</fieldItem>
-                <identifier>ackf_ik_sendmode</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.npsp__Acknowledgment_Status__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>To Be Acknowledged</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Acknowledgment_Template__c</fieldItem>
-                <identifier>ackf_ik_template</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.npsp__Acknowledgment_Status__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>To Be Acknowledged</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Acknowledgment_Age_Business_Days__c</fieldItem>
-                <identifier>ackf_ik_age</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.npsp__Acknowledgment_Status__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>To Be Acknowledged</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Acknowledgment_Approved__c</fieldItem>
-                <identifier>ackf_ik_approved</identifier>
-                <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.npsp__Acknowledgment_Status__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>To Be Acknowledged</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Acknowledgment_Send_Mode__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Approval-Gated</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.npsp__Acknowledgment_Date__c</fieldItem>
-                <identifier>ackf_ik_date</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.npsp__Acknowledgment_Status__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Acknowledged</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Acknowledgment_Sent_By__c</fieldItem>
-                <identifier>ackf_ik_sentby</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.npsp__Acknowledgment_Status__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Acknowledged</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <name>Facet_ackfields_ik</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>body</name>
-                    <value>Facet_ackfields_ik</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:column</componentName>
-                <identifier>ackcol_ik</identifier>
-            </componentInstance>
-        </itemInstances>
-        <name>Facet_ackwrap_ik</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>height</name>
-                    <value>600</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>label</name>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>pageName</name>
-                    <value>ThankYouLetter</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>showLabel</name>
-                    <value>false</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:visualforcePage</componentName>
-                <identifier>ackvf_ik</identifier>
-            </componentInstance>
-        </itemInstances>
-        <name>Facet_ackvf_ik</name>
-        <type>Facet</type>
     </flexiPageRegions>
     <masterLabel>In-Kind Gift Record Page</masterLabel>
     <sobjectType>Opportunity</sobjectType>

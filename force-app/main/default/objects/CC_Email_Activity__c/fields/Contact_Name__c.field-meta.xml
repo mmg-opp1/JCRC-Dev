@@ -3,10 +3,10 @@
     <fullName>Contact_Name__c</fullName>
     <description>Cross-object formula (Contact__r.Name) so the recipient is reportable on the CC Email Engagement report type without parent dot-walk. JSI-109 / Jason Ott.</description>
     <externalId>false</externalId>
-    <formula>TRIM(BLANKVALUE(Contact__r.FirstName, "") &amp; " " &amp; Contact__r.LastName)</formula>
-    <formulaTreatBlanksAs>BlankAsBlank</formulaTreatBlanksAs>
+    <formula>TRIM(BLANKVALUE(Contact__r.FirstName, &quot;&quot;) &amp; &quot; &quot; &amp; Contact__r.LastName)</formula>
     <label>Contact Name</label>
     <required>false</required>
+    <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>
 </CustomField>

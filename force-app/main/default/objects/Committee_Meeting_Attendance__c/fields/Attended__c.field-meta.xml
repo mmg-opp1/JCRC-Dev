@@ -4,5 +4,6 @@
     <defaultValue>false</defaultValue>
     <description>Ticked when the member was present. An unticked row still means the meeting considered them. JSI-123 / Jason Ott.</description>
     <label>Attended</label>
+    <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

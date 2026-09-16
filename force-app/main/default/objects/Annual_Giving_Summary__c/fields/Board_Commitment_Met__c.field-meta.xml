@@ -8,5 +8,6 @@
 )</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Board Commitment Met</label>
+    <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

@@ -4,6 +4,7 @@
     <description>Run summary and/or error detail (stack traces, CC API error messages) for admin troubleshooting. JSI-107 / Jason Ott.</description>
     <label>Message</label>
     <length>32768</length>
+    <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>6</visibleLines>
 </CustomField>

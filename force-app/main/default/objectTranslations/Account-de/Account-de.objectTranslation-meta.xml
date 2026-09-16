@@ -24,6 +24,11 @@
         <name>Child_Account</name>
     </quickActions>
     <recordTypes>
+        <description><!-- DAFs / Benevity --></description>
+        <label><!-- Fund --></label>
+        <name>Fund</name>
+    </recordTypes>
+    <recordTypes>
         <description>Ein Account, der einen Haushalt mit mindestens einer Einzelperson enthält</description>
         <label>Haushalt-Account</label>
         <name>HH_Account</name>

@@ -4,8 +4,10 @@
     <description>How many tables this level includes (individual ticket = 0; table = 1; major sponsor = multiple). Drives auto-creation of the table records. Gala Event Gifts / Jason Ott.</description>
     <externalId>false</externalId>
     <label>Tables Included</label>
-    <required>false</required>
     <precision>3</precision>
+    <required>false</required>
     <scale>0</scale>
+    <trackTrending>false</trackTrending>
     <type>Number</type>
+    <unique>false</unique>
 </CustomField>

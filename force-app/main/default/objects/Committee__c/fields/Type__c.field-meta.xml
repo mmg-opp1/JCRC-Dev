@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Type__c</fullName>
-    <description>Derived: "Subcommittee" when a Parent Committee is set, otherwise "Committee". JSI-123 / Jason Ott.</description>
-    <formula>IF(ISBLANK(Parent_Committee__c), "Committee", "Subcommittee")</formula>
-    <formulaTreatBlanksAs>BlankAsBlank</formulaTreatBlanksAs>
+    <description>Derived: &quot;Subcommittee&quot; when a Parent Committee is set, otherwise &quot;Committee&quot;. JSI-123 / Jason Ott.</description>
+    <externalId>false</externalId>
+    <formula>IF(ISBLANK(Parent_Committee__c), &quot;Committee&quot;, &quot;Subcommittee&quot;)</formula>
     <label>Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
     <type>Text</type>
+    <unique>false</unique>
 </CustomField>

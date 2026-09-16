@@ -4,5 +4,6 @@
     <description>First Open Date for this contact on this email. JSI-109 / Jason Ott.</description>
     <label>First Open Date</label>
     <required>false</required>
+    <trackTrending>false</trackTrending>
     <type>DateTime</type>
 </CustomField>

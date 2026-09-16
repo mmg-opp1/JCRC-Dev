@@ -26,16 +26,6 @@
                 <default>false</default>
                 <label>Do Not Acknowledge</label>
             </value>
-            <value>
-                <fullName>Email Acknowledgment Now</fullName>
-                <default>false</default>
-                <label>Email Acknowledgment Now</label>
-            </value>
-            <value>
-                <fullName>Email Acknowledgment Not Sent</fullName>
-                <default>false</default>
-                <label>Email Acknowledgment Not Sent</label>
-            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

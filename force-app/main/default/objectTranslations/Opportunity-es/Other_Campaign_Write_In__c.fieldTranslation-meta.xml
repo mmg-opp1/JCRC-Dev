@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Campaign name the donor typed into the website&apos;s &quot;other&quot; box. Kept for audit after the gift is reassigned. --></help>
+    <label><!-- Other Campaign Write-In --></label>
+    <name>Other_Campaign_Write_In__c</name>
+</CustomFieldTranslation>

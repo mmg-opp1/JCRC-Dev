@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Role__c</fullName>
-    <description>The gift officer's relationship to this donor. Supports multiple assignments per donor (primary + backups + solicitors + committee). JSI-90 / Jason Ott.</description>
+    <description>The gift officer&apos;s relationship to this donor. Supports multiple assignments per donor (primary + backups + solicitors + committee). JSI-90 / Jason Ott.</description>
     <label>Role</label>
     <required>true</required>
+    <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>
         <restricted>true</restricted>

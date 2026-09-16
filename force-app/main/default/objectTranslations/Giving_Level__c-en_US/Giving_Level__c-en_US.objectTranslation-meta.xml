@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Giving Level</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Giving Levels</value>
+    </caseValues>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- Maximum Amount must be greater than Minimum Amount. --></errorMessage>
+        <name>Max_After_Min</name>
+    </validationRules>
+</CustomObjectTranslation>

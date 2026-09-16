@@ -3,15 +3,19 @@
     <label>General JCRC-NY</label>
     <protected>false</protected>
     <values>
+        <field>Active__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Campaign_Name__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
         <field>Form_Value__c</field>
         <value xsi:type="xsd:string">General JCRC-NY</value>
     </values>
     <values>
         <field>GAU_Name__c</field>
         <value xsi:type="xsd:string">General Fund</value>
-    </values>
-    <values>
-        <field>Active__c</field>
-        <value xsi:type="xsd:boolean">true</value>
     </values>
 </CustomMetadata>

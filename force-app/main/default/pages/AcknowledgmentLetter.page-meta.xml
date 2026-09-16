@@ -3,6 +3,6 @@
     <apiVersion>58.0</apiVersion>
     <availableInTouch>true</availableInTouch>
     <confirmationTokenRequired>false</confirmationTokenRequired>
-    <description>Reusable acknowledgment-letter print page; renders any letter screen flow via Lightning Out (flow chosen by the "flow" URL param). JSI-87.</description>
+    <description>Reusable acknowledgment-letter print page; renders any letter screen flow via Lightning Out (flow chosen by the &quot;flow&quot; URL param). JSI-87.</description>
     <label>Acknowledgment Letter</label>
 </ApexPage>

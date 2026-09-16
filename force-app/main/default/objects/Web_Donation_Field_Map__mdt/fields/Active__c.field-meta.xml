@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Active__c</fullName>
-    <description>Inactive rows are ignored. Lets a mapping be retired without losing the record of what it used to do. Website Donations phase 3 / Jason Ott.</description>
-    <externalId>false</externalId>
-    <fieldManageability>DeveloperControlled</fieldManageability>
     <defaultValue>true</defaultValue>
+    <description>Inactive rows are ignored. Lets a mapping be retired without losing the record of what it used to do. Website Donations phase 3 / Jason Ott.</description>
+    <fieldManageability>DeveloperControlled</fieldManageability>
     <label>Active</label>
     <type>Checkbox</type>
 </CustomField>

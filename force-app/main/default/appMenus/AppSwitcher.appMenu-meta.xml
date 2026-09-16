@@ -124,4 +124,8 @@
         <name>JCRC_Development</name>
         <type>CustomApplication</type>
     </appMenuItems>
+    <appMenuItems>
+        <name>JCRC_Administration</name>
+        <type>CustomApplication</type>
+    </appMenuItems>
 </AppMenu>

@@ -12,14 +12,6 @@
         <translation>Ne pas confirmer</translation>
     </picklistValues>
     <picklistValues>
-        <masterLabel>Email Acknowledgment Not Sent</masterLabel>
-        <translation>E-mail de confirmation non envoyé</translation>
-    </picklistValues>
-    <picklistValues>
-        <masterLabel>Email Acknowledgment Now</masterLabel>
-        <translation>E-mail de confirmation maintenant</translation>
-    </picklistValues>
-    <picklistValues>
         <masterLabel>To Be Acknowledged</masterLabel>
         <translation>À confirmer</translation>
     </picklistValues>

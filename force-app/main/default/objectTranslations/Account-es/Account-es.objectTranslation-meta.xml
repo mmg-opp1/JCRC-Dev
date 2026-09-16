@@ -24,6 +24,11 @@
         <name>Child_Account</name>
     </quickActions>
     <recordTypes>
+        <description><!-- DAFs / Benevity --></description>
+        <label><!-- Fund --></label>
+        <name>Fund</name>
+    </recordTypes>
+    <recordTypes>
         <description>Una cuenta que representa un hogar que contiene una o más personas.</description>
         <label>Cuenta de hogar</label>
         <name>HH_Account</name>

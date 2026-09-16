@@ -2,10 +2,10 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Unmapped_Designations__c</fullName>
     <description>Designations ticked on the form that have no GAU mapping. Recorded rather than silently dropped, so a new designation on the website surfaces here instead of quietly losing its allocation. Website Donations phase 2 / Jason Ott.</description>
-    <externalId>false</externalId>
     <label>Unmapped Designations</label>
     <length>1000</length>
     <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>
 </CustomField>

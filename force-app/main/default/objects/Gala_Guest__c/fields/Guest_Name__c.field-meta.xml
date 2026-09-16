@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Guest_Name__c</fullName>
-    <description>Display name: the Contact's name when linked, otherwise the typed first/last. (Built from FirstName/LastName components — the compound Name isn't formula-accessible through a lookup.) Gala Event Gifts / Jason Ott.</description>
+    <description>Display name: the Contact&apos;s name when linked, otherwise the typed first/last. (Built from FirstName/LastName components — the compound Name isn&apos;t formula-accessible through a lookup.) Gala Event Gifts / Jason Ott.</description>
+    <externalId>false</externalId>
     <formula>IF(
   NOT(ISBLANK(Contact__c)),
-  TRIM(BLANKVALUE(Contact__r.FirstName, "") &amp; " " &amp; Contact__r.LastName),
-  TRIM(BLANKVALUE(First_Name__c, "") &amp; " " &amp; BLANKVALUE(Last_Name__c, ""))
+  TRIM(BLANKVALUE(Contact__r.FirstName, &quot;&quot;) &amp; &quot; &quot; &amp; Contact__r.LastName),
+  TRIM(BLANKVALUE(First_Name__c, &quot;&quot;) &amp; &quot; &quot; &amp; BLANKVALUE(Last_Name__c, &quot;&quot;))
 )</formula>
-    <formulaTreatBlanksAs>BlankAsBlank</formulaTreatBlanksAs>
     <label>Guest Name</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
     <type>Text</type>
+    <unique>false</unique>
 </CustomField>

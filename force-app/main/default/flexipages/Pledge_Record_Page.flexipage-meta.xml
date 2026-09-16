@@ -185,16 +185,6 @@
                 <identifier>RecordCloseDateField2</identifier>
             </fieldInstance>
         </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Type</fieldItem>
-                <identifier>RecordTypeField</identifier>
-            </fieldInstance>
-        </itemInstances>
         <name>Facet-561b839c-0f7a-4010-8755-cc5819af7040</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -261,26 +251,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.StageName</fieldItem>
                 <identifier>RecordStageNameField2</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Probability</fieldItem>
-                <identifier>RecordProbabilityField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.npsp__Batch__c</fieldItem>
-                <identifier>Recordnpsp_Batch_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-597b0fe8-0778-426a-9848-c0d58886cc88</name>
@@ -1051,6 +1021,9 @@
                     <valueList>
                         <valueListItems>
                             <value>CustomButton.npe01__OppPayment__c.npe01__Schedule_Payments</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>CustomButton.npe01__OppPayment__c.npe01__Writeoff_Payments</value>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>

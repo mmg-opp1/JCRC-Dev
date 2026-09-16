@@ -15,6 +15,7 @@
     <label>JCRC Administration</label>
     <navType>Standard</navType>
     <tabs>standard-home</tabs>
+    <tabs>npsp__General_Accounting_Unit__c</tabs>
     <tabs>Web_Donation__c</tabs>
     <tabs>Web_Donation_Mapping</tabs>
     <tabs>standard-report</tabs>

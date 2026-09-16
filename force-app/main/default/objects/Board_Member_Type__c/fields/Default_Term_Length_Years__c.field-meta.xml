@@ -4,8 +4,10 @@
     <description>Standard term length for this member type (6 years for JCRC/UJA; 1 year for UJA Observer). Drives the auto-filled Board Term End Date, the auto-created per-year records, and Must Roll Off. JSI-123 / Jason Ott.</description>
     <externalId>false</externalId>
     <label>Default Term Length (Years)</label>
-    <required>false</required>
     <precision>2</precision>
+    <required>false</required>
     <scale>0</scale>
+    <trackTrending>false</trackTrending>
     <type>Number</type>
+    <unique>false</unique>
 </CustomField>

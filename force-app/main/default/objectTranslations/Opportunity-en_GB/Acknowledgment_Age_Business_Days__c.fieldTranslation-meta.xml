@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Business days since the gift date. Used for the 48-hour (2 business day) acknowledgment SLA. --></help>
+    <label><!-- Acknowledgment Age (Business Days) --></label>
+    <name>Acknowledgment_Age_Business_Days__c</name>
+</CustomFieldTranslation>

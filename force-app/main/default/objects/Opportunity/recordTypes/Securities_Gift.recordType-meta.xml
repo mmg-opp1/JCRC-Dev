@@ -6,6 +6,32 @@
     <description>Gift of stock / securities. Aligns with the JSI-80 Stock/Securities/Crypto payment method. JSI-82 / Jason Ott.</description>
     <label>Securities Gift</label>
     <picklistValues>
+        <picklist>Acknowledgment_Channel__c</picklist>
+        <values>
+            <fullName>Email</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>None</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Print</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Acknowledgment_Send_Mode__c</picklist>
+        <values>
+            <fullName>Approval-Gated</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Auto</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Approach__c</picklist>
         <values>
             <fullName>Direct Mail</fullName>
@@ -130,6 +156,41 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Payment_Method__c</picklist>
+        <values>
+            <fullName>ACH%2FWire</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Benevity</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cash</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Check</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Credit Card</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DAF</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PayPal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Stock%2FSecurities%2FCrypto</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Stock_Valuation_Method__c</picklist>
         <values>
             <fullName>Average of High and Low %28Publicly Traded%29</fullName>
@@ -212,14 +273,6 @@
         </values>
         <values>
             <fullName>Do Not Acknowledge</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Email Acknowledgment Not Sent</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Email Acknowledgment Now</fullName>
             <default>false</default>
         </values>
         <values>

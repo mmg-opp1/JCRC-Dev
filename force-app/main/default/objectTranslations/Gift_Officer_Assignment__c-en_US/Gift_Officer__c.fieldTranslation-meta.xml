@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Gift Officer --></label>
+    <name>Gift_Officer__c</name>
+    <relationshipLabel><!-- Gift Officer Assignments --></relationshipLabel>
+</CustomFieldTranslation>

@@ -4,6 +4,7 @@
     <description>Where this guest stands: invited, confirmed, declined, attended, or no-show. Gala Event Gifts / Jason Ott.</description>
     <label>RSVP Status</label>
     <required>false</required>
+    <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>
         <restricted>true</restricted>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
-    <apiVersion>67.0</apiVersion>
     <actionCalls>
         <name>Sync_Gift_Allocations</name>
         <label>Sync Gift Allocations</label>
@@ -17,8 +16,9 @@
         </inputParameters>
         <nameSegment>GiftAllocationService</nameSegment>
     </actionCalls>
+    <apiVersion>67.0</apiVersion>
     <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
-    <description>JSI-90: reconcile an Opportunity's Gift Allocations to its current state (create/update/reparent/delete) and recompute the donor's giving level. Fires on create and when Stage, Amount, Close Date, Record Type, or Primary Contact changes — so amount edits, fiscal-year moves, donor changes, and un-winning all resync. In-Kind and non-won gifts resolve to zero allocations (removing any stale ones). Author: Jason Ott.</description>
+    <description>JSI-90: reconcile an Opportunity&apos;s Gift Allocations to its current state (create/update/reparent/delete) and recompute the donor&apos;s giving level. Fires on create and when Stage, Amount, Close Date, Record Type, or Primary Contact changes — so amount edits, fiscal-year moves, donor changes, and un-winning all resync. In-Kind and non-won gifts resolve to zero allocations (removing any stale ones). Author: Jason Ott.</description>
     <environments>Default</environments>
     <interviewLabel>Opportunity - Sync Gift Allocations {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Opportunity - Sync Gift Allocations</label>

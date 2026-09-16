@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Meal Choice --></label>
+    <name>Meal_Choice__c</name>
+    <picklistValues>
+        <masterLabel>Beef</masterLabel>
+        <translation><!-- Beef --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Chicken</masterLabel>
+        <translation><!-- Chicken --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Fish</masterLabel>
+        <translation><!-- Fish --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Vegetarian</masterLabel>
+        <translation><!-- Vegetarian --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

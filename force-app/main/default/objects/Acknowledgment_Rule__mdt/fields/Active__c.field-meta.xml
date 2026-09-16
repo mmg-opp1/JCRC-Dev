@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Active__c</fullName>
-        <description>Only active rules are evaluated by the router.</description>
-    <externalId>false</externalId>
+    <defaultValue>false</defaultValue>
+    <description>Only active rules are evaluated by the router.</description>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <label>Active</label>
-    <required>false</required>
-    <defaultValue>false</defaultValue>
     <type>Checkbox</type>
 </CustomField>

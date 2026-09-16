@@ -4,5 +4,6 @@
     <description>End of the giving year this summary covers (June 30). JSI-90 / Jason Ott.</description>
     <label>FY End</label>
     <required>false</required>
+    <trackTrending>false</trackTrending>
     <type>Date</type>
 </CustomField>

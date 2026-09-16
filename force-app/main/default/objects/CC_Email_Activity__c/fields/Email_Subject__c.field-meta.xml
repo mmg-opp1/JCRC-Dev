@@ -4,9 +4,9 @@
     <description>Cross-object formula (CC_Email__r.Subject__c) so activities are groupable by email on the report type. JSI-109 / Jason Ott.</description>
     <externalId>false</externalId>
     <formula>CC_Email__r.Subject__c</formula>
-    <formulaTreatBlanksAs>BlankAsBlank</formulaTreatBlanksAs>
     <label>Email Subject</label>
     <required>false</required>
+    <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>
 </CustomField>

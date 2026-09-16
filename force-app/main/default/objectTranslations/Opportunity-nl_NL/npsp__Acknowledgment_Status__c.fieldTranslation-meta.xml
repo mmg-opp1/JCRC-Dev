@@ -12,14 +12,6 @@
         <translation>Niet Erkennen</translation>
     </picklistValues>
     <picklistValues>
-        <masterLabel>Email Acknowledgment Not Sent</masterLabel>
-        <translation>Erkenningse-mail Niet Verzonden</translation>
-    </picklistValues>
-    <picklistValues>
-        <masterLabel>Email Acknowledgment Now</masterLabel>
-        <translation>Erkenning nu e-mailen</translation>
-    </picklistValues>
-    <picklistValues>
         <masterLabel>To Be Acknowledged</masterLabel>
         <translation>Te Erkennen</translation>
     </picklistValues>

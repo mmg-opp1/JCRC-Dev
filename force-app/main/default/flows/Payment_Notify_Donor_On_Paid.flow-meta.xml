@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
-    <apiVersion>58.0</apiVersion>
     <actionCalls>
         <name>Send_Payment_Notification</name>
         <label>Send Payment Notification</label>
@@ -8,6 +7,7 @@
         <locationY>566</locationY>
         <actionName>emailSimple</actionName>
         <actionType>emailSimple</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>emailTemplateId</name>
             <value>
@@ -38,7 +38,10 @@
                 <stringValue>development@jcrcny.org</stringValue>
             </value>
         </inputParameters>
+        <nameSegment>emailSimple</nameSegment>
     </actionCalls>
+    <apiVersion>58.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
     <decisions>
         <name>Should_Notify</name>
         <label>Should Notify?</label>
@@ -67,7 +70,7 @@ The send runs on the ASYNCHRONOUS (after-commit) path deliberately. A failing em
 
 Stays silent - by design - when the gift is not one of the three record types, has only one payment, is written off, or has no primary contact (common on organisational pledges).
 
-Deliberately silent too when this payment CLEARS the balance: that case is the plan completing, and the single completion message is sent by Opportunity_Notify_Final_Payment at the Opportunity level. Sending it from here produced one duplicate per payment whenever a deposit batch cleared several installments in one save (verified: two installments in one save produced two "fully paid" emails). JSI-125 / Jason Ott.
+Deliberately silent too when this payment CLEARS the balance: that case is the plan completing, and the single completion message is sent by Opportunity_Notify_Final_Payment at the Opportunity level. Sending it from here produced one duplicate per payment whenever a deposit batch cleared several installments in one save (verified: two installments in one save produced two &quot;fully paid&quot; emails). JSI-125 / Jason Ott.
 
 Change Log:
 -----------
@@ -173,7 +176,6 @@ Change Log:
         <object>npe01__OppPayment__c</object>
         <recordTriggerType>CreateAndUpdate</recordTriggerType>
         <scheduledPaths>
-            <name>Run_Async</name>
             <connector>
                 <targetReference>Get_Opportunity</targetReference>
             </connector>

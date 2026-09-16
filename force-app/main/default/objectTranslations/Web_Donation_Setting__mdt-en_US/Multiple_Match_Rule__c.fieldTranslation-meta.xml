@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- When Several Contacts Match --></label>
+    <name>Multiple_Match_Rule__c</name>
+    <picklistValues>
+        <masterLabel>Fail the submission for review</masterLabel>
+        <translation><!-- Fail the submission for review --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Use the newest record</masterLabel>
+        <translation><!-- Use the newest record --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Use the oldest record</masterLabel>
+        <translation><!-- Use the oldest record --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

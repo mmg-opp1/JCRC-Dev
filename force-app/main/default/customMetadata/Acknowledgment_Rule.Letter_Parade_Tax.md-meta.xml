@@ -3,8 +3,12 @@
     <label>Letter - Parade (tax receipt)</label>
     <protected>false</protected>
     <values>
-        <field>DAF_Gift__c</field>
-        <value xsi:type="xsd:string">No</value>
+        <field>Active__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Board_Member__c</field>
+        <value xsi:nil="true"/>
     </values>
     <values>
         <field>Campaign__c</field>
@@ -15,19 +19,43 @@
         <value xsi:type="xsd:string">Print</value>
     </values>
     <values>
+        <field>DAF_Gift__c</field>
+        <value xsi:type="xsd:string">No</value>
+    </values>
+    <values>
+        <field>Donor_Type__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Email_Template__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Fund__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Max_Amount__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Min_Amount__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Priority__c</field>
+        <value xsi:type="xsd:double">11.0</value>
+    </values>
+    <values>
+        <field>Record_Type__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
         <field>Send_Mode__c</field>
         <value xsi:type="xsd:string">Approval-Gated</value>
     </values>
     <values>
         <field>Template_Flow__c</field>
         <value xsi:type="xsd:string">Ack_Letter_Parade_Tax</value>
-    </values>
-    <values>
-        <field>Priority__c</field>
-        <value xsi:type="xsd:double">11</value>
-    </values>
-    <values>
-        <field>Active__c</field>
-        <value xsi:type="xsd:boolean">true</value>
     </values>
 </CustomMetadata>

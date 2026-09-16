@@ -2,10 +2,10 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Roll_Off_Action__c</fullName>
     <description>What automation should do when a term reaches its End Date. PLACEHOLDER pending JCRC confirmation (client Q4). JSI-123 / Jason Ott.</description>
-    <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <label>Roll-Off Action</label>
     <required>false</required>
+    <type>Picklist</type>
     <valueSet>
         <restricted>true</restricted>
         <valueSetDefinition>
@@ -22,5 +22,4 @@
             </value>
         </valueSetDefinition>
     </valueSet>
-    <type>Picklist</type>
 </CustomField>

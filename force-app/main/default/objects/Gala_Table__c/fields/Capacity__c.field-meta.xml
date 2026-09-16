@@ -4,8 +4,10 @@
     <description>Number of seats at this table (defaulted from the level; typically 10). Gala Event Gifts / Jason Ott.</description>
     <externalId>false</externalId>
     <label>Capacity</label>
-    <required>false</required>
     <precision>4</precision>
+    <required>false</required>
     <scale>0</scale>
+    <trackTrending>false</trackTrending>
     <type>Number</type>
+    <unique>false</unique>
 </CustomField>

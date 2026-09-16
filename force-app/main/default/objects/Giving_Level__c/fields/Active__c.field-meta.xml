@@ -5,5 +5,6 @@
     <description>When TRUE this level participates in level assignment. Deactivate to retire a level without deleting it (and its history). JSI-90 / Jason Ott.</description>
     <inlineHelpText>Uncheck to retire this level without deleting it.</inlineHelpText>
     <label>Active</label>
+    <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

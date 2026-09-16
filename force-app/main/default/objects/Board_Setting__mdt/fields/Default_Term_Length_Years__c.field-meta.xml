@@ -5,8 +5,9 @@
     <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <label>Default Term Length (Years)</label>
-    <required>false</required>
     <precision>2</precision>
+    <required>false</required>
     <scale>0</scale>
     <type>Number</type>
+    <unique>false</unique>
 </CustomField>

@@ -3,23 +3,35 @@
     <label>1.6 to Last Name</label>
     <protected>false</protected>
     <values>
-        <field>Payload_Key__c</field>
-        <value xsi:type="xsd:string">1.6</value>
+        <field>Active__c</field>
+        <value xsi:type="xsd:boolean">true</value>
     </values>
     <values>
-        <field>Target_Object__c</field>
-        <value xsi:type="xsd:string">Contact</value>
+        <field>Lookup_Object__c</field>
+        <value xsi:nil="true"/>
     </values>
     <values>
-        <field>Target_Field__c</field>
-        <value xsi:type="xsd:string">LastName</value>
+        <field>Mapping_Type__c</field>
+        <value xsi:type="xsd:string">Payload</value>
     </values>
     <values>
         <field>Notes__c</field>
         <value xsi:type="xsd:string">Donor last name</value>
     </values>
     <values>
-        <field>Active__c</field>
-        <value xsi:type="xsd:boolean">true</value>
+        <field>Payload_Key__c</field>
+        <value xsi:type="xsd:string">1.6</value>
+    </values>
+    <values>
+        <field>Static_Value__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Target_Field__c</field>
+        <value xsi:type="xsd:string">LastName</value>
+    </values>
+    <values>
+        <field>Target_Object__c</field>
+        <value xsi:type="xsd:string">Contact</value>
     </values>
 </CustomMetadata>

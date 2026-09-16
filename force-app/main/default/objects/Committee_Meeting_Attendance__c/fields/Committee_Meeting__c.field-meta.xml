@@ -6,6 +6,9 @@
     <referenceTo>Committee_Meeting__c</referenceTo>
     <relationshipLabel>Attendance</relationshipLabel>
     <relationshipName>Attendance</relationshipName>
+    <relationshipOrder>1</relationshipOrder>
     <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
     <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
 </CustomField>

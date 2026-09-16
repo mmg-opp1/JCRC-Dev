@@ -4,6 +4,7 @@
     <description>What the buyer receives at this level (program ad, signage, VIP reception, tickets, etc.). Gala Event Gifts / Jason Ott.</description>
     <label>Benefits</label>
     <length>2000</length>
+    <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>
 </CustomField>

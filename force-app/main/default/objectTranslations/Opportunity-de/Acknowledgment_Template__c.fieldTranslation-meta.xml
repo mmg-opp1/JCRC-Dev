@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- The acknowledgment template selected for this gift (set by the router). --></help>
+    <label><!-- Acknowledgment Template --></label>
+    <name>Acknowledgment_Template__c</name>
+</CustomFieldTranslation>

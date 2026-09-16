@@ -5,7 +5,8 @@
     <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <label>Template Key</label>
-    <required>false</required>
     <length>80</length>
+    <required>false</required>
     <type>Text</type>
+    <unique>false</unique>
 </CustomField>

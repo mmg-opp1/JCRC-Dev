@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Meetings_Attended__c</fullName>
-    <description>Count of this committee's meetings the member actually attended in this assignment (roll-up of Attended Committee Meeting Attendance). Committee equivalent of Board Membership Year.Meetings Attended; it does NOT feed the board's attend-3-of-4 requirement. JSI-123 / Jason Ott.</description>
+    <description>Count of this committee&apos;s meetings the member actually attended in this assignment (roll-up of Attended Committee Meeting Attendance). Committee equivalent of Board Membership Year.Meetings Attended; it does NOT feed the board&apos;s attend-3-of-4 requirement. JSI-123 / Jason Ott.</description>
     <label>Meetings Attended</label>
-    <summaryForeignKey>Committee_Meeting_Attendance__c.Committee_Assignment__c</summaryForeignKey>
-    <summaryOperation>count</summaryOperation>
     <summaryFilterItems>
         <field>Committee_Meeting_Attendance__c.Attended__c</field>
         <operation>equals</operation>
-        <value>true</value>
+        <value>True</value>
     </summaryFilterItems>
+    <summaryForeignKey>Committee_Meeting_Attendance__c.Committee_Assignment__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackTrending>false</trackTrending>
     <type>Summary</type>
 </CustomField>

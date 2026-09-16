@@ -12,14 +12,6 @@
         <translation>אל תאשר</translation>
     </picklistValues>
     <picklistValues>
-        <masterLabel>Email Acknowledgment Not Sent</masterLabel>
-        <translation>אישור בדואר אלקטרוני לא נשלח</translation>
-    </picklistValues>
-    <picklistValues>
-        <masterLabel>Email Acknowledgment Now</masterLabel>
-        <translation>שלח אישור בדואר אלקטרוני כעת</translation>
-    </picklistValues>
-    <picklistValues>
         <masterLabel>To Be Acknowledged</masterLabel>
         <translation>לאישור</translation>
     </picklistValues>

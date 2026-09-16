@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Term_Key__c</fullName>
-    <description>Dedupe backstop = Contact Id + '|' + Member Type Id + '|' + Term Start Date. Unique, case-insensitive, stamped by BoardTermService. Makes a second identical term impossible whatever created it - console double-click, data load or API. Same pattern as Board Membership Year.Year Key. JSI-123 / Jason Ott.</description>
     <caseSensitive>false</caseSensitive>
+    <description>Dedupe backstop = Contact Id + &apos;|&apos; + Member Type Id + &apos;|&apos; + Term Start Date. Unique, case-insensitive, stamped by BoardTermService. Makes a second identical term impossible whatever created it - console double-click, data load or API. Same pattern as Board Membership Year.Year Key. JSI-123 / Jason Ott.</description>
     <externalId>true</externalId>
     <label>Term Key</label>
     <length>255</length>
     <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>true</unique>
 </CustomField>

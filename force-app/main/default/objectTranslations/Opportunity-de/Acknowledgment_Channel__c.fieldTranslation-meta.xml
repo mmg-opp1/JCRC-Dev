@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- How this gift is acknowledged: Email, Print, or None. Set automatically by the acknowledgment router. --></help>
+    <label><!-- Acknowledgment Channel --></label>
+    <name>Acknowledgment_Channel__c</name>
+    <picklistValues>
+        <masterLabel>Email</masterLabel>
+        <translation><!-- Email --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>None</masterLabel>
+        <translation><!-- None --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Print</masterLabel>
+        <translation><!-- Print --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Opportunity__c</fullName>
-    <description>The gift created from this submission. Gives a direct line from a donation back to the exact payload that produced it. Website Donations phase 2 / Jason Ott.</description>
-    <externalId>false</externalId>
     <deleteConstraint>SetNull</deleteConstraint>
+    <description>The gift created from this submission. Gives a direct line from a donation back to the exact payload that produced it. Website Donations phase 2 / Jason Ott.</description>
     <label>Opportunity</label>
     <referenceTo>Opportunity</referenceTo>
     <relationshipLabel>Web Donations</relationshipLabel>
     <relationshipName>Web_Donations</relationshipName>
     <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

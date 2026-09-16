@@ -4,16 +4,37 @@
     <description>Highest engagement state reached by this contact for this email. JSI-109 / Jason Ott.</description>
     <label>Status</label>
     <required>false</required>
+    <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>
         <restricted>true</restricted>
         <valueSetDefinition>
             <sorted>false</sorted>
-            <value><fullName>Sent</fullName><default>false</default><label>Sent</label></value>
-            <value><fullName>Opened</fullName><default>false</default><label>Opened</label></value>
-            <value><fullName>Clicked</fullName><default>false</default><label>Clicked</label></value>
-            <value><fullName>Bounced</fullName><default>false</default><label>Bounced</label></value>
-            <value><fullName>Unsubscribed</fullName><default>false</default><label>Unsubscribed</label></value>
+            <value>
+                <fullName>Sent</fullName>
+                <default>false</default>
+                <label>Sent</label>
+            </value>
+            <value>
+                <fullName>Opened</fullName>
+                <default>false</default>
+                <label>Opened</label>
+            </value>
+            <value>
+                <fullName>Clicked</fullName>
+                <default>false</default>
+                <label>Clicked</label>
+            </value>
+            <value>
+                <fullName>Bounced</fullName>
+                <default>false</default>
+                <label>Bounced</label>
+            </value>
+            <value>
+                <fullName>Unsubscribed</fullName>
+                <default>false</default>
+                <label>Unsubscribed</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Date the donor reached the Senate level this year (auto-stamped). --></help>
+    <label><!-- Date Achieved — Senate --></label>
+    <name>Date_Achieved_Senate__c</name>
+</CustomFieldTranslation>

@@ -12,14 +12,6 @@
         <translation>承認しない</translation>
     </picklistValues>
     <picklistValues>
-        <masterLabel>Email Acknowledgment Not Sent</masterLabel>
-        <translation>メール受領確認未送信</translation>
-    </picklistValues>
-    <picklistValues>
-        <masterLabel>Email Acknowledgment Now</masterLabel>
-        <translation>今すぐメール受領確認</translation>
-    </picklistValues>
-    <picklistValues>
         <masterLabel>To Be Acknowledged</masterLabel>
         <translation>承認予定</translation>
     </picklistValues>

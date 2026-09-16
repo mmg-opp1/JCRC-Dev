@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Annual Giving Summary</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Annual Giving Summaries</value>
+    </caseValues>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- FY End must be after FY Start. --></errorMessage>
+        <name>Valid_Fiscal_Dates</name>
+    </validationRules>
+</CustomObjectTranslation>

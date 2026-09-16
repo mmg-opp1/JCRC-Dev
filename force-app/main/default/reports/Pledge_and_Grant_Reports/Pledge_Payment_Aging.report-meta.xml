@@ -1,21 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Report xmlns="http://soap.sforce.com/2006/04/metadata">
-    <columns>
-        <field>Opportunity$Name</field>
-    </columns>
-    <columns>
-        <field>Opportunity$StageName</field>
-    </columns>
-    <columns>
-        <field>Opportunity.npe01__OppPayment__r$npe01__Scheduled_Date__c</field>
-    </columns>
-    <columns>
-        <field>Opportunity.npe01__OppPayment__r$Days_Past_Due__c</field>
-    </columns>
-    <columns>
-        <aggregateTypes>Sum</aggregateTypes>
-        <field>Opportunity.npe01__OppPayment__r$npe01__Payment_Amount__c</field>
-    </columns>
     <chart>
         <backgroundColor1>#FFFFFF</backgroundColor1>
         <backgroundColor2>#FFFFFF</backgroundColor2>
@@ -40,6 +24,22 @@
         <titleColor>#000000</titleColor>
         <titleSize>18</titleSize>
     </chart>
+    <columns>
+        <field>Opportunity$Name</field>
+    </columns>
+    <columns>
+        <field>Opportunity$StageName</field>
+    </columns>
+    <columns>
+        <field>Opportunity.npe01__OppPayment__r$npe01__Scheduled_Date__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.npe01__OppPayment__r$Days_Past_Due__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Opportunity.npe01__OppPayment__r$npe01__Payment_Amount__c</field>
+    </columns>
     <description>Overdue pledge/grant installments bucketed by days past due (1-30 / 31-60 / 61-90 / 90+). JSI-82 / Jason Ott.</description>
     <filter>
         <criteriaItems>

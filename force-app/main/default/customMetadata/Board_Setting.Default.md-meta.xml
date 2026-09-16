@@ -3,16 +3,16 @@
     <label>Default</label>
     <protected>false</protected>
     <values>
-        <field>Default_Term_Length_Years__c</field>
-        <value xsi:type="xsd:double">3</value>
+        <field>Default_Annual_Commitment__c</field>
+        <value xsi:type="xsd:double">0.0</value>
     </values>
     <values>
-        <field>Default_Annual_Commitment__c</field>
-        <value xsi:type="xsd:double">0</value>
+        <field>Default_Term_Length_Years__c</field>
+        <value xsi:type="xsd:double">3.0</value>
     </values>
     <values>
         <field>Expiring_Soon_Window_Days__c</field>
-        <value xsi:type="xsd:double">90</value>
+        <value xsi:type="xsd:double">90.0</value>
     </values>
     <values>
         <field>Roll_Off_Action__c</field>

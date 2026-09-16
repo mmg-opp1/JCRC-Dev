@@ -3,8 +3,16 @@
     <label>Other to Website Donation - Other</label>
     <protected>false</protected>
     <values>
+        <field>Active__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
         <field>Incoming_Value__c</field>
-        <value xsi:type="xsd:string">Other</value>
+        <value xsi:type="xsd:string">Other:</value>
+    </values>
+    <values>
+        <field>Payload_Key__c</field>
+        <value xsi:type="xsd:string">28.13</value>
     </values>
     <values>
         <field>Target_Object__c</field>
@@ -13,9 +21,5 @@
     <values>
         <field>Target_Record_Name__c</field>
         <value xsi:type="xsd:string">Website Donation - Other</value>
-    </values>
-    <values>
-        <field>Active__c</field>
-        <value xsi:type="xsd:boolean">true</value>
     </values>
 </CustomMetadata>

@@ -3,23 +3,35 @@
     <label>10.5 to Mailing Postal Code</label>
     <protected>false</protected>
     <values>
-        <field>Payload_Key__c</field>
-        <value xsi:type="xsd:string">10.5</value>
+        <field>Active__c</field>
+        <value xsi:type="xsd:boolean">true</value>
     </values>
     <values>
-        <field>Target_Object__c</field>
-        <value xsi:type="xsd:string">Contact</value>
+        <field>Lookup_Object__c</field>
+        <value xsi:nil="true"/>
     </values>
     <values>
-        <field>Target_Field__c</field>
-        <value xsi:type="xsd:string">MailingPostalCode</value>
+        <field>Mapping_Type__c</field>
+        <value xsi:type="xsd:string">Payload</value>
     </values>
     <values>
         <field>Notes__c</field>
         <value xsi:type="xsd:string">ZIP</value>
     </values>
     <values>
-        <field>Active__c</field>
-        <value xsi:type="xsd:boolean">true</value>
+        <field>Payload_Key__c</field>
+        <value xsi:type="xsd:string">10.5</value>
+    </values>
+    <values>
+        <field>Static_Value__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Target_Field__c</field>
+        <value xsi:type="xsd:string">MailingPostalCode</value>
+    </values>
+    <values>
+        <field>Target_Object__c</field>
+        <value xsi:type="xsd:string">Contact</value>
     </values>
 </CustomMetadata>

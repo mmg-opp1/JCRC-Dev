@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Gift Officer Assignment</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Gift Officer Assignments</value>
+    </caseValues>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- A Gift Officer is required. --></errorMessage>
+        <name>Officer_Required</name>
+    </validationRules>
+</CustomObjectTranslation>

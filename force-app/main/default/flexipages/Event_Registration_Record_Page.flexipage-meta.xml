@@ -201,6 +201,12 @@
                 <identifier>RecordDAF_Gift__cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldItem>Record.Payment_Method__c</fieldItem>
+                <identifier>RecordPayment_Method__cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet_oppinfo_col0</name>
         <type>Facet</type>
     </flexiPageRegions>

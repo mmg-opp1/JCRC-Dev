@@ -4,5 +4,6 @@
     <defaultValue>true</defaultValue>
     <description>Whether this gift-officer assignment is currently active. Deactivate to end an assignment without deleting its history. JSI-90 / Jason Ott.</description>
     <label>Active</label>
+    <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

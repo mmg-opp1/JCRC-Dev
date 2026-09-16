@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
-    <apiVersion>67.0</apiVersion>
     <actionCalls>
         <name>Remove_Gift_Allocations</name>
         <label>Remove Gift Allocations</label>
@@ -23,6 +22,7 @@
         </inputParameters>
         <nameSegment>GiftAllocationService</nameSegment>
     </actionCalls>
+    <apiVersion>67.0</apiVersion>
     <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
     <description>JSI-90: before an Opportunity is deleted, remove its Gift Allocations (so the gift is no longer credited toward donor giving levels) and recompute the affected Annual Giving Summaries. Runs before delete so the allocations are gone before the gift is removed. Author: Jason Ott.</description>
     <environments>Default</environments>

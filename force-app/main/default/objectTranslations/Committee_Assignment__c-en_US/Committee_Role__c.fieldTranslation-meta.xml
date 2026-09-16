@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Committee Role --></label>
+    <name>Committee_Role__c</name>
+    <picklistValues>
+        <masterLabel>Chair</masterLabel>
+        <translation><!-- Chair --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Co-Chair</masterLabel>
+        <translation><!-- Co-Chair --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Member</masterLabel>
+        <translation><!-- Member --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

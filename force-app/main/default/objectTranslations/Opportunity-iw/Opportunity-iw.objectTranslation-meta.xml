@@ -34,7 +34,7 @@
         <name>Matching_Gift</name>
     </recordTypes>
     <recordTypes>
-        <label><!-- Donation --></label>
+        <label><!-- Standard Donation --></label>
         <name>NPSP_Default</name>
     </recordTypes>
     <recordTypes>

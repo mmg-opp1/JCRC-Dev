@@ -3,13 +3,13 @@
     <fullName>Is_Officer_Year__c</fullName>
     <description>TRUE when the member held an elected officer role this year (Chair/President/Vice President/Secretary/Treasurer). Officer years pause the 6-year board clock and do not count toward the term limit. JSI-123 / Jason Ott.</description>
     <formula>OR(
-  ISPICKVAL(Role__c, "Chair"),
-  ISPICKVAL(Role__c, "President"),
-  ISPICKVAL(Role__c, "Vice President"),
-  ISPICKVAL(Role__c, "Secretary"),
-  ISPICKVAL(Role__c, "Treasurer")
+  ISPICKVAL(Role__c, &quot;Chair&quot;),
+  ISPICKVAL(Role__c, &quot;President&quot;),
+  ISPICKVAL(Role__c, &quot;Vice President&quot;),
+  ISPICKVAL(Role__c, &quot;Secretary&quot;),
+  ISPICKVAL(Role__c, &quot;Treasurer&quot;)
 )</formula>
-    <formulaTreatBlanksAs>BlankAsBlank</formulaTreatBlanksAs>
     <label>Is Officer Year</label>
+    <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

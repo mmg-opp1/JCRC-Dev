@@ -4,6 +4,7 @@
     <description>Free-form notes about this guest (seating requests, accessibility, etc.). Gala Event Gifts / Jason Ott.</description>
     <label>Notes</label>
     <length>1000</length>
+    <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>
 </CustomField>

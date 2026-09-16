@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Meal_Choice__c</fullName>
-    <description>Entree selection for a plated dinner. PLACEHOLDER value set pending the client's menu. Gala Event Gifts / Jason Ott.</description>
+    <description>Entree selection for a plated dinner. PLACEHOLDER value set pending the client&apos;s menu. Gala Event Gifts / Jason Ott.</description>
     <label>Meal Choice</label>
     <required>false</required>
+    <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>
         <restricted>true</restricted>

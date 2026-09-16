@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Is_Observer__c</fullName>
+    <defaultValue>false</defaultValue>
     <description>TRUE for an observer type (UJA Observer) — young-leader seats with a lower commitment and a 1-year term. JSI-123 / Jason Ott.</description>
     <label>Is Observer</label>
-    <defaultValue>false</defaultValue>
+    <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

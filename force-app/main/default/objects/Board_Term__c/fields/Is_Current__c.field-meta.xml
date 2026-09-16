@@ -3,12 +3,13 @@
     <fullName>Is_Current__c</fullName>
     <description>TRUE when this term is Active and today falls within its start/end window. The current board = Board Terms where Is Current = true. JSI-123 / Jason Ott.</description>
     <formula>AND(
-  ISPICKVAL(Status__c, "Active"),
+  ISPICKVAL(Status__c, &quot;Active&quot;),
   NOT(ISBLANK(Start_Date__c)),
   Start_Date__c &lt;= TODAY(),
   OR(ISBLANK(End_Date__c), End_Date__c &gt;= TODAY())
 )</formula>
-    <formulaTreatBlanksAs>BlankAsBlank</formulaTreatBlanksAs>
     <label>Is Current</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- How many Constant Contact emails this contact has opened in the last 90 days (synced). --></help>
+    <label><!-- Email Opens (Last 90 Days) --></label>
+    <name>Email_Opens_Last_90_Days__c</name>
+</CustomFieldTranslation>

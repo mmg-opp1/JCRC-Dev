@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Level_Type__c</fullName>
-    <description>Broad category of the level. PLACEHOLDER value set pending the client's exact level list. Gala Event Gifts / Jason Ott.</description>
+    <description>Broad category of the level. PLACEHOLDER value set pending the client&apos;s exact level list. Gala Event Gifts / Jason Ott.</description>
     <label>Level Type</label>
     <required>false</required>
+    <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>
         <restricted>true</restricted>

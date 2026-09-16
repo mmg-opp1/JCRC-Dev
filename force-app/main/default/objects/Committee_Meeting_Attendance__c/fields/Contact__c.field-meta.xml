@@ -8,5 +8,6 @@
     <relationshipLabel>Committee Meeting Attendance</relationshipLabel>
     <relationshipName>Committee_Meeting_Attendance</relationshipName>
     <required>false</required>
+    <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

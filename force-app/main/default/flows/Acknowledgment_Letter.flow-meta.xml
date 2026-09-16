@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>58.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
     <decisions>
         <name>Pick_Template</name>
         <label>Pick Template</label>
@@ -77,27 +78,6 @@
     <label>Acknowledgment Letter</label>
     <processType>Flow</processType>
     <recordLookups>
-        <name>Get_Opportunity</name>
-        <label>Get Opportunity</label>
-        <locationX>176</locationX>
-        <locationY>110</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>Get_Contact</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>recordId</elementReference>
-            </value>
-        </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>Opportunity</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
-    <recordLookups>
         <name>Get_Contact</name>
         <label>Get Contact</label>
         <locationX>176</locationX>
@@ -118,6 +98,27 @@
         <object>Contact</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
+    <recordLookups>
+        <name>Get_Opportunity</name>
+        <label>Get Opportunity</label>
+        <locationX>176</locationX>
+        <locationY>110</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Contact</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Opportunity</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
     <recordUpdates>
         <name>Stamp_Acknowledged</name>
         <label>Stamp Acknowledged</label>
@@ -132,9 +133,9 @@
             </value>
         </filters>
         <inputAssignments>
-            <field>npsp__Acknowledgment_Status__c</field>
+            <field>Acknowledgment_Sent_By__c</field>
             <value>
-                <stringValue>Acknowledged</stringValue>
+                <elementReference>$User.Id</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -144,18 +145,18 @@
             </value>
         </inputAssignments>
         <inputAssignments>
-            <field>Acknowledgment_Sent_By__c</field>
+            <field>npsp__Acknowledgment_Status__c</field>
             <value>
-                <elementReference>$User.Id</elementReference>
+                <stringValue>Acknowledged</stringValue>
             </value>
         </inputAssignments>
         <object>Opportunity</object>
     </recordUpdates>
     <screens>
-        <name>Screen_Major</name>
-        <label>Screen_Major</label>
+        <name>Screen_General</name>
+        <label>Screen_General</label>
         <locationX>176</locationX>
-        <locationY>350</locationY>
+        <locationY>830</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -163,29 +164,17 @@
             <targetReference>Stamp_Acknowledged</targetReference>
         </connector>
         <fields>
-            <name>Screen_Major_Body</name>
-            <fieldText>&lt;p&gt;{!$Flow.CurrentDate}&lt;/p&gt;&lt;p&gt;{!Get_Contact.Name}&lt;br&gt;&lt;/br&gt;{!Get_Contact.MailingStreet}&lt;br&gt;&lt;/br&gt;{!Get_Contact.MailingCity}, {!Get_Contact.MailingState} {!Get_Contact.MailingPostalCode}&lt;/p&gt;&lt;p&gt;Dear {!Get_Contact.FirstName},&lt;/p&gt;&lt;p&gt;On behalf of the Jewish Community Relations Council of New York, I want to personally thank you for your extraordinary leadership gift of ${!Get_Opportunity.Amount} received on {!Get_Opportunity.CloseDate}.&lt;/p&gt;&lt;p&gt;Transformational gifts like yours allow us to pursue our most ambitious work on behalf of the community.&lt;/p&gt;&lt;p&gt;Your generosity makes our work possible, and we are deeply grateful for your partnership.&lt;/p&gt;&lt;p&gt;With gratitude,&lt;/p&gt;&lt;p&gt;The Development Team&lt;br&gt;&lt;/br&gt;Jewish Community Relations Council of New York&lt;/p&gt;&lt;p style="font-size:11px;color:#666;"&gt;No goods or services were provided in exchange for this contribution. JCRC-NY is a tax-exempt organization; please retain this letter for your records.&lt;/p&gt;&lt;p style="font-size:10px;color:#b00;"&gt;[PLACEHOLDER TEMPLATE — replace with client-approved letterhead and content.]&lt;/p&gt;</fieldText>
+            <name>Screen_General_Body</name>
+            <fieldText>&lt;p&gt;{!$Flow.CurrentDate}&lt;/p&gt;&lt;p&gt;{!Get_Contact.Name}&lt;br&gt;&lt;/br&gt;{!Get_Contact.MailingStreet}&lt;br&gt;&lt;/br&gt;{!Get_Contact.MailingCity}, {!Get_Contact.MailingState} {!Get_Contact.MailingPostalCode}&lt;/p&gt;&lt;p&gt;Dear {!Get_Contact.FirstName},&lt;/p&gt;&lt;p&gt;On behalf of the Jewish Community Relations Council of New York, thank you for your generous gift of ${!Get_Opportunity.Amount} received on {!Get_Opportunity.CloseDate}.&lt;/p&gt;&lt;p&gt;Your generosity makes our work possible, and we are deeply grateful for your partnership.&lt;/p&gt;&lt;p&gt;With gratitude,&lt;/p&gt;&lt;p&gt;The Development Team&lt;br&gt;&lt;/br&gt;Jewish Community Relations Council of New York&lt;/p&gt;&lt;p style=&quot;font-size:11px;color:#666;&quot;&gt;No goods or services were provided in exchange for this contribution. JCRC-NY is a tax-exempt organization; please retain this letter for your records.&lt;/p&gt;&lt;p style=&quot;font-size:10px;color:#b00;&quot;&gt;[PLACEHOLDER TEMPLATE — replace with client-approved letterhead and content.]&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
-        </fields>
-        <nextOrFinishButtonLabel>Mark Acknowledged &amp; Finish</nextOrFinishButtonLabel>
-        <showFooter>true</showFooter>
-        <showHeader>false</showHeader>
-    </screens>
-    <screens>
-        <name>Screen_Recurring</name>
-        <label>Screen_Recurring</label>
-        <locationX>176</locationX>
-        <locationY>470</locationY>
-        <allowBack>false</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>false</allowPause>
-        <connector>
-            <targetReference>Stamp_Acknowledged</targetReference>
-        </connector>
-        <fields>
-            <name>Screen_Recurring_Body</name>
-            <fieldText>&lt;p&gt;{!$Flow.CurrentDate}&lt;/p&gt;&lt;p&gt;{!Get_Contact.Name}&lt;br&gt;&lt;/br&gt;{!Get_Contact.MailingStreet}&lt;br&gt;&lt;/br&gt;{!Get_Contact.MailingCity}, {!Get_Contact.MailingState} {!Get_Contact.MailingPostalCode}&lt;/p&gt;&lt;p&gt;Dear {!Get_Contact.FirstName},&lt;/p&gt;&lt;p&gt;Thank you for your continued monthly support of the Jewish Community Relations Council of New York. We gratefully acknowledge your recent recurring gift of ${!Get_Opportunity.Amount} received on {!Get_Opportunity.CloseDate}.&lt;/p&gt;&lt;p&gt;Your sustained commitment provides the reliable support we count on throughout the year.&lt;/p&gt;&lt;p&gt;Your generosity makes our work possible, and we are deeply grateful for your partnership.&lt;/p&gt;&lt;p&gt;With gratitude,&lt;/p&gt;&lt;p&gt;The Development Team&lt;br&gt;&lt;/br&gt;Jewish Community Relations Council of New York&lt;/p&gt;&lt;p style="font-size:11px;color:#666;"&gt;No goods or services were provided in exchange for this contribution. JCRC-NY is a tax-exempt organization; please retain this letter for your records.&lt;/p&gt;&lt;p style="font-size:10px;color:#b00;"&gt;[PLACEHOLDER TEMPLATE — replace with client-approved letterhead and content.]&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
         </fields>
         <nextOrFinishButtonLabel>Mark Acknowledged &amp; Finish</nextOrFinishButtonLabel>
         <showFooter>true</showFooter>
@@ -204,8 +193,72 @@
         </connector>
         <fields>
             <name>Screen_InKind_Body</name>
-            <fieldText>&lt;p&gt;{!$Flow.CurrentDate}&lt;/p&gt;&lt;p&gt;{!Get_Contact.Name}&lt;br&gt;&lt;/br&gt;{!Get_Contact.MailingStreet}&lt;br&gt;&lt;/br&gt;{!Get_Contact.MailingCity}, {!Get_Contact.MailingState} {!Get_Contact.MailingPostalCode}&lt;/p&gt;&lt;p&gt;Dear {!Get_Contact.FirstName},&lt;/p&gt;&lt;p&gt;Thank you for your generous in-kind contribution to the Jewish Community Relations Council of New York, received on {!Get_Opportunity.CloseDate}.&lt;/p&gt;&lt;p&gt;In keeping with IRS guidance, this letter describes your contribution; determining its value for tax purposes is the responsibility of the donor.&lt;/p&gt;&lt;p&gt;Your generosity makes our work possible, and we are deeply grateful for your partnership.&lt;/p&gt;&lt;p&gt;With gratitude,&lt;/p&gt;&lt;p&gt;The Development Team&lt;br&gt;&lt;/br&gt;Jewish Community Relations Council of New York&lt;/p&gt;&lt;p style="font-size:11px;color:#666;"&gt;No goods or services were provided in exchange for this contribution. JCRC-NY is a tax-exempt organization; please retain this letter for your records.&lt;/p&gt;&lt;p style="font-size:10px;color:#b00;"&gt;[PLACEHOLDER TEMPLATE — replace with client-approved letterhead and content.]&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;{!$Flow.CurrentDate}&lt;/p&gt;&lt;p&gt;{!Get_Contact.Name}&lt;br&gt;&lt;/br&gt;{!Get_Contact.MailingStreet}&lt;br&gt;&lt;/br&gt;{!Get_Contact.MailingCity}, {!Get_Contact.MailingState} {!Get_Contact.MailingPostalCode}&lt;/p&gt;&lt;p&gt;Dear {!Get_Contact.FirstName},&lt;/p&gt;&lt;p&gt;Thank you for your generous in-kind contribution to the Jewish Community Relations Council of New York, received on {!Get_Opportunity.CloseDate}.&lt;/p&gt;&lt;p&gt;In keeping with IRS guidance, this letter describes your contribution; determining its value for tax purposes is the responsibility of the donor.&lt;/p&gt;&lt;p&gt;Your generosity makes our work possible, and we are deeply grateful for your partnership.&lt;/p&gt;&lt;p&gt;With gratitude,&lt;/p&gt;&lt;p&gt;The Development Team&lt;br&gt;&lt;/br&gt;Jewish Community Relations Council of New York&lt;/p&gt;&lt;p style=&quot;font-size:11px;color:#666;&quot;&gt;No goods or services were provided in exchange for this contribution. JCRC-NY is a tax-exempt organization; please retain this letter for your records.&lt;/p&gt;&lt;p style=&quot;font-size:10px;color:#b00;&quot;&gt;[PLACEHOLDER TEMPLATE — replace with client-approved letterhead and content.]&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <nextOrFinishButtonLabel>Mark Acknowledged &amp; Finish</nextOrFinishButtonLabel>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Screen_Major</name>
+        <label>Screen_Major</label>
+        <locationX>176</locationX>
+        <locationY>350</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Stamp_Acknowledged</targetReference>
+        </connector>
+        <fields>
+            <name>Screen_Major_Body</name>
+            <fieldText>&lt;p&gt;{!$Flow.CurrentDate}&lt;/p&gt;&lt;p&gt;{!Get_Contact.Name}&lt;br&gt;&lt;/br&gt;{!Get_Contact.MailingStreet}&lt;br&gt;&lt;/br&gt;{!Get_Contact.MailingCity}, {!Get_Contact.MailingState} {!Get_Contact.MailingPostalCode}&lt;/p&gt;&lt;p&gt;Dear {!Get_Contact.FirstName},&lt;/p&gt;&lt;p&gt;On behalf of the Jewish Community Relations Council of New York, I want to personally thank you for your extraordinary leadership gift of ${!Get_Opportunity.Amount} received on {!Get_Opportunity.CloseDate}.&lt;/p&gt;&lt;p&gt;Transformational gifts like yours allow us to pursue our most ambitious work on behalf of the community.&lt;/p&gt;&lt;p&gt;Your generosity makes our work possible, and we are deeply grateful for your partnership.&lt;/p&gt;&lt;p&gt;With gratitude,&lt;/p&gt;&lt;p&gt;The Development Team&lt;br&gt;&lt;/br&gt;Jewish Community Relations Council of New York&lt;/p&gt;&lt;p style=&quot;font-size:11px;color:#666;&quot;&gt;No goods or services were provided in exchange for this contribution. JCRC-NY is a tax-exempt organization; please retain this letter for your records.&lt;/p&gt;&lt;p style=&quot;font-size:10px;color:#b00;&quot;&gt;[PLACEHOLDER TEMPLATE — replace with client-approved letterhead and content.]&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <nextOrFinishButtonLabel>Mark Acknowledged &amp; Finish</nextOrFinishButtonLabel>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Screen_Recurring</name>
+        <label>Screen_Recurring</label>
+        <locationX>176</locationX>
+        <locationY>470</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Stamp_Acknowledged</targetReference>
+        </connector>
+        <fields>
+            <name>Screen_Recurring_Body</name>
+            <fieldText>&lt;p&gt;{!$Flow.CurrentDate}&lt;/p&gt;&lt;p&gt;{!Get_Contact.Name}&lt;br&gt;&lt;/br&gt;{!Get_Contact.MailingStreet}&lt;br&gt;&lt;/br&gt;{!Get_Contact.MailingCity}, {!Get_Contact.MailingState} {!Get_Contact.MailingPostalCode}&lt;/p&gt;&lt;p&gt;Dear {!Get_Contact.FirstName},&lt;/p&gt;&lt;p&gt;Thank you for your continued monthly support of the Jewish Community Relations Council of New York. We gratefully acknowledge your recent recurring gift of ${!Get_Opportunity.Amount} received on {!Get_Opportunity.CloseDate}.&lt;/p&gt;&lt;p&gt;Your sustained commitment provides the reliable support we count on throughout the year.&lt;/p&gt;&lt;p&gt;Your generosity makes our work possible, and we are deeply grateful for your partnership.&lt;/p&gt;&lt;p&gt;With gratitude,&lt;/p&gt;&lt;p&gt;The Development Team&lt;br&gt;&lt;/br&gt;Jewish Community Relations Council of New York&lt;/p&gt;&lt;p style=&quot;font-size:11px;color:#666;&quot;&gt;No goods or services were provided in exchange for this contribution. JCRC-NY is a tax-exempt organization; please retain this letter for your records.&lt;/p&gt;&lt;p style=&quot;font-size:10px;color:#b00;&quot;&gt;[PLACEHOLDER TEMPLATE — replace with client-approved letterhead and content.]&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
         </fields>
         <nextOrFinishButtonLabel>Mark Acknowledged &amp; Finish</nextOrFinishButtonLabel>
         <showFooter>true</showFooter>
@@ -224,28 +277,16 @@
         </connector>
         <fields>
             <name>Screen_Tribute_Body</name>
-            <fieldText>&lt;p&gt;{!$Flow.CurrentDate}&lt;/p&gt;&lt;p&gt;{!Get_Contact.Name}&lt;br&gt;&lt;/br&gt;{!Get_Contact.MailingStreet}&lt;br&gt;&lt;/br&gt;{!Get_Contact.MailingCity}, {!Get_Contact.MailingState} {!Get_Contact.MailingPostalCode}&lt;/p&gt;&lt;p&gt;Dear {!Get_Contact.FirstName},&lt;/p&gt;&lt;p&gt;Thank you for your thoughtful gift of ${!Get_Opportunity.Amount} to the Jewish Community Relations Council of New York, received on {!Get_Opportunity.CloseDate}.&lt;/p&gt;&lt;p&gt;We are honored to acknowledge your tribute gift and, where you have requested, to notify those you have designated.&lt;/p&gt;&lt;p&gt;Your generosity makes our work possible, and we are deeply grateful for your partnership.&lt;/p&gt;&lt;p&gt;With gratitude,&lt;/p&gt;&lt;p&gt;The Development Team&lt;br&gt;&lt;/br&gt;Jewish Community Relations Council of New York&lt;/p&gt;&lt;p style="font-size:11px;color:#666;"&gt;No goods or services were provided in exchange for this contribution. JCRC-NY is a tax-exempt organization; please retain this letter for your records.&lt;/p&gt;&lt;p style="font-size:10px;color:#b00;"&gt;[PLACEHOLDER TEMPLATE — replace with client-approved letterhead and content.]&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;{!$Flow.CurrentDate}&lt;/p&gt;&lt;p&gt;{!Get_Contact.Name}&lt;br&gt;&lt;/br&gt;{!Get_Contact.MailingStreet}&lt;br&gt;&lt;/br&gt;{!Get_Contact.MailingCity}, {!Get_Contact.MailingState} {!Get_Contact.MailingPostalCode}&lt;/p&gt;&lt;p&gt;Dear {!Get_Contact.FirstName},&lt;/p&gt;&lt;p&gt;Thank you for your thoughtful gift of ${!Get_Opportunity.Amount} to the Jewish Community Relations Council of New York, received on {!Get_Opportunity.CloseDate}.&lt;/p&gt;&lt;p&gt;We are honored to acknowledge your tribute gift and, where you have requested, to notify those you have designated.&lt;/p&gt;&lt;p&gt;Your generosity makes our work possible, and we are deeply grateful for your partnership.&lt;/p&gt;&lt;p&gt;With gratitude,&lt;/p&gt;&lt;p&gt;The Development Team&lt;br&gt;&lt;/br&gt;Jewish Community Relations Council of New York&lt;/p&gt;&lt;p style=&quot;font-size:11px;color:#666;&quot;&gt;No goods or services were provided in exchange for this contribution. JCRC-NY is a tax-exempt organization; please retain this letter for your records.&lt;/p&gt;&lt;p style=&quot;font-size:10px;color:#b00;&quot;&gt;[PLACEHOLDER TEMPLATE — replace with client-approved letterhead and content.]&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
-        </fields>
-        <nextOrFinishButtonLabel>Mark Acknowledged &amp; Finish</nextOrFinishButtonLabel>
-        <showFooter>true</showFooter>
-        <showHeader>false</showHeader>
-    </screens>
-    <screens>
-        <name>Screen_General</name>
-        <label>Screen_General</label>
-        <locationX>176</locationX>
-        <locationY>830</locationY>
-        <allowBack>false</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>false</allowPause>
-        <connector>
-            <targetReference>Stamp_Acknowledged</targetReference>
-        </connector>
-        <fields>
-            <name>Screen_General_Body</name>
-            <fieldText>&lt;p&gt;{!$Flow.CurrentDate}&lt;/p&gt;&lt;p&gt;{!Get_Contact.Name}&lt;br&gt;&lt;/br&gt;{!Get_Contact.MailingStreet}&lt;br&gt;&lt;/br&gt;{!Get_Contact.MailingCity}, {!Get_Contact.MailingState} {!Get_Contact.MailingPostalCode}&lt;/p&gt;&lt;p&gt;Dear {!Get_Contact.FirstName},&lt;/p&gt;&lt;p&gt;On behalf of the Jewish Community Relations Council of New York, thank you for your generous gift of ${!Get_Opportunity.Amount} received on {!Get_Opportunity.CloseDate}.&lt;/p&gt;&lt;p&gt;Your generosity makes our work possible, and we are deeply grateful for your partnership.&lt;/p&gt;&lt;p&gt;With gratitude,&lt;/p&gt;&lt;p&gt;The Development Team&lt;br&gt;&lt;/br&gt;Jewish Community Relations Council of New York&lt;/p&gt;&lt;p style="font-size:11px;color:#666;"&gt;No goods or services were provided in exchange for this contribution. JCRC-NY is a tax-exempt organization; please retain this letter for your records.&lt;/p&gt;&lt;p style="font-size:10px;color:#b00;"&gt;[PLACEHOLDER TEMPLATE — replace with client-approved letterhead and content.]&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
         </fields>
         <nextOrFinishButtonLabel>Mark Acknowledged &amp; Finish</nextOrFinishButtonLabel>
         <showFooter>true</showFooter>

@@ -6,6 +6,10 @@
             <label>Close Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI000000FCTu</field>
+            <label>Last Payment Date</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.PROBABILITY</field>
             <label>Probability (%)</label>
         </forecastingObjectListLabelMappings>
@@ -102,6 +106,10 @@
             <label>Matching Gift</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>CriticalInsights</field>
+            <label>__MISSING LABEL__ PropertyFile - val CriticalInsights not found in section ForecastingOppListFilter</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdBY</field>
             <label>Notification Message</label>
         </forecastingObjectListLabelMappings>
@@ -186,8 +194,24 @@
             <label>Last Modified Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ic1</field>
+            <label>Acknowledgment Sent By</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ic0</field>
+            <label>Acknowledgment Send Mode</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ic2</field>
+            <label>Acknowledgment Template</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdEd</field>
             <label>Next Deliverable Date</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>SalesMethodology</field>
+            <label>__MISSING LABEL__ PropertyFile - val SalesMethodology not found in section ForecastingOppListFilter</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000ih0</field>
@@ -198,8 +222,16 @@
             <label>Description</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI000000FFze</field>
+            <label>Payments Made (Count)</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdEp</field>
             <label>Recurring Donation Installment Name</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ibx</field>
+            <label>Acknowledgment Age (Business Days)</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001DckZ</field>
@@ -208,6 +240,22 @@
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000igz</field>
             <label>Honoree Contact Set</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI000000NG0v</field>
+            <label>Payment Method</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>ActivityHeatmap</field>
+            <label>__MISSING LABEL__ PropertyFile - val ActivityHeatmap not found in section ForecastingOppListFilter</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ibz</field>
+            <label>Acknowledgment Channel</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Iby</field>
+            <label>Acknowledgment Approved</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001Dcka</field>
@@ -268,6 +316,10 @@
         <forecastingObjectListLabelMappings>
             <field>CORE.USERS.FIRST_NAME</field>
             <label>Owner First Name</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>Contacts</field>
+            <label>__MISSING LABEL__ PropertyFile - val Contacts not found in section ForecastingOppListFilter</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000ku8</field>
@@ -338,8 +390,20 @@
             <label>Account Site</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI000000FK85</field>
+            <label>Other Campaign Write-In</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.PRIVATE</field>
             <label>Private</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>AgentActivity</field>
+            <label>__MISSING LABEL__ PropertyFile - val AgentActivity not found in section ForecastingOppListFilter</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI000000F7Z3</field>
+            <label>DAF Gift</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.LEAD_SOURCE</field>
@@ -364,6 +428,10 @@
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdB9</field>
             <label>Ask Date</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI00000097fM</field>
+            <label>Gala Level</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.LAST_STG_CHG_DAYS</field>
@@ -438,6 +506,10 @@
             <label>Grant Requirements Website</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI000000FFeq</field>
+            <label>Campaign Name</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdBN</field>
             <label>Honoree Contact</label>
         </forecastingObjectListLabelMappings>
@@ -448,6 +520,10 @@
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000MTZ</field>
             <label>Approach</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000006Vlt</field>
+            <label>Program Officer</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.RECORDTYPE</field>
@@ -499,23 +575,32 @@
             <field>OPPORTUNITY.LAST_UPDATE</field>
             <field>FORECASTEDMFJVALUE</field>
             <field>00Nhk000001Dcp6</field>
+            <field>00NiI0000002Ibx</field>
+            <field>00NiI0000002Iby</field>
+            <field>00NiI0000002Ibz</field>
             <field>00Nhk000001DdB7</field>
+            <field>00NiI0000002Ic0</field>
+            <field>00NiI0000002Ic1</field>
             <field>00Nhk000001DdB8</field>
+            <field>00NiI0000002Ic2</field>
             <field>00NiI0000000WBB</field>
             <field>00NiI0000000MTZ</field>
             <field>00Nhk000001DdB9</field>
             <field>00Nhk000001DdBB</field>
             <field>00Nhk000001DdBA</field>
             <field>00Nhk000001A0YF</field>
+            <field>00NiI000000FFeq</field>
             <field>00Nhk000001DdBC</field>
             <field>00Nhk000001Dcp5</field>
             <field>00Nhk000001DckJ</field>
+            <field>00NiI000000F7Z3</field>
             <field>00NiI0000000ku5</field>
             <field>00Nhk000001DdBE</field>
             <field>00Nhk000001A0YG</field>
             <field>00Nhk000001DckK</field>
             <field>00Nhk000001DdBD</field>
             <field>00Nhk000001DdBF</field>
+            <field>00NiI00000097fM</field>
             <field>00Nhk000001DdBG</field>
             <field>00Nhk000001DdBH</field>
             <field>00Nhk000001DdBI</field>
@@ -531,6 +616,7 @@
             <field>00Nhk000001DdBS</field>
             <field>00Nhk000001DdBT</field>
             <field>00Nhk000001Dcka</field>
+            <field>00NiI000000FCTu</field>
             <field>00Nhk000001A0YI</field>
             <field>00Nhk000001DdBX</field>
             <field>00Nhk000001DdBU</field>
@@ -552,13 +638,17 @@
             <field>00Nhk000001DckS</field>
             <field>00NiI0000000ku6</field>
             <field>00NiI0000000WBC</field>
+            <field>00NiI000000FK85</field>
             <field>00Nhk000001DckT</field>
+            <field>00NiI000000NG0v</field>
+            <field>00NiI000000FFze</field>
             <field>00Nhk000001DckR</field>
             <field>00NiI0000000WBD</field>
             <field>00Nhk000001DdBe</field>
             <field>00Nhk000001DdBg</field>
             <field>00Nhk000001DdBf</field>
             <field>00Nhk000001DdBL</field>
+            <field>00NiI0000006Vlt</field>
             <field>00Nhk000001DdBh</field>
             <field>00Nhk000001DctN</field>
             <field>00Nhk000001DdEp</field>
@@ -579,6 +669,11 @@
             <field>OPPORTUNITY.AGE_IN_DAYS</field>
             <field>OPPORTUNITY.LAST_STAGE_CHANGE</field>
             <field>OPPORTUNITY.PUSH_COUNT</field>
+            <field>SalesMethodology</field>
+            <field>ActivityHeatmap</field>
+            <field>AgentActivity</field>
+            <field>Contacts</field>
+            <field>CriticalInsights</field>
         </forecastingObjectListUnselectedSettings>
         <forecastingTypeDeveloperName>OpportunityRevenue</forecastingTypeDeveloperName>
     </forecastingTypeObjectListSettings>
@@ -588,6 +683,10 @@
             <label>Close Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI000000FCTu</field>
+            <label>Last Payment Date</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.PROBABILITY</field>
             <label>Probability (%)</label>
         </forecastingObjectListLabelMappings>
@@ -680,6 +779,10 @@
             <label>Matching Gift Status</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>CriticalInsights</field>
+            <label>__MISSING LABEL__ PropertyFile - val CriticalInsights not found in section ForecastingOppListFilter</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdBX</field>
             <label>Matching Gift</label>
         </forecastingObjectListLabelMappings>
@@ -768,8 +871,24 @@
             <label>Last Modified Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ic1</field>
+            <label>Acknowledgment Sent By</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ic0</field>
+            <label>Acknowledgment Send Mode</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ic2</field>
+            <label>Acknowledgment Template</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdEd</field>
             <label>Next Deliverable Date</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>SalesMethodology</field>
+            <label>__MISSING LABEL__ PropertyFile - val SalesMethodology not found in section ForecastingOppListFilter</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000ih0</field>
@@ -780,8 +899,16 @@
             <label>Description</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI000000FFze</field>
+            <label>Payments Made (Count)</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdEp</field>
             <label>Recurring Donation Installment Name</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ibx</field>
+            <label>Acknowledgment Age (Business Days)</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001DckZ</field>
@@ -790,6 +917,22 @@
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000igz</field>
             <label>Honoree Contact Set</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>ActivityHeatmap</field>
+            <label>__MISSING LABEL__ PropertyFile - val ActivityHeatmap not found in section ForecastingOppListFilter</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI000000NG0v</field>
+            <label>Payment Method</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ibz</field>
+            <label>Acknowledgment Channel</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Iby</field>
+            <label>Acknowledgment Approved</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001Dcka</field>
@@ -846,6 +989,10 @@
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000ku5</field>
             <label>Date Stock Received</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>Contacts</field>
+            <label>__MISSING LABEL__ PropertyFile - val Contacts not found in section ForecastingOppListFilter</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>CORE.USERS.FIRST_NAME</field>
@@ -920,8 +1067,20 @@
             <label>Account Site</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI000000FK85</field>
+            <label>Other Campaign Write-In</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.PRIVATE</field>
             <label>Private</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>AgentActivity</field>
+            <label>__MISSING LABEL__ PropertyFile - val AgentActivity not found in section ForecastingOppListFilter</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI000000F7Z3</field>
+            <label>DAF Gift</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.LEAD_SOURCE</field>
@@ -946,6 +1105,10 @@
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdB9</field>
             <label>Ask Date</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI00000097fM</field>
+            <label>Gala Level</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.LAST_STG_CHG_DAYS</field>
@@ -1020,6 +1183,10 @@
             <label>Grant Requirements Website</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI000000FFeq</field>
+            <label>Campaign Name</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdBN</field>
             <label>Honoree Contact</label>
         </forecastingObjectListLabelMappings>
@@ -1030,6 +1197,10 @@
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000MTZ</field>
             <label>Approach</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000006Vlt</field>
+            <label>Program Officer</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.RECORDTYPE</field>
@@ -1053,6 +1224,11 @@
             <field>OPPORTUNITY.PROBABILITY</field>
             <field>FORECAST_CATEGORY</field>
             <field>FULL_NAME</field>
+            <field>AgentActivity</field>
+            <field>CriticalInsights</field>
+            <field>SalesMethodology</field>
+            <field>ActivityHeatmap</field>
+            <field>Contacts</field>
         </forecastingObjectListSelectedSettings>
         <forecastingObjectListUnselectedSettings>
             <field>CONTRACT.CONTRACT_NUMBER</field>
@@ -1081,23 +1257,32 @@
             <field>OPPORTUNITY.CREATED_DATE</field>
             <field>OPPORTUNITY.LAST_UPDATE</field>
             <field>00Nhk000001Dcp6</field>
+            <field>00NiI0000002Ibx</field>
+            <field>00NiI0000002Iby</field>
+            <field>00NiI0000002Ibz</field>
             <field>00Nhk000001DdB7</field>
+            <field>00NiI0000002Ic0</field>
+            <field>00NiI0000002Ic1</field>
             <field>00Nhk000001DdB8</field>
+            <field>00NiI0000002Ic2</field>
             <field>00NiI0000000WBB</field>
             <field>00NiI0000000MTZ</field>
             <field>00Nhk000001DdB9</field>
             <field>00Nhk000001DdBB</field>
             <field>00Nhk000001DdBA</field>
             <field>00Nhk000001A0YF</field>
+            <field>00NiI000000FFeq</field>
             <field>00Nhk000001DdBC</field>
             <field>00Nhk000001Dcp5</field>
             <field>00Nhk000001DckJ</field>
+            <field>00NiI000000F7Z3</field>
             <field>00NiI0000000ku5</field>
             <field>00Nhk000001DdBE</field>
             <field>00Nhk000001A0YG</field>
             <field>00Nhk000001DckK</field>
             <field>00Nhk000001DdBD</field>
             <field>00Nhk000001DdBF</field>
+            <field>00NiI00000097fM</field>
             <field>00Nhk000001DdBG</field>
             <field>00Nhk000001DdBH</field>
             <field>00Nhk000001DdBI</field>
@@ -1113,6 +1298,7 @@
             <field>00Nhk000001DdBS</field>
             <field>00Nhk000001DdBT</field>
             <field>00Nhk000001Dcka</field>
+            <field>00NiI000000FCTu</field>
             <field>00Nhk000001A0YI</field>
             <field>00Nhk000001DdBX</field>
             <field>00Nhk000001DdBU</field>
@@ -1134,13 +1320,17 @@
             <field>00Nhk000001DckS</field>
             <field>00NiI0000000ku6</field>
             <field>00NiI0000000WBC</field>
+            <field>00NiI000000FK85</field>
             <field>00Nhk000001DckT</field>
+            <field>00NiI000000NG0v</field>
+            <field>00NiI000000FFze</field>
             <field>00Nhk000001DckR</field>
             <field>00NiI0000000WBD</field>
             <field>00Nhk000001DdBe</field>
             <field>00Nhk000001DdBg</field>
             <field>00Nhk000001DdBf</field>
             <field>00Nhk000001DdBL</field>
+            <field>00NiI0000006Vlt</field>
             <field>00Nhk000001DdBh</field>
             <field>00Nhk000001DctN</field>
             <field>00Nhk000001DdEp</field>
@@ -1170,6 +1360,10 @@
             <label>Close Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI000000FCTu</field>
+            <label>Last Payment Date</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.PROBABILITY</field>
             <label>Probability (%)</label>
         </forecastingObjectListLabelMappings>
@@ -1266,6 +1460,10 @@
             <label>Matching Gift</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>CriticalInsights</field>
+            <label>__MISSING LABEL__ PropertyFile - val CriticalInsights not found in section ForecastingOppQtyListFilter</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdBY</field>
             <label>Notification Message</label>
         </forecastingObjectListLabelMappings>
@@ -1350,8 +1548,24 @@
             <label>Last Modified Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ic1</field>
+            <label>Acknowledgment Sent By</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ic0</field>
+            <label>Acknowledgment Send Mode</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ic2</field>
+            <label>Acknowledgment Template</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdEd</field>
             <label>Next Deliverable Date</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>SalesMethodology</field>
+            <label>__MISSING LABEL__ PropertyFile - val SalesMethodology not found in section ForecastingOppQtyListFilter</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000ih0</field>
@@ -1362,8 +1576,16 @@
             <label>Description</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI000000FFze</field>
+            <label>Payments Made (Count)</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdEp</field>
             <label>Recurring Donation Installment Name</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ibx</field>
+            <label>Acknowledgment Age (Business Days)</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001DckZ</field>
@@ -1372,6 +1594,22 @@
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000igz</field>
             <label>Honoree Contact Set</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI000000NG0v</field>
+            <label>Payment Method</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>ActivityHeatmap</field>
+            <label>__MISSING LABEL__ PropertyFile - val ActivityHeatmap not found in section ForecastingOppQtyListFilter</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ibz</field>
+            <label>Acknowledgment Channel</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Iby</field>
+            <label>Acknowledgment Approved</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001Dcka</field>
@@ -1432,6 +1670,10 @@
         <forecastingObjectListLabelMappings>
             <field>CORE.USERS.FIRST_NAME</field>
             <label>Owner First Name</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>Contacts</field>
+            <label>__MISSING LABEL__ PropertyFile - val Contacts not found in section ForecastingOppQtyListFilter</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000ku8</field>
@@ -1502,8 +1744,20 @@
             <label>Account Site</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI000000FK85</field>
+            <label>Other Campaign Write-In</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.PRIVATE</field>
             <label>Private</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>AgentActivity</field>
+            <label>__MISSING LABEL__ PropertyFile - val AgentActivity not found in section ForecastingOppQtyListFilter</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI000000F7Z3</field>
+            <label>DAF Gift</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.LEAD_SOURCE</field>
@@ -1528,6 +1782,10 @@
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdB9</field>
             <label>Ask Date</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI00000097fM</field>
+            <label>Gala Level</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.LAST_STG_CHG_DAYS</field>
@@ -1602,6 +1860,10 @@
             <label>Grant Requirements Website</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI000000FFeq</field>
+            <label>Campaign Name</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdBN</field>
             <label>Honoree Contact</label>
         </forecastingObjectListLabelMappings>
@@ -1612,6 +1874,10 @@
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000MTZ</field>
             <label>Approach</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000006Vlt</field>
+            <label>Program Officer</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.RECORDTYPE</field>
@@ -1663,23 +1929,32 @@
             <field>OPPORTUNITY.LAST_UPDATE</field>
             <field>FORECASTEDMFJVALUE</field>
             <field>00Nhk000001Dcp6</field>
+            <field>00NiI0000002Ibx</field>
+            <field>00NiI0000002Iby</field>
+            <field>00NiI0000002Ibz</field>
             <field>00Nhk000001DdB7</field>
+            <field>00NiI0000002Ic0</field>
+            <field>00NiI0000002Ic1</field>
             <field>00Nhk000001DdB8</field>
+            <field>00NiI0000002Ic2</field>
             <field>00NiI0000000WBB</field>
             <field>00NiI0000000MTZ</field>
             <field>00Nhk000001DdB9</field>
             <field>00Nhk000001DdBB</field>
             <field>00Nhk000001DdBA</field>
             <field>00Nhk000001A0YF</field>
+            <field>00NiI000000FFeq</field>
             <field>00Nhk000001DdBC</field>
             <field>00Nhk000001Dcp5</field>
             <field>00Nhk000001DckJ</field>
+            <field>00NiI000000F7Z3</field>
             <field>00NiI0000000ku5</field>
             <field>00Nhk000001DdBE</field>
             <field>00Nhk000001A0YG</field>
             <field>00Nhk000001DckK</field>
             <field>00Nhk000001DdBD</field>
             <field>00Nhk000001DdBF</field>
+            <field>00NiI00000097fM</field>
             <field>00Nhk000001DdBG</field>
             <field>00Nhk000001DdBH</field>
             <field>00Nhk000001DdBI</field>
@@ -1695,6 +1970,7 @@
             <field>00Nhk000001DdBS</field>
             <field>00Nhk000001DdBT</field>
             <field>00Nhk000001Dcka</field>
+            <field>00NiI000000FCTu</field>
             <field>00Nhk000001A0YI</field>
             <field>00Nhk000001DdBX</field>
             <field>00Nhk000001DdBU</field>
@@ -1716,13 +1992,17 @@
             <field>00Nhk000001DckS</field>
             <field>00NiI0000000ku6</field>
             <field>00NiI0000000WBC</field>
+            <field>00NiI000000FK85</field>
             <field>00Nhk000001DckT</field>
+            <field>00NiI000000NG0v</field>
+            <field>00NiI000000FFze</field>
             <field>00Nhk000001DckR</field>
             <field>00NiI0000000WBD</field>
             <field>00Nhk000001DdBe</field>
             <field>00Nhk000001DdBg</field>
             <field>00Nhk000001DdBf</field>
             <field>00Nhk000001DdBL</field>
+            <field>00NiI0000006Vlt</field>
             <field>00Nhk000001DdBh</field>
             <field>00Nhk000001DctN</field>
             <field>00Nhk000001DdEp</field>
@@ -1743,6 +2023,11 @@
             <field>OPPORTUNITY.AGE_IN_DAYS</field>
             <field>OPPORTUNITY.LAST_STAGE_CHANGE</field>
             <field>OPPORTUNITY.PUSH_COUNT</field>
+            <field>SalesMethodology</field>
+            <field>ActivityHeatmap</field>
+            <field>AgentActivity</field>
+            <field>Contacts</field>
+            <field>CriticalInsights</field>
         </forecastingObjectListUnselectedSettings>
         <forecastingTypeDeveloperName>OpportunityQuantity</forecastingTypeDeveloperName>
     </forecastingTypeObjectListSettings>
@@ -1752,6 +2037,10 @@
             <label>Close Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI000000FCTu</field>
+            <label>Last Payment Date</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.PROBABILITY</field>
             <label>Probability (%)</label>
         </forecastingObjectListLabelMappings>
@@ -1848,6 +2137,10 @@
             <label>Matching Gift</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>CriticalInsights</field>
+            <label>__MISSING LABEL__ PropertyFile - val CriticalInsights not found in section ForecastingProductFamilyOppListFilter</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdBY</field>
             <label>Notification Message</label>
         </forecastingObjectListLabelMappings>
@@ -1932,8 +2225,24 @@
             <label>Last Modified Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ic1</field>
+            <label>Acknowledgment Sent By</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ic0</field>
+            <label>Acknowledgment Send Mode</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ic2</field>
+            <label>Acknowledgment Template</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdEd</field>
             <label>Next Deliverable Date</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>SalesMethodology</field>
+            <label>__MISSING LABEL__ PropertyFile - val SalesMethodology not found in section ForecastingProductFamilyOppListFilter</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000ih0</field>
@@ -1944,8 +2253,16 @@
             <label>Description</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI000000FFze</field>
+            <label>Payments Made (Count)</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdEp</field>
             <label>Recurring Donation Installment Name</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ibx</field>
+            <label>Acknowledgment Age (Business Days)</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001DckZ</field>
@@ -1954,6 +2271,22 @@
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000igz</field>
             <label>Honoree Contact Set</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI000000NG0v</field>
+            <label>Payment Method</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>ActivityHeatmap</field>
+            <label>__MISSING LABEL__ PropertyFile - val ActivityHeatmap not found in section ForecastingProductFamilyOppListFilter</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ibz</field>
+            <label>Acknowledgment Channel</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Iby</field>
+            <label>Acknowledgment Approved</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001Dcka</field>
@@ -2014,6 +2347,10 @@
         <forecastingObjectListLabelMappings>
             <field>CORE.USERS.FIRST_NAME</field>
             <label>Owner First Name</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>Contacts</field>
+            <label>__MISSING LABEL__ PropertyFile - val Contacts not found in section ForecastingProductFamilyOppListFilter</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000ku8</field>
@@ -2088,8 +2425,20 @@
             <label>Account Site</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI000000FK85</field>
+            <label>Other Campaign Write-In</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.PRIVATE</field>
             <label>Private</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>AgentActivity</field>
+            <label>__MISSING LABEL__ PropertyFile - val AgentActivity not found in section ForecastingProductFamilyOppListFilter</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI000000F7Z3</field>
+            <label>DAF Gift</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.LEAD_SOURCE</field>
@@ -2114,6 +2463,10 @@
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdB9</field>
             <label>Ask Date</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI00000097fM</field>
+            <label>Gala Level</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.LAST_STG_CHG_DAYS</field>
@@ -2188,6 +2541,10 @@
             <label>Grant Requirements Website</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI000000FFeq</field>
+            <label>Campaign Name</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdBN</field>
             <label>Honoree Contact</label>
         </forecastingObjectListLabelMappings>
@@ -2198,6 +2555,10 @@
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000MTZ</field>
             <label>Approach</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000006Vlt</field>
+            <label>Program Officer</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.RECORDTYPE</field>
@@ -2250,23 +2611,32 @@
             <field>OPPORTUNITY.LAST_UPDATE</field>
             <field>FORECASTEDMFJVALUE</field>
             <field>00Nhk000001Dcp6</field>
+            <field>00NiI0000002Ibx</field>
+            <field>00NiI0000002Iby</field>
+            <field>00NiI0000002Ibz</field>
             <field>00Nhk000001DdB7</field>
+            <field>00NiI0000002Ic0</field>
+            <field>00NiI0000002Ic1</field>
             <field>00Nhk000001DdB8</field>
+            <field>00NiI0000002Ic2</field>
             <field>00NiI0000000WBB</field>
             <field>00NiI0000000MTZ</field>
             <field>00Nhk000001DdB9</field>
             <field>00Nhk000001DdBB</field>
             <field>00Nhk000001DdBA</field>
             <field>00Nhk000001A0YF</field>
+            <field>00NiI000000FFeq</field>
             <field>00Nhk000001DdBC</field>
             <field>00Nhk000001Dcp5</field>
             <field>00Nhk000001DckJ</field>
+            <field>00NiI000000F7Z3</field>
             <field>00NiI0000000ku5</field>
             <field>00Nhk000001DdBE</field>
             <field>00Nhk000001A0YG</field>
             <field>00Nhk000001DckK</field>
             <field>00Nhk000001DdBD</field>
             <field>00Nhk000001DdBF</field>
+            <field>00NiI00000097fM</field>
             <field>00Nhk000001DdBG</field>
             <field>00Nhk000001DdBH</field>
             <field>00Nhk000001DdBI</field>
@@ -2282,6 +2652,7 @@
             <field>00Nhk000001DdBS</field>
             <field>00Nhk000001DdBT</field>
             <field>00Nhk000001Dcka</field>
+            <field>00NiI000000FCTu</field>
             <field>00Nhk000001A0YI</field>
             <field>00Nhk000001DdBX</field>
             <field>00Nhk000001DdBU</field>
@@ -2303,13 +2674,17 @@
             <field>00Nhk000001DckS</field>
             <field>00NiI0000000ku6</field>
             <field>00NiI0000000WBC</field>
+            <field>00NiI000000FK85</field>
             <field>00Nhk000001DckT</field>
+            <field>00NiI000000NG0v</field>
+            <field>00NiI000000FFze</field>
             <field>00Nhk000001DckR</field>
             <field>00NiI0000000WBD</field>
             <field>00Nhk000001DdBe</field>
             <field>00Nhk000001DdBg</field>
             <field>00Nhk000001DdBf</field>
             <field>00Nhk000001DdBL</field>
+            <field>00NiI0000006Vlt</field>
             <field>00Nhk000001DdBh</field>
             <field>00Nhk000001DctN</field>
             <field>00Nhk000001DdEp</field>
@@ -2330,6 +2705,11 @@
             <field>OPPORTUNITY.AGE_IN_DAYS</field>
             <field>OPPORTUNITY.LAST_STAGE_CHANGE</field>
             <field>OPPORTUNITY.PUSH_COUNT</field>
+            <field>SalesMethodology</field>
+            <field>ActivityHeatmap</field>
+            <field>AgentActivity</field>
+            <field>Contacts</field>
+            <field>CriticalInsights</field>
         </forecastingObjectListUnselectedSettings>
         <forecastingTypeDeveloperName>OpportunityLineItemRevenue</forecastingTypeDeveloperName>
     </forecastingTypeObjectListSettings>
@@ -2339,6 +2719,10 @@
             <label>Close Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI000000FCTu</field>
+            <label>Last Payment Date</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.PROBABILITY</field>
             <label>Probability (%)</label>
         </forecastingObjectListLabelMappings>
@@ -2435,6 +2819,10 @@
             <label>Matching Gift</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>CriticalInsights</field>
+            <label>__MISSING LABEL__ PropertyFile - val CriticalInsights not found in section ForecastingProductFamilyOppQtyListFilter</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdBY</field>
             <label>Notification Message</label>
         </forecastingObjectListLabelMappings>
@@ -2519,8 +2907,24 @@
             <label>Last Modified Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ic1</field>
+            <label>Acknowledgment Sent By</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ic0</field>
+            <label>Acknowledgment Send Mode</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ic2</field>
+            <label>Acknowledgment Template</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdEd</field>
             <label>Next Deliverable Date</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>SalesMethodology</field>
+            <label>__MISSING LABEL__ PropertyFile - val SalesMethodology not found in section ForecastingProductFamilyOppQtyListFilter</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000ih0</field>
@@ -2531,8 +2935,16 @@
             <label>Description</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI000000FFze</field>
+            <label>Payments Made (Count)</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdEp</field>
             <label>Recurring Donation Installment Name</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ibx</field>
+            <label>Acknowledgment Age (Business Days)</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001DckZ</field>
@@ -2541,6 +2953,22 @@
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000igz</field>
             <label>Honoree Contact Set</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI000000NG0v</field>
+            <label>Payment Method</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>ActivityHeatmap</field>
+            <label>__MISSING LABEL__ PropertyFile - val ActivityHeatmap not found in section ForecastingProductFamilyOppQtyListFilter</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ibz</field>
+            <label>Acknowledgment Channel</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Iby</field>
+            <label>Acknowledgment Approved</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001Dcka</field>
@@ -2601,6 +3029,10 @@
         <forecastingObjectListLabelMappings>
             <field>CORE.USERS.FIRST_NAME</field>
             <label>Owner First Name</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>Contacts</field>
+            <label>__MISSING LABEL__ PropertyFile - val Contacts not found in section ForecastingProductFamilyOppQtyListFilter</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000ku8</field>
@@ -2671,8 +3103,20 @@
             <label>Account Site</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI000000FK85</field>
+            <label>Other Campaign Write-In</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.PRIVATE</field>
             <label>Private</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>AgentActivity</field>
+            <label>__MISSING LABEL__ PropertyFile - val AgentActivity not found in section ForecastingProductFamilyOppQtyListFilter</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI000000F7Z3</field>
+            <label>DAF Gift</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.LEAD_SOURCE</field>
@@ -2697,6 +3141,10 @@
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdB9</field>
             <label>Ask Date</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI00000097fM</field>
+            <label>Gala Level</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.LAST_STG_CHG_DAYS</field>
@@ -2771,6 +3219,10 @@
             <label>Grant Requirements Website</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI000000FFeq</field>
+            <label>Campaign Name</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdBN</field>
             <label>Honoree Contact</label>
         </forecastingObjectListLabelMappings>
@@ -2781,6 +3233,10 @@
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000MTZ</field>
             <label>Approach</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000006Vlt</field>
+            <label>Program Officer</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.RECORDTYPE</field>
@@ -2832,23 +3288,32 @@
             <field>OPPORTUNITY.LAST_UPDATE</field>
             <field>FORECASTEDMFJVALUE</field>
             <field>00Nhk000001Dcp6</field>
+            <field>00NiI0000002Ibx</field>
+            <field>00NiI0000002Iby</field>
+            <field>00NiI0000002Ibz</field>
             <field>00Nhk000001DdB7</field>
+            <field>00NiI0000002Ic0</field>
+            <field>00NiI0000002Ic1</field>
             <field>00Nhk000001DdB8</field>
+            <field>00NiI0000002Ic2</field>
             <field>00NiI0000000WBB</field>
             <field>00NiI0000000MTZ</field>
             <field>00Nhk000001DdB9</field>
             <field>00Nhk000001DdBB</field>
             <field>00Nhk000001DdBA</field>
             <field>00Nhk000001A0YF</field>
+            <field>00NiI000000FFeq</field>
             <field>00Nhk000001DdBC</field>
             <field>00Nhk000001Dcp5</field>
             <field>00Nhk000001DckJ</field>
+            <field>00NiI000000F7Z3</field>
             <field>00NiI0000000ku5</field>
             <field>00Nhk000001DdBE</field>
             <field>00Nhk000001A0YG</field>
             <field>00Nhk000001DckK</field>
             <field>00Nhk000001DdBD</field>
             <field>00Nhk000001DdBF</field>
+            <field>00NiI00000097fM</field>
             <field>00Nhk000001DdBG</field>
             <field>00Nhk000001DdBH</field>
             <field>00Nhk000001DdBI</field>
@@ -2864,6 +3329,7 @@
             <field>00Nhk000001DdBS</field>
             <field>00Nhk000001DdBT</field>
             <field>00Nhk000001Dcka</field>
+            <field>00NiI000000FCTu</field>
             <field>00Nhk000001A0YI</field>
             <field>00Nhk000001DdBX</field>
             <field>00Nhk000001DdBU</field>
@@ -2885,13 +3351,17 @@
             <field>00Nhk000001DckS</field>
             <field>00NiI0000000ku6</field>
             <field>00NiI0000000WBC</field>
+            <field>00NiI000000FK85</field>
             <field>00Nhk000001DckT</field>
+            <field>00NiI000000NG0v</field>
+            <field>00NiI000000FFze</field>
             <field>00Nhk000001DckR</field>
             <field>00NiI0000000WBD</field>
             <field>00Nhk000001DdBe</field>
             <field>00Nhk000001DdBg</field>
             <field>00Nhk000001DdBf</field>
             <field>00Nhk000001DdBL</field>
+            <field>00NiI0000006Vlt</field>
             <field>00Nhk000001DdBh</field>
             <field>00Nhk000001DctN</field>
             <field>00Nhk000001DdEp</field>
@@ -2912,6 +3382,11 @@
             <field>OPPORTUNITY.AGE_IN_DAYS</field>
             <field>OPPORTUNITY.LAST_STAGE_CHANGE</field>
             <field>OPPORTUNITY.PUSH_COUNT</field>
+            <field>SalesMethodology</field>
+            <field>ActivityHeatmap</field>
+            <field>AgentActivity</field>
+            <field>Contacts</field>
+            <field>CriticalInsights</field>
         </forecastingObjectListUnselectedSettings>
         <forecastingTypeDeveloperName>OpportunityLineItemQuantity</forecastingTypeDeveloperName>
     </forecastingTypeObjectListSettings>
@@ -2921,6 +3396,10 @@
             <label>Close Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI000000FCTu</field>
+            <label>Last Payment Date</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.PROBABILITY</field>
             <label>Probability (%)</label>
         </forecastingObjectListLabelMappings>
@@ -3017,6 +3496,10 @@
             <label>Matching Gift</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>CriticalInsights</field>
+            <label>__MISSING LABEL__ PropertyFile - val CriticalInsights not found in section ForecastingOpportunityRevenueProductDateOppListFilter</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdBY</field>
             <label>Notification Message</label>
         </forecastingObjectListLabelMappings>
@@ -3101,8 +3584,24 @@
             <label>Last Modified Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ic1</field>
+            <label>Acknowledgment Sent By</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ic0</field>
+            <label>Acknowledgment Send Mode</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ic2</field>
+            <label>Acknowledgment Template</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdEd</field>
             <label>Next Deliverable Date</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>SalesMethodology</field>
+            <label>__MISSING LABEL__ PropertyFile - val SalesMethodology not found in section ForecastingOpportunityRevenueProductDateOppListFilter</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000ih0</field>
@@ -3113,8 +3612,16 @@
             <label>Description</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI000000FFze</field>
+            <label>Payments Made (Count)</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdEp</field>
             <label>Recurring Donation Installment Name</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ibx</field>
+            <label>Acknowledgment Age (Business Days)</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001DckZ</field>
@@ -3123,6 +3630,22 @@
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000igz</field>
             <label>Honoree Contact Set</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI000000NG0v</field>
+            <label>Payment Method</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>ActivityHeatmap</field>
+            <label>__MISSING LABEL__ PropertyFile - val ActivityHeatmap not found in section ForecastingOpportunityRevenueProductDateOppListFilter</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ibz</field>
+            <label>Acknowledgment Channel</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Iby</field>
+            <label>Acknowledgment Approved</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001Dcka</field>
@@ -3183,6 +3706,10 @@
         <forecastingObjectListLabelMappings>
             <field>CORE.USERS.FIRST_NAME</field>
             <label>Owner First Name</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>Contacts</field>
+            <label>__MISSING LABEL__ PropertyFile - val Contacts not found in section ForecastingOpportunityRevenueProductDateOppListFilter</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000ku8</field>
@@ -3257,8 +3784,20 @@
             <label>Account Site</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI000000FK85</field>
+            <label>Other Campaign Write-In</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.PRIVATE</field>
             <label>Private</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>AgentActivity</field>
+            <label>__MISSING LABEL__ PropertyFile - val AgentActivity not found in section ForecastingOpportunityRevenueProductDateOppListFilter</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI000000F7Z3</field>
+            <label>DAF Gift</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.LEAD_SOURCE</field>
@@ -3283,6 +3822,10 @@
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdB9</field>
             <label>Ask Date</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI00000097fM</field>
+            <label>Gala Level</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.LAST_STG_CHG_DAYS</field>
@@ -3357,6 +3900,10 @@
             <label>Grant Requirements Website</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI000000FFeq</field>
+            <label>Campaign Name</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdBN</field>
             <label>Honoree Contact</label>
         </forecastingObjectListLabelMappings>
@@ -3367,6 +3914,10 @@
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000MTZ</field>
             <label>Approach</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000006Vlt</field>
+            <label>Program Officer</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.RECORDTYPE</field>
@@ -3419,23 +3970,32 @@
             <field>OPPORTUNITY.LAST_UPDATE</field>
             <field>FORECASTEDMFJVALUE</field>
             <field>00Nhk000001Dcp6</field>
+            <field>00NiI0000002Ibx</field>
+            <field>00NiI0000002Iby</field>
+            <field>00NiI0000002Ibz</field>
             <field>00Nhk000001DdB7</field>
+            <field>00NiI0000002Ic0</field>
+            <field>00NiI0000002Ic1</field>
             <field>00Nhk000001DdB8</field>
+            <field>00NiI0000002Ic2</field>
             <field>00NiI0000000WBB</field>
             <field>00NiI0000000MTZ</field>
             <field>00Nhk000001DdB9</field>
             <field>00Nhk000001DdBB</field>
             <field>00Nhk000001DdBA</field>
             <field>00Nhk000001A0YF</field>
+            <field>00NiI000000FFeq</field>
             <field>00Nhk000001DdBC</field>
             <field>00Nhk000001Dcp5</field>
             <field>00Nhk000001DckJ</field>
+            <field>00NiI000000F7Z3</field>
             <field>00NiI0000000ku5</field>
             <field>00Nhk000001DdBE</field>
             <field>00Nhk000001A0YG</field>
             <field>00Nhk000001DckK</field>
             <field>00Nhk000001DdBD</field>
             <field>00Nhk000001DdBF</field>
+            <field>00NiI00000097fM</field>
             <field>00Nhk000001DdBG</field>
             <field>00Nhk000001DdBH</field>
             <field>00Nhk000001DdBI</field>
@@ -3451,6 +4011,7 @@
             <field>00Nhk000001DdBS</field>
             <field>00Nhk000001DdBT</field>
             <field>00Nhk000001Dcka</field>
+            <field>00NiI000000FCTu</field>
             <field>00Nhk000001A0YI</field>
             <field>00Nhk000001DdBX</field>
             <field>00Nhk000001DdBU</field>
@@ -3472,13 +4033,17 @@
             <field>00Nhk000001DckS</field>
             <field>00NiI0000000ku6</field>
             <field>00NiI0000000WBC</field>
+            <field>00NiI000000FK85</field>
             <field>00Nhk000001DckT</field>
+            <field>00NiI000000NG0v</field>
+            <field>00NiI000000FFze</field>
             <field>00Nhk000001DckR</field>
             <field>00NiI0000000WBD</field>
             <field>00Nhk000001DdBe</field>
             <field>00Nhk000001DdBg</field>
             <field>00Nhk000001DdBf</field>
             <field>00Nhk000001DdBL</field>
+            <field>00NiI0000006Vlt</field>
             <field>00Nhk000001DdBh</field>
             <field>00Nhk000001DctN</field>
             <field>00Nhk000001DdEp</field>
@@ -3499,6 +4064,11 @@
             <field>OPPORTUNITY.AGE_IN_DAYS</field>
             <field>OPPORTUNITY.LAST_STAGE_CHANGE</field>
             <field>OPPORTUNITY.PUSH_COUNT</field>
+            <field>SalesMethodology</field>
+            <field>ActivityHeatmap</field>
+            <field>AgentActivity</field>
+            <field>Contacts</field>
+            <field>CriticalInsights</field>
         </forecastingObjectListUnselectedSettings>
         <forecastingTypeDeveloperName>OpportunityRevenueProductDate</forecastingTypeDeveloperName>
     </forecastingTypeObjectListSettings>
@@ -3508,6 +4078,10 @@
             <label>Close Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI000000FCTu</field>
+            <label>Last Payment Date</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.PROBABILITY</field>
             <label>Probability (%)</label>
         </forecastingObjectListLabelMappings>
@@ -3604,6 +4178,10 @@
             <label>Matching Gift</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>CriticalInsights</field>
+            <label>__MISSING LABEL__ PropertyFile - val CriticalInsights not found in section ForecastingOpportunityQuantityProductDateOppListFilter</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdBY</field>
             <label>Notification Message</label>
         </forecastingObjectListLabelMappings>
@@ -3688,8 +4266,24 @@
             <label>Last Modified Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ic1</field>
+            <label>Acknowledgment Sent By</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ic0</field>
+            <label>Acknowledgment Send Mode</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ic2</field>
+            <label>Acknowledgment Template</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdEd</field>
             <label>Next Deliverable Date</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>SalesMethodology</field>
+            <label>__MISSING LABEL__ PropertyFile - val SalesMethodology not found in section ForecastingOpportunityQuantityProductDateOppListFilter</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000ih0</field>
@@ -3700,8 +4294,16 @@
             <label>Description</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI000000FFze</field>
+            <label>Payments Made (Count)</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdEp</field>
             <label>Recurring Donation Installment Name</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ibx</field>
+            <label>Acknowledgment Age (Business Days)</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001DckZ</field>
@@ -3710,6 +4312,22 @@
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000igz</field>
             <label>Honoree Contact Set</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI000000NG0v</field>
+            <label>Payment Method</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>ActivityHeatmap</field>
+            <label>__MISSING LABEL__ PropertyFile - val ActivityHeatmap not found in section ForecastingOpportunityQuantityProductDateOppListFilter</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ibz</field>
+            <label>Acknowledgment Channel</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Iby</field>
+            <label>Acknowledgment Approved</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001Dcka</field>
@@ -3770,6 +4388,10 @@
         <forecastingObjectListLabelMappings>
             <field>CORE.USERS.FIRST_NAME</field>
             <label>Owner First Name</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>Contacts</field>
+            <label>__MISSING LABEL__ PropertyFile - val Contacts not found in section ForecastingOpportunityQuantityProductDateOppListFilter</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000ku8</field>
@@ -3840,8 +4462,20 @@
             <label>Account Site</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI000000FK85</field>
+            <label>Other Campaign Write-In</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.PRIVATE</field>
             <label>Private</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>AgentActivity</field>
+            <label>__MISSING LABEL__ PropertyFile - val AgentActivity not found in section ForecastingOpportunityQuantityProductDateOppListFilter</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI000000F7Z3</field>
+            <label>DAF Gift</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.LEAD_SOURCE</field>
@@ -3866,6 +4500,10 @@
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdB9</field>
             <label>Ask Date</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI00000097fM</field>
+            <label>Gala Level</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.LAST_STG_CHG_DAYS</field>
@@ -3940,6 +4578,10 @@
             <label>Grant Requirements Website</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI000000FFeq</field>
+            <label>Campaign Name</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdBN</field>
             <label>Honoree Contact</label>
         </forecastingObjectListLabelMappings>
@@ -3950,6 +4592,10 @@
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000MTZ</field>
             <label>Approach</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000006Vlt</field>
+            <label>Program Officer</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.RECORDTYPE</field>
@@ -4001,23 +4647,32 @@
             <field>OPPORTUNITY.LAST_UPDATE</field>
             <field>FORECASTEDMFJVALUE</field>
             <field>00Nhk000001Dcp6</field>
+            <field>00NiI0000002Ibx</field>
+            <field>00NiI0000002Iby</field>
+            <field>00NiI0000002Ibz</field>
             <field>00Nhk000001DdB7</field>
+            <field>00NiI0000002Ic0</field>
+            <field>00NiI0000002Ic1</field>
             <field>00Nhk000001DdB8</field>
+            <field>00NiI0000002Ic2</field>
             <field>00NiI0000000WBB</field>
             <field>00NiI0000000MTZ</field>
             <field>00Nhk000001DdB9</field>
             <field>00Nhk000001DdBB</field>
             <field>00Nhk000001DdBA</field>
             <field>00Nhk000001A0YF</field>
+            <field>00NiI000000FFeq</field>
             <field>00Nhk000001DdBC</field>
             <field>00Nhk000001Dcp5</field>
             <field>00Nhk000001DckJ</field>
+            <field>00NiI000000F7Z3</field>
             <field>00NiI0000000ku5</field>
             <field>00Nhk000001DdBE</field>
             <field>00Nhk000001A0YG</field>
             <field>00Nhk000001DckK</field>
             <field>00Nhk000001DdBD</field>
             <field>00Nhk000001DdBF</field>
+            <field>00NiI00000097fM</field>
             <field>00Nhk000001DdBG</field>
             <field>00Nhk000001DdBH</field>
             <field>00Nhk000001DdBI</field>
@@ -4033,6 +4688,7 @@
             <field>00Nhk000001DdBS</field>
             <field>00Nhk000001DdBT</field>
             <field>00Nhk000001Dcka</field>
+            <field>00NiI000000FCTu</field>
             <field>00Nhk000001A0YI</field>
             <field>00Nhk000001DdBX</field>
             <field>00Nhk000001DdBU</field>
@@ -4054,13 +4710,17 @@
             <field>00Nhk000001DckS</field>
             <field>00NiI0000000ku6</field>
             <field>00NiI0000000WBC</field>
+            <field>00NiI000000FK85</field>
             <field>00Nhk000001DckT</field>
+            <field>00NiI000000NG0v</field>
+            <field>00NiI000000FFze</field>
             <field>00Nhk000001DckR</field>
             <field>00NiI0000000WBD</field>
             <field>00Nhk000001DdBe</field>
             <field>00Nhk000001DdBg</field>
             <field>00Nhk000001DdBf</field>
             <field>00Nhk000001DdBL</field>
+            <field>00NiI0000006Vlt</field>
             <field>00Nhk000001DdBh</field>
             <field>00Nhk000001DctN</field>
             <field>00Nhk000001DdEp</field>
@@ -4081,6 +4741,11 @@
             <field>OPPORTUNITY.AGE_IN_DAYS</field>
             <field>OPPORTUNITY.LAST_STAGE_CHANGE</field>
             <field>OPPORTUNITY.PUSH_COUNT</field>
+            <field>SalesMethodology</field>
+            <field>ActivityHeatmap</field>
+            <field>AgentActivity</field>
+            <field>Contacts</field>
+            <field>CriticalInsights</field>
         </forecastingObjectListUnselectedSettings>
         <forecastingTypeDeveloperName>OpportunityQuantityProductDate</forecastingTypeDeveloperName>
     </forecastingTypeObjectListSettings>
@@ -4090,6 +4755,10 @@
             <label>Close Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI000000FCTu</field>
+            <label>Last Payment Date</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.PROBABILITY</field>
             <label>Probability (%)</label>
         </forecastingObjectListLabelMappings>
@@ -4186,6 +4855,10 @@
             <label>Matching Gift</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>CriticalInsights</field>
+            <label>__MISSING LABEL__ PropertyFile - val CriticalInsights not found in section ForecastingProductFamilyRevenueProductDateOppListFilter</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdBY</field>
             <label>Notification Message</label>
         </forecastingObjectListLabelMappings>
@@ -4270,8 +4943,24 @@
             <label>Last Modified Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ic1</field>
+            <label>Acknowledgment Sent By</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ic0</field>
+            <label>Acknowledgment Send Mode</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ic2</field>
+            <label>Acknowledgment Template</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdEd</field>
             <label>Next Deliverable Date</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>SalesMethodology</field>
+            <label>__MISSING LABEL__ PropertyFile - val SalesMethodology not found in section ForecastingProductFamilyRevenueProductDateOppListFilter</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000ih0</field>
@@ -4282,8 +4971,16 @@
             <label>Description</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI000000FFze</field>
+            <label>Payments Made (Count)</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdEp</field>
             <label>Recurring Donation Installment Name</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ibx</field>
+            <label>Acknowledgment Age (Business Days)</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001DckZ</field>
@@ -4292,6 +4989,22 @@
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000igz</field>
             <label>Honoree Contact Set</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI000000NG0v</field>
+            <label>Payment Method</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>ActivityHeatmap</field>
+            <label>__MISSING LABEL__ PropertyFile - val ActivityHeatmap not found in section ForecastingProductFamilyRevenueProductDateOppListFilter</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ibz</field>
+            <label>Acknowledgment Channel</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Iby</field>
+            <label>Acknowledgment Approved</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001Dcka</field>
@@ -4352,6 +5065,10 @@
         <forecastingObjectListLabelMappings>
             <field>CORE.USERS.FIRST_NAME</field>
             <label>Owner First Name</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>Contacts</field>
+            <label>__MISSING LABEL__ PropertyFile - val Contacts not found in section ForecastingProductFamilyRevenueProductDateOppListFilter</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000ku8</field>
@@ -4426,8 +5143,20 @@
             <label>Account Site</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI000000FK85</field>
+            <label>Other Campaign Write-In</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.PRIVATE</field>
             <label>Private</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>AgentActivity</field>
+            <label>__MISSING LABEL__ PropertyFile - val AgentActivity not found in section ForecastingProductFamilyRevenueProductDateOppListFilter</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI000000F7Z3</field>
+            <label>DAF Gift</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.LEAD_SOURCE</field>
@@ -4452,6 +5181,10 @@
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdB9</field>
             <label>Ask Date</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI00000097fM</field>
+            <label>Gala Level</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.LAST_STG_CHG_DAYS</field>
@@ -4526,6 +5259,10 @@
             <label>Grant Requirements Website</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI000000FFeq</field>
+            <label>Campaign Name</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdBN</field>
             <label>Honoree Contact</label>
         </forecastingObjectListLabelMappings>
@@ -4536,6 +5273,10 @@
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000MTZ</field>
             <label>Approach</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000006Vlt</field>
+            <label>Program Officer</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.RECORDTYPE</field>
@@ -4588,23 +5329,32 @@
             <field>OPPORTUNITY.LAST_UPDATE</field>
             <field>FORECASTEDMFJVALUE</field>
             <field>00Nhk000001Dcp6</field>
+            <field>00NiI0000002Ibx</field>
+            <field>00NiI0000002Iby</field>
+            <field>00NiI0000002Ibz</field>
             <field>00Nhk000001DdB7</field>
+            <field>00NiI0000002Ic0</field>
+            <field>00NiI0000002Ic1</field>
             <field>00Nhk000001DdB8</field>
+            <field>00NiI0000002Ic2</field>
             <field>00NiI0000000WBB</field>
             <field>00NiI0000000MTZ</field>
             <field>00Nhk000001DdB9</field>
             <field>00Nhk000001DdBB</field>
             <field>00Nhk000001DdBA</field>
             <field>00Nhk000001A0YF</field>
+            <field>00NiI000000FFeq</field>
             <field>00Nhk000001DdBC</field>
             <field>00Nhk000001Dcp5</field>
             <field>00Nhk000001DckJ</field>
+            <field>00NiI000000F7Z3</field>
             <field>00NiI0000000ku5</field>
             <field>00Nhk000001DdBE</field>
             <field>00Nhk000001A0YG</field>
             <field>00Nhk000001DckK</field>
             <field>00Nhk000001DdBD</field>
             <field>00Nhk000001DdBF</field>
+            <field>00NiI00000097fM</field>
             <field>00Nhk000001DdBG</field>
             <field>00Nhk000001DdBH</field>
             <field>00Nhk000001DdBI</field>
@@ -4620,6 +5370,7 @@
             <field>00Nhk000001DdBS</field>
             <field>00Nhk000001DdBT</field>
             <field>00Nhk000001Dcka</field>
+            <field>00NiI000000FCTu</field>
             <field>00Nhk000001A0YI</field>
             <field>00Nhk000001DdBX</field>
             <field>00Nhk000001DdBU</field>
@@ -4641,13 +5392,17 @@
             <field>00Nhk000001DckS</field>
             <field>00NiI0000000ku6</field>
             <field>00NiI0000000WBC</field>
+            <field>00NiI000000FK85</field>
             <field>00Nhk000001DckT</field>
+            <field>00NiI000000NG0v</field>
+            <field>00NiI000000FFze</field>
             <field>00Nhk000001DckR</field>
             <field>00NiI0000000WBD</field>
             <field>00Nhk000001DdBe</field>
             <field>00Nhk000001DdBg</field>
             <field>00Nhk000001DdBf</field>
             <field>00Nhk000001DdBL</field>
+            <field>00NiI0000006Vlt</field>
             <field>00Nhk000001DdBh</field>
             <field>00Nhk000001DctN</field>
             <field>00Nhk000001DdEp</field>
@@ -4668,6 +5423,11 @@
             <field>OPPORTUNITY.AGE_IN_DAYS</field>
             <field>OPPORTUNITY.LAST_STAGE_CHANGE</field>
             <field>OPPORTUNITY.PUSH_COUNT</field>
+            <field>SalesMethodology</field>
+            <field>ActivityHeatmap</field>
+            <field>AgentActivity</field>
+            <field>Contacts</field>
+            <field>CriticalInsights</field>
         </forecastingObjectListUnselectedSettings>
         <forecastingTypeDeveloperName>LineItemRevenueProductDate</forecastingTypeDeveloperName>
     </forecastingTypeObjectListSettings>
@@ -4677,6 +5437,10 @@
             <label>Close Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI000000FCTu</field>
+            <label>Last Payment Date</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.PROBABILITY</field>
             <label>Probability (%)</label>
         </forecastingObjectListLabelMappings>
@@ -4773,6 +5537,10 @@
             <label>Matching Gift</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>CriticalInsights</field>
+            <label>__MISSING LABEL__ PropertyFile - val CriticalInsights not found in section ForecastingProductFamilyQuantityProductDateOppListFilter</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdBY</field>
             <label>Notification Message</label>
         </forecastingObjectListLabelMappings>
@@ -4857,8 +5625,24 @@
             <label>Last Modified Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ic1</field>
+            <label>Acknowledgment Sent By</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ic0</field>
+            <label>Acknowledgment Send Mode</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ic2</field>
+            <label>Acknowledgment Template</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdEd</field>
             <label>Next Deliverable Date</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>SalesMethodology</field>
+            <label>__MISSING LABEL__ PropertyFile - val SalesMethodology not found in section ForecastingProductFamilyQuantityProductDateOppListFilter</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000ih0</field>
@@ -4869,8 +5653,16 @@
             <label>Description</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI000000FFze</field>
+            <label>Payments Made (Count)</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdEp</field>
             <label>Recurring Donation Installment Name</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ibx</field>
+            <label>Acknowledgment Age (Business Days)</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001DckZ</field>
@@ -4879,6 +5671,22 @@
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000igz</field>
             <label>Honoree Contact Set</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI000000NG0v</field>
+            <label>Payment Method</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>ActivityHeatmap</field>
+            <label>__MISSING LABEL__ PropertyFile - val ActivityHeatmap not found in section ForecastingProductFamilyQuantityProductDateOppListFilter</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ibz</field>
+            <label>Acknowledgment Channel</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Iby</field>
+            <label>Acknowledgment Approved</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001Dcka</field>
@@ -4939,6 +5747,10 @@
         <forecastingObjectListLabelMappings>
             <field>CORE.USERS.FIRST_NAME</field>
             <label>Owner First Name</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>Contacts</field>
+            <label>__MISSING LABEL__ PropertyFile - val Contacts not found in section ForecastingProductFamilyQuantityProductDateOppListFilter</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000ku8</field>
@@ -5009,8 +5821,20 @@
             <label>Account Site</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI000000FK85</field>
+            <label>Other Campaign Write-In</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.PRIVATE</field>
             <label>Private</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>AgentActivity</field>
+            <label>__MISSING LABEL__ PropertyFile - val AgentActivity not found in section ForecastingProductFamilyQuantityProductDateOppListFilter</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI000000F7Z3</field>
+            <label>DAF Gift</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.LEAD_SOURCE</field>
@@ -5035,6 +5859,10 @@
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdB9</field>
             <label>Ask Date</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI00000097fM</field>
+            <label>Gala Level</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.LAST_STG_CHG_DAYS</field>
@@ -5109,6 +5937,10 @@
             <label>Grant Requirements Website</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI000000FFeq</field>
+            <label>Campaign Name</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdBN</field>
             <label>Honoree Contact</label>
         </forecastingObjectListLabelMappings>
@@ -5119,6 +5951,10 @@
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000MTZ</field>
             <label>Approach</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000006Vlt</field>
+            <label>Program Officer</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.RECORDTYPE</field>
@@ -5170,23 +6006,32 @@
             <field>OPPORTUNITY.LAST_UPDATE</field>
             <field>FORECASTEDMFJVALUE</field>
             <field>00Nhk000001Dcp6</field>
+            <field>00NiI0000002Ibx</field>
+            <field>00NiI0000002Iby</field>
+            <field>00NiI0000002Ibz</field>
             <field>00Nhk000001DdB7</field>
+            <field>00NiI0000002Ic0</field>
+            <field>00NiI0000002Ic1</field>
             <field>00Nhk000001DdB8</field>
+            <field>00NiI0000002Ic2</field>
             <field>00NiI0000000WBB</field>
             <field>00NiI0000000MTZ</field>
             <field>00Nhk000001DdB9</field>
             <field>00Nhk000001DdBB</field>
             <field>00Nhk000001DdBA</field>
             <field>00Nhk000001A0YF</field>
+            <field>00NiI000000FFeq</field>
             <field>00Nhk000001DdBC</field>
             <field>00Nhk000001Dcp5</field>
             <field>00Nhk000001DckJ</field>
+            <field>00NiI000000F7Z3</field>
             <field>00NiI0000000ku5</field>
             <field>00Nhk000001DdBE</field>
             <field>00Nhk000001A0YG</field>
             <field>00Nhk000001DckK</field>
             <field>00Nhk000001DdBD</field>
             <field>00Nhk000001DdBF</field>
+            <field>00NiI00000097fM</field>
             <field>00Nhk000001DdBG</field>
             <field>00Nhk000001DdBH</field>
             <field>00Nhk000001DdBI</field>
@@ -5202,6 +6047,7 @@
             <field>00Nhk000001DdBS</field>
             <field>00Nhk000001DdBT</field>
             <field>00Nhk000001Dcka</field>
+            <field>00NiI000000FCTu</field>
             <field>00Nhk000001A0YI</field>
             <field>00Nhk000001DdBX</field>
             <field>00Nhk000001DdBU</field>
@@ -5223,13 +6069,17 @@
             <field>00Nhk000001DckS</field>
             <field>00NiI0000000ku6</field>
             <field>00NiI0000000WBC</field>
+            <field>00NiI000000FK85</field>
             <field>00Nhk000001DckT</field>
+            <field>00NiI000000NG0v</field>
+            <field>00NiI000000FFze</field>
             <field>00Nhk000001DckR</field>
             <field>00NiI0000000WBD</field>
             <field>00Nhk000001DdBe</field>
             <field>00Nhk000001DdBg</field>
             <field>00Nhk000001DdBf</field>
             <field>00Nhk000001DdBL</field>
+            <field>00NiI0000006Vlt</field>
             <field>00Nhk000001DdBh</field>
             <field>00Nhk000001DctN</field>
             <field>00Nhk000001DdEp</field>
@@ -5250,6 +6100,11 @@
             <field>OPPORTUNITY.AGE_IN_DAYS</field>
             <field>OPPORTUNITY.LAST_STAGE_CHANGE</field>
             <field>OPPORTUNITY.PUSH_COUNT</field>
+            <field>SalesMethodology</field>
+            <field>ActivityHeatmap</field>
+            <field>AgentActivity</field>
+            <field>Contacts</field>
+            <field>CriticalInsights</field>
         </forecastingObjectListUnselectedSettings>
         <forecastingTypeDeveloperName>LineItemQuantityProductDate</forecastingTypeDeveloperName>
     </forecastingTypeObjectListSettings>
@@ -5259,6 +6114,10 @@
             <label>Close Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI000000FCTu</field>
+            <label>Last Payment Date</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.PROBABILITY</field>
             <label>Probability (%)</label>
         </forecastingObjectListLabelMappings>
@@ -5355,6 +6214,10 @@
             <label>Matching Gift</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>CriticalInsights</field>
+            <label>__MISSING LABEL__ PropertyFile - val CriticalInsights not found in section ForecastingOpportunityRevenueScheduleDateOppListFilter</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdBY</field>
             <label>Notification Message</label>
         </forecastingObjectListLabelMappings>
@@ -5439,8 +6302,24 @@
             <label>Last Modified Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ic1</field>
+            <label>Acknowledgment Sent By</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ic0</field>
+            <label>Acknowledgment Send Mode</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ic2</field>
+            <label>Acknowledgment Template</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdEd</field>
             <label>Next Deliverable Date</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>SalesMethodology</field>
+            <label>__MISSING LABEL__ PropertyFile - val SalesMethodology not found in section ForecastingOpportunityRevenueScheduleDateOppListFilter</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000ih0</field>
@@ -5451,8 +6330,16 @@
             <label>Description</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI000000FFze</field>
+            <label>Payments Made (Count)</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdEp</field>
             <label>Recurring Donation Installment Name</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ibx</field>
+            <label>Acknowledgment Age (Business Days)</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001DckZ</field>
@@ -5461,6 +6348,22 @@
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000igz</field>
             <label>Honoree Contact Set</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI000000NG0v</field>
+            <label>Payment Method</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>ActivityHeatmap</field>
+            <label>__MISSING LABEL__ PropertyFile - val ActivityHeatmap not found in section ForecastingOpportunityRevenueScheduleDateOppListFilter</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ibz</field>
+            <label>Acknowledgment Channel</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Iby</field>
+            <label>Acknowledgment Approved</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001Dcka</field>
@@ -5521,6 +6424,10 @@
         <forecastingObjectListLabelMappings>
             <field>CORE.USERS.FIRST_NAME</field>
             <label>Owner First Name</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>Contacts</field>
+            <label>__MISSING LABEL__ PropertyFile - val Contacts not found in section ForecastingOpportunityRevenueScheduleDateOppListFilter</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000ku8</field>
@@ -5595,8 +6502,20 @@
             <label>Account Site</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI000000FK85</field>
+            <label>Other Campaign Write-In</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.PRIVATE</field>
             <label>Private</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>AgentActivity</field>
+            <label>__MISSING LABEL__ PropertyFile - val AgentActivity not found in section ForecastingOpportunityRevenueScheduleDateOppListFilter</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI000000F7Z3</field>
+            <label>DAF Gift</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.LEAD_SOURCE</field>
@@ -5621,6 +6540,10 @@
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdB9</field>
             <label>Ask Date</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI00000097fM</field>
+            <label>Gala Level</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.LAST_STG_CHG_DAYS</field>
@@ -5695,6 +6618,10 @@
             <label>Grant Requirements Website</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI000000FFeq</field>
+            <label>Campaign Name</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdBN</field>
             <label>Honoree Contact</label>
         </forecastingObjectListLabelMappings>
@@ -5705,6 +6632,10 @@
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000MTZ</field>
             <label>Approach</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000006Vlt</field>
+            <label>Program Officer</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.RECORDTYPE</field>
@@ -5757,23 +6688,32 @@
             <field>OPPORTUNITY.LAST_UPDATE</field>
             <field>FORECASTEDMFJVALUE</field>
             <field>00Nhk000001Dcp6</field>
+            <field>00NiI0000002Ibx</field>
+            <field>00NiI0000002Iby</field>
+            <field>00NiI0000002Ibz</field>
             <field>00Nhk000001DdB7</field>
+            <field>00NiI0000002Ic0</field>
+            <field>00NiI0000002Ic1</field>
             <field>00Nhk000001DdB8</field>
+            <field>00NiI0000002Ic2</field>
             <field>00NiI0000000WBB</field>
             <field>00NiI0000000MTZ</field>
             <field>00Nhk000001DdB9</field>
             <field>00Nhk000001DdBB</field>
             <field>00Nhk000001DdBA</field>
             <field>00Nhk000001A0YF</field>
+            <field>00NiI000000FFeq</field>
             <field>00Nhk000001DdBC</field>
             <field>00Nhk000001Dcp5</field>
             <field>00Nhk000001DckJ</field>
+            <field>00NiI000000F7Z3</field>
             <field>00NiI0000000ku5</field>
             <field>00Nhk000001DdBE</field>
             <field>00Nhk000001A0YG</field>
             <field>00Nhk000001DckK</field>
             <field>00Nhk000001DdBD</field>
             <field>00Nhk000001DdBF</field>
+            <field>00NiI00000097fM</field>
             <field>00Nhk000001DdBG</field>
             <field>00Nhk000001DdBH</field>
             <field>00Nhk000001DdBI</field>
@@ -5789,6 +6729,7 @@
             <field>00Nhk000001DdBS</field>
             <field>00Nhk000001DdBT</field>
             <field>00Nhk000001Dcka</field>
+            <field>00NiI000000FCTu</field>
             <field>00Nhk000001A0YI</field>
             <field>00Nhk000001DdBX</field>
             <field>00Nhk000001DdBU</field>
@@ -5810,13 +6751,17 @@
             <field>00Nhk000001DckS</field>
             <field>00NiI0000000ku6</field>
             <field>00NiI0000000WBC</field>
+            <field>00NiI000000FK85</field>
             <field>00Nhk000001DckT</field>
+            <field>00NiI000000NG0v</field>
+            <field>00NiI000000FFze</field>
             <field>00Nhk000001DckR</field>
             <field>00NiI0000000WBD</field>
             <field>00Nhk000001DdBe</field>
             <field>00Nhk000001DdBg</field>
             <field>00Nhk000001DdBf</field>
             <field>00Nhk000001DdBL</field>
+            <field>00NiI0000006Vlt</field>
             <field>00Nhk000001DdBh</field>
             <field>00Nhk000001DctN</field>
             <field>00Nhk000001DdEp</field>
@@ -5837,6 +6782,11 @@
             <field>OPPORTUNITY.AGE_IN_DAYS</field>
             <field>OPPORTUNITY.LAST_STAGE_CHANGE</field>
             <field>OPPORTUNITY.PUSH_COUNT</field>
+            <field>SalesMethodology</field>
+            <field>ActivityHeatmap</field>
+            <field>AgentActivity</field>
+            <field>Contacts</field>
+            <field>CriticalInsights</field>
         </forecastingObjectListUnselectedSettings>
         <forecastingTypeDeveloperName>OpportunityRevenueScheduleDate</forecastingTypeDeveloperName>
     </forecastingTypeObjectListSettings>
@@ -5846,6 +6796,10 @@
             <label>Close Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI000000FCTu</field>
+            <label>Last Payment Date</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.PROBABILITY</field>
             <label>Probability (%)</label>
         </forecastingObjectListLabelMappings>
@@ -5942,6 +6896,10 @@
             <label>Matching Gift</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>CriticalInsights</field>
+            <label>__MISSING LABEL__ PropertyFile - val CriticalInsights not found in section ForecastingOpportunityQuantityScheduleDateOppListFilter</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdBY</field>
             <label>Notification Message</label>
         </forecastingObjectListLabelMappings>
@@ -6026,8 +6984,24 @@
             <label>Last Modified Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ic1</field>
+            <label>Acknowledgment Sent By</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ic0</field>
+            <label>Acknowledgment Send Mode</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ic2</field>
+            <label>Acknowledgment Template</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdEd</field>
             <label>Next Deliverable Date</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>SalesMethodology</field>
+            <label>__MISSING LABEL__ PropertyFile - val SalesMethodology not found in section ForecastingOpportunityQuantityScheduleDateOppListFilter</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000ih0</field>
@@ -6038,8 +7012,16 @@
             <label>Description</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI000000FFze</field>
+            <label>Payments Made (Count)</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdEp</field>
             <label>Recurring Donation Installment Name</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ibx</field>
+            <label>Acknowledgment Age (Business Days)</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001DckZ</field>
@@ -6048,6 +7030,22 @@
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000igz</field>
             <label>Honoree Contact Set</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI000000NG0v</field>
+            <label>Payment Method</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>ActivityHeatmap</field>
+            <label>__MISSING LABEL__ PropertyFile - val ActivityHeatmap not found in section ForecastingOpportunityQuantityScheduleDateOppListFilter</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ibz</field>
+            <label>Acknowledgment Channel</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Iby</field>
+            <label>Acknowledgment Approved</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001Dcka</field>
@@ -6108,6 +7106,10 @@
         <forecastingObjectListLabelMappings>
             <field>CORE.USERS.FIRST_NAME</field>
             <label>Owner First Name</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>Contacts</field>
+            <label>__MISSING LABEL__ PropertyFile - val Contacts not found in section ForecastingOpportunityQuantityScheduleDateOppListFilter</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000ku8</field>
@@ -6178,8 +7180,20 @@
             <label>Account Site</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI000000FK85</field>
+            <label>Other Campaign Write-In</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.PRIVATE</field>
             <label>Private</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>AgentActivity</field>
+            <label>__MISSING LABEL__ PropertyFile - val AgentActivity not found in section ForecastingOpportunityQuantityScheduleDateOppListFilter</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI000000F7Z3</field>
+            <label>DAF Gift</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.LEAD_SOURCE</field>
@@ -6204,6 +7218,10 @@
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdB9</field>
             <label>Ask Date</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI00000097fM</field>
+            <label>Gala Level</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.LAST_STG_CHG_DAYS</field>
@@ -6278,6 +7296,10 @@
             <label>Grant Requirements Website</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI000000FFeq</field>
+            <label>Campaign Name</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdBN</field>
             <label>Honoree Contact</label>
         </forecastingObjectListLabelMappings>
@@ -6288,6 +7310,10 @@
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000MTZ</field>
             <label>Approach</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000006Vlt</field>
+            <label>Program Officer</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.RECORDTYPE</field>
@@ -6339,23 +7365,32 @@
             <field>OPPORTUNITY.LAST_UPDATE</field>
             <field>FORECASTEDMFJVALUE</field>
             <field>00Nhk000001Dcp6</field>
+            <field>00NiI0000002Ibx</field>
+            <field>00NiI0000002Iby</field>
+            <field>00NiI0000002Ibz</field>
             <field>00Nhk000001DdB7</field>
+            <field>00NiI0000002Ic0</field>
+            <field>00NiI0000002Ic1</field>
             <field>00Nhk000001DdB8</field>
+            <field>00NiI0000002Ic2</field>
             <field>00NiI0000000WBB</field>
             <field>00NiI0000000MTZ</field>
             <field>00Nhk000001DdB9</field>
             <field>00Nhk000001DdBB</field>
             <field>00Nhk000001DdBA</field>
             <field>00Nhk000001A0YF</field>
+            <field>00NiI000000FFeq</field>
             <field>00Nhk000001DdBC</field>
             <field>00Nhk000001Dcp5</field>
             <field>00Nhk000001DckJ</field>
+            <field>00NiI000000F7Z3</field>
             <field>00NiI0000000ku5</field>
             <field>00Nhk000001DdBE</field>
             <field>00Nhk000001A0YG</field>
             <field>00Nhk000001DckK</field>
             <field>00Nhk000001DdBD</field>
             <field>00Nhk000001DdBF</field>
+            <field>00NiI00000097fM</field>
             <field>00Nhk000001DdBG</field>
             <field>00Nhk000001DdBH</field>
             <field>00Nhk000001DdBI</field>
@@ -6371,6 +7406,7 @@
             <field>00Nhk000001DdBS</field>
             <field>00Nhk000001DdBT</field>
             <field>00Nhk000001Dcka</field>
+            <field>00NiI000000FCTu</field>
             <field>00Nhk000001A0YI</field>
             <field>00Nhk000001DdBX</field>
             <field>00Nhk000001DdBU</field>
@@ -6392,13 +7428,17 @@
             <field>00Nhk000001DckS</field>
             <field>00NiI0000000ku6</field>
             <field>00NiI0000000WBC</field>
+            <field>00NiI000000FK85</field>
             <field>00Nhk000001DckT</field>
+            <field>00NiI000000NG0v</field>
+            <field>00NiI000000FFze</field>
             <field>00Nhk000001DckR</field>
             <field>00NiI0000000WBD</field>
             <field>00Nhk000001DdBe</field>
             <field>00Nhk000001DdBg</field>
             <field>00Nhk000001DdBf</field>
             <field>00Nhk000001DdBL</field>
+            <field>00NiI0000006Vlt</field>
             <field>00Nhk000001DdBh</field>
             <field>00Nhk000001DctN</field>
             <field>00Nhk000001DdEp</field>
@@ -6419,6 +7459,11 @@
             <field>OPPORTUNITY.AGE_IN_DAYS</field>
             <field>OPPORTUNITY.LAST_STAGE_CHANGE</field>
             <field>OPPORTUNITY.PUSH_COUNT</field>
+            <field>SalesMethodology</field>
+            <field>ActivityHeatmap</field>
+            <field>AgentActivity</field>
+            <field>Contacts</field>
+            <field>CriticalInsights</field>
         </forecastingObjectListUnselectedSettings>
         <forecastingTypeDeveloperName>OpportunityQuantityScheduleDate</forecastingTypeDeveloperName>
     </forecastingTypeObjectListSettings>
@@ -6426,6 +7471,10 @@
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.CLOSE_DATE</field>
             <label>Close Date</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI000000FCTu</field>
+            <label>Last Payment Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.PROBABILITY</field>
@@ -6524,6 +7573,10 @@
             <label>Matching Gift</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>CriticalInsights</field>
+            <label>__MISSING LABEL__ PropertyFile - val CriticalInsights not found in section ForecastingProductFamilyRevenueScheduleDateOppListFilter</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdBY</field>
             <label>Notification Message</label>
         </forecastingObjectListLabelMappings>
@@ -6608,8 +7661,24 @@
             <label>Last Modified Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ic1</field>
+            <label>Acknowledgment Sent By</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ic0</field>
+            <label>Acknowledgment Send Mode</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ic2</field>
+            <label>Acknowledgment Template</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdEd</field>
             <label>Next Deliverable Date</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>SalesMethodology</field>
+            <label>__MISSING LABEL__ PropertyFile - val SalesMethodology not found in section ForecastingProductFamilyRevenueScheduleDateOppListFilter</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000ih0</field>
@@ -6620,8 +7689,16 @@
             <label>Description</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI000000FFze</field>
+            <label>Payments Made (Count)</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdEp</field>
             <label>Recurring Donation Installment Name</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ibx</field>
+            <label>Acknowledgment Age (Business Days)</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001DckZ</field>
@@ -6630,6 +7707,22 @@
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000igz</field>
             <label>Honoree Contact Set</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI000000NG0v</field>
+            <label>Payment Method</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>ActivityHeatmap</field>
+            <label>__MISSING LABEL__ PropertyFile - val ActivityHeatmap not found in section ForecastingProductFamilyRevenueScheduleDateOppListFilter</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ibz</field>
+            <label>Acknowledgment Channel</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Iby</field>
+            <label>Acknowledgment Approved</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001Dcka</field>
@@ -6690,6 +7783,10 @@
         <forecastingObjectListLabelMappings>
             <field>CORE.USERS.FIRST_NAME</field>
             <label>Owner First Name</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>Contacts</field>
+            <label>__MISSING LABEL__ PropertyFile - val Contacts not found in section ForecastingProductFamilyRevenueScheduleDateOppListFilter</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000ku8</field>
@@ -6764,8 +7861,20 @@
             <label>Account Site</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI000000FK85</field>
+            <label>Other Campaign Write-In</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.PRIVATE</field>
             <label>Private</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>AgentActivity</field>
+            <label>__MISSING LABEL__ PropertyFile - val AgentActivity not found in section ForecastingProductFamilyRevenueScheduleDateOppListFilter</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI000000F7Z3</field>
+            <label>DAF Gift</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.LEAD_SOURCE</field>
@@ -6790,6 +7899,10 @@
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdB9</field>
             <label>Ask Date</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI00000097fM</field>
+            <label>Gala Level</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.LAST_STG_CHG_DAYS</field>
@@ -6864,6 +7977,10 @@
             <label>Grant Requirements Website</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI000000FFeq</field>
+            <label>Campaign Name</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdBN</field>
             <label>Honoree Contact</label>
         </forecastingObjectListLabelMappings>
@@ -6874,6 +7991,10 @@
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000MTZ</field>
             <label>Approach</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000006Vlt</field>
+            <label>Program Officer</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.RECORDTYPE</field>
@@ -6926,23 +8047,32 @@
             <field>OPPORTUNITY.LAST_UPDATE</field>
             <field>FORECASTEDMFJVALUE</field>
             <field>00Nhk000001Dcp6</field>
+            <field>00NiI0000002Ibx</field>
+            <field>00NiI0000002Iby</field>
+            <field>00NiI0000002Ibz</field>
             <field>00Nhk000001DdB7</field>
+            <field>00NiI0000002Ic0</field>
+            <field>00NiI0000002Ic1</field>
             <field>00Nhk000001DdB8</field>
+            <field>00NiI0000002Ic2</field>
             <field>00NiI0000000WBB</field>
             <field>00NiI0000000MTZ</field>
             <field>00Nhk000001DdB9</field>
             <field>00Nhk000001DdBB</field>
             <field>00Nhk000001DdBA</field>
             <field>00Nhk000001A0YF</field>
+            <field>00NiI000000FFeq</field>
             <field>00Nhk000001DdBC</field>
             <field>00Nhk000001Dcp5</field>
             <field>00Nhk000001DckJ</field>
+            <field>00NiI000000F7Z3</field>
             <field>00NiI0000000ku5</field>
             <field>00Nhk000001DdBE</field>
             <field>00Nhk000001A0YG</field>
             <field>00Nhk000001DckK</field>
             <field>00Nhk000001DdBD</field>
             <field>00Nhk000001DdBF</field>
+            <field>00NiI00000097fM</field>
             <field>00Nhk000001DdBG</field>
             <field>00Nhk000001DdBH</field>
             <field>00Nhk000001DdBI</field>
@@ -6958,6 +8088,7 @@
             <field>00Nhk000001DdBS</field>
             <field>00Nhk000001DdBT</field>
             <field>00Nhk000001Dcka</field>
+            <field>00NiI000000FCTu</field>
             <field>00Nhk000001A0YI</field>
             <field>00Nhk000001DdBX</field>
             <field>00Nhk000001DdBU</field>
@@ -6979,13 +8110,17 @@
             <field>00Nhk000001DckS</field>
             <field>00NiI0000000ku6</field>
             <field>00NiI0000000WBC</field>
+            <field>00NiI000000FK85</field>
             <field>00Nhk000001DckT</field>
+            <field>00NiI000000NG0v</field>
+            <field>00NiI000000FFze</field>
             <field>00Nhk000001DckR</field>
             <field>00NiI0000000WBD</field>
             <field>00Nhk000001DdBe</field>
             <field>00Nhk000001DdBg</field>
             <field>00Nhk000001DdBf</field>
             <field>00Nhk000001DdBL</field>
+            <field>00NiI0000006Vlt</field>
             <field>00Nhk000001DdBh</field>
             <field>00Nhk000001DctN</field>
             <field>00Nhk000001DdEp</field>
@@ -7006,6 +8141,11 @@
             <field>OPPORTUNITY.AGE_IN_DAYS</field>
             <field>OPPORTUNITY.LAST_STAGE_CHANGE</field>
             <field>OPPORTUNITY.PUSH_COUNT</field>
+            <field>SalesMethodology</field>
+            <field>ActivityHeatmap</field>
+            <field>AgentActivity</field>
+            <field>Contacts</field>
+            <field>CriticalInsights</field>
         </forecastingObjectListUnselectedSettings>
         <forecastingTypeDeveloperName>LineItemRevenueScheduleDate</forecastingTypeDeveloperName>
     </forecastingTypeObjectListSettings>
@@ -7013,6 +8153,10 @@
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.CLOSE_DATE</field>
             <label>Close Date</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI000000FCTu</field>
+            <label>Last Payment Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.PROBABILITY</field>
@@ -7111,6 +8255,10 @@
             <label>Matching Gift</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>CriticalInsights</field>
+            <label>__MISSING LABEL__ PropertyFile - val CriticalInsights not found in section ForecastingProductFamilyQuantityScheduleDateOppListFilter</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdBY</field>
             <label>Notification Message</label>
         </forecastingObjectListLabelMappings>
@@ -7195,8 +8343,24 @@
             <label>Last Modified Date</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ic1</field>
+            <label>Acknowledgment Sent By</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ic0</field>
+            <label>Acknowledgment Send Mode</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ic2</field>
+            <label>Acknowledgment Template</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdEd</field>
             <label>Next Deliverable Date</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>SalesMethodology</field>
+            <label>__MISSING LABEL__ PropertyFile - val SalesMethodology not found in section ForecastingProductFamilyQuantityScheduleDateOppListFilter</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000ih0</field>
@@ -7207,8 +8371,16 @@
             <label>Description</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI000000FFze</field>
+            <label>Payments Made (Count)</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdEp</field>
             <label>Recurring Donation Installment Name</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ibx</field>
+            <label>Acknowledgment Age (Business Days)</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001DckZ</field>
@@ -7217,6 +8389,22 @@
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000igz</field>
             <label>Honoree Contact Set</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI000000NG0v</field>
+            <label>Payment Method</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>ActivityHeatmap</field>
+            <label>__MISSING LABEL__ PropertyFile - val ActivityHeatmap not found in section ForecastingProductFamilyQuantityScheduleDateOppListFilter</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Ibz</field>
+            <label>Acknowledgment Channel</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000002Iby</field>
+            <label>Acknowledgment Approved</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001Dcka</field>
@@ -7277,6 +8465,10 @@
         <forecastingObjectListLabelMappings>
             <field>CORE.USERS.FIRST_NAME</field>
             <label>Owner First Name</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>Contacts</field>
+            <label>__MISSING LABEL__ PropertyFile - val Contacts not found in section ForecastingProductFamilyQuantityScheduleDateOppListFilter</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000ku8</field>
@@ -7347,8 +8539,20 @@
             <label>Account Site</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI000000FK85</field>
+            <label>Other Campaign Write-In</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.PRIVATE</field>
             <label>Private</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>AgentActivity</field>
+            <label>__MISSING LABEL__ PropertyFile - val AgentActivity not found in section ForecastingProductFamilyQuantityScheduleDateOppListFilter</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI000000F7Z3</field>
+            <label>DAF Gift</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.LEAD_SOURCE</field>
@@ -7373,6 +8577,10 @@
         <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdB9</field>
             <label>Ask Date</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI00000097fM</field>
+            <label>Gala Level</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.LAST_STG_CHG_DAYS</field>
@@ -7447,6 +8655,10 @@
             <label>Grant Requirements Website</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
+            <field>00NiI000000FFeq</field>
+            <label>Campaign Name</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
             <field>00Nhk000001DdBN</field>
             <label>Honoree Contact</label>
         </forecastingObjectListLabelMappings>
@@ -7457,6 +8669,10 @@
         <forecastingObjectListLabelMappings>
             <field>00NiI0000000MTZ</field>
             <label>Approach</label>
+        </forecastingObjectListLabelMappings>
+        <forecastingObjectListLabelMappings>
+            <field>00NiI0000006Vlt</field>
+            <label>Program Officer</label>
         </forecastingObjectListLabelMappings>
         <forecastingObjectListLabelMappings>
             <field>OPPORTUNITY.RECORDTYPE</field>
@@ -7508,23 +8724,32 @@
             <field>OPPORTUNITY.LAST_UPDATE</field>
             <field>FORECASTEDMFJVALUE</field>
             <field>00Nhk000001Dcp6</field>
+            <field>00NiI0000002Ibx</field>
+            <field>00NiI0000002Iby</field>
+            <field>00NiI0000002Ibz</field>
             <field>00Nhk000001DdB7</field>
+            <field>00NiI0000002Ic0</field>
+            <field>00NiI0000002Ic1</field>
             <field>00Nhk000001DdB8</field>
+            <field>00NiI0000002Ic2</field>
             <field>00NiI0000000WBB</field>
             <field>00NiI0000000MTZ</field>
             <field>00Nhk000001DdB9</field>
             <field>00Nhk000001DdBB</field>
             <field>00Nhk000001DdBA</field>
             <field>00Nhk000001A0YF</field>
+            <field>00NiI000000FFeq</field>
             <field>00Nhk000001DdBC</field>
             <field>00Nhk000001Dcp5</field>
             <field>00Nhk000001DckJ</field>
+            <field>00NiI000000F7Z3</field>
             <field>00NiI0000000ku5</field>
             <field>00Nhk000001DdBE</field>
             <field>00Nhk000001A0YG</field>
             <field>00Nhk000001DckK</field>
             <field>00Nhk000001DdBD</field>
             <field>00Nhk000001DdBF</field>
+            <field>00NiI00000097fM</field>
             <field>00Nhk000001DdBG</field>
             <field>00Nhk000001DdBH</field>
             <field>00Nhk000001DdBI</field>
@@ -7540,6 +8765,7 @@
             <field>00Nhk000001DdBS</field>
             <field>00Nhk000001DdBT</field>
             <field>00Nhk000001Dcka</field>
+            <field>00NiI000000FCTu</field>
             <field>00Nhk000001A0YI</field>
             <field>00Nhk000001DdBX</field>
             <field>00Nhk000001DdBU</field>
@@ -7561,13 +8787,17 @@
             <field>00Nhk000001DckS</field>
             <field>00NiI0000000ku6</field>
             <field>00NiI0000000WBC</field>
+            <field>00NiI000000FK85</field>
             <field>00Nhk000001DckT</field>
+            <field>00NiI000000NG0v</field>
+            <field>00NiI000000FFze</field>
             <field>00Nhk000001DckR</field>
             <field>00NiI0000000WBD</field>
             <field>00Nhk000001DdBe</field>
             <field>00Nhk000001DdBg</field>
             <field>00Nhk000001DdBf</field>
             <field>00Nhk000001DdBL</field>
+            <field>00NiI0000006Vlt</field>
             <field>00Nhk000001DdBh</field>
             <field>00Nhk000001DctN</field>
             <field>00Nhk000001DdEp</field>
@@ -7588,6 +8818,11 @@
             <field>OPPORTUNITY.AGE_IN_DAYS</field>
             <field>OPPORTUNITY.LAST_STAGE_CHANGE</field>
             <field>OPPORTUNITY.PUSH_COUNT</field>
+            <field>SalesMethodology</field>
+            <field>ActivityHeatmap</field>
+            <field>AgentActivity</field>
+            <field>Contacts</field>
+            <field>CriticalInsights</field>
         </forecastingObjectListUnselectedSettings>
         <forecastingTypeDeveloperName>LineItemQuantityScheduleDate</forecastingTypeDeveloperName>
     </forecastingTypeObjectListSettings>

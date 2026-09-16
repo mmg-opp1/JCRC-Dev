@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Incoming_Value__c</fullName>
-    <description>The value as the form sends it. Matched case-insensitively and ignoring a trailing colon, because Gravity Forms sends values like "Other:". Website Donations / Jason Ott.</description>
+    <description>The value as the form sends it. Matched case-insensitively and ignoring a trailing colon, because Gravity Forms sends values like &quot;Other:&quot;. Website Donations / Jason Ott.</description>
     <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <label>Incoming Value</label>

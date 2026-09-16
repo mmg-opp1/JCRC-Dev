@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Board_Role__c</fullName>
-    <description>The member's current/most-recent role on the board. Authoritative role history is per year on Board Membership Year. PLACEHOLDER-confirmed value set (client Q7). JSI-123 / Jason Ott.</description>
+    <description>The member&apos;s current/most-recent role on the board. Authoritative role history is per year on Board Membership Year. PLACEHOLDER-confirmed value set (client Q7). JSI-123 / Jason Ott.</description>
     <label>Board Role (Current)</label>
     <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>
         <restricted>true</restricted>
@@ -43,6 +45,24 @@
                 <fullName>Past President</fullName>
                 <default>false</default>
                 <label>Past President</label>
+            </value>
+            <value>
+                <fullName>Emeritus</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Emeritus</label>
+            </value>
+            <value>
+                <fullName>Immediate Past Chair</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Immediate Past Chair</label>
+            </value>
+            <value>
+                <fullName>Vice-Chair</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Vice-Chair</label>
             </value>
         </valueSetDefinition>
     </valueSet>

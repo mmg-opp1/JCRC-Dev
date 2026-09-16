@@ -4,5 +4,6 @@
     <description>July 1 anchor of this fiscal year, for date filtering and point-in-time rosters. JSI-123 / Jason Ott.</description>
     <label>Fiscal Year Start</label>
     <required>false</required>
+    <trackTrending>false</trackTrending>
     <type>Date</type>
 </CustomField>

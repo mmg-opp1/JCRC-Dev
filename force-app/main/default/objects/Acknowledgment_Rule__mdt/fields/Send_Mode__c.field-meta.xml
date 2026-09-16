@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Send_Mode__c</fullName>
-        <description>Auto = send immediately; Approval-Gated = reviewer must approve first.</description>
-    <externalId>false</externalId>
+    <description>Auto = send immediately; Approval-Gated = reviewer must approve first.</description>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <label>Send Mode</label>
     <required>false</required>
+    <type>Picklist</type>
     <valueSet>
         <restricted>true</restricted>
         <valueSetDefinition>
@@ -22,5 +22,4 @@
             </value>
         </valueSetDefinition>
     </valueSet>
-    <type>Picklist</type>
 </CustomField>

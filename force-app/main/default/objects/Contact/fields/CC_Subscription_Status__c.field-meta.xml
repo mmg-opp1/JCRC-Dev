@@ -5,6 +5,7 @@
     <inlineHelpText>Current email subscription state in Constant Contact (synced). Unsubscribed also sets Email Opt Out.</inlineHelpText>
     <label>CC Subscription Status</label>
     <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
     <type>Picklist</type>
     <valueSet>
         <restricted>true</restricted>

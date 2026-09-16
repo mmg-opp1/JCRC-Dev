@@ -14,8 +14,8 @@
             <dashboardComponent>
                 <autoselectColumnsFromReport>true</autoselectColumnsFromReport>
                 <componentType>Metric</componentType>
-                <groupingSortProperties/>
                 <footer>Gifts waiting for a thank-you</footer>
+                <groupingSortProperties/>
                 <header>Awaiting acknowledgment</header>
                 <indicatorHighColor>#54C000</indicatorHighColor>
                 <indicatorLowColor>#C23934</indicatorLowColor>
@@ -33,8 +33,8 @@
             <dashboardComponent>
                 <autoselectColumnsFromReport>true</autoselectColumnsFromReport>
                 <componentType>Metric</componentType>
-                <groupingSortProperties/>
                 <footer>Older than two business days</footer>
+                <groupingSortProperties/>
                 <header>Thank-yous running late</header>
                 <indicatorHighColor>#54C000</indicatorHighColor>
                 <indicatorLowColor>#C23934</indicatorLowColor>
@@ -52,8 +52,8 @@
             <dashboardComponent>
                 <autoselectColumnsFromReport>true</autoselectColumnsFromReport>
                 <componentType>Metric</componentType>
-                <groupingSortProperties/>
                 <footer>Commitments still owing money</footer>
+                <groupingSortProperties/>
                 <header>Open pledges</header>
                 <indicatorHighColor>#54C000</indicatorHighColor>
                 <indicatorLowColor>#C23934</indicatorLowColor>
@@ -79,14 +79,16 @@
                 <decimalPrecision>0</decimalPrecision>
                 <displayUnits>Auto</displayUnits>
                 <drillEnabled>true</drillEnabled>
-                <drillToDetailEnabled>true</drillToDetailEnabled>
+                <drillToDetailEnabled>false</drillToDetailEnabled>
                 <enableHover>true</enableHover>
                 <expandOthers>true</expandOthers>
                 <groupingColumn>STAGE_NAME</groupingColumn>
+                <groupingSortProperties/>
                 <header>Pledges by lifecycle stage</header>
                 <legendPosition>Right</legendPosition>
                 <report>Pledge_and_Grant_Reports/Pledges_by_Lifecycle_Stage</report>
                 <showPercentage>true</showPercentage>
+                <showTotal>false</showTotal>
                 <showValues>true</showValues>
                 <sortBy>RowLabelAscending</sortBy>
                 <sortLegendValues>false</sortLegendValues>
@@ -109,14 +111,16 @@
                 <decimalPrecision>0</decimalPrecision>
                 <displayUnits>Auto</displayUnits>
                 <drillEnabled>true</drillEnabled>
-                <drillToDetailEnabled>true</drillToDetailEnabled>
+                <drillToDetailEnabled>false</drillToDetailEnabled>
                 <enableHover>true</enableHover>
-                <expandOthers>true</expandOthers>
+                <expandOthers>false</expandOthers>
                 <groupingColumn>Opportunity.npe01__OppPayment__r$Aging_Bucket__c</groupingColumn>
+                <groupingSortProperties/>
                 <header>Overdue payments by age</header>
                 <legendPosition>Right</legendPosition>
                 <report>Pledge_and_Grant_Reports/Pledge_Payment_Aging</report>
                 <showPercentage>false</showPercentage>
+                <showPicturesOnCharts>false</showPicturesOnCharts>
                 <showValues>true</showValues>
                 <sortBy>RowLabelAscending</sortBy>
                 <sortLegendValues>false</sortLegendValues>
@@ -139,14 +143,16 @@
                 <decimalPrecision>0</decimalPrecision>
                 <displayUnits>Auto</displayUnits>
                 <drillEnabled>true</drillEnabled>
-                <drillToDetailEnabled>true</drillToDetailEnabled>
+                <drillToDetailEnabled>false</drillToDetailEnabled>
                 <enableHover>true</enableHover>
-                <expandOthers>true</expandOthers>
+                <expandOthers>false</expandOthers>
                 <groupingColumn>Annual_Giving_Summary__c$Board_Commitment_Met__c</groupingColumn>
+                <groupingSortProperties/>
                 <header>Board members meeting their commitment</header>
                 <legendPosition>Right</legendPosition>
                 <report>Board_Reports/Board_Commitment_Fulfillment</report>
                 <showPercentage>false</showPercentage>
+                <showPicturesOnCharts>false</showPicturesOnCharts>
                 <showValues>true</showValues>
                 <sortBy>RowLabelAscending</sortBy>
                 <sortLegendValues>false</sortLegendValues>
@@ -158,9 +164,11 @@
         <numberOfColumns>12</numberOfColumns>
         <rowHeight>32</rowHeight>
     </dashboardGridLayout>
+    <dashboardType>SpecifiedUser</dashboardType>
     <description>Day-to-day view for the Development team: what needs thanking, what is still owed, and how the board is tracking against commitment. JCRC / Jason Ott.</description>
     <isGridLayout>true</isGridLayout>
-    <runningUser>jcrcny@missionmattersgroup.com.dev</runningUser>
+    <owner>jcrcny@missionmattersgroup.com</owner>
+    <runningUser>jcrcny@missionmattersgroup.com</runningUser>
     <textColor>#333333</textColor>
     <title>Development Overview</title>
     <titleColor>#080707</titleColor>

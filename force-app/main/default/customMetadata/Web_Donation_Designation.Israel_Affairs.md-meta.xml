@@ -3,15 +3,19 @@
     <label>Israel Affairs</label>
     <protected>false</protected>
     <values>
+        <field>Active__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Campaign_Name__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
         <field>Form_Value__c</field>
         <value xsi:type="xsd:string">Israel Affairs</value>
     </values>
     <values>
         <field>GAU_Name__c</field>
         <value xsi:type="xsd:string">Israel Fund</value>
-    </values>
-    <values>
-        <field>Active__c</field>
-        <value xsi:type="xsd:boolean">true</value>
     </values>
 </CustomMetadata>

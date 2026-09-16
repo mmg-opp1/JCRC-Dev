@@ -3,23 +3,35 @@
     <label>5 to Amount</label>
     <protected>false</protected>
     <values>
-        <field>Payload_Key__c</field>
-        <value xsi:type="xsd:string">5</value>
+        <field>Active__c</field>
+        <value xsi:type="xsd:boolean">true</value>
     </values>
     <values>
-        <field>Target_Object__c</field>
-        <value xsi:type="xsd:string">Opportunity</value>
+        <field>Lookup_Object__c</field>
+        <value xsi:nil="true"/>
     </values>
     <values>
-        <field>Target_Field__c</field>
-        <value xsi:type="xsd:string">Amount</value>
+        <field>Mapping_Type__c</field>
+        <value xsi:type="xsd:string">Payload</value>
     </values>
     <values>
         <field>Notes__c</field>
         <value xsi:type="xsd:string">Total charged - includes the processing fee when the donor covers it</value>
     </values>
     <values>
-        <field>Active__c</field>
-        <value xsi:type="xsd:boolean">true</value>
+        <field>Payload_Key__c</field>
+        <value xsi:type="xsd:string">5</value>
+    </values>
+    <values>
+        <field>Static_Value__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Target_Field__c</field>
+        <value xsi:type="xsd:string">Amount</value>
+    </values>
+    <values>
+        <field>Target_Object__c</field>
+        <value xsi:type="xsd:string">Opportunity</value>
     </values>
 </CustomMetadata>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Auto = sends without review. Approval-Gated = a reviewer must approve before it goes out. Set by the router. --></help>
+    <label><!-- Acknowledgment Send Mode --></label>
+    <name>Acknowledgment_Send_Mode__c</name>
+    <picklistValues>
+        <masterLabel>Approval-Gated</masterLabel>
+        <translation><!-- Approval-Gated --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Auto</masterLabel>
+        <translation><!-- Auto --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

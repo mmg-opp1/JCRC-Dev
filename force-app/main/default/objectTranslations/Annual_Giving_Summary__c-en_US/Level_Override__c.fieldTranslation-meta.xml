@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Manually grant a level for this year. Does not carry into next year. --></help>
+    <label><!-- Level Override --></label>
+    <name>Level_Override__c</name>
+    <relationshipLabel><!-- Summaries (Override Level) --></relationshipLabel>
+</CustomFieldTranslation>

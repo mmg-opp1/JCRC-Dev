@@ -12,14 +12,6 @@
         <translation>No enviar acuse de recibo</translation>
     </picklistValues>
     <picklistValues>
-        <masterLabel>Email Acknowledgment Not Sent</masterLabel>
-        <translation>Acuse de recibo de correo electrónico no enviado</translation>
-    </picklistValues>
-    <picklistValues>
-        <masterLabel>Email Acknowledgment Now</masterLabel>
-        <translation>Enviar Acuse de recibo del correo electrónico ahora</translation>
-    </picklistValues>
-    <picklistValues>
         <masterLabel>To Be Acknowledged</masterLabel>
         <translation>Para acusar recibo</translation>
     </picklistValues>

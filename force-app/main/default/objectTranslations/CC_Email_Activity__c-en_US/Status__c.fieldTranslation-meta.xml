@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Status --></label>
+    <name>Status__c</name>
+    <picklistValues>
+        <masterLabel>Bounced</masterLabel>
+        <translation><!-- Bounced --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Clicked</masterLabel>
+        <translation><!-- Clicked --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Opened</masterLabel>
+        <translation><!-- Opened --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Sent</masterLabel>
+        <translation><!-- Sent --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Unsubscribed</masterLabel>
+        <translation><!-- Unsubscribed --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

@@ -34,7 +34,7 @@
             <columnToColumn>false</columnToColumn>
             <isUnlocked>false</isUnlocked>
             <operator>equals</operator>
-            <value>true</value>
+            <value>1</value>
         </criteriaItems>
         <criteriaItems>
             <column>Opportunity.npsp__Acknowledgment_Status__c</column>
@@ -55,7 +55,7 @@
             <columnToColumn>false</columnToColumn>
             <isUnlocked>false</isUnlocked>
             <operator>equals</operator>
-            <value>false</value>
+            <value>0</value>
         </criteriaItems>
     </filter>
     <format>Tabular</format>

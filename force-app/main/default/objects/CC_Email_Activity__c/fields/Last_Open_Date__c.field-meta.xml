@@ -4,5 +4,6 @@
     <description>Last Open Date for this contact on this email. JSI-109 / Jason Ott.</description>
     <label>Last Open Date</label>
     <required>false</required>
+    <trackTrending>false</trackTrending>
     <type>DateTime</type>
 </CustomField>

@@ -26,21 +26,29 @@
             <columnToColumn>false</columnToColumn>
             <isUnlocked>false</isUnlocked>
             <operator>equals</operator>
-            <value>true</value>
+            <value>1</value>
         </criteriaItems>
         <criteriaItems>
             <column>Board_Term__c$Must_Roll_Off__c</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>false</isUnlocked>
             <operator>equals</operator>
-            <value>true</value>
+            <value>1</value>
         </criteriaItems>
     </filter>
     <format>Tabular</format>
     <name>Board Roll-Off Watch</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
     <reportType>Board_Terms__c</reportType>
     <scope>organization</scope>
     <showDetails>true</showDetails>
     <showGrandTotal>true</showGrandTotal>
     <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Board_Term__c$Start_Date__c</dateColumn>
+        <interval>INTERVAL_CURRENT</interval>
+    </timeFrameFilter>
 </Report>

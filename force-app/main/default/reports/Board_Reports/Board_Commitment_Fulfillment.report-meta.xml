@@ -1,23 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Report xmlns="http://soap.sforce.com/2006/04/metadata">
-    <columns>
-        <field>Annual_Giving_Summary__c$Contact__c</field>
-    </columns>
-    <columns>
-        <field>Annual_Giving_Summary__c$Fiscal_Year_Label__c</field>
-    </columns>
-    <columns>
-        <aggregateTypes>Sum</aggregateTypes>
-        <field>Annual_Giving_Summary__c$Board_Commitment__c</field>
-    </columns>
-    <columns>
-        <aggregateTypes>Sum</aggregateTypes>
-        <field>Annual_Giving_Summary__c$Board_Commitment_Applied__c</field>
-    </columns>
-    <columns>
-        <aggregateTypes>Sum</aggregateTypes>
-        <field>Annual_Giving_Summary__c$Board_Commitment_Remaining__c</field>
-    </columns>
     <chart>
         <backgroundColor1>#FFFFFF</backgroundColor1>
         <backgroundColor2>#FFFFFF</backgroundColor2>
@@ -43,14 +25,32 @@
         <titleColor>#000000</titleColor>
         <titleSize>18</titleSize>
     </chart>
-    <description>Board members' commitment vs. giving by fiscal year, grouped by whether the commitment is met. JSI-123 / Jason Ott.</description>
+    <columns>
+        <field>Annual_Giving_Summary__c$Contact__c</field>
+    </columns>
+    <columns>
+        <field>Annual_Giving_Summary__c$Fiscal_Year_Label__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Annual_Giving_Summary__c$Board_Commitment__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Annual_Giving_Summary__c$Board_Commitment_Applied__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Annual_Giving_Summary__c$Board_Commitment_Remaining__c</field>
+    </columns>
+    <description>Board members&apos; commitment vs. giving by fiscal year, grouped by whether the commitment is met. JSI-123 / Jason Ott.</description>
     <filter>
         <criteriaItems>
             <column>Annual_Giving_Summary__c$Is_Board_Year__c</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>false</isUnlocked>
             <operator>equals</operator>
-            <value>true</value>
+            <value>1</value>
         </criteriaItems>
     </filter>
     <format>Summary</format>
@@ -60,6 +60,10 @@
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
     <name>Board Commitment Fulfillment</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
     <reportType>Board_Commitments__c</reportType>
     <scope>organization</scope>
     <showDetails>true</showDetails>

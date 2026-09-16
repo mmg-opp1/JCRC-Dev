@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Status --></label>
+    <name>Status__c</name>
+    <picklistValues>
+        <masterLabel>Active</masterLabel>
+        <translation><!-- Active --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>On Leave</masterLabel>
+        <translation><!-- On Leave --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Prospective</masterLabel>
+        <translation><!-- Prospective --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Rolled Off</masterLabel>
+        <translation><!-- Rolled Off --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

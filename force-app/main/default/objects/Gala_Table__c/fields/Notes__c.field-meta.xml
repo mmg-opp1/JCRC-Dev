@@ -4,6 +4,7 @@
     <description>Free-form notes about this table. Gala Event Gifts / Jason Ott.</description>
     <label>Notes</label>
     <length>2000</length>
+    <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>
 </CustomField>

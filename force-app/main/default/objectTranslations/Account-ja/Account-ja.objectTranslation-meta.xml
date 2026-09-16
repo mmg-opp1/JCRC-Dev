@@ -24,6 +24,11 @@
         <name>Child_Account</name>
     </quickActions>
     <recordTypes>
+        <description><!-- DAFs / Benevity --></description>
+        <label><!-- Fund --></label>
+        <name>Fund</name>
+    </recordTypes>
+    <recordTypes>
         <description>1 人以上の個人を含む世帯を表す取引先</description>
         <label>世帯取引先</label>
         <name>HH_Account</name>

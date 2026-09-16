@@ -4,8 +4,10 @@
     <description>Display order of levels in lists. Gala Event Gifts / Jason Ott.</description>
     <externalId>false</externalId>
     <label>Sort Order</label>
-    <required>false</required>
     <precision>3</precision>
+    <required>false</required>
     <scale>0</scale>
+    <trackTrending>false</trackTrending>
     <type>Number</type>
+    <unique>false</unique>
 </CustomField>

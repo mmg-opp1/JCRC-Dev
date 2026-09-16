@@ -4,5 +4,7 @@
     <description>Date the term of service began. JSI-123 / Jason Ott.</description>
     <label>Term Start Date</label>
     <required>true</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
     <type>Date</type>
 </CustomField>

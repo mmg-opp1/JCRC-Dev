@@ -2,6 +2,65 @@
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>CC_List</fullName>
     <active>true</active>
-    <description>A Campaign of this record type represents one Constant Contact email list (subscription topic); its Campaign Members are constituents subscribed to that topic. JSI-108 / Jason Ott.</description>
+    <compactLayoutAssignment>CC_List_Compact_Layout</compactLayoutAssignment>
+    <description>A Campaign of this record type represents one Constant Contact email list (subscription topic); its Campaign Members are constituents subscribed to that topic.</description>
     <label>CC List</label>
+    <picklistValues>
+        <picklist>Status</picklist>
+        <values>
+            <fullName>Aborted</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Completed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Progress</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Planned</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type</picklist>
+        <values>
+            <fullName>Demo Signup %2F Trial</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Email</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Event</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Referral Program</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Search</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Social Media</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Thought Leadership</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Website Direct</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
 </RecordType>

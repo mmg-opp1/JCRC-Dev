@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Most recent date this contact opened a Constant Contact email. --></help>
+    <label><!-- Email Last Opened (CC) --></label>
+    <name>Email_Last_Open__c</name>
+</CustomFieldTranslation>

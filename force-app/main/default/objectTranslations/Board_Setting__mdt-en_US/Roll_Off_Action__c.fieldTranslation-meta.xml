@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Roll-Off Action --></label>
+    <name>Roll_Off_Action__c</name>
+    <picklistValues>
+        <masterLabel>Auto Status and Task</masterLabel>
+        <translation><!-- Auto Status and Task --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Flag Only</masterLabel>
+        <translation><!-- Flag Only --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

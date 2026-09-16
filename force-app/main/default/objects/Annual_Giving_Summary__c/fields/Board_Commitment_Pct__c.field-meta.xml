@@ -9,7 +9,9 @@
 )</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Board Commitment % Met</label>
-    <precision>8</precision>
+    <precision>18</precision>
+    <required>false</required>
     <scale>2</scale>
+    <trackTrending>false</trackTrending>
     <type>Percent</type>
 </CustomField>

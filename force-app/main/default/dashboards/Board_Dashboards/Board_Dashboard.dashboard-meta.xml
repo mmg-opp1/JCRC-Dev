@@ -4,7 +4,7 @@
     <backgroundFadeDirection>Diagonal</backgroundFadeDirection>
     <backgroundStartColor>#FFFFFF</backgroundStartColor>
     <dashboardType>SpecifiedUser</dashboardType>
-    <description>Board participation + giving at a glance (default — refine to match Marc's FRD). JSI-123.</description>
+    <description>Board participation + giving at a glance (default — refine to match Marc&apos;s FRD). JSI-123.</description>
     <isGridLayout>false</isGridLayout>
     <leftSection>
         <columnSize>Medium</columnSize>
@@ -43,7 +43,7 @@
             <useReportChart>false</useReportChart>
         </components>
     </leftSection>
-    <owner>jcrcny@missionmattersgroup.com.dev</owner>
+    <owner>jcrcny@missionmattersgroup.com</owner>
     <rightSection>
         <columnSize>Medium</columnSize>
         <components>
@@ -70,6 +70,8 @@
         <components>
             <autoselectColumnsFromReport>true</autoselectColumnsFromReport>
             <componentType>Table</componentType>
+            <drillEnabled>false</drillEnabled>
+            <drillToDetailEnabled>false</drillToDetailEnabled>
             <footer>Terms expiring soon or at the roll-off limit</footer>
             <groupingSortProperties/>
             <header>Roll-Off Watch</header>
@@ -77,14 +79,12 @@
             <indicatorLowColor>#C25454</indicatorLowColor>
             <indicatorMiddleColor>#D9A741</indicatorMiddleColor>
             <report>Board_Reports/Board_Roll_Off_Watch</report>
-            <showPercentage>false</showPercentage>
-            <showValues>false</showValues>
+            <showPicturesOnTables>true</showPicturesOnTables>
             <sortBy>RowValueDescending</sortBy>
             <title>Roll-Off Watch</title>
-            <useReportChart>false</useReportChart>
         </components>
     </rightSection>
-    <runningUser>jcrcny@missionmattersgroup.com.dev</runningUser>
+    <runningUser>jcrcny@missionmattersgroup.com</runningUser>
     <textColor>#000000</textColor>
     <title>Board Dashboard</title>
     <titleColor>#000000</titleColor>

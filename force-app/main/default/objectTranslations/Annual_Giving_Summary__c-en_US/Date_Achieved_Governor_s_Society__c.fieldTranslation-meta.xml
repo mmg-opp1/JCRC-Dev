@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Date Achieved — Governor&apos;s Society --></label>
+    <name>Date_Achieved_Governor_s_Society__c</name>
+</CustomFieldTranslation>

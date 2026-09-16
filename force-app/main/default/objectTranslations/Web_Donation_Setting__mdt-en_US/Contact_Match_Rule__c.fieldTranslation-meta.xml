@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Contact Match Rule --></label>
+    <name>Contact_Match_Rule__c</name>
+    <picklistValues>
+        <masterLabel>Email only (exact)</masterLabel>
+        <translation><!-- Email only (exact) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Email, else First + Last name</masterLabel>
+        <translation><!-- Email, else First + Last name --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>First + Last + Email all match</masterLabel>
+        <translation><!-- First + Last + Email all match --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Never match - always create</masterLabel>
+        <translation><!-- Never match - always create --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

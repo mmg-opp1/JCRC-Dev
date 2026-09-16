@@ -4,6 +4,7 @@
     <description>Which sync operation this run performed. JSI-107 / Jason Ott.</description>
     <label>Operation</label>
     <required>false</required>
+    <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>
         <restricted>true</restricted>

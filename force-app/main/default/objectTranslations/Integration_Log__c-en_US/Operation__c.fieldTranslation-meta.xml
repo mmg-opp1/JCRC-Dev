@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Operation --></label>
+    <name>Operation__c</name>
+    <picklistValues>
+        <masterLabel>Audience Push</masterLabel>
+        <translation><!-- Audience Push --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Bounce Sync</masterLabel>
+        <translation><!-- Bounce Sync --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Engagement Sync</masterLabel>
+        <translation><!-- Engagement Sync --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Full Sync</masterLabel>
+        <translation><!-- Full Sync --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Opt-Out Sync</masterLabel>
+        <translation><!-- Opt-Out Sync --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Preference Sync</masterLabel>
+        <translation><!-- Preference Sync --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

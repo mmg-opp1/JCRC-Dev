@@ -4,5 +4,6 @@
     <description>June 30 end of this fiscal year. JSI-123 / Jason Ott.</description>
     <label>Fiscal Year End</label>
     <required>false</required>
+    <trackTrending>false</trackTrending>
     <type>Date</type>
 </CustomField>
