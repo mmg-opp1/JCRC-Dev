@@ -1,0 +1,44 @@
+<!--
+  pendingTransactionAdd - type in a transaction that won't come through the QuickBooks feed (JSI-121).
+  Author: Jason Ott.
+-->
+<template>
+    <lightning-modal-header label="Add transaction"
+        description="Enter the essentials. You'll finish it in the editor - donor, pledge or gift details."></lightning-modal-header>
+    <lightning-modal-body>
+        <div class="add-grid">
+            <lightning-input type="number" label="Amount" formatter="currency" step="0.01" min="0.01" required
+                value={amount} data-field="amount" onchange={handleInput} disabled={saving}
+                class="add-amount"></lightning-input>
+            <lightning-input type="date" label="Date received" required value={transactionDate}
+                data-field="transactionDate" onchange={handleInput} disabled={saving}></lightning-input>
+            <lightning-combobox label="Payment method" options={paymentMethods} value={paymentMethod}
+                data-field="paymentMethod" onchange={handleInput} disabled={saving}></lightning-combobox>
+            <lightning-input label="Reference number" max-length="255" value={referenceNumber}
+                data-field="referenceNumber" onchange={handleInput} disabled={saving}></lightning-input>
+            <lightning-input label="Payer name" max-length="255" value={payerName} data-field="payerName"
+                onchange={handleInput} disabled={saving} class="add-span-2"
+                field-level-help="Who sent the money, as the bank shows it. Used to suggest a donor if you don't pick one."></lightning-input>
+            <lightning-record-picker label="Donor contact" placeholder="Search contacts…" object-api-name="Contact"
+                display-info={contactDisplayInfo} matching-info={contactMatchingInfo} value={contactId}
+                onchange={handleContact} disabled={saving}></lightning-record-picker>
+            <lightning-record-picker label="Donor account" placeholder="Household or organization…"
+                object-api-name="Account" value={accountId} onchange={handleAccount}
+                disabled={saving}></lightning-record-picker>
+            <lightning-input type="date" label="Deposit date" value={depositDate} data-field="depositDate"
+                onchange={handleInput} disabled={saving}></lightning-input>
+            <lightning-input label="Deposit reference" max-length="30" value={depositReference}
+                data-field="depositReference" onchange={handleInput} disabled={saving}></lightning-input>
+            <lightning-textarea label="Notes" max-length="4000" value={notes} data-field="notes"
+                onchange={handleInput} disabled={saving} class="add-span-2"></lightning-textarea>
+        </div>
+    </lightning-modal-body>
+    <lightning-modal-footer>
+        <template lwc:if={saving}>
+            <lightning-spinner size="small" alternative-text="Adding"></lightning-spinner>
+        </template>
+        <lightning-button label="Cancel" onclick={handleCancel} disabled={saving}></lightning-button>
+        <lightning-button label="Add and review" variant="brand" onclick={handleSave} disabled={saving}
+            class="slds-m-left_x-small"></lightning-button>
+    </lightning-modal-footer>
+</template>

@@ -8,6 +8,7 @@
  * Change Log:
  * -----------
  * 2026-09-16 - Jason Ott - Initial version (JSI-121 Phase 3).
+ * 2026-09-16 - Jason Ott - Phase 4: createTransaction and deleteTransaction.
  */
 @IsTest
 private class PendingTransactionControllerTest {
@@ -230,5 +231,55 @@ private class PendingTransactionControllerTest {
         } catch (AuraHandledException e) {
             System.assert(e.getMessage().contains('last name'), e.getMessage());
         }
+    }
+
+    @IsTest
+    static void createTransactionWithDonorIsManualAndReady() {
+        Contact c = donor();
+        Test.startTest();
+        PendingTransactionController.RowInfo row = PendingTransactionController.createTransaction(JSON.serialize(
+            new Map<String, Object>{ 'amount' => '750', 'transactionDate' => '2026-09-15', 'paymentMethod' => 'Check',
+                'referenceNumber' => 'CHK 1042', 'contactId' => c.Id, 'notes' => 'hand-delivered',
+                'applyAs' => 'Pledge Payment', 'giftName' => 'not settable here' }));
+        Test.stopTest();
+        System.assertEquals('Manual', row.source);
+        System.assertEquals(750, row.amount);
+        System.assertEquals('Check', row.paymentMethod);
+        System.assertEquals(c.AccountId, row.accountId);
+        System.assertEquals('Confirmed', row.matchStatus);
+        System.assertEquals('Ready', row.status);
+        System.assertEquals('New Gift', row.applyAs, 'routing is chosen in the editor, not the Add form');
+        System.assertEquals(null, row.giftName);
+    }
+
+    @IsTest
+    static void createTransactionFromPayerNameSuggestsDonor() {
+        Test.startTest();
+        PendingTransactionController.RowInfo row = PendingTransactionController.createTransaction(JSON.serialize(
+            new Map<String, Object>{ 'amount' => '60', 'transactionDate' => '2026-09-15', 'payerName' => 'Dana Controllertest' }));
+        Test.stopTest();
+        System.assertEquals('Dana Controllertest', row.payerName);
+        System.assertEquals(donor().Id, row.contactId);
+        System.assertEquals('Suggested', row.matchStatus);
+        System.assertEquals('Needs Review', row.status);
+    }
+
+    @IsTest
+    static void createTransactionReportsBadInput() {
+        try {
+            PendingTransactionController.createTransaction(JSON.serialize(new Map<String, Object>{ 'amount' => 'lots' }));
+            System.assert(false, 'expected an error');
+        } catch (AuraHandledException e) {
+            System.assert(String.isNotBlank(e.getMessage()));
+        }
+    }
+
+    @IsTest
+    static void deleteTransactionRemovesRow() {
+        Pending_Transaction__c row = stage(33);
+        Test.startTest();
+        PendingTransactionController.deleteTransaction(row.Id);
+        Test.stopTest();
+        System.assertEquals(0, [SELECT COUNT() FROM Pending_Transaction__c WHERE Id = :row.Id]);
     }
 }

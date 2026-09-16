@@ -14,6 +14,7 @@
  *                rowsaved  - detail = the saved row, re-evaluated by the server
  *                commit    - detail = { rowId }; the parent commits and shows the result
  *                navigate  - detail = 'prev' | 'next'
+ *                deleterequest - detail = { rowId }; the parent confirms and deletes
  *
  * @author Jason Ott
  * @created 2026-09-16
@@ -21,6 +22,7 @@
  * Change Log:
  * -----------
  * 2026-09-16 - Jason Ott - Initial version (JSI-121 Phase 3).
+ * 2026-09-16 - Jason Ott - Phase 4: Delete button (raises deleterequest).
  */
 import { LightningElement, api } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
@@ -197,6 +199,10 @@ export default class PendingTransactionEditor extends LightningElement {
 
     handleNav(event) {
         this.dispatchEvent(new CustomEvent('navigate', { detail: event.currentTarget.dataset.dir }));
+    }
+
+    handleDelete() {
+        this.dispatchEvent(new CustomEvent('deleterequest', { detail: { rowId: this._row.id } }));
     }
 
     handleReset() {

@@ -254,7 +254,7 @@ what's waiting and how old it is.
 | **1 — Model** | Object, fields, picklists (+ Wire on Opp + Payment), `QuickBooks_Transaction_Id__c` stamp on Opp + Payment, FLS on Admin + Fundraising + Development, tab | Admin can create a pending transaction record |
 | **2 — Engine** | `PendingTransactionService` + tests (new gift, pledge payment exact / short / over / multi-installment, duplicate guard, per-row failure isolation, delete-on-commit, donor suggestion) | Anonymous Apex in savepoint→rollback converts rows correctly in JCRC-Dev |
 | **3 — Screen** | `pendingTransactions` LWC + controller + tab | User works a stack end-to-end in the browser |
-| **4 — Intake without QBO** | "Add transaction" form (CSV not in v1) | Rows can be entered for UAT |
+| **4 — Intake without QBO** | "Add transaction" form (CSV not in v1) + **Delete** a pending transaction (added by Jason 2026-09-16) | Rows can be entered for UAT; non-donations can be removed |
 | **5 — QuickBooks sync** (D1) | QBO OAuth via External/Named Credential (same pattern as Constant Contact) + scheduled pull → upsert on `External_Id__c` | Yesterday's ACH/wire appear automatically |
 
 ---
@@ -394,6 +394,33 @@ text with no match ($1,000), a Ready $5,000 payment on David Kaplan's pledge, an
 that pledge (Needs Review with the reason). Delete with
 `DELETE [SELECT Id FROM Pending_Transaction__c WHERE External_Id__c LIKE 'SAMPLE-PT-%']` when done.
 
-**Not built (not asked for):** a Discard/delete-row action on the screen. Fundraising now has Delete on the
-object, so it's a small addition if wanted.
+**Discard/delete-row action:** not in Phase 3; Jason added it to Phase 4 (below).
+
+### Phase 4 — Add + Delete ✅ deployed to JCRC-Dev (2026-09-16)
+Jason's UAT feedback on Phase 3: *"the form looks fantastic"*; asked to fold a delete action into Phase 4.
+
+**Deployed** (7 components, 0 errors): **52/52 tests** (`PendingTransactionServiceTest`,
+`PendingTransactionControllerTest`, `PaymentMethodServiceTest`); coverage service 93.3%, controller 94.0%.
+- **Add transaction** (header button → `pendingTransactionAdd` modal): amount*, date received* (today),
+  payment method (ACH/Wire), reference, payer name, donor contact/account (optional), deposit date/reference,
+  notes → **Add and review** inserts the row (USER_MODE) and opens it in the editor, clearing filters so it's
+  visible. Routing (gift vs pledge) and gift details stay in the editor. `createTransaction` only accepts those
+  keys.
+- **Source stamp:** a row saved without a Source becomes **Manual** in the trigger (Source is read-only to
+  staff, and a trigger-stamped field doesn't trip USER_MODE). Payer name on a manual row still drives the donor
+  suggestion.
+- **Delete** (editor footer, red text, left) → confirmation naming the row, amount and donor ("removed
+  permanently and no gift or payment is created") → `deleteTransactions` in **USER_MODE** (Delete CRUD +
+  record access apply; committing profiles hold Modify All on the object), emptied from the Recycle Bin like a
+  commit → lands on the next row.
+- Tests: manual Source stamp; create with donor (Manual, Confirmed, Ready; routing keys ignored) and from payer
+  name only (Suggested); bad input; delete via controller; **JCRC - Fundraising user deletes rows owned by
+  someone else**; **Standard User is refused**.
+- Live check (rolled back): typed-in $1,800 "Ilana Newman" → PT created as Manual with her suggested; delete
+  removed it.
+
+**⚠ Requirement carried into Phase 5 (QuickBooks sync):** nothing records that a synced transaction was
+deleted, so the feed must only fetch transactions **new since its last run** (a date/ID watermark) — otherwise
+a deleted non-donation would reappear on the next sync. If Finance can't guarantee that, add a small
+"dismissed source ids" list the sync checks.
 

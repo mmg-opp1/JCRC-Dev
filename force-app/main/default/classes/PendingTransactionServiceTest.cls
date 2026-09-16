@@ -15,6 +15,7 @@
  * Change Log:
  * -----------
  * 2026-09-16 - Jason Ott - Initial version (JSI-121 Phase 2).
+ * 2026-09-16 - Jason Ott - Phase 4: manual Source stamp and deleteTransactions.
  */
 @IsTest
 private class PendingTransactionServiceTest {
@@ -520,5 +521,58 @@ private class PendingTransactionServiceTest {
         }
         System.assertEquals(11250, [SELECT npe01__Amount_Outstanding__c FROM Opportunity WHERE Id = :p.Id].npe01__Amount_Outstanding__c);
         System.assertEquals(0, [SELECT COUNT() FROM Pending_Transaction__c]);
+    }
+
+    // ---- Phase 4: manual rows and delete ------------------------------------------------------
+
+    private static User userWithProfile(String profileName, String alias) {
+        User u = new User(ProfileId = [SELECT Id FROM Profile WHERE Name = :profileName].Id, LastName = alias,
+            Alias = alias, Email = alias + '@example.invalid',
+            Username = alias + DateTime.now().getTime() + '@example.invalid', TimeZoneSidKey = 'America/New_York',
+            LocaleSidKey = 'en_US', EmailEncodingKey = 'UTF-8', LanguageLocaleKey = 'en_US');
+        insert u;
+        return u;
+    }
+
+    @IsTest
+    static void rowWithoutSourceIsManual() {
+        Pending_Transaction__c row = new Pending_Transaction__c(Amount__c = 10, Transaction_Date__c = Date.today());
+        insert row;
+        System.assertEquals('Manual', [SELECT Source__c FROM Pending_Transaction__c WHERE Id = :row.Id].Source__c);
+    }
+
+    @IsTest
+    static void fundraisingUserDeletesRowsOwnedByOthers() {
+        Pending_Transaction__c a = readyRow(donor(), 10);
+        Pending_Transaction__c b = readyRow(donor(), 20);
+        insert new List<Pending_Transaction__c>{ a, b };
+        User u = userWithProfile('JCRC - Fundraising', 'ptdel');
+        Integer n;
+        Test.startTest();
+        System.runAs(u) {
+            n = PendingTransactionService.deleteTransactions(new Set<Id>{ a.Id, b.Id });
+        }
+        Test.stopTest();
+        System.assertEquals(2, n);
+        System.assertEquals(0, [SELECT COUNT() FROM Pending_Transaction__c]);
+        System.assertEquals(0, PendingTransactionService.deleteTransactions(new Set<Id>()));
+    }
+
+    @IsTest
+    static void userWithoutAccessCannotDelete() {
+        Pending_Transaction__c row = readyRow(donor(), 10);
+        insert row;
+        User u = userWithProfile('Standard User', 'ptnoacc');
+        Test.startTest();
+        System.runAs(u) {
+            try {
+                PendingTransactionService.deleteTransactions(new Set<Id>{ row.Id });
+                System.assert(false, 'expected refusal');
+            } catch (PendingTransactionService.PendingTransactionException e) {
+                System.assert(e.getMessage().contains('do not have access'), e.getMessage());
+            }
+        }
+        Test.stopTest();
+        System.assertEquals(1, [SELECT COUNT() FROM Pending_Transaction__c]);
     }
 }

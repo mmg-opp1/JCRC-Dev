@@ -19,14 +19,16 @@
  * Change Log:
  * -----------
  * 2026-09-16 - Jason Ott - Initial version (JSI-121 Phase 3).
+ * 2026-09-16 - Jason Ott - Phase 4: createTransaction (manual Add) and deleteTransaction.
  */
 public with sharing class PendingTransactionController {
 
     /** Most rows the screen loads. The holding area is a short-lived queue, so this is a safety net. */
     @TestVisible private static final Integer MAX_ROWS = 500;
 
-    /** Fields a user may set from the editor, keyed by the name the screen uses. */
+    /** Every field the screen may write, keyed by the name the screen uses. */
     private static final Map<String, Schema.SObjectField> EDITABLE = new Map<String, Schema.SObjectField>{
+        'payerName' => Pending_Transaction__c.Payer_Name__c,
         'amount' => Pending_Transaction__c.Amount__c,
         'transactionDate' => Pending_Transaction__c.Transaction_Date__c,
         'paymentMethod' => Pending_Transaction__c.Payment_Method__c,
@@ -44,6 +46,15 @@ public with sharing class PendingTransactionController {
         'giftName' => Pending_Transaction__c.Gift_Name__c,
         'notes' => Pending_Transaction__c.Notes__c
     };
+
+    /** What the editor saves. Payer Name is left out: on synced rows it is the record of what the bank said. */
+    private static final Set<String> SAVE_KEYS = new Set<String>{ 'amount', 'transactionDate', 'paymentMethod',
+        'referenceNumber', 'depositDate', 'depositReference', 'contactId', 'accountId', 'applyAs', 'pledgeId',
+        'giftRecordType', 'campaignId', 'fundId', 'approach', 'giftName', 'notes' };
+
+    /** What the Add form may set on a new manual row; the rest is done in the editor afterwards. */
+    private static final Set<String> CREATE_KEYS = new Set<String>{ 'amount', 'transactionDate', 'paymentMethod',
+        'referenceNumber', 'depositDate', 'depositReference', 'contactId', 'accountId', 'payerName', 'notes' };
 
     /** The subset bulk edit may change. */
     private static final Set<String> BULK_EDITABLE = new Set<String>{ 'campaignId', 'fundId', 'approach', 'giftRecordType' };
@@ -243,9 +254,37 @@ public with sharing class PendingTransactionController {
             Map<String, Object> values = (Map<String, Object>) JSON.deserializeUntyped(rowJson);
             Id rowId = (Id) values.get('id');
             Pending_Transaction__c rec = new Pending_Transaction__c(Id = rowId);
-            applyValues(rec, values, EDITABLE.keySet());
+            applyValues(rec, values, SAVE_KEYS);
             Database.update(rec, AccessLevel.USER_MODE);
             return rowInfo(rowId);
+        } catch (Exception e) {
+            throw auraError(e);
+        }
+    }
+
+    /**
+     * Adds a transaction typed in by hand (money that will not come through the QuickBooks feed, or a test).
+     * The trigger marks it Manual, suggests a donor from the payer name when none was chosen, and works
+     * out its status. Returns the new row so the screen can open it in the editor.
+     */
+    @AuraEnabled
+    public static RowInfo createTransaction(String rowJson) {
+        try {
+            Map<String, Object> values = (Map<String, Object>) JSON.deserializeUntyped(rowJson);
+            Pending_Transaction__c rec = new Pending_Transaction__c();
+            applyValues(rec, values, CREATE_KEYS);
+            Database.insert(rec, AccessLevel.USER_MODE);
+            return rowInfo(rec.Id);
+        } catch (Exception e) {
+            throw auraError(e);
+        }
+    }
+
+    /** Deletes one pending transaction that should never become a gift. */
+    @AuraEnabled
+    public static void deleteTransaction(Id rowId) {
+        try {
+            PendingTransactionService.deleteTransactions(new Set<Id>{ rowId });
         } catch (Exception e) {
             throw auraError(e);
         }

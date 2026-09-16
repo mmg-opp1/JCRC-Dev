@@ -33,6 +33,7 @@
 /* ---- header ---- */
 .pt-header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
 .pt-title { display: flex; align-items: center; gap: 0.75rem; }
+.pt-header-actions { display: flex; align-items: center; gap: 0.5rem; }
 .pt-h1 { font-size: 1.25rem; font-weight: 700; color: var(--pt-ink); line-height: 1.2; }
 .pt-subtitle { color: var(--pt-muted); font-size: 0.8125rem; }
 

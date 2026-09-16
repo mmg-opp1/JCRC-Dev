@@ -207,6 +207,9 @@
 
         <!-- Actions -->
         <footer class="ed-foot">
+            <lightning-button label="Delete" variant="destructive-text" icon-name="utility:delete"
+                onclick={handleDelete} disabled={locked} class="ed-delete"
+                title="Remove this transaction without creating a gift"></lightning-button>
             <template lwc:if={saving}>
                 <span class="ed-saving"><lightning-spinner size="small" variant="brand" alternative-text="Saving"></lightning-spinner></span>
             </template>

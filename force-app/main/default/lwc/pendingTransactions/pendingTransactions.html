@@ -13,8 +13,12 @@
                     <p class="pt-subtitle">ACH, wire and sponsorship money waiting to become gifts or pledge payments</p>
                 </div>
             </div>
-            <lightning-button-icon icon-name="utility:refresh" alternative-text="Refresh" title="Refresh"
-                variant="border-filled" onclick={handleRefresh} disabled={busy}></lightning-button-icon>
+            <div class="pt-header-actions">
+                <lightning-button label="Add transaction" icon-name="utility:add" variant="brand"
+                    onclick={handleAdd} disabled={busy}></lightning-button>
+                <lightning-button-icon icon-name="utility:refresh" alternative-text="Refresh" title="Refresh"
+                    variant="border-filled" onclick={handleRefresh} disabled={busy}></lightning-button-icon>
+            </div>
         </header>
 
         <!-- Summary tiles: each one filters the list -->
@@ -137,7 +141,7 @@
                 <template lwc:if={activeRow}>
                     <c-pending-transaction-editor row={activeRow} options={options} has-prev={hasPrev}
                         has-next={hasNext} busy={busy} onrowsaved={handleRowSaved} oncommit={handleCommitOne}
-                        onnavigate={handleNavigate}></c-pending-transaction-editor>
+                        onnavigate={handleNavigate} ondeleterequest={handleDelete}></c-pending-transaction-editor>
                 </template>
                 <template lwc:else>
                     <div class="pt-editor-empty">

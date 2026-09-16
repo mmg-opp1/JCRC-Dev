@@ -18,6 +18,8 @@
  * Change Log:
  * -----------
  * 2026-09-16 - Jason Ott - Initial version (JSI-121 Phase 3).
+ * 2026-09-16 - Jason Ott - Phase 4: Add transaction (opens the new row in the editor) and Delete from the
+ *                          editor, with a confirmation, landing on the next row.
  */
 import { LightningElement, wire } from 'lwc';
 import { CurrentPageReference } from 'lightning/navigation';
@@ -27,7 +29,9 @@ import getWorkspace from '@salesforce/apex/PendingTransactionController.getWorks
 import commitTransactions from '@salesforce/apex/PendingTransactionController.commitTransactions';
 import confirmDonors from '@salesforce/apex/PendingTransactionController.confirmDonors';
 import bulkUpdate from '@salesforce/apex/PendingTransactionController.bulkUpdate';
+import deleteTransaction from '@salesforce/apex/PendingTransactionController.deleteTransaction';
 import BulkEditModal from 'c/pendingTransactionBulkEdit';
+import AddModal from 'c/pendingTransactionAdd';
 import { errorMessage } from 'c/pendingTransactionUtils';
 
 const STATUS_READY = 'Ready';
@@ -263,6 +267,52 @@ export default class PendingTransactions extends LightningElement {
     }
 
     dismissResults() { this.lastResults = undefined; }
+
+    // ---- add & delete -------------------------------------------------------------------------
+
+    /** Opens the Add form; the new row goes to the top of the list and opens in the editor. */
+    handleAdd() {
+        this.withEditorSaved()
+            .then((ok) => (ok ? AddModal.open({ size: 'medium', paymentMethods: this.options.paymentMethods || [] }) : undefined))
+            .then((row) => {
+                if (!row) { return; }
+                this.rows = [row, ...this.rows.filter((r) => r.id !== row.id)];
+                // Make sure filters don't hide the row just added.
+                this.statusFilter = 'all';
+                this.sourceFilter = 'all';
+                this.search = '';
+                this.activeRowId = row.id;
+            })
+            .catch((err) => this.toast(errorMessage(err), 'error'));
+    }
+
+    /** From the editor. Confirms first - a deleted transaction is gone and never becomes a gift. */
+    async handleDelete(event) {
+        const row = this.rows.find((r) => r.id === event.detail.rowId);
+        if (!row) { return; }
+        const who = row.contactName || row.accountName || row.payerName;
+        const ok = await LightningConfirm.open({
+            label: 'Delete transaction',
+            message: `Delete ${row.name} (${this.money(row.amount)}${who ? ' from ' + who : ''})? It is removed permanently and no gift or payment is created.`,
+            theme: 'error'
+        });
+        if (!ok) { return; }
+
+        const nextId = this.rowAfter([row.id]);
+        this.busy = true;
+        try {
+            await deleteTransaction({ rowId: row.id });
+            this.toast(`${row.name} deleted`, 'success');
+            this.checkedIds = new Set([...this.checkedIds].filter((id) => id !== row.id));
+            this.rows = this.rows.filter((r) => r.id !== row.id);
+            this.activeRowId = nextId;
+            await this.load();
+        } catch (err) {
+            this.toast(errorMessage(err), 'error');
+        } finally {
+            this.busy = false;
+        }
+    }
 
     // ---- selection actions --------------------------------------------------------------------
 

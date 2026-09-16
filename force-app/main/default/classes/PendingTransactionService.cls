@@ -12,6 +12,7 @@
  *                - OPEN PLEDGES: the donor's Pledges and Grants that still have money outstanding.
  *                - PLAN: turns "apply $R to this pledge" into concrete installment changes, using the
  *                  rules Jason set (decisions D2 / D11). Pure - no DML - so the screen can preview it.
+ *                - DELETE: removes rows that are not donations at all (deleteTransactions).
  *                - COMMIT: creates the gift or applies the payment, stamps the source id on whichever
  *                  record it created (D4), and deletes the holding row. Each row runs inside its own
  *                  savepoint, so one bad row fails alone and keeps its error for the user.
@@ -39,6 +40,7 @@
  * Change Log:
  * -----------
  * 2026-09-16 - Jason Ott - Initial version (JSI-121 Phase 2).
+ * 2026-09-16 - Jason Ott - Phase 4: rows arriving without a Source are Manual; deleteTransactions.
  */
 public with sharing class PendingTransactionService {
 
@@ -48,6 +50,8 @@ public with sharing class PendingTransactionService {
 
     public static final String APPLY_NEW_GIFT = 'New Gift';
     public static final String APPLY_PLEDGE_PAYMENT = 'Pledge Payment';
+
+    public static final String SOURCE_MANUAL = 'Manual';
 
     public static final String MATCH_SUGGESTED = 'Suggested';
     public static final String MATCH_CONFIRMED = 'Confirmed';
@@ -93,8 +97,12 @@ public with sharing class PendingTransactionService {
         }
         Boolean isInsert = (oldMap == null);
 
-        // Loop: work out Match Status for rows whose donor was set or changed by a person.
+        // Loop: work out Match Status for rows whose donor was set or changed by a person. A row created
+        // without a Source was typed in on the screen - stamped here because Source is read-only to staff.
         for (Pending_Transaction__c row : rows) {
+            if (isInsert && String.isBlank(row.Source__c)) {
+                row.Source__c = SOURCE_MANUAL;
+            }
             Pending_Transaction__c old = isInsert ? null : oldMap.get(row.Id);
             Boolean hasDonor = row.Contact__c != null || row.Account__c != null;
             if (isInsert) {
@@ -660,6 +668,37 @@ public with sharing class PendingTransactionService {
                 WHERE npe01__Opportunity__c = :pledgeId AND npe01__Paid__c = false
                   AND npe01__Written_Off__c = false
                 ORDER BY npe01__Scheduled_Date__c ASC NULLS LAST, CreatedDate ASC, Name ASC];
+    }
+
+    // =============================================================================================
+    // Delete
+    // =============================================================================================
+
+    /**
+     * Deletes rows that should never become a gift - a transfer between JCRC accounts, a refund, a
+     * duplicate typed in by hand. Runs in USER_MODE, so Delete permission and record access both apply
+     * (committing profiles hold Modify All on this object). Deleted rows are emptied from the Recycle Bin,
+     * the same as committed ones: the holding area is not meant to keep anything.
+     *
+     * Note for the QuickBooks sync (Phase 5): nothing records that a QuickBooks transaction was deleted
+     * here, so the feed must not fetch the same transaction again (pull only what is new since the last
+     * run), or a deleted row will reappear.
+     */
+    public static Integer deleteTransactions(Set<Id> rowIds) {
+        if (!Schema.SObjectType.Pending_Transaction__c.isDeletable()) {
+            throw new PendingTransactionException('You do not have access to delete pending transactions.');
+        }
+        if (rowIds == null || rowIds.isEmpty()) {
+            return 0;
+        }
+        List<Pending_Transaction__c> rows = [SELECT Id FROM Pending_Transaction__c WHERE Id IN :rowIds];
+        Database.delete(rows, AccessLevel.USER_MODE);
+        try {
+            Database.emptyRecycleBin(rows);
+        } catch (Exception e) {
+            System.debug(LoggingLevel.WARN, 'Deleted pending transactions not purged from Recycle Bin: ' + e.getMessage());
+        }
+        return rows.size();
     }
 
     // =============================================================================================
