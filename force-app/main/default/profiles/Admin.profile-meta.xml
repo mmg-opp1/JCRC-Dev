@@ -761,6 +761,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.QuickBooks_Customer_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Account.Rating</field>
         <readable>false</readable>
@@ -2568,6 +2573,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Contact.Pronouns</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Contact.QuickBooks_Customer_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -4947,6 +4957,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Pending_Transaction__c.Import_Note__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Pending_Transaction__c.Match_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4978,6 +4993,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Pending_Transaction__c.Pledge__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Pending_Transaction__c.QuickBooks_Customer_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -5102,6 +5122,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>QuickBooks_Event__c.Attempts__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>QuickBooks_Event__c.Entity_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -5133,6 +5158,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>QuickBooks_Event__c.Event_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>QuickBooks_Event__c.Imported_External_Ids__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

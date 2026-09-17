@@ -23,6 +23,7 @@
  * -----------
  * 2026-09-16 - Jason Ott - Initial version (JSI-121 Phase 3).
  * 2026-09-16 - Jason Ott - Phase 4: Delete button (raises deleterequest).
+ * 2026-09-17 - Jason Ott - Phase 5b: shows the QuickBooks import note and customer id under As received.
  */
 import { LightningElement, api } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';

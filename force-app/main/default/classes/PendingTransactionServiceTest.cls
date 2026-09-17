@@ -16,6 +16,7 @@
  * -----------
  * 2026-09-16 - Jason Ott - Initial version (JSI-121 Phase 2).
  * 2026-09-16 - Jason Ott - Phase 4: manual Source stamp and deleteTransactions.
+ * 2026-09-17 - Jason Ott - Phase 5b: QuickBooks customer link on commit.
  */
 @IsTest
 private class PendingTransactionServiceTest {
@@ -574,5 +575,66 @@ private class PendingTransactionServiceTest {
         }
         Test.stopTest();
         System.assertEquals(1, [SELECT COUNT() FROM Pending_Transaction__c]);
+    }
+
+    // ---- Phase 5b: QuickBooks customer link -------------------------------------------------------
+
+    @IsTest
+    static void commitLinksTheQuickBooksCustomerToTheDonor() {
+        Contact c = donor();
+        Pending_Transaction__c row = readyRow(c, 120);
+        row.Source__c = 'QuickBooks';
+        row.QuickBooks_Customer_Id__c = 'QB-77';
+        insert row;
+        Test.startTest();
+        List<PendingTransactionService.CommitResult> results =
+            PendingTransactionService.commitTransactions(new List<Id>{ row.Id });
+        Test.stopTest();
+        System.assert(results[0].success, results[0].message);
+        System.assertEquals('QB-77', [SELECT QuickBooks_Customer_Id__c FROM Contact WHERE Id = :c.Id].QuickBooks_Customer_Id__c);
+    }
+
+    @IsTest
+    static void existingCustomerLinkIsNeverOverwrittenAndAccountIsUsedWithoutContact() {
+        Contact c = donor();
+        update new Contact(Id = c.Id, QuickBooks_Customer_Id__c = 'QB-OLD');
+        Pending_Transaction__c keep = readyRow(c, 10);
+        keep.QuickBooks_Customer_Id__c = 'QB-NEW';
+        Pending_Transaction__c orgGift = new Pending_Transaction__c(Source__c = 'QuickBooks', Amount__c = 20,
+            Transaction_Date__c = Date.today(), Account__c = c.AccountId, QuickBooks_Customer_Id__c = 'QB-ACCT');
+        insert new List<Pending_Transaction__c>{ keep, orgGift };
+        Test.startTest();
+        List<PendingTransactionService.CommitResult> results =
+            PendingTransactionService.commitTransactions(new List<Id>{ keep.Id, orgGift.Id });
+        Test.stopTest();
+        for (PendingTransactionService.CommitResult r : results) {
+            System.assert(r.success, r.rowName + ': ' + r.message);
+        }
+        System.assertEquals('QB-OLD', [SELECT QuickBooks_Customer_Id__c FROM Contact WHERE Id = :c.Id].QuickBooks_Customer_Id__c);
+        System.assertEquals('QB-ACCT', [SELECT QuickBooks_Customer_Id__c FROM Account WHERE Id = :c.AccountId].QuickBooks_Customer_Id__c);
+    }
+
+    @IsTest
+    static void linkedQuickBooksCustomerIsMatchedOnArrival() {
+        Contact c = donor();
+        update new Contact(Id = c.Id, QuickBooks_Customer_Id__c = 'QB-5');
+        Account org = new Account(Name = 'QB Linked Org',
+            RecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get('Organization').getRecordTypeId(),
+            QuickBooks_Customer_Id__c = 'QB-6');
+        insert org;
+        Pending_Transaction__c a = new Pending_Transaction__c(Source__c = 'QuickBooks', Amount__c = 5,
+            Transaction_Date__c = Date.today(), Payer_Name__c = 'Somebody Else', QuickBooks_Customer_Id__c = 'QB-5');
+        Pending_Transaction__c b = new Pending_Transaction__c(Source__c = 'QuickBooks', Amount__c = 6,
+            Transaction_Date__c = Date.today(), Payer_Name__c = 'Org', QuickBooks_Customer_Id__c = 'QB-6');
+        insert new List<Pending_Transaction__c>{ a, b };
+        a = [SELECT Contact__c, Account__c, Match_Status__c, Status__c FROM Pending_Transaction__c WHERE Id = :a.Id];
+        b = [SELECT Contact__c, Account__c, Match_Status__c FROM Pending_Transaction__c WHERE Id = :b.Id];
+        System.assertEquals(c.Id, a.Contact__c);
+        System.assertEquals(c.AccountId, a.Account__c);
+        System.assertEquals('Confirmed', a.Match_Status__c);
+        System.assertEquals('Ready', a.Status__c);
+        System.assertEquals(org.Id, b.Account__c);
+        System.assertEquals(null, b.Contact__c);
+        System.assertEquals('Confirmed', b.Match_Status__c);
     }
 }

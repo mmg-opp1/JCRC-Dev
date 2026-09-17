@@ -219,3 +219,46 @@ here; the endpoint also rejects webhooks from any other company.
   only has Cash, Check and card methods — **no ACH or Wire**. To test like Finance, add the payment methods Finance
   actually uses (e.g. "ACH", "Wire") in the sandbox company, or tell me how Finance marks ACH/wire (§2 Q3).
 
+### Steps 4–6 — Webhooks live + processor ✅ (2026-09-17)
+- **Settings:** QuickBooks Settings were first entered at *profile* level (System Administrator, API Only). The
+  receiver runs as the guest user and reads the **organization default**, so an org-level record was created from
+  the admin record inside Salesforce (token never exported) and the profile rows deleted. Unsigned probe → 401.
+- **First real webhooks** (sandbox company 9341457933630133) — **Deposit IS webhook-enabled**:
+  `paymentmethod.created` (Wire-Transfer), `deposit.created` 145, `payment.created` 146, `deposit.created` 147.
+  **Confirmed the CloudEvents payload carries no transaction data**, e.g. deposit 145:
+  `{"intuitaccountid":"9341457933630133","intuitentityid":"145","time":"2026-09-17T14:43:17Z","type":"qbo.deposit.created.v1",...}`
+  — no `data` at all; the record is read from the API.
+- **Record shapes (read via API):** direct deposit line = Entity (CUSTOMER), AccountRef (income account),
+  PaymentMethodRef (with name), CheckNum, Description. A deposit of a payment = line with LinkedTxn (Payment) and a
+  PaymentMethodRef **id only**; the customer is on the Payment, which sits in **Undeposited Funds** (account 4); its
+  income accounts are on the **Invoice** it paid (ItemAccountRef per line).
+- **Decisions (Jason, 2026-09-17):** ACH/wire = payment method **"Wire-Transfer"** exactly (configurable list in
+  QuickBooks Settings > ACH/Wire Payment Methods); payments inside bank deposits happen; **fund = income account**,
+  mapped to NPSP GAUs by **Custom Metadata** (QuickBooks Fund Map); an invoice spanning several funds → fund blank +
+  note; **remember QuickBooks customer ↔ donor** on commit; payments/sales receipts deposited straight to a bank
+  also count; a line never lacks a customer.
+- **Built:** `QuickBooksApi` (read-only GETs via the `Quickbooks` Named Credential, per-transaction cache, retryable
+  vs not-found vs permanent errors); `QuickBooksEventProcessor` (Batchable scope 1: callouts first, then DML in a
+  savepoint; bank deposit = trigger; direct and linked payment / sales receipt lines; Undeposited-Funds payments
+  ignored; refresh on update keeping staff's fund; removed or re-typed lines deleted while pending; a line imported
+  before is never re-created; deleted/voided handled; 5 attempts for temporary failures); `QuickBooksSweeper`
+  (Schedulable, names the processor only as a string so it can be redeployed while jobs are queued);
+  `QuickBooks_Fund_Map__mdt`; fields `QuickBooks_Settings__c.ACH_Wire_Payment_Methods__c`,
+  `QuickBooks_Event__c.Attempts__c` / `Imported_External_Ids__c`, `Pending_Transaction__c.QuickBooks_Customer_Id__c`
+  / `Import_Note__c`, `Contact` and `Account.QuickBooks_Customer_Id__c`. Engine: a donor already linked to the
+  QuickBooks customer is matched first (Confirmed); commit stamps the link when blank. The editor shows the import
+  note and QuickBooks customer under *As received*. Field access: Admin edit; JCRC - Fundraising / Development
+  read-only.
+- **Tests:** 85/85 (processor 21, plus service, controller, receiver, payment method); coverage QuickBooksApi 89.7%,
+  processor 90.9%, sweeper 91.7%, service 93.6%, controller 94.0%.
+- **Live run** over the four real events: payment method → Ignored; deposit 145 → **PT-00012** $180 Diego Rodriguez,
+  ref 123456; payment 146 → Ignored (Undeposited Funds); deposit 147 → **PT-00013** $239 Amy's Bird Sanctuary,
+  ref 12345 — the $239 counted once. Both Needs Review (no matching donors in Salesforce; accounts 85, 49, 48 not
+  yet mapped to funds).
+- **Scheduled:** `QuickBooks Sweeper 00`–`55` (every 5 minutes) in JCRC-Dev.
+- **Gotchas:** long text fields can't be filtered in SOQL; Salesforce lower-cases Email fields; a test can't make a
+  callout after DML in the same transaction — one event per test, history inserted before `Test.startTest()`.
+
+**Still open:** fund mapping records (QuickBooks income account id → GAU name) once Finance lists the accounts;
+nightly Change Data Capture safety net; production setup (§6).
+

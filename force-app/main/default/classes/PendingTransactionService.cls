@@ -41,6 +41,8 @@
  * -----------
  * 2026-09-16 - Jason Ott - Initial version (JSI-121 Phase 2).
  * 2026-09-16 - Jason Ott - Phase 4: rows arriving without a Source are Manual; deleteTransactions.
+ * 2026-09-17 - Jason Ott - Phase 5b: a donor already linked to the row's QuickBooks customer is matched
+ *                          first (Confirmed); commit links the QuickBooks customer to the donor.
  */
 public with sharing class PendingTransactionService {
 
@@ -115,6 +117,7 @@ public with sharing class PendingTransactionService {
         }
 
         if (isInsert) {
+            matchQuickBooksCustomers(rows);
             suggestDonors(rows);
         }
         fillAccountsFromContacts(rows);
@@ -276,6 +279,56 @@ public with sharing class PendingTransactionService {
     // =============================================================================================
     // Donor suggestion
     // =============================================================================================
+
+    /**
+     * Rows from QuickBooks carry the QuickBooks customer id. If a Contact (or, failing that, an Account) is
+     * already linked to that customer - because staff confirmed it on an earlier commit - that donor is used
+     * and marked Confirmed: a person has already made this match once. Exactly one link is required;
+     * duplicates fall through to the normal suggestion.
+     */
+    @TestVisible
+    private static void matchQuickBooksCustomers(List<Pending_Transaction__c> rows) {
+        Set<String> customerIds = new Set<String>();
+        for (Pending_Transaction__c row : rows) {
+            if (row.Contact__c == null && row.Account__c == null && String.isNotBlank(row.QuickBooks_Customer_Id__c)) {
+                customerIds.add(row.QuickBooks_Customer_Id__c);
+            }
+        }
+        if (customerIds.isEmpty()) {
+            return;
+        }
+        Map<String, List<Contact>> contacts = new Map<String, List<Contact>>();
+        for (Contact c : [SELECT Id, AccountId, QuickBooks_Customer_Id__c FROM Contact
+                          WHERE QuickBooks_Customer_Id__c IN :customerIds]) {
+            if (!contacts.containsKey(c.QuickBooks_Customer_Id__c)) {
+                contacts.put(c.QuickBooks_Customer_Id__c, new List<Contact>());
+            }
+            contacts.get(c.QuickBooks_Customer_Id__c).add(c);
+        }
+        Map<String, List<Account>> accounts = new Map<String, List<Account>>();
+        for (Account a : [SELECT Id, QuickBooks_Customer_Id__c FROM Account WHERE QuickBooks_Customer_Id__c IN :customerIds]) {
+            if (!accounts.containsKey(a.QuickBooks_Customer_Id__c)) {
+                accounts.put(a.QuickBooks_Customer_Id__c, new List<Account>());
+            }
+            accounts.get(a.QuickBooks_Customer_Id__c).add(a);
+        }
+        // Loop: apply a unique link; a Contact wins over an Account.
+        for (Pending_Transaction__c row : rows) {
+            if (row.Contact__c != null || row.Account__c != null || String.isBlank(row.QuickBooks_Customer_Id__c)) {
+                continue;
+            }
+            List<Contact> cs = contacts.get(row.QuickBooks_Customer_Id__c);
+            List<Account> accs = accounts.get(row.QuickBooks_Customer_Id__c);
+            if (cs != null && cs.size() == 1) {
+                row.Contact__c = cs[0].Id;
+                row.Account__c = cs[0].AccountId;
+                row.Match_Status__c = MATCH_CONFIRMED;
+            } else if (cs == null && accs != null && accs.size() == 1) {
+                row.Account__c = accs[0].Id;
+                row.Match_Status__c = MATCH_CONFIRMED;
+            }
+        }
+    }
 
     /**
      * Proposes a donor for new rows that arrive without one. In order:
@@ -739,7 +792,7 @@ public with sharing class PendingTransactionService {
             SELECT Id, Name, Source__c, External_Id__c, Amount__c, Transaction_Date__c, Payment_Method__c,
                    Reference_Number__c, Deposit_Reference__c, Contact__c, Account__c, Match_Status__c,
                    Apply_As__c, Pledge__c, Gift_Record_Type__c, Campaign__c, Fund__c, Approach__c,
-                   Gift_Name__c, Notes__c, Status__c
+                   Gift_Name__c, Notes__c, Status__c, QuickBooks_Customer_Id__c
             FROM Pending_Transaction__c WHERE Id IN :rowIds
         ];
         Context ctx = new Context(rows);
@@ -767,6 +820,7 @@ public with sharing class PendingTransactionService {
                 } else {
                     writer.createGift(row, contacts.get(row.Contact__c), result);
                 }
+                writer.linkQuickBooksCustomer(row);
                 writer.deleteRow(row);
                 deleted.add(row.Id);
                 result.success = true;
@@ -812,6 +866,28 @@ public with sharing class PendingTransactionService {
      * donation processor. Instance methods because Apex does not allow static methods on inner classes.
      */
     private without sharing class Writer {
+
+        /**
+         * Remembers that this QuickBooks customer is this donor, so their next transaction matches exactly.
+         * Stamped on the Contact if there is one, otherwise the Account - and only when blank, so an existing
+         * link (or a deliberate edit) is never overwritten.
+         */
+        public void linkQuickBooksCustomer(Pending_Transaction__c row) {
+            if (String.isBlank(row.QuickBooks_Customer_Id__c)) {
+                return;
+            }
+            if (row.Contact__c != null) {
+                Contact c = [SELECT Id, QuickBooks_Customer_Id__c FROM Contact WHERE Id = :row.Contact__c];
+                if (String.isBlank(c.QuickBooks_Customer_Id__c)) {
+                    update new Contact(Id = c.Id, QuickBooks_Customer_Id__c = row.QuickBooks_Customer_Id__c);
+                }
+            } else if (row.Account__c != null) {
+                Account a = [SELECT Id, QuickBooks_Customer_Id__c FROM Account WHERE Id = :row.Account__c];
+                if (String.isBlank(a.QuickBooks_Customer_Id__c)) {
+                    update new Account(Id = a.Id, QuickBooks_Customer_Id__c = row.QuickBooks_Customer_Id__c);
+                }
+            }
+        }
 
         public void deleteRow(Pending_Transaction__c row) {
             delete new Pending_Transaction__c(Id = row.Id);

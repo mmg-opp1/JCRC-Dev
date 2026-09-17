@@ -1,0 +1,594 @@
+/**
+ * @description Turns stored QuickBooks webhook events into Pending Transactions (JSI-121 Phase 5b).
+ *
+ *              The webhook only says "deposit 147 was created", so this job reads the record from QuickBooks
+ *              and decides what, if anything, becomes a pending transaction. It runs as a Batchable, one
+ *              event at a time (callouts, then DML), started every few minutes by QuickBooksSweeper as an
+ *              administrator - never as the site guest user.
+ *
+ *              WHAT COUNTS AS MONEY IN (decisions 2026-09-17, Jason):
+ *                - A BANK DEPOSIT is the trigger. Each deposit line paid by an ACH/wire payment method
+ *                  (QuickBooks Settings > ACH/Wire Payment Methods; "Wire-Transfer" by default) becomes one
+ *                  pending transaction. Two kinds of line:
+ *                    * a direct line - customer, income account, payment method and reference are on the line;
+ *                    * a line depositing an earlier Payment or Sales Receipt (LinkedTxn) - the customer comes
+ *                      from that payment, and the income account from the invoice(s) it paid (or the sales
+ *                      receipt's own lines).
+ *                - A PAYMENT or SALES RECEIPT deposited straight to a bank account also counts. One sitting in
+ *                  Undeposited Funds is ignored here - its bank deposit brings it in, so it is never counted twice.
+ *              Everything else (customers, invoices, payment methods...) is logged as Ignored.
+ *
+ *              FUND: the income account maps to an NPSP fund through QuickBooks Fund Map custom metadata. If
+ *              the account isn't mapped, or the lines span several funds, Fund is left blank and the reason
+ *              goes in Import Note for staff.
+ *
+ *              UPDATES AND DELETES:
+ *                - created/updated: pending rows for the record are refreshed (amount, date, reference, payer,
+ *                  memo, note - not the donor, routing or fund staff may have chosen); lines no longer present
+ *                  or no longer ACH/wire are removed while still pending;
+ *                - a line imported before but no longer pending was committed or deleted by staff, so it is
+ *                  NOT created again (the event's Imported External IDs are the memory of this);
+ *                - deleted/voided: still-pending rows are removed; committed ones are reported on the event.
+ *
+ *              FAILURES: a temporary QuickBooks problem leaves the event Received for the next run (up to 5
+ *              attempts); anything else marks it Failed with the reason. No partial writes: callouts all happen
+ *              first, then the DML runs inside one savepoint.
+ * @author Jason Ott
+ * @created 2026-09-17
+ *
+ * Change Log:
+ * -----------
+ * 2026-09-17 - Jason Ott - Initial version (JSI-121 Phase 5b).
+ */
+public without sharing class QuickBooksEventProcessor implements Database.Batchable<SObject>, Database.AllowsCallouts {
+
+    public static final Integer MAX_ATTEMPTS = 5;
+    @TestVisible private static final String DEFAULT_ACH_WIRE_METHODS = 'Wire-Transfer';
+    private static final String PAYMENT_METHOD_VALUE = 'ACH/Wire';
+
+    /** Tests supply the fund mapping here; custom metadata records can't be inserted in a test. */
+    @TestVisible private static Map<String, String> fundMapOverride;
+
+    // =============================================================================================
+    // Batch
+    // =============================================================================================
+
+    public Database.QueryLocator start(Database.BatchableContext ctx) {
+        return Database.getQueryLocator([
+            SELECT Id FROM QuickBooks_Event__c
+            WHERE Status__c = 'Received' AND (Attempts__c = null OR Attempts__c < :MAX_ATTEMPTS)
+            ORDER BY Event_Time__c ASC NULLS LAST, Received_At__c ASC
+        ]);
+    }
+
+    /** Scope 1: each event's callouts, DML and outcome are its own. */
+    public void execute(Database.BatchableContext ctx, List<QuickBooks_Event__c> scope) {
+        for (QuickBooks_Event__c e : scope) {
+            process(e.Id);
+        }
+    }
+
+    public void finish(Database.BatchableContext ctx) {
+        // Each event records its own outcome.
+    }
+
+    // =============================================================================================
+    // One event
+    // =============================================================================================
+
+    /** What handling an event amounts to, applied in one go after every callout is done. */
+    private class Outcome {
+        String status = 'Processed';
+        List<String> notes = new List<String>();
+        List<Pending_Transaction__c> inserts = new List<Pending_Transaction__c>();
+        List<Pending_Transaction__c> updates = new List<Pending_Transaction__c>();
+        List<Pending_Transaction__c> deletes = new List<Pending_Transaction__c>();
+    }
+
+    /** A pending transaction as QuickBooks describes it, before it is matched against what exists. */
+    private class Candidate {
+        String externalId;
+        String externalType;
+        Decimal amount;
+        Date txnDate;
+        String reference;
+        String depositReference;
+        String customerId;
+        String payerName;
+        String payerEmail;
+        String memo;
+        Set<String> accountIds = new Set<String>();
+        String raw;
+    }
+
+    public static void process(Id eventId) {
+        QuickBooks_Event__c ev = [
+            SELECT Id, Name, Status__c, Entity_Name__c, Operation__c, Entity_Id__c, Entity_Key__c, Realm_Id__c,
+                   Attempts__c, Imported_External_Ids__c
+            FROM QuickBooks_Event__c WHERE Id = :eventId
+        ];
+        // No FOR UPDATE: callouts follow, and QuickBooksSweeper never runs two processors at once.
+        if (ev.Status__c != 'Received') {
+            return;
+        }
+        QuickBooks_Settings__c cfg = QuickBooks_Settings__c.getOrgDefaults();
+        if (cfg == null || cfg.Enabled__c != true) {
+            return; // switched off: leave it for later
+        }
+
+        Outcome outcome;
+        try {
+            outcome = decide(ev, cfg);
+        } catch (QuickBooksApi.QuickBooksApiException e) {
+            recordFailure(ev, e.getMessage(), e.isTransient == true);
+            return;
+        } catch (Exception e) {
+            recordFailure(ev, e.getTypeName() + ': ' + e.getMessage(), false);
+            return;
+        }
+
+        Savepoint sp = Database.setSavepoint();
+        try {
+            if (!outcome.deletes.isEmpty()) {
+                delete outcome.deletes;
+            }
+            if (!outcome.updates.isEmpty()) {
+                update outcome.updates;
+            }
+            if (!outcome.inserts.isEmpty()) {
+                insert outcome.inserts;
+            }
+            List<String> imported = String.isBlank(ev.Imported_External_Ids__c)
+                ? new List<String>() : ev.Imported_External_Ids__c.split('\n');
+            for (Pending_Transaction__c p : outcome.inserts) {
+                imported.add(p.External_Id__c);
+            }
+            ev.Imported_External_Ids__c = String.join(imported, '\n').left(32768);
+            ev.Status__c = outcome.status;
+            ev.Error_Message__c = outcome.notes.isEmpty() ? null : String.join(outcome.notes, ' ').left(4000);
+            ev.Processed_At__c = System.now();
+            ev.Attempts__c = (ev.Attempts__c == null ? 0 : ev.Attempts__c) + 1;
+            update ev;
+        } catch (Exception e) {
+            Database.rollback(sp);
+            recordFailure(ev, e.getTypeName() + ': ' + e.getMessage(), false);
+        }
+    }
+
+    private static void recordFailure(QuickBooks_Event__c ev, String message, Boolean isTransient) {
+        Decimal attempts = (ev.Attempts__c == null ? 0 : ev.Attempts__c) + 1;
+        update new QuickBooks_Event__c(
+            Id = ev.Id,
+            Attempts__c = attempts,
+            Status__c = isTransient && attempts < MAX_ATTEMPTS ? 'Received' : 'Failed',
+            Error_Message__c = ((isTransient && attempts < MAX_ATTEMPTS ? 'Will retry: ' : '') + message).left(4000),
+            Processed_At__c = System.now());
+    }
+
+    /** Callouts only - works out what should change. No DML happens in here. */
+    private static Outcome decide(QuickBooks_Event__c ev, QuickBooks_Settings__c cfg) {
+        Outcome out = new Outcome();
+        String entity = ev.Entity_Name__c;
+        String op = ev.Operation__c;
+        String realm = cfg.Realm_Id__c == null ? null : cfg.Realm_Id__c.trim();
+
+        if (String.isNotBlank(realm) && ev.Realm_Id__c != realm) {
+            out.status = 'Ignored';
+            out.notes.add('Event is for another QuickBooks company.');
+            return out;
+        }
+        Boolean removal = op == 'deleted' || op == 'voided';
+        Boolean change = op == 'created' || op == 'updated';
+
+        if (entity == 'deposit' && (change || removal)) {
+            String prefix = 'qbo-deposit-' + ev.Entity_Id__c + '-';
+            List<Candidate> candidates = new List<Candidate>();
+            if (change) {
+                Map<String, Object> dep = fetchOrNull('Deposit', ev.Entity_Id__c);
+                if (dep == null) {
+                    removal = true; // deleted in QuickBooks since the event
+                } else {
+                    candidates = depositCandidates(dep, achWireMethods(cfg), out);
+                }
+            }
+            reconcile(out, ev, prefix, candidates, removal);
+            return out;
+        }
+
+        if ((entity == 'payment' || entity == 'salesreceipt') && (change || removal)) {
+            String qbEntity = entity == 'payment' ? 'Payment' : 'SalesReceipt';
+            String externalId = 'qbo-' + entity + '-' + ev.Entity_Id__c;
+            List<Candidate> candidates = new List<Candidate>();
+            if (change) {
+                Map<String, Object> rec = fetchOrNull(qbEntity, ev.Entity_Id__c);
+                if (rec == null) {
+                    removal = true;
+                } else {
+                    String depositTo = QuickBooksApi.refValue(rec.get('DepositToAccountRef'));
+                    if (depositTo == null || isUndepositedFunds(depositTo)) {
+                        out.status = 'Ignored';
+                        out.notes.add('In Undeposited Funds - it will come in with its bank deposit.');
+                        return out;
+                    }
+                    Candidate c = linkedCandidate(qbEntity, rec, achWireMethods(cfg), null, out);
+                    if (c != null) {
+                        c.externalId = externalId;
+                        c.externalType = entity == 'payment' ? 'Payment' : 'Sales Receipt';
+                        enrichCustomer(c);
+                        candidates.add(c);
+                    }
+                }
+            }
+            reconcile(out, ev, externalId, candidates, removal);
+            return out;
+        }
+
+        out.status = 'Ignored';
+        out.notes.add('Not a money-in transaction (' + entity + ' ' + op + ').');
+        return out;
+    }
+
+    // =============================================================================================
+    // Reading QuickBooks records into candidates
+    // =============================================================================================
+
+    private static List<Candidate> depositCandidates(Map<String, Object> dep, Set<String> methods, Outcome out) {
+        List<Candidate> result = new List<Candidate>();
+        String depositId = QuickBooksApi.str(dep.get('Id'));
+        Date txnDate = parseDate(dep.get('TxnDate'));
+        Integer index = 0;
+        Integer skipped = 0;
+
+        // Loop: one candidate per ACH/wire line.
+        for (Object o : QuickBooksApi.items(dep.get('Line'))) {
+            index++;
+            Map<String, Object> line = QuickBooksApi.obj(o);
+            if (line == null) {
+                continue;
+            }
+            Map<String, Object> detail = QuickBooksApi.obj(line.get('DepositLineDetail'));
+            Map<String, Object> linked = firstLinked(line, new Set<String>{ 'Payment', 'SalesReceipt' });
+            Candidate c;
+
+            if (linked != null) {
+                String type = String.valueOf(linked.get('TxnType'));
+                String txnId = String.valueOf(linked.get('TxnId'));
+                Map<String, Object> source = QuickBooksApi.get(type, txnId);
+                c = linkedCandidate(type, source, methods, detail, out);
+                if (c != null) {
+                    c.externalId = 'qbo-deposit-' + depositId + '-' + type.toLowerCase() + '-' + txnId;
+                    c.externalType = 'Deposit (' + (type == 'Payment' ? 'Payment' : 'Sales Receipt') + ')';
+                }
+            } else if (QuickBooksApi.items(line.get('LinkedTxn')).size() > 0) {
+                out.notes.add('Deposit line ' + index + ' deposits a ' + String.valueOf(QuickBooksApi.obj(
+                    QuickBooksApi.items(line.get('LinkedTxn'))[0]).get('TxnType')) + ', which is not imported.');
+                continue;
+            } else if (detail != null) {
+                String methodName = paymentMethodName(detail.get('PaymentMethodRef'));
+                if (!methods.contains(normalise(methodName))) {
+                    skipped++;
+                    continue;
+                }
+                c = new Candidate();
+                String lineId = QuickBooksApi.str(line.get('Id'));
+                c.externalId = 'qbo-deposit-' + depositId + '-' + (lineId != null ? 'l' + lineId : 'n' + index);
+                c.externalType = 'Deposit';
+                c.reference = QuickBooksApi.str(detail.get('CheckNum'));
+                Map<String, Object> entityRef = QuickBooksApi.obj(detail.get('Entity'));
+                if (entityRef != null && String.valueOf(entityRef.get('type')) == 'CUSTOMER') {
+                    c.customerId = QuickBooksApi.refValue(entityRef);
+                    c.payerName = QuickBooksApi.refName(entityRef);
+                }
+                String accountId = QuickBooksApi.refValue(detail.get('AccountRef'));
+                if (accountId != null) {
+                    c.accountIds.add(accountId);
+                }
+                c.memo = QuickBooksApi.str(line.get('Description'));
+                c.raw = JSON.serialize(line);
+            } else {
+                continue;
+            }
+
+            if (c == null) {
+                skipped++;
+                continue;
+            }
+            c.amount = line.get('Amount') == null ? null : Decimal.valueOf(String.valueOf(line.get('Amount')));
+            c.txnDate = txnDate;
+            c.depositReference = ('QBO Deposit ' + depositId).left(30);
+            if (c.memo == null) {
+                c.memo = QuickBooksApi.str(line.get('Description'));
+            }
+            c.raw = '{"deposit":' + JSON.serialize(dep) + ',"line":' + JSON.serialize(line)
+                + (c.raw != null && linked != null ? ',"source":' + c.raw : '') + '}';
+            enrichCustomer(c);
+            result.add(c);
+        }
+        if (skipped > 0) {
+            out.notes.add(skipped + ' deposit line(s) skipped - payment method is not ACH/wire.');
+        }
+        return result;
+    }
+
+    /**
+     * A Payment or Sales Receipt, either deposited by a bank deposit line or deposited straight to a bank.
+     * Returns null when its payment method isn't ACH/wire.
+     */
+    private static Candidate linkedCandidate(String type, Map<String, Object> rec, Set<String> methods,
+                                             Map<String, Object> depositLineDetail, Outcome out) {
+        Object methodRef = depositLineDetail != null && depositLineDetail.get('PaymentMethodRef') != null
+            ? depositLineDetail.get('PaymentMethodRef') : rec.get('PaymentMethodRef');
+        if (!methods.contains(normalise(paymentMethodName(methodRef)))) {
+            return null;
+        }
+        Candidate c = new Candidate();
+        c.customerId = QuickBooksApi.refValue(rec.get('CustomerRef'));
+        c.payerName = QuickBooksApi.refName(rec.get('CustomerRef'));
+        c.amount = rec.get('TotalAmt') == null ? null : Decimal.valueOf(String.valueOf(rec.get('TotalAmt')));
+        c.txnDate = parseDate(rec.get('TxnDate'));
+        String ref = depositLineDetail == null ? null : QuickBooksApi.str(depositLineDetail.get('CheckNum'));
+        c.reference = ref != null ? ref : QuickBooksApi.str(rec.get('PaymentRefNum'));
+        c.memo = QuickBooksApi.str(rec.get('PrivateNote'));
+        c.raw = JSON.serialize(rec);
+
+        if (type == 'Payment') {
+            // Income accounts live on the invoice(s) the payment paid.
+            for (Object lo : QuickBooksApi.items(rec.get('Line'))) {
+                for (Object to : QuickBooksApi.items(QuickBooksApi.obj(lo) == null ? null : QuickBooksApi.obj(lo).get('LinkedTxn'))) {
+                    Map<String, Object> t = QuickBooksApi.obj(to);
+                    if (t != null && String.valueOf(t.get('TxnType')) == 'Invoice') {
+                        addSalesLineAccounts(QuickBooksApi.get('Invoice', String.valueOf(t.get('TxnId'))), c);
+                    }
+                }
+            }
+        } else {
+            addSalesLineAccounts(rec, c);
+        }
+        return c;
+    }
+
+    private static void addSalesLineAccounts(Map<String, Object> rec, Candidate c) {
+        for (Object lo : QuickBooksApi.items(rec.get('Line'))) {
+            Map<String, Object> line = QuickBooksApi.obj(lo);
+            Map<String, Object> sales = line == null ? null : QuickBooksApi.obj(line.get('SalesItemLineDetail'));
+            String accountId = sales == null ? null : QuickBooksApi.refValue(sales.get('ItemAccountRef'));
+            if (accountId != null) {
+                c.accountIds.add(accountId);
+            }
+        }
+    }
+
+    private static void enrichCustomer(Candidate c) {
+        if (c.customerId == null) {
+            return;
+        }
+        Map<String, Object> cust = fetchOrNull('Customer', c.customerId);
+        if (cust == null) {
+            return;
+        }
+        String display = QuickBooksApi.str(cust.get('DisplayName'));
+        if (display != null) {
+            c.payerName = display;
+        }
+        c.payerEmail = QuickBooksApi.str(QuickBooksApi.obj(cust.get('PrimaryEmailAddr')) == null
+            ? null : QuickBooksApi.obj(cust.get('PrimaryEmailAddr')).get('Address'));
+    }
+
+    // =============================================================================================
+    // Matching candidates against what already exists
+    // =============================================================================================
+
+    /**
+     * Decides inserts, refreshes and removals for one QuickBooks record. `key` is the External ID prefix
+     * (deposits, whose lines share it) or the exact External ID (a payment or sales receipt).
+     */
+    private static void reconcile(Outcome out, QuickBooks_Event__c ev, String key, List<Candidate> candidates, Boolean removal) {
+        String likeKey = key.endsWith('-') ? key + '%' : key;
+        Map<String, Pending_Transaction__c> pending = new Map<String, Pending_Transaction__c>();
+        for (Pending_Transaction__c p : [SELECT Id, External_Id__c, Fund__c FROM Pending_Transaction__c
+                                         WHERE External_Id__c LIKE :likeKey]) {
+            pending.put(p.External_Id__c.toLowerCase(), p);
+        }
+
+        // Every External ID imported before for this QuickBooks record (by any earlier event).
+        Set<String> importedBefore = new Set<String>();
+        // Long text can't be filtered in SOQL, so blank ones are skipped here.
+        for (QuickBooks_Event__c prior : [SELECT Imported_External_Ids__c FROM QuickBooks_Event__c
+                                          WHERE Entity_Key__c = :ev.Entity_Key__c]) {
+            if (String.isBlank(prior.Imported_External_Ids__c)) {
+                continue;
+            }
+            for (String s : prior.Imported_External_Ids__c.split('\n')) {
+                importedBefore.add(s.trim().toLowerCase());
+            }
+        }
+
+        Set<String> keep = new Set<String>();
+        if (!removal) {
+            Map<String, String> funds = fundMap();
+            Map<String, Id> gauIds = gauIdsByName(funds.values());
+            for (Candidate c : candidates) {
+                String extId = c.externalId.toLowerCase();
+                keep.add(extId);
+                Pending_Transaction__c existing = pending.get(extId);
+                if (existing != null) {
+                    Pending_Transaction__c upd = toRecord(c, funds, gauIds, false);
+                    upd.Id = existing.Id;
+                    // A fund already on the row (chosen by staff, or mapped earlier) is kept.
+                    if (existing.Fund__c != null) {
+                        upd.Fund__c = existing.Fund__c;
+                    }
+                    out.updates.add(upd);
+                } else if (importedBefore.contains(extId)) {
+                    out.notes.add(c.externalId + ' was imported before and has since been committed or deleted - not re-created.');
+                } else {
+                    out.inserts.add(toRecord(c, funds, gauIds, true));
+                }
+            }
+        }
+
+        // Still-pending rows that QuickBooks no longer describes (removed line, changed method, deleted record).
+        Integer removed = 0;
+        for (String extId : pending.keySet()) {
+            if (!keep.contains(extId)) {
+                out.deletes.add(new Pending_Transaction__c(Id = pending.get(extId).Id));
+                removed++;
+            }
+        }
+        if (removed > 0) {
+            out.notes.add('Removed ' + removed + ' pending transaction(s) no longer in QuickBooks as ACH/wire.');
+        }
+        if (removal && removed == 0 && !importedBefore.isEmpty()) {
+            out.notes.add('Deleted or voided in QuickBooks after it was committed or deleted in Salesforce - check the gift.');
+        }
+        if (out.inserts.isEmpty() && out.updates.isEmpty() && removed == 0 && candidates.isEmpty() && !removal
+                && out.notes.isEmpty()) {
+            out.status = 'Ignored';
+            out.notes.add('No ACH/wire money in this transaction.');
+        }
+    }
+
+    private static Pending_Transaction__c toRecord(Candidate c, Map<String, String> funds, Map<String, Id> gauIds, Boolean isNew) {
+        Pending_Transaction__c p = new Pending_Transaction__c(
+            External_Id__c = c.externalId,
+            External_Type__c = c.externalType == null ? null : c.externalType.left(40),
+            Amount__c = c.amount,
+            Transaction_Date__c = c.txnDate,
+            Deposit_Date__c = c.depositReference == null ? null : c.txnDate,
+            Deposit_Reference__c = c.depositReference,
+            Payment_Method__c = PAYMENT_METHOD_VALUE,
+            Reference_Number__c = c.reference == null ? null : c.reference.left(255),
+            Payer_Name__c = c.payerName == null ? null : c.payerName.left(255),
+            Payer_Email__c = isEmail(c.payerEmail) ? c.payerEmail : null,
+            Memo__c = c.memo == null ? null : c.memo.left(4000),
+            QuickBooks_Customer_Id__c = c.customerId,
+            Raw_Data__c = c.raw == null ? null : c.raw.left(131072));
+        if (isNew) {
+            p.Source__c = 'QuickBooks';
+        }
+
+        // Fund from the income account(s).
+        List<String> notes = new List<String>();
+        Set<String> gauNames = new Set<String>();
+        for (String accountId : c.accountIds) {
+            String gau = funds.get(accountId);
+            if (gau == null) {
+                notes.add('QuickBooks income account ' + accountId + ' is not mapped to a fund.');
+            } else {
+                gauNames.add(gau);
+            }
+        }
+        if (c.accountIds.isEmpty()) {
+            notes.add('No income account found in QuickBooks - choose the fund.');
+        } else if (gauNames.size() > 1) {
+            notes.add('The QuickBooks lines span several funds (' + String.join(new List<String>(gauNames), ', ') + ') - choose the fund.');
+        } else if (gauNames.size() == 1 && notes.isEmpty()) {
+            String name = new List<String>(gauNames)[0];
+            if (gauIds.containsKey(name.toLowerCase())) {
+                p.Fund__c = gauIds.get(name.toLowerCase());
+            } else {
+                notes.add('Fund "' + name + '" from the QuickBooks Fund Map was not found or is inactive.');
+            }
+        }
+        if (c.customerId == null) {
+            notes.add('No QuickBooks customer on this line - choose the donor.');
+        }
+        p.Import_Note__c = notes.isEmpty() ? null : String.join(notes, ' ').left(4000);
+        return p;
+    }
+
+    // =============================================================================================
+    // Lookups
+    // =============================================================================================
+
+    /** QuickBooks account id -> fund (GAU) name, from active QuickBooks Fund Map records. */
+    private static Map<String, String> fundMap() {
+        if (fundMapOverride != null) {
+            return fundMapOverride;
+        }
+        Map<String, String> out = new Map<String, String>();
+        for (QuickBooks_Fund_Map__mdt m : QuickBooks_Fund_Map__mdt.getAll().values()) {
+            if (m.Active__c && String.isNotBlank(m.QBO_Account_Id__c) && String.isNotBlank(m.GAU_Name__c)) {
+                out.put(m.QBO_Account_Id__c.trim(), m.GAU_Name__c.trim());
+            }
+        }
+        return out;
+    }
+
+    private static Map<String, Id> gauIdsByName(List<String> names) {
+        Map<String, Id> out = new Map<String, Id>();
+        Set<String> wanted = new Set<String>(names);
+        if (wanted.isEmpty()) {
+            return out;
+        }
+        for (npsp__General_Accounting_Unit__c g : [SELECT Id, Name FROM npsp__General_Accounting_Unit__c
+                                                   WHERE Name IN :wanted AND npsp__Active__c = true]) {
+            out.put(g.Name.toLowerCase(), g.Id);
+        }
+        return out;
+    }
+
+    private static Set<String> achWireMethods(QuickBooks_Settings__c cfg) {
+        String raw = String.isBlank(cfg.ACH_Wire_Payment_Methods__c) ? DEFAULT_ACH_WIRE_METHODS : cfg.ACH_Wire_Payment_Methods__c;
+        Set<String> out = new Set<String>();
+        for (String s : raw.split(',')) {
+            if (String.isNotBlank(s)) {
+                out.add(normalise(s));
+            }
+        }
+        return out;
+    }
+
+    /** The payment method's name; the reference on a deposit line often carries only the id. */
+    private static String paymentMethodName(Object ref) {
+        String name = QuickBooksApi.refName(ref);
+        String id = QuickBooksApi.refValue(ref);
+        if (name == null && id != null) {
+            name = QuickBooksApi.str(QuickBooksApi.get('PaymentMethod', id).get('Name'));
+        }
+        return name;
+    }
+
+    private static Boolean isUndepositedFunds(String accountId) {
+        Map<String, Object> acct = QuickBooksApi.get('Account', accountId);
+        return String.valueOf(acct.get('AccountSubType')) == 'UndepositedFunds';
+    }
+
+    private static Map<String, Object> fetchOrNull(String entity, String id) {
+        try {
+            return QuickBooksApi.get(entity, id);
+        } catch (QuickBooksApi.QuickBooksApiException e) {
+            if (e.isNotFound == true) {
+                return null;
+            }
+            throw e;
+        }
+    }
+
+    private static Map<String, Object> firstLinked(Map<String, Object> line, Set<String> types) {
+        for (Object o : QuickBooksApi.items(line.get('LinkedTxn'))) {
+            Map<String, Object> t = QuickBooksApi.obj(o);
+            if (t != null && types.contains(String.valueOf(t.get('TxnType')))) {
+                return t;
+            }
+        }
+        return null;
+    }
+
+    private static String normalise(String s) {
+        return s == null ? '' : s.trim().toLowerCase();
+    }
+
+    private static Date parseDate(Object o) {
+        String s = QuickBooksApi.str(o);
+        try {
+            return s == null ? null : Date.valueOf(s.left(10));
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    private static Boolean isEmail(String s) {
+        return s != null && Pattern.matches('^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$', s);
+    }
+}

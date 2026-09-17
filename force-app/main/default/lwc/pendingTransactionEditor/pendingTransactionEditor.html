@@ -54,7 +54,14 @@
                     <div><dt>Payer</dt><dd>{payerDisplay}</dd></div>
                     <template lwc:if={row.payerEmail}><div><dt>Email</dt><dd>{row.payerEmail}</dd></div></template>
                     <template lwc:if={row.memo}><div class="ed-fact_wide"><dt>Memo</dt><dd>{row.memo}</dd></div></template>
+                    <template lwc:if={row.quickBooksCustomerId}><div><dt>QuickBooks customer</dt><dd>{row.quickBooksCustomerId}</dd></div></template>
                 </dl>
+                <template lwc:if={row.importNote}>
+                    <p class="ed-import-note">
+                        <lightning-icon icon-name="utility:info" size="xx-small"></lightning-icon>
+                        <span>{row.importNote}</span>
+                    </p>
+                </template>
             </section>
 
             <!-- Donor -->

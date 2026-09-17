@@ -20,6 +20,7 @@
  * -----------
  * 2026-09-16 - Jason Ott - Initial version (JSI-121 Phase 3).
  * 2026-09-16 - Jason Ott - Phase 4: createTransaction (manual Add) and deleteTransaction.
+ * 2026-09-17 - Jason Ott - Phase 5b: rows carry the QuickBooks import note and customer id.
  */
 public with sharing class PendingTransactionController {
 
@@ -94,6 +95,8 @@ public with sharing class PendingTransactionController {
         @AuraEnabled public String payerName;
         @AuraEnabled public String payerEmail;
         @AuraEnabled public String memo;
+        @AuraEnabled public String importNote;
+        @AuraEnabled public String quickBooksCustomerId;
         @AuraEnabled public Decimal amount;
         @AuraEnabled public Date transactionDate;
         @AuraEnabled public String paymentMethod;
@@ -430,7 +433,7 @@ public with sharing class PendingTransactionController {
                            Reference_Number__c, Deposit_Date__c, Deposit_Reference__c, Contact__c, Contact__r.Name,
                            Contact__r.Email, Contact__r.AccountId, Account__c, Account__r.Name, Match_Status__c,
                            Apply_As__c, Pledge__c, Pledge__r.Name, Gift_Record_Type__c, Campaign__c, Campaign__r.Name,
-                           Fund__c, Fund__r.Name, Approach__c, Gift_Name__c, Notes__c, CreatedDate
+                           Fund__c, Fund__r.Name, Approach__c, Gift_Name__c, Notes__c, CreatedDate, Import_Note__c, QuickBooks_Customer_Id__c
                     FROM Pending_Transaction__c WHERE Id = :onlyId WITH USER_MODE];
         }
         return [SELECT Id, Name, Status__c, Error_Message__c, Source__c, External_Type__c, External_Id__c,
@@ -438,7 +441,7 @@ public with sharing class PendingTransactionController {
                        Reference_Number__c, Deposit_Date__c, Deposit_Reference__c, Contact__c, Contact__r.Name,
                        Contact__r.Email, Contact__r.AccountId, Account__c, Account__r.Name, Match_Status__c,
                        Apply_As__c, Pledge__c, Pledge__r.Name, Gift_Record_Type__c, Campaign__c, Campaign__r.Name,
-                       Fund__c, Fund__r.Name, Approach__c, Gift_Name__c, Notes__c, CreatedDate
+                       Fund__c, Fund__r.Name, Approach__c, Gift_Name__c, Notes__c, CreatedDate, Import_Note__c, QuickBooks_Customer_Id__c
                 FROM Pending_Transaction__c WITH USER_MODE
                 ORDER BY Transaction_Date__c DESC NULLS FIRST, CreatedDate DESC
                 LIMIT :lim];
@@ -464,6 +467,8 @@ public with sharing class PendingTransactionController {
             i.payerName = r.Payer_Name__c;
             i.payerEmail = r.Payer_Email__c;
             i.memo = r.Memo__c;
+            i.importNote = r.Import_Note__c;
+            i.quickBooksCustomerId = r.QuickBooks_Customer_Id__c;
             i.amount = r.Amount__c;
             i.transactionDate = r.Transaction_Date__c;
             i.paymentMethod = r.Payment_Method__c;
