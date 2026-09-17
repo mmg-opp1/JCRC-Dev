@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <description>Per-org settings for the QuickBooks Online webhook: the verifier token Intuit signs webhooks with, the QuickBooks company (realm) id webhooks must come from, and an on/off switch. A PROTECTED CUSTOM SETTING, not Custom Metadata, so the token is data entered in each org and never enters source control (same reasoning as Webhook Config). JSI-121 / Jason Ott.</description>
+    <enableFeeds>false</enableFeeds>
+    <label>QuickBooks Settings</label>
+    <visibility>Protected</visibility>
+</CustomObject>
