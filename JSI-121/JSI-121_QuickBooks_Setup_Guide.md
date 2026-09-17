@@ -205,3 +205,17 @@ here; the endpoint also rejects webhooks from any other company.
 - **Raw payloads are stored as received** — so when your first real sandbox event arrives we'll see exactly what
   Intuit sends, including whether `data` carries transaction details.
 
+### Steps 2–3 — OAuth connection ✅ (2026-09-17)
+- Jason created the External Auth Identity Provider, External Credential and Named Credential (`Quickbooks`) and
+  authenticated against **Sandbox Company US 0ba0** (company id `9341457933630133`). Principal `QBO_Principal`
+  **Configured** (verified via Connect API).
+- Fixes on the way: (1) the redirect URI is **`https://jcrcny--dev.sandbox.my.salesforce.com/services/extidp/callback`**
+  (read from the Connect API — not the `/services/authcallback/…` form guessed in B1), added on the app's
+  Development side; (2) **Intuit rejected `invalid_scope`** because Scope was set on both the External Credential
+  and the principal, so Salesforce sent it twice — removed from the principal.
+- **Principal access:** the `hooks Profile` (public guest) had been granted access — removed (SetupEntityAccess
+  `0J0iI000000tnkrSAA` deleted; verified). Remaining: System Administrator, Salesforce API Only System Integrations.
+- **Test callouts (read-only) succeed:** `companyinfo` HTTP 200; `PaymentMethod` query HTTP 200. The sandbox company
+  only has Cash, Check and card methods — **no ACH or Wire**. To test like Finance, add the payment methods Finance
+  actually uses (e.g. "ACH", "Wire") in the sandbox company, or tell me how Finance marks ACH/wire (§2 Q3).
+
