@@ -27,7 +27,9 @@
  *                  memo, note - not the donor, routing or fund staff may have chosen); lines no longer present
  *                  or no longer ACH/wire are removed while still pending;
  *                - a line imported before but no longer pending was committed or deleted by staff, so it is
- *                  NOT created again (the event's Imported External IDs are the memory of this);
+ *                  NOT created again (the event's Imported External IDs are the memory of this, and a line already
+ *                  committed is recognised from the source id stamped on the gift or payment - which outlives any
+ *                  purge of old events);
  *                - deleted/voided: still-pending rows are removed; committed ones are reported on the event.
  *
  *              FAILURES: a temporary QuickBooks problem leaves the event Received for the next run (up to 5
@@ -39,6 +41,8 @@
  * Change Log:
  * -----------
  * 2026-09-17 - Jason Ott - Initial version (JSI-121 Phase 5b).
+ * 2026-09-23 - Jason Ott - Phase 5c: a line already committed as a gift or payment is never re-created, so
+ *                          purging old events cannot resurrect committed money.
  */
 public without sharing class QuickBooksEventProcessor implements Database.Batchable<SObject>, Database.AllowsCallouts {
 
@@ -403,6 +407,23 @@ public without sharing class QuickBooksEventProcessor implements Database.Batcha
             }
         }
 
+        // Already committed? The source id stamped on the gift or payment says so, whatever the event log holds.
+        Set<String> committed = new Set<String>();
+        if (!candidates.isEmpty()) {
+            Set<String> candidateIds = new Set<String>();
+            for (Candidate c : candidates) {
+                candidateIds.add(c.externalId);
+            }
+            for (Opportunity o : [SELECT Source_Transaction_Id__c FROM Opportunity
+                                  WHERE Source_Transaction_Id__c IN :candidateIds]) {
+                committed.add(o.Source_Transaction_Id__c.toLowerCase());
+            }
+            for (npe01__OppPayment__c p : [SELECT Source_Transaction_Id__c FROM npe01__OppPayment__c
+                                           WHERE Source_Transaction_Id__c IN :candidateIds]) {
+                committed.add(p.Source_Transaction_Id__c.toLowerCase());
+            }
+        }
+
         Set<String> keep = new Set<String>();
         if (!removal) {
             Map<String, String> funds = fundMap();
@@ -419,6 +440,8 @@ public without sharing class QuickBooksEventProcessor implements Database.Batcha
                         upd.Fund__c = existing.Fund__c;
                     }
                     out.updates.add(upd);
+                } else if (committed.contains(extId)) {
+                    out.notes.add(c.externalId + ' is already committed in Salesforce - not re-created.');
                 } else if (importedBefore.contains(extId)) {
                     out.notes.add(c.externalId + ' was imported before and has since been committed or deleted - not re-created.');
                 } else {

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Ignored_Event_Retention_Days__c</fullName>
+    <description>How long ignored events (other entities, other companies, money not ACH/wire) are kept. Blank = 30. They carry no import memory, so they can go sooner. JSI-121 / Jason Ott.</description>
+    <externalId>false</externalId>
+    <label>Ignored Event Retention Days</label>
+    <precision>4</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

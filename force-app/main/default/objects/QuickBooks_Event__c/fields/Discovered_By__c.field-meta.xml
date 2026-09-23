@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Discovered_By__c</fullName>
+    <description>Webhook = Intuit sent it. Catch-up = the nightly job found it in QuickBooks change tracking because no webhook arrived (or it arrived while something was down). JSI-121 / Jason Ott.</description>
+    <externalId>false</externalId>
+    <label>Discovered By</label>
+    <length>20</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

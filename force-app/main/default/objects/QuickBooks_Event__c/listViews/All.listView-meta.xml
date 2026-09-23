@@ -6,6 +6,7 @@
     <columns>Event_Type__c</columns>
     <columns>Entity_Id__c</columns>
     <columns>Status__c</columns>
+    <columns>Discovered_By__c</columns>
     <columns>Error_Message__c</columns>
     <filterScope>Everything</filterScope>
     <label>All</label>

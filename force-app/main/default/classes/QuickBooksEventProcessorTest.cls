@@ -16,6 +16,7 @@
  * Change Log:
  * -----------
  * 2026-09-17 - Jason Ott - Initial version (JSI-121 Phase 5b).
+ * 2026-09-23 - Jason Ott - Phase 5c: a committed line is never re-created.
  */
 @IsTest
 private class QuickBooksEventProcessorTest {
@@ -520,5 +521,25 @@ private class QuickBooksEventProcessorTest {
         } catch (QuickBooksApi.QuickBooksApiException e) {
             System.assert(e.getMessage().contains('Company ID'));
         }
+    }
+
+    // ---- already committed ------------------------------------------------------------------------
+
+    @IsTest
+    static void aLineAlreadyCommittedIsNeverRecreated() {
+        // The gift carries the source id, so this holds even after old events have been purged.
+        insert new Opportunity(Name = 'Committed wire', StageName = 'Posted', CloseDate = Date.today(), Amount = 180,
+            RecordTypeId = Schema.SObjectType.Opportunity.getRecordTypeInfosByDeveloperName().get('NPSP_Default').getRecordTypeId(),
+            Source_Transaction_Id__c = 'qbo-deposit-145-l1');
+        QuickBooksEventProcessor.fundMapOverride = new Map<String, String>();
+        Test.setMock(HttpCalloutMock.class, realSandbox());
+        QuickBooks_Event__c e = event('deposit', 'created', '145');
+
+        Test.startTest();
+        QuickBooksEventProcessor.process(e.Id);
+        Test.stopTest();
+
+        System.assertEquals(0, [SELECT COUNT() FROM Pending_Transaction__c], 'the money is already a gift');
+        System.assert(reload(e.Id).Error_Message__c.contains('already committed'), reload(e.Id).Error_Message__c);
     }
 }

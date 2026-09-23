@@ -35,6 +35,7 @@
  * Change Log:
  * -----------
  * 2026-09-17 - Jason Ott - Initial version (JSI-121 Phase 5a).
+ * 2026-09-23 - Jason Ott - Stamps Discovered By = Webhook (the nightly catch-up stamps Catch-up).
  */
 @RestResource(urlMapping='/qbo/webhook')
 global without sharing class QuickBooksWebhookReceiver {
@@ -160,6 +161,7 @@ global without sharing class QuickBooksWebhookReceiver {
                 Realm_Id__c = realm == null ? null : realm.left(40),
                 Event_Time__c = parseTime(text(ev.get('time'))),
                 Received_At__c = now,
+                Discovered_By__c = 'Webhook',
                 Payload__c = json.left(131072),
                 Status__c = 'Received');
 
@@ -180,6 +182,7 @@ global without sharing class QuickBooksWebhookReceiver {
         return new QuickBooks_Event__c(
             Event_Id__c = 'unreadable-' + digest,
             Received_At__c = now,
+            Discovered_By__c = 'Webhook',
             Payload__c = raw.left(131072),
             Status__c = 'Failed',
             Error_Message__c = reason);

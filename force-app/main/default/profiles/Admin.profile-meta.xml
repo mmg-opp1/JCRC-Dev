@@ -5127,6 +5127,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>QuickBooks_Event__c.Discovered_By__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>QuickBooks_Event__c.Entity_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>

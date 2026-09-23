@@ -262,3 +262,42 @@ here; the endpoint also rejects webhooks from any other company.
 **Still open:** fund mapping records (QuickBooks income account id → GAU name) once Finance lists the accounts;
 nightly Change Data Capture safety net; production setup (§6).
 
+### Phase 5c — nightly catch-up + event purge ✅ deployed to JCRC-Dev (2026-09-23)
+
+**Catch-up (`QuickBooksCatchUp`, nightly 03:00).** Asks QuickBooks change tracking what changed since the last
+successful run and writes a QuickBooks Event for anything Salesforce hasn't seen; the ordinary five-minute sweeper
+then processes it, so there is one import path. "Not seen" = no event for that record, or every event for it is
+older than the record's LastUpdatedTime (1 minute of clock slack). Window = last run − 1 hour overlap, floored at
+QuickBooks' 30 days; first ever run uses Catch-Up Lookback Days (7). **Last Catch-Up only moves on success**, so a
+failed night is covered by the next one. Nothing is chained from it (a second batch would compete with the sweeper).
+
+**Verified against the sandbox (2026-09-23):**
+- `GET /v3/company/{realm}/cdc?entities=Deposit,Payment,SalesReceipt&changedSince=...&minorversion=75`
+- **Timestamp format matters:** `2026-09-13T00:00:00-0000` is rejected — *"value ... is not valid for property
+  'MetaData.LastUpdatedTime'"*; `...Z` and `...-07:00` work.
+- Response: `{"CDCResponse":[{"QueryResponse":[{}, {"Deposit":[...]}, {"Payment":[...]}]}]}` — one entry per entity,
+  `{}` when that entity has no changes; **records come back in full** (not just ids).
+- A 60-day window did NOT error in the sandbox even though Intuit documents 30 days of retention; the job still
+  clamps to 30.
+- Live run: **0 events created** — all three transactions had already arrived by webhook, which is the point.
+
+**Purge (`QuickBooksEventPurge`, nightly 03:30).** Deletes old events and empties them from the Recycle Bin.
+- Processed and Failed: **Event Retention Days** (180 default).
+- Ignored: **Ignored Event Retention Days** (30 default).
+- **Received events are never deleted**, however old — they are still waiting.
+- **Floor of 31 days** on the processed/failed retention, whatever the setting says, because those events carry the
+  memory that stops a line staff deleted from being re-created, and QuickBooks can still send updates for 30 days.
+- Sizing: Salesforce counts ~2 KB per record, so even 100 events/week is ~10 MB/year before any purge.
+
+**Extra guard added to the processor (makes purging safe):** before creating a pending transaction it checks whether
+that line's source id is already stamped on an Opportunity or Payment. Committed money can never be re-imported,
+even after its events are purged.
+
+**Also:** events record **Discovered By** (Webhook / Catch-up), shown on the QuickBooks Events list view.
+
+**Tests:** 72/72 across the QuickBooks classes and the service; coverage QuickBooksApi 88.6%, processor 91.0%,
+receiver 95.2%, catch-up 96.7%, purge 96.4%.
+
+**Scheduled in JCRC-Dev:** `QuickBooks Sweeper 00`–`55` (every 5 min), `QuickBooks Catch-Up` (03:00),
+`QuickBooks Event Purge` (03:30).
+
