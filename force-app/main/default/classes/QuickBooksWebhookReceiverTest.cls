@@ -13,6 +13,8 @@
  * Change Log:
  * -----------
  * 2026-09-17 - Jason Ott - Initial version (JSI-121 Phase 5a).
+ * 2026-09-24 - Jason Ott - Guards the guest user's field access: a new field the receiver writes without
+ *                          guest FLS makes every real delivery fail with a 500 (it happened).
  */
 @IsTest
 private class QuickBooksWebhookReceiverTest {
@@ -173,5 +175,29 @@ private class QuickBooksWebhookReceiverTest {
         System.assertEquals(null, QuickBooksWebhookReceiver.parseTime('not a time'));
         System.assertEquals(null, QuickBooksWebhookReceiver.parseTime(null));
         System.assertNotEquals(null, QuickBooksWebhookReceiver.parseTime('2026-09-17T14:05:25Z'));
+    }
+
+    /**
+     * The endpoint runs as the hooks Site guest user. A field the receiver sets that the guest cannot write makes
+     * EVERY delivery fail with a 500 - Intuit retries, then gives up, and webhooks stop silently. That happened on
+     * 2026-09-24 after Discovered By was added, so this test fails the moment the two drift apart.
+     */
+    @IsTest(SeeAllData=true)
+    static void guestUserCanWriteEveryFieldTheReceiverSets() {
+        Set<String> needed = new Set<String>{
+            'QuickBooks_Event__c.Discovered_By__c', 'QuickBooks_Event__c.Entity_Id__c', 'QuickBooks_Event__c.Entity_Key__c',
+            'QuickBooks_Event__c.Entity_Name__c', 'QuickBooks_Event__c.Error_Message__c', 'QuickBooks_Event__c.Event_Id__c',
+            'QuickBooks_Event__c.Event_Time__c', 'QuickBooks_Event__c.Event_Type__c', 'QuickBooks_Event__c.Operation__c',
+            'QuickBooks_Event__c.Payload__c', 'QuickBooks_Event__c.Realm_Id__c', 'QuickBooks_Event__c.Received_At__c',
+            'QuickBooks_Event__c.Status__c' };
+        Set<String> writable = new Set<String>();
+        for (FieldPermissions fp : [SELECT Field FROM FieldPermissions
+                                    WHERE SobjectType = 'QuickBooks_Event__c' AND PermissionsEdit = true
+                                      AND Parent.Profile.Name = 'hooks Profile']) {
+            writable.add(fp.Field);
+        }
+        needed.removeAll(writable);
+        System.assertEquals(new Set<String>(), needed,
+            'the hooks guest profile cannot write these fields, so live webhooks would fail: ' + needed);
     }
 }
