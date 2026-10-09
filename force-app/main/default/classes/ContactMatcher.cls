@@ -45,6 +45,9 @@
  * -----------
  * 2026-10-09 - Jason Ott - Initial version for the Jotform gala registration matching.
  * 2026-10-09 - Jason Ott - Nickname weight 12 -> 15: "Greg Ott" scored 32 and missed Gregory Ott.
+ * 2026-10-09 - Jason Ott - Added Matches JSON output for the UnofficialSF Datatable (Apex-defined
+ *                          mode), so a screen can show each match's score and reasons and let the
+ *                          user pick one. See matchRow() for the columns.
  */
 public without sharing class ContactMatcher {
 
@@ -141,6 +144,8 @@ public without sharing class ContactMatcher {
         public String topConfidence;
         @InvocableVariable(label='Summary' description='One line per match, for a screen or a note.')
         public String summary;
+        @InvocableVariable(label='Matches JSON' description='The matches as a JSON record string for the Datatable component (tick "Input data is Apex-Defined"; Key Field = contactId). Columns: contactId, name, email, phone, address, score, confidence, reasons. Always a list, "[]" when empty.')
+        public String matchesJson = '[]';
     }
 
     /**
@@ -409,12 +414,15 @@ public without sharing class ContactMatcher {
 
         // Trim to the requested number and build the flow outputs.
         List<String> lines = new List<String>();
+        List<Map<String, Object>> rows = new List<Map<String, Object>>();
         for (Integer i = 0; i < kept.size() && i < p.maxResults; i++) {
             ContactMatch m = kept[i];
             res.matches.add(m);
             res.matchedContacts.add(m.contact);
+            rows.add(matchRow(m));
             lines.add(m.contactName + ' - ' + m.score + ' (' + m.confidence + '): ' + m.reasons);
         }
+        res.matchesJson = JSON.serialize(rows);
         res.matchCount = res.matches.size();
         res.hasMatches = res.matchCount > 0;
         if (res.hasMatches) {
@@ -511,6 +519,53 @@ public without sharing class ContactMatcher {
         m.confidence = m.score >= STRONG_SCORE ? 'Strong' : (m.score >= POSSIBLE_SCORE ? 'Possible' : 'Weak');
         m.reasons = String.join(why, '; ');
         return m;
+    }
+
+    /**
+     * @description One flat Datatable row for a match. The Datatable needs a single value per
+     *              column, so the Contact's details are flattened: the first non-blank email and
+     *              phone, and the mailing address on one line. contactId is the Key Field; with
+     *              Single Row Selection the Datatable returns it as "Selected Row Key Field Value".
+     */
+    @TestVisible
+    private static Map<String, Object> matchRow(ContactMatch m) {
+        Contact c = m.contact;
+        List<String> addressParts = new List<String>();
+        if (String.isNotBlank(c.MailingStreet)) {
+            addressParts.add(c.MailingStreet.replace('\r', '').replace('\n', ', '));
+        }
+        String cityLine = String.join(nonBlank(new List<String>{ c.MailingCity, c.MailingState }), ', ');
+        if (String.isNotBlank(c.MailingPostalCode)) {
+            cityLine = (cityLine + ' ' + c.MailingPostalCode).trim();
+        }
+        if (String.isNotBlank(cityLine)) {
+            addressParts.add(cityLine);
+        }
+        List<String> emails = nonBlank(new List<String>{
+            c.Email, c.npe01__HomeEmail__c, c.npe01__WorkEmail__c, c.npe01__AlternateEmail__c });
+        List<String> phones = nonBlank(new List<String>{
+            c.Phone, c.MobilePhone, c.HomePhone, c.npe01__WorkPhone__c, c.OtherPhone });
+
+        return new Map<String, Object>{
+            'contactId' => m.contactId,
+            'name' => m.contactName,
+            'email' => emails.isEmpty() ? '' : emails[0],
+            'phone' => phones.isEmpty() ? '' : phones[0],
+            'address' => String.join(addressParts, ', '),
+            'score' => m.score,
+            'confidence' => m.confidence,
+            'reasons' => m.reasons
+        };
+    }
+
+    private static List<String> nonBlank(List<String> values) {
+        List<String> out = new List<String>();
+        for (String v : values) {
+            if (String.isNotBlank(v)) {
+                out.add(v);
+            }
+        }
+        return out;
     }
 
     // ------------------------------------------------------------------

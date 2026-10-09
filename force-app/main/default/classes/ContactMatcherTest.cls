@@ -13,6 +13,7 @@
  * Change Log:
  * -----------
  * 2026-10-09 - Jason Ott - Initial version.
+ * 2026-10-09 - Jason Ott - Matches JSON output for the Datatable component.
  */
 @IsTest
 private class ContactMatcherTest {
@@ -141,6 +142,30 @@ private class ContactMatcherTest {
         Assert.isTrue(res.matches[0].reasons.contains('Phone matches'), res.matches[0].reasons);
     }
 
+    /** Matches JSON: one flat row per match, in rank order, with the columns the Datatable is set up with. */
+    @IsTest
+    static void matchesJsonIsFlatAndRanked() {
+        ContactMatcher.Request r = new ContactMatcher.Request();
+        r.firstName = 'Robert';
+        r.lastName = 'Johnson';
+        r.street = '123 West 5th Street';
+        r.postalCode = '10001';
+
+        ContactMatcher.Result res = run(r);
+
+        List<Object> rows = (List<Object>) JSON.deserializeUntyped(res.matchesJson);
+        Assert.areEqual(res.matchCount, rows.size(), 'One row per match');
+        Map<String, Object> top = (Map<String, Object>) rows[0];
+        Assert.areEqual(String.valueOf(res.topContactId), (String) top.get('contactId'), 'Same order as the ranking');
+        Assert.areEqual('Robert Johnson', top.get('name'));
+        Assert.areEqual('rjohnson@example.org', top.get('email'));
+        Assert.areEqual('(212) 555-1120', top.get('phone'));
+        Assert.areEqual('123 West 5th Street, Apt 4B, 10001-1234', top.get('address'), 'Street lines joined on one line');
+        Assert.areEqual(res.topScore, (Integer) top.get('score'));
+        Assert.areEqual('Strong', top.get('confidence'));
+        Assert.isTrue(((String) top.get('reasons')).contains('Street address matches'));
+    }
+
     /** No match: the flow's "create the Contact" branch - searched, nothing found. */
     @IsTest
     static void noMatchReturnsEmpty() {
@@ -156,6 +181,7 @@ private class ContactMatcherTest {
         Assert.areEqual(0, res.matchCount);
         Assert.isNull(res.topContactId);
         Assert.areEqual('No potential matches found.', res.summary);
+        Assert.areEqual('[]', res.matchesJson, 'The Datatable gets an empty list, not null');
     }
 
     /** First name alone is not searchable - and must not be mistaken for "no duplicate". */
