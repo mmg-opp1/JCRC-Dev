@@ -5,8 +5,13 @@
 
 ## Gala / Jotform / contact matching
 
-1. **`EventRegistration_CheckForContact` is still Draft.** New Event Registrations are not checked for
-   matching Contacts until it is activated.
+1. ~~**`EventRegistration_CheckForContact` is still Draft.**~~ DONE 2026-10-09 - Jason activated it.
+13. **PT <-> Event Registration link depends on creation order.** `PendingTransaction_UpdateEventRegistration`
+    (Jason, active 2026-10-09 19:37) runs on PT create and matches `External_Id__c` (the Jotform submission
+    id). Tested 2026-10-09 with rollback: registration created first -> both lookups linked; PT created
+    first -> NOT linked and never retried. Fix: a mirror flow on Event Registration create (recommended), or
+    make sure the Jotform creates the registration before the PT. Until then a PT can commit without
+    linking its registration.
 2. **Jotform integration user access.** The Salesforce user Jotform connects as needs Apex class access to
    `ContactMatcher` / `ContactMatch` and access to `Event_Registration__c`. Need its profile name.
 3. **JCRC - Fundraising: "Edit Read Only Fields" is OFF in JCRC-Dev**, but was granted for NPSP Gift Entry
@@ -42,4 +47,4 @@
 
 ## Repo
 
-11. **Unpushed commits** on `main` (15 as of the gala/Event Registration commit).
+11. **Unpushed commits** on `main` (16 as of the flow-sync commit).
