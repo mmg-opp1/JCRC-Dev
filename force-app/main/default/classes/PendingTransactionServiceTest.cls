@@ -17,6 +17,8 @@
  * 2026-09-16 - Jason Ott - Initial version (JSI-121 Phase 2).
  * 2026-09-16 - Jason Ott - Phase 4: manual Source stamp and deleteTransactions.
  * 2026-09-17 - Jason Ott - Phase 5b: QuickBooks customer link on commit.
+ * 2026-10-09 - Jason Ott - Gala: Event Registration linked both ways on a new gift; never on a pledge
+ *                          payment; a registration already linked to another gift fails the row.
  */
 @IsTest
 private class PendingTransactionServiceTest {
@@ -636,5 +638,86 @@ private class PendingTransactionServiceTest {
         System.assertEquals(org.Id, b.Account__c);
         System.assertEquals(null, b.Contact__c);
         System.assertEquals('Confirmed', b.Match_Status__c);
+    }
+
+    // ---- Gala: Event Registration link on commit ----------------------------------------------
+
+    private static Event_Registration__c registration() {
+        Event__c gala = new Event__c(Name = 'Test Gala');
+        insert gala;
+        Event_Registration__c reg = new Event_Registration__c(Event__c = gala.Id, Donor_Last_Name__c = 'Linktest');
+        insert reg;
+        return reg;
+    }
+
+    /** A new gift and its registration point at each other. */
+    @IsTest
+    static void newGiftLinksEventRegistrationBothWays() {
+        Event_Registration__c reg = registration();
+        Pending_Transaction__c row = readyRow(donor(), 5000);
+        row.Source__c = 'Gala Website';
+        row.Event_Registration__c = reg.Id;
+        insert row;
+
+        Test.startTest();
+        List<PendingTransactionService.CommitResult> results =
+            PendingTransactionService.commitTransactions(new List<Id>{ row.Id });
+        Test.stopTest();
+
+        System.assert(results[0].success, results[0].message);
+        Opportunity gift = [SELECT Id, Event_Registration__c FROM Opportunity WHERE Id = :results[0].recordId];
+        System.assertEquals(reg.Id, gift.Event_Registration__c, 'Gift -> registration');
+        System.assertEquals(gift.Id, [SELECT Opportunity__c FROM Event_Registration__c WHERE Id = :reg.Id].Opportunity__c,
+            'Registration -> gift');
+    }
+
+    /** A pledge payment is never linked, even when the row carries a registration. */
+    @IsTest
+    static void pledgePaymentDoesNotLinkEventRegistration() {
+        Contact c = donor();
+        Opportunity p = pledge(c);
+        Event_Registration__c reg = registration();
+        Pending_Transaction__c row = readyRow(c, 3750);
+        row.Apply_As__c = 'Pledge Payment';
+        row.Pledge__c = p.Id;
+        row.Event_Registration__c = reg.Id;
+        insert row;
+
+        Test.startTest();
+        List<PendingTransactionService.CommitResult> results =
+            PendingTransactionService.commitTransactions(new List<Id>{ row.Id });
+        Test.stopTest();
+
+        System.assert(results[0].success, results[0].message);
+        System.assertEquals(null, [SELECT Opportunity__c FROM Event_Registration__c WHERE Id = :reg.Id].Opportunity__c);
+        System.assertEquals(null, [SELECT Event_Registration__c FROM Opportunity WHERE Id = :p.Id].Event_Registration__c);
+    }
+
+    /** A registration that already belongs to another gift fails the row; nothing is created or moved. */
+    @IsTest
+    static void registrationAlreadyLinkedFailsRow() {
+        Contact c = donor();
+        Event_Registration__c reg = registration();
+        Opportunity other = new Opportunity(Name = 'Earlier gift', StageName = 'Posted', CloseDate = Date.today(),
+            Amount = 100, AccountId = c.AccountId);
+        insert other;
+        update new Event_Registration__c(Id = reg.Id, Opportunity__c = other.Id);
+
+        Pending_Transaction__c row = readyRow(c, 5000);
+        row.Source__c = 'Gala Website';
+        row.Event_Registration__c = reg.Id;
+        insert row;
+        Integer giftsBefore = [SELECT COUNT() FROM Opportunity];
+
+        Test.startTest();
+        List<PendingTransactionService.CommitResult> results =
+            PendingTransactionService.commitTransactions(new List<Id>{ row.Id });
+        Test.stopTest();
+
+        System.assert(!results[0].success, 'Expected the row to fail');
+        System.assert(results[0].message.contains('already linked'), results[0].message);
+        System.assertEquals(giftsBefore, [SELECT COUNT() FROM Opportunity], 'The new gift was rolled back');
+        System.assertEquals(other.Id, [SELECT Opportunity__c FROM Event_Registration__c WHERE Id = :reg.Id].Opportunity__c);
+        System.assertEquals(1, [SELECT COUNT() FROM Pending_Transaction__c WHERE Id = :row.Id], 'Row stays to be fixed');
     }
 }

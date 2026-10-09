@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Is_Gala__c</fullName>
+    <description>True when this is gala money: it came from a gala source (Gala Website = the gala Jotform; JCRC Website - Gala = a jcrcny.org/donate gift designated to the gala), or its Fund or Campaign is ticked Gala (e.g. a QuickBooks gift to the Gala Fund). Drives the Gala tab on the Pending Transactions screen and whether an Event Registration may be linked. JSI-121 / Jason Ott.</description>
+    <formula>OR(
+    ISPICKVAL(Source__c, &quot;Gala Website&quot;),
+    ISPICKVAL(Source__c, &quot;JCRC Website - Gala&quot;),
+    Fund__r.Gala__c,
+    Campaign__r.Gala__c
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Gala money: from a gala source, or with a gala fund or campaign.</inlineHelpText>
+    <label>Is Gala</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

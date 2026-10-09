@@ -23,6 +23,9 @@
  * 2026-09-17 - Jason Ott - Phase 5b: rows carry the QuickBooks import note and customer id.
  * 2026-10-09 - Jason Ott - Source tabs: the workspace returns the user's last tab (savedQueue) and
  *                          saveQueue remembers it per user (Pending_Transaction_Preference__c).
+ * 2026-10-09 - Jason Ott - Gala: rows carry isGala (Is_Gala__c) and their Event Registration, which the
+ *                          editor may set on gala rows only; the workspace lists gala funds and campaigns
+ *                          so the editor can tell when a fund/campaign choice makes a row gala.
  */
 public with sharing class PendingTransactionController {
 
@@ -50,13 +53,18 @@ public with sharing class PendingTransactionController {
         'fundId' => Pending_Transaction__c.Fund__c,
         'approach' => Pending_Transaction__c.Approach__c,
         'giftName' => Pending_Transaction__c.Gift_Name__c,
-        'notes' => Pending_Transaction__c.Notes__c
+        'notes' => Pending_Transaction__c.Notes__c,
+        'eventRegistrationId' => Pending_Transaction__c.Event_Registration__c
     };
 
     /** What the editor saves. Payer Name is left out: on synced rows it is the record of what the bank said. */
     private static final Set<String> SAVE_KEYS = new Set<String>{ 'amount', 'transactionDate', 'paymentMethod',
         'referenceNumber', 'depositDate', 'depositReference', 'contactId', 'accountId', 'applyAs', 'pledgeId',
-        'giftRecordType', 'campaignId', 'fundId', 'approach', 'giftName', 'notes' };
+        'giftRecordType', 'campaignId', 'fundId', 'approach', 'giftName', 'notes', 'eventRegistrationId' };
+
+    /** Shown when an Event Registration is saved on a row that is not gala money. */
+    @TestVisible private static final String GALA_ONLY_MESSAGE = 'An Event Registration can only be linked to a '
+        + 'gala transaction. Clear it, or choose a gala fund or campaign.';
 
     /** What the Add form may set on a new manual row; the rest is done in the editor afterwards. */
     private static final Set<String> CREATE_KEYS = new Set<String>{ 'amount', 'transactionDate', 'paymentMethod',
@@ -89,6 +97,9 @@ public with sharing class PendingTransactionController {
         @AuraEnabled public Boolean truncated = false;
         /** The tab this user last chose ('all' when they never chose one). */
         @AuraEnabled public String savedQueue = 'all';
+        /** Funds and campaigns ticked Gala: choosing one makes a row gala in the editor before it is saved. */
+        @AuraEnabled public List<Id> galaFundIds = new List<Id>();
+        @AuraEnabled public List<Id> galaCampaignIds = new List<Id>();
     }
 
     public class RowInfo {
@@ -129,6 +140,9 @@ public with sharing class PendingTransactionController {
         @AuraEnabled public String giftName;
         @AuraEnabled public String notes;
         @AuraEnabled public Datetime createdDate;
+        @AuraEnabled public Boolean isGala = false;
+        @AuraEnabled public Id eventRegistrationId;
+        @AuraEnabled public String eventRegistrationName;
     }
 
     public class InstallmentInfo {
@@ -196,10 +210,16 @@ public with sharing class PendingTransactionController {
                     ws.giftRecordTypes.add(new Option(rt.getName(), rt.getDeveloperName()));
                 }
             }
-            for (npsp__General_Accounting_Unit__c g : [SELECT Id, Name FROM npsp__General_Accounting_Unit__c
+            for (npsp__General_Accounting_Unit__c g : [SELECT Id, Name, Gala__c FROM npsp__General_Accounting_Unit__c
                                                         WHERE npsp__Active__c = true
                                                         WITH USER_MODE ORDER BY Name]) {
                 ws.funds.add(new Option(g.Name, g.Id));
+                if (g.Gala__c) {
+                    ws.galaFundIds.add(g.Id);
+                }
+            }
+            for (Campaign c : [SELECT Id FROM Campaign WHERE Gala__c = true WITH USER_MODE LIMIT 1000]) {
+                ws.galaCampaignIds.add(c.Id);
             }
             // The user-level preference only (getValues, not getInstance), so an org-wide value can
             // never put everyone on one tab.
@@ -299,7 +319,16 @@ public with sharing class PendingTransactionController {
             Id rowId = (Id) values.get('id');
             Pending_Transaction__c rec = new Pending_Transaction__c(Id = rowId);
             applyValues(rec, values, SAVE_KEYS);
+            // An Event Registration belongs only on gala money. Is_Gala__c is a formula over the saved
+            // source, fund and campaign, so save, read it back, and undo if the result breaks the rule.
+            Savepoint sp = Database.setSavepoint();
             Database.update(rec, AccessLevel.USER_MODE);
+            Pending_Transaction__c saved = [SELECT Is_Gala__c, Event_Registration__c FROM Pending_Transaction__c
+                                            WHERE Id = :rowId];
+            if (saved.Event_Registration__c != null && !saved.Is_Gala__c) {
+                Database.rollback(sp);
+                throw new PendingTransactionService.PendingTransactionException(GALA_ONLY_MESSAGE);
+            }
             return rowInfo(rowId);
         } catch (Exception e) {
             throw auraError(e);
@@ -474,7 +503,8 @@ public with sharing class PendingTransactionController {
                            Reference_Number__c, Deposit_Date__c, Deposit_Reference__c, Contact__c, Contact__r.Name,
                            Contact__r.Email, Contact__r.AccountId, Account__c, Account__r.Name, Match_Status__c,
                            Apply_As__c, Pledge__c, Pledge__r.Name, Gift_Record_Type__c, Campaign__c, Campaign__r.Name,
-                           Fund__c, Fund__r.Name, Approach__c, Gift_Name__c, Notes__c, CreatedDate, Import_Note__c, QuickBooks_Customer_Id__c
+                           Fund__c, Fund__r.Name, Approach__c, Gift_Name__c, Notes__c, CreatedDate, Import_Note__c, QuickBooks_Customer_Id__c,
+                           Is_Gala__c, Event_Registration__c, Event_Registration__r.Name
                     FROM Pending_Transaction__c WHERE Id = :onlyId WITH USER_MODE];
         }
         return [SELECT Id, Name, Status__c, Error_Message__c, Source__c, External_Type__c, External_Id__c,
@@ -482,7 +512,8 @@ public with sharing class PendingTransactionController {
                        Reference_Number__c, Deposit_Date__c, Deposit_Reference__c, Contact__c, Contact__r.Name,
                        Contact__r.Email, Contact__r.AccountId, Account__c, Account__r.Name, Match_Status__c,
                        Apply_As__c, Pledge__c, Pledge__r.Name, Gift_Record_Type__c, Campaign__c, Campaign__r.Name,
-                       Fund__c, Fund__r.Name, Approach__c, Gift_Name__c, Notes__c, CreatedDate, Import_Note__c, QuickBooks_Customer_Id__c
+                       Fund__c, Fund__r.Name, Approach__c, Gift_Name__c, Notes__c, CreatedDate, Import_Note__c, QuickBooks_Customer_Id__c,
+                       Is_Gala__c, Event_Registration__c, Event_Registration__r.Name
                 FROM Pending_Transaction__c WITH USER_MODE
                 ORDER BY Transaction_Date__c DESC NULLS FIRST, CreatedDate DESC
                 LIMIT :lim];
@@ -535,6 +566,9 @@ public with sharing class PendingTransactionController {
             i.giftName = r.Gift_Name__c;
             i.notes = r.Notes__c;
             i.createdDate = r.CreatedDate;
+            i.isGala = r.Is_Gala__c;
+            i.eventRegistrationId = r.Event_Registration__c;
+            i.eventRegistrationName = r.Event_Registration__r?.Name;
             out.add(i);
         }
         return out;

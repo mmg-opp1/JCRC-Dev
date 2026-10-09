@@ -138,6 +138,9 @@
                                     <span class="pt-row-payer-line">
                                         <span class="pt-row-payer">{row.payerLabel}</span>
                                         <span class={row.sourceClass}>{row.sourceLabel}</span>
+                                        <template lwc:if={row.showGalaTag}>
+                                            <span class="pt-src pt-src_gala-tag">Gala</span>
+                                        </template>
                                     </span>
                                     <span class="pt-row-donor">
                                         <span class={row.dotClass} title={row.status}></span>

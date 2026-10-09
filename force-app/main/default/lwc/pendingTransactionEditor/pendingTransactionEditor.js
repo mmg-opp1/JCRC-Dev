@@ -24,6 +24,10 @@
  * 2026-09-16 - Jason Ott - Initial version (JSI-121 Phase 3).
  * 2026-09-16 - Jason Ott - Phase 4: Delete button (raises deleterequest).
  * 2026-09-17 - Jason Ott - Phase 5b: shows the QuickBooks import note and customer id under As received.
+ * 2026-10-09 - Jason Ott - Gala card: Event Registration picker, shown only for gala money - a gala source,
+ *                          or a gala fund/campaign chosen in this draft (options.galaFundIds/galaCampaignIds).
+ *                          Still shown when a registration is set on a row that is no longer gala, so it
+ *                          can be cleared (the server refuses to save that combination).
  */
 import { LightningElement, api } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
@@ -37,7 +41,10 @@ import { errorMessage, formatMoney, formatDate } from 'c/pendingTransactionUtils
 /** Draft keys, matching the controller's editable field names. */
 const FIELDS = ['amount', 'transactionDate', 'paymentMethod', 'referenceNumber', 'depositDate', 'depositReference',
     'contactId', 'accountId', 'applyAs', 'pledgeId', 'giftRecordType', 'campaignId', 'fundId', 'approach',
-    'giftName', 'notes'];
+    'giftName', 'notes', 'eventRegistrationId'];
+
+/** Sources that are always gala money (see Is_Gala__c). */
+const GALA_SOURCES = ['Gala Website', 'JCRC Website - Gala'];
 
 const PREVIEW_DELAY_MS = 400;
 
@@ -61,6 +68,8 @@ export default class PendingTransactionEditor extends LightningElement {
     contactDisplayInfo = { additionalFields: ['Email'] };
     contactMatchingInfo = { primaryField: { fieldPath: 'Name' }, additionalFields: [{ fieldPath: 'Email' }] };
     campaignFilter = { criteria: [{ fieldPath: 'IsActive', operator: 'eq', value: true }] };
+    registrationDisplayInfo = { additionalFields: ['Donor_Last_Name__c'] };
+    registrationMatchingInfo = { primaryField: { fieldPath: 'Name' }, additionalFields: [{ fieldPath: 'Donor_Last_Name__c' }] };
 
     // ---- row in / draft ------------------------------------------------------------------------
 
@@ -132,6 +141,25 @@ export default class PendingTransactionEditor extends LightningElement {
     handleCampaign(event) {
         this.draft = { ...this.draft, campaignId: event.detail.recordId || null };
     }
+
+    handleEventRegistration(event) {
+        this.draft = { ...this.draft, eventRegistrationId: event.detail.recordId || null };
+    }
+
+    /**
+     * Gala money, judged on the draft so it reacts as the fund or campaign changes: a gala source, or a
+     * fund/campaign ticked Gala. Mirrors the Is_Gala__c formula the server uses.
+     */
+    get isGalaDraft() {
+        const o = this.options || {};
+        return GALA_SOURCES.includes(this._row && this._row.source)
+            || (o.galaFundIds || []).includes(this.draft.fundId)
+            || (o.galaCampaignIds || []).includes(this.draft.campaignId);
+    }
+
+    /** Show the gala card on gala rows - and on any row still holding a registration, so it can be cleared. */
+    get showGalaCard() { return this.isGalaDraft || !!this.draft.eventRegistrationId; }
+    get registrationNotAllowed() { return !this.isGalaDraft && !!this.draft.eventRegistrationId; }
 
     /**
      * A new contact replaces an account that only came from the previous contact (their household),

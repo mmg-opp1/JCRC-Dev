@@ -24,6 +24,10 @@
  *                          JCRC Website - Gala toggle inside Gala, a source badge on every row, and the
  *                          user's last tab remembered in Salesforce (saveQueue). Replaces the Source
  *                          dropdown. The status tiles count only the open tab.
+ * 2026-10-09 - Jason Ott - Gala tab = every gala row (isGala): the two gala sources plus QuickBooks rows
+ *                          with a gala fund or campaign, which also stay on the QuickBooks tab and get a
+ *                          small Gala tag. The gala toggle gains QuickBooks. Gala fund/campaign ids are
+ *                          passed to the editor.
  */
 import { LightningElement, wire } from 'lwc';
 import { CurrentPageReference } from 'lightning/navigation';
@@ -50,19 +54,26 @@ const SOURCE_JCRC_GALA = 'JCRC Website - Gala';
 const SOURCE_QUICKBOOKS = 'QuickBooks';
 const SOURCE_MANUAL = 'Manual';
 
-/** The tabs across the top. Keys must match QUEUES in PendingTransactionController. */
+const GALA_SOURCES = [SOURCE_GALA_WEBSITE, SOURCE_JCRC_GALA];
+
+/**
+ * The tabs across the top. Keys must match QUEUES in PendingTransactionController. Gala is decided by the
+ * server (isGala: a gala source, or a fund/campaign ticked Gala), so a QuickBooks gift to the Gala Fund is on
+ * both the Gala and QuickBooks tabs.
+ */
 const QUEUES = [
-    { key: 'all', label: 'All', sources: null },
-    { key: 'gala', label: 'Gala', sources: [SOURCE_GALA_WEBSITE, SOURCE_JCRC_GALA] },
-    { key: 'quickbooks', label: 'QuickBooks', sources: [SOURCE_QUICKBOOKS] },
-    { key: 'manual', label: 'Manual', sources: [SOURCE_MANUAL] }
+    { key: 'all', label: 'All', match: () => true },
+    { key: 'gala', label: 'Gala', match: (r) => !!r.isGala },
+    { key: 'quickbooks', label: 'QuickBooks', match: (r) => sourceOf(r) === SOURCE_QUICKBOOKS },
+    { key: 'manual', label: 'Manual', match: (r) => sourceOf(r) === SOURCE_MANUAL }
 ];
 
-/** The toggle inside the Gala tab. */
+/** The toggle inside the Gala tab: which source the gala money came from. */
 const GALA_FILTERS = [
-    { key: 'both', label: 'Both' },
+    { key: 'both', label: 'All gala' },
     { key: SOURCE_GALA_WEBSITE, label: SOURCE_GALA_WEBSITE },
-    { key: SOURCE_JCRC_GALA, label: SOURCE_JCRC_GALA }
+    { key: SOURCE_JCRC_GALA, label: SOURCE_JCRC_GALA },
+    { key: SOURCE_QUICKBOOKS, label: SOURCE_QUICKBOOKS }
 ];
 
 /** Badge colour per source (see .pt-src_* in the CSS). */
@@ -73,11 +84,11 @@ const SOURCE_BADGE = {
     [SOURCE_MANUAL]: 'manual'
 };
 
-const sourceOf = (r) => r.source || SOURCE_MANUAL;
-const inQueue = (r, key) => {
+function sourceOf(r) { return r.source || SOURCE_MANUAL; }
+function inQueue(r, key) {
     const q = QUEUES.find((x) => x.key === key);
-    return !q || !q.sources || q.sources.includes(sourceOf(r));
-};
+    return !q || q.match(r);
+}
 
 export default class PendingTransactions extends LightningElement {
     rows = [];
@@ -133,7 +144,9 @@ export default class PendingTransactions extends LightningElement {
                     approaches: ws.approaches,
                     giftRecordTypes: ws.giftRecordTypes,
                     funds: ws.funds,
-                    defaultGiftRecordType: ws.defaultGiftRecordType
+                    defaultGiftRecordType: ws.defaultGiftRecordType,
+                    galaFundIds: ws.galaFundIds || [],
+                    galaCampaignIds: ws.galaCampaignIds || []
                 };
                 const ids = new Set(this.rows.map((r) => r.id));
                 this.checkedIds = new Set([...this.checkedIds].filter((id) => ids.has(id)));
@@ -225,6 +238,8 @@ export default class PendingTransactions extends LightningElement {
             ...r,
             sourceLabel: source,
             sourceClass: `pt-src pt-src_${SOURCE_BADGE[source] || 'other'}`,
+            // Gala money from a non-gala source (a QuickBooks gift to the Gala Fund) says so.
+            showGalaTag: !!r.isGala && !GALA_SOURCES.includes(source),
             isActive,
             isChecked: this.checkedIds.has(r.id),
             isPledgePayment: r.applyAs === 'Pledge Payment',

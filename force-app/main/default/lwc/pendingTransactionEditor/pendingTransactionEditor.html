@@ -205,6 +205,27 @@
                 </template>
             </section>
 
+            <!-- Gala: which Event Registration (Jotform submission) this money belongs to -->
+            <template lwc:if={showGalaCard}>
+                <section class="ed-card">
+                    <h2 class="ed-card-title">Gala</h2>
+                    <lightning-record-picker label="Event Registration" placeholder="Search registrations…"
+                        object-api-name="Event_Registration__c" value={draft.eventRegistrationId}
+                        display-info={registrationDisplayInfo} matching-info={registrationMatchingInfo}
+                        onchange={handleEventRegistration} disabled={locked}></lightning-record-picker>
+                    <template lwc:if={registrationNotAllowed}>
+                        <p class="ed-hint ed-hint_error">Only gala transactions can be linked to a registration.
+                            Clear it, or choose a gala fund or campaign.</p>
+                    </template>
+                    <template lwc:elseif={isPledgePayment}>
+                        <p class="ed-hint">Pledge payments are not linked to the registration - only new gifts are.</p>
+                    </template>
+                    <template lwc:else>
+                        <p class="ed-hint">On commit, the new gift and this registration are linked to each other.</p>
+                    </template>
+                </section>
+            </template>
+
             <section class="ed-card">
                 <lightning-textarea label="Notes" value={draft.notes} max-length="4000"
                     placeholder="Saved on the gift's description when committed" data-field="notes"

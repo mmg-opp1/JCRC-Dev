@@ -37,7 +37,9 @@
     change to the profile since is item 3. Proven on 2026-10-09 with the tab-preference save: plain
     `upsert` was refused for a fundraiser, `Database.upsert(..., AccessLevel.SYSTEM_MODE)` worked.
     Fix options: make the commit Writer's DML explicitly SYSTEM_MODE, or re-enable the permission.
+    2026-10-09: Jason - "ignore that for now". Its test is the one known failure (89/90 in the Pending
+    Transactions + QuickBooks + payment suites); Pending Transactions deploys run tests separately until fixed.
 
 ## Repo
 
-11. **Unpushed commits** on `main` (14 as of the source-tabs commit).
+11. **Unpushed commits** on `main` (15 as of the gala/Event Registration commit).

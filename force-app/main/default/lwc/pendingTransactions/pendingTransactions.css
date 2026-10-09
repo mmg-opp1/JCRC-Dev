@@ -147,6 +147,7 @@
 .pt-src_gala-website { --pt-src-ink: var(--pt-src-gala-website); --pt-src-soft: var(--pt-src-gala-website-soft); }
 .pt-src_jcrc-gala { --pt-src-ink: var(--pt-src-jcrc-gala); --pt-src-soft: var(--pt-src-jcrc-gala-soft); }
 .pt-src_quickbooks { --pt-src-ink: var(--pt-src-quickbooks); --pt-src-soft: var(--pt-src-quickbooks-soft); }
+.pt-src_gala-tag { --pt-src-ink: var(--pt-src-gala-website); --pt-src-soft: var(--pt-src-gala-website-soft); }
 .pt-src_manual, .pt-src_other { --pt-src-ink: var(--pt-src-manual); --pt-src-soft: var(--pt-src-manual-soft); }
 .pt-row-donor {
     display: flex; align-items: center; gap: 0.375rem; font-size: 0.8125rem; color: var(--pt-muted);

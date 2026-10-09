@@ -10,6 +10,7 @@
  * 2026-09-16 - Jason Ott - Initial version (JSI-121 Phase 3).
  * 2026-09-16 - Jason Ott - Phase 4: createTransaction and deleteTransaction.
  * 2026-10-09 - Jason Ott - Source tabs: saveQueue / savedQueue, incl. a JCRC - Fundraising user.
+ * 2026-10-09 - Jason Ott - Gala: isGala from source or a gala fund; Event Registration on gala rows only.
  */
 @IsTest
 private class PendingTransactionControllerTest {
@@ -350,5 +351,76 @@ private class PendingTransactionControllerTest {
         Test.stopTest();
         System.assertEquals('all', PendingTransactionController.getWorkspace().savedQueue,
                             'A fundraiser choosing Gala does not change the admin tab');
+    }
+
+    // ---- Gala ---------------------------------------------------------------------------------
+
+    private static Event_Registration__c registration() {
+        Event__c gala = new Event__c(Name = 'Controller Gala');
+        insert gala;
+        Event_Registration__c reg = new Event_Registration__c(Event__c = gala.Id, Donor_Last_Name__c = 'Galatest');
+        insert reg;
+        return reg;
+    }
+
+    private static PendingTransactionController.RowInfo rowFrom(PendingTransactionController.Workspace ws, Id rowId) {
+        for (PendingTransactionController.RowInfo r : ws.rows) {
+            if (r.id == rowId) {
+                return r;
+            }
+        }
+        return null;
+    }
+
+    /** A gala-source row takes a registration; the screen gets it back with isGala and the gala fund ids. */
+    @IsTest
+    static void galaRowTakesEventRegistration() {
+        npsp__General_Accounting_Unit__c galaFund = new npsp__General_Accounting_Unit__c(Name = 'Controller Gala Fund',
+            npsp__Active__c = true, Gala__c = true);
+        insert galaFund;
+        Event_Registration__c reg = registration();
+        Pending_Transaction__c row = stage(250);
+        row.Source__c = 'Gala Website';
+        update row;
+
+        Test.startTest();
+        PendingTransactionController.saveTransaction(JSON.serialize(new Map<String, Object>{
+            'id' => row.Id, 'eventRegistrationId' => reg.Id }));
+        PendingTransactionController.Workspace ws = PendingTransactionController.getWorkspace();
+        Test.stopTest();
+
+        PendingTransactionController.RowInfo info = rowFrom(ws, row.Id);
+        System.assert(info.isGala, 'Gala Website is gala');
+        System.assertEquals(reg.Id, info.eventRegistrationId);
+        System.assertNotEquals(null, info.eventRegistrationName);
+        System.assert(ws.galaFundIds.contains(galaFund.Id), 'Gala funds listed for the editor');
+    }
+
+    /** A QuickBooks row becomes gala through a gala fund - and only then may it take a registration. */
+    @IsTest
+    static void quickBooksRowIsGalaOnlyWithGalaFund() {
+        npsp__General_Accounting_Unit__c galaFund = new npsp__General_Accounting_Unit__c(Name = 'QB Gala Fund',
+            npsp__Active__c = true, Gala__c = true);
+        insert galaFund;
+        Event_Registration__c reg = registration();
+        Pending_Transaction__c row = stage(300);
+
+        // Not gala yet: the registration is refused and nothing is saved.
+        try {
+            PendingTransactionController.saveTransaction(JSON.serialize(new Map<String, Object>{
+                'id' => row.Id, 'eventRegistrationId' => reg.Id }));
+            System.assert(false, 'expected the gala-only rule to refuse');
+        } catch (AuraHandledException e) {
+            System.assert(e.getMessage().contains('gala'), e.getMessage());
+        }
+        System.assertEquals(null, [SELECT Event_Registration__c FROM Pending_Transaction__c WHERE Id = :row.Id].Event_Registration__c);
+
+        // With the gala fund, the same save goes through and the row is gala.
+        Test.startTest();
+        PendingTransactionController.RowInfo info = PendingTransactionController.saveTransaction(JSON.serialize(
+            new Map<String, Object>{ 'id' => row.Id, 'fundId' => galaFund.Id, 'eventRegistrationId' => reg.Id }));
+        Test.stopTest();
+        System.assert(info.isGala, 'QuickBooks + gala fund is gala');
+        System.assertEquals(reg.Id, info.eventRegistrationId);
     }
 }

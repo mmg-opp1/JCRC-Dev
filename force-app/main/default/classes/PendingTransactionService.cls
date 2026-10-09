@@ -43,6 +43,10 @@
  * 2026-09-16 - Jason Ott - Phase 4: rows arriving without a Source are Manual; deleteTransactions.
  * 2026-09-17 - Jason Ott - Phase 5b: a donor already linked to the row's QuickBooks customer is matched
  *                          first (Confirmed); commit links the QuickBooks customer to the donor.
+ * 2026-10-09 - Jason Ott - Gala: a new gift committed from a row with an Event Registration is linked both
+ *                          ways (Opportunity.Event_Registration__c and Event_Registration__c.Opportunity__c).
+ *                          Pledge payments are never linked. A registration already linked to a different
+ *                          gift fails that row instead of being moved.
  */
 public with sharing class PendingTransactionService {
 
@@ -792,7 +796,7 @@ public with sharing class PendingTransactionService {
             SELECT Id, Name, Source__c, External_Id__c, Amount__c, Transaction_Date__c, Payment_Method__c,
                    Reference_Number__c, Deposit_Reference__c, Contact__c, Account__c, Match_Status__c,
                    Apply_As__c, Pledge__c, Gift_Record_Type__c, Campaign__c, Fund__c, Approach__c,
-                   Gift_Name__c, Notes__c, Status__c, QuickBooks_Customer_Id__c
+                   Gift_Name__c, Notes__c, Status__c, QuickBooks_Customer_Id__c, Event_Registration__c
             FROM Pending_Transaction__c WHERE Id IN :rowIds
         ];
         Context ctx = new Context(rows);
@@ -889,6 +893,26 @@ public with sharing class PendingTransactionService {
             }
         }
 
+        /**
+         * Points the row's Event Registration at the gift just created (the gift already points back at
+         * it). New gifts only - pledge payments never call this. A registration that already belongs to a
+         * different gift is an error rather than silently moved, so one sponsorship never ends up claimed
+         * by two gifts; the row's savepoint undoes the gift.
+         */
+        public void linkEventRegistration(Pending_Transaction__c row, Id giftId) {
+            if (row.Event_Registration__c == null) {
+                return;
+            }
+            Event_Registration__c reg = [SELECT Id, Name, Opportunity__c, Opportunity__r.Name
+                                         FROM Event_Registration__c WHERE Id = :row.Event_Registration__c];
+            if (reg.Opportunity__c != null && reg.Opportunity__c != giftId) {
+                throw new PendingTransactionException('Event Registration ' + reg.Name
+                    + ' is already linked to the gift ' + reg.Opportunity__r.Name
+                    + '. Clear the registration on this transaction, or unlink it from that gift first.');
+            }
+            update new Event_Registration__c(Id = reg.Id, Opportunity__c = giftId);
+        }
+
         public void deleteRow(Pending_Transaction__c row) {
             delete new Pending_Transaction__c(Id = row.Id);
         }
@@ -912,9 +936,11 @@ public with sharing class PendingTransactionService {
                 Approach__c = row.Approach__c,
                 Payment_Method__c = row.Payment_Method__c,
                 Description = row.Notes__c,
-                Source_Transaction_Id__c = String.isBlank(row.External_Id__c) ? null : row.External_Id__c
+                Source_Transaction_Id__c = String.isBlank(row.External_Id__c) ? null : row.External_Id__c,
+                Event_Registration__c = row.Event_Registration__c
             );
             insert gift;
+            linkEventRegistration(row, gift.Id);
 
             if (String.isNotBlank(row.Gift_Name__c)) {
                 Opportunity named = [SELECT Name FROM Opportunity WHERE Id = :gift.Id];
