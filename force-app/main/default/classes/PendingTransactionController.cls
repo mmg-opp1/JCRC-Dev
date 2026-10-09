@@ -21,8 +21,13 @@
  * 2026-09-16 - Jason Ott - Initial version (JSI-121 Phase 3).
  * 2026-09-16 - Jason Ott - Phase 4: createTransaction (manual Add) and deleteTransaction.
  * 2026-09-17 - Jason Ott - Phase 5b: rows carry the QuickBooks import note and customer id.
+ * 2026-10-09 - Jason Ott - Source tabs: the workspace returns the user's last tab (savedQueue) and
+ *                          saveQueue remembers it per user (Pending_Transaction_Preference__c).
  */
 public with sharing class PendingTransactionController {
+
+    /** The screen's tabs. Must match QUEUES in the pendingTransactions LWC. */
+    @TestVisible private static final Set<String> QUEUES = new Set<String>{ 'all', 'gala', 'quickbooks', 'manual' };
 
     /** Most rows the screen loads. The holding area is a short-lived queue, so this is a safety net. */
     @TestVisible private static final Integer MAX_ROWS = 500;
@@ -82,6 +87,8 @@ public with sharing class PendingTransactionController {
         @AuraEnabled public String defaultGiftRecordType;
         @AuraEnabled public Integer maxPerCommit = PendingTransactionService.MAX_ROWS_PER_COMMIT;
         @AuraEnabled public Boolean truncated = false;
+        /** The tab this user last chose ('all' when they never chose one). */
+        @AuraEnabled public String savedQueue = 'all';
     }
 
     public class RowInfo {
@@ -194,7 +201,41 @@ public with sharing class PendingTransactionController {
                                                         WITH USER_MODE ORDER BY Name]) {
                 ws.funds.add(new Option(g.Name, g.Id));
             }
+            // The user-level preference only (getValues, not getInstance), so an org-wide value can
+            // never put everyone on one tab.
+            Pending_Transaction_Preference__c pref = Pending_Transaction_Preference__c.getValues(UserInfo.getUserId());
+            if (pref != null && QUEUES.contains(pref.Queue__c)) {
+                ws.savedQueue = pref.Queue__c;
+            }
             return ws;
+        } catch (Exception e) {
+            throw auraError(e);
+        }
+    }
+
+    /**
+     * @description Remembers the tab the user just chose, so the screen opens there next time on any
+     *              computer. Stored as this user's own Pending_Transaction_Preference__c record, so it
+     *              can only ever be the running user's own. The org restricts custom settings to
+     *              profiles granted them, so the setting is granted (customSettingAccesses) on Admin,
+     *              JCRC - Fundraising and JCRC - Development - the profiles that use the screen.
+     */
+    @AuraEnabled
+    public static void saveQueue(String queue) {
+        try {
+            if (!QUEUES.contains(queue)) {
+                throw new IllegalArgumentException('Unknown tab: ' + queue);
+            }
+            Pending_Transaction_Preference__c pref = Pending_Transaction_Preference__c.getValues(UserInfo.getUserId());
+            if (pref == null) {
+                pref = new Pending_Transaction_Preference__c(SetupOwnerId = UserInfo.getUserId());
+            }
+            if (pref.Queue__c != queue) {
+                pref.Queue__c = queue;
+                // Explicit SYSTEM_MODE: a fundraiser has no field access to this setting, and the write
+                // is limited to the user's own record above, so user-mode field checks add nothing.
+                Database.upsert(pref, AccessLevel.SYSTEM_MODE);
+            }
         } catch (Exception e) {
             throw auraError(e);
         }

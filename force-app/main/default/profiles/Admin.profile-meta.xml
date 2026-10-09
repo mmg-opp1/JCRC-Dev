@@ -767,6 +767,10 @@
         <enabled>true</enabled>
         <name>npsp__Relationship_Sync_Excluded_Fields__c</name>
     </customSettingAccesses>
+    <customSettingAccesses>
+        <enabled>true</enabled>
+        <name>Pending_Transaction_Preference__c</name>
+    </customSettingAccesses>
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.AccountNumber</field>

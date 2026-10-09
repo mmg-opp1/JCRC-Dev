@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Source__c</fullName>
-    <description>Where this transaction came from. QuickBooks = the ACH/wire feed; Manual = entered on the Pending Transactions screen; Gala Sponsor (Stripe) = Pay Now submissions from the gala sponsorship page (separate intake work). JSI-121 / Jason Ott.</description>
+    <description>Where this transaction came from. QuickBooks = the ACH/wire feed; Manual = entered on the Pending Transactions screen; Gala Website = the gala Jotform (jcrcnygala sponsorship page); JCRC Website - Gala = a jcrcny.org/donate gift designated to the gala. The screen groups the two gala values under its Gala tab. JSI-121 / Jason Ott.</description>
     <inlineHelpText>Where this transaction came from.</inlineHelpText>
     <label>Source</label>
     <required>false</required>
@@ -22,9 +22,14 @@
                 <label>Manual</label>
             </value>
             <value>
-                <fullName>Gala Sponsor (Stripe)</fullName>
+                <fullName>Gala Website</fullName>
                 <default>false</default>
-                <label>Gala Sponsor (Stripe)</label>
+                <label>Gala Website</label>
+            </value>
+            <value>
+                <fullName>JCRC Website - Gala</fullName>
+                <default>false</default>
+                <label>JCRC Website - Gala</label>
             </value>
         </valueSetDefinition>
     </valueSet>

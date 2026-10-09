@@ -9,6 +9,7 @@
  * -----------
  * 2026-09-16 - Jason Ott - Initial version (JSI-121 Phase 3).
  * 2026-09-16 - Jason Ott - Phase 4: createTransaction and deleteTransaction.
+ * 2026-10-09 - Jason Ott - Source tabs: saveQueue / savedQueue, incl. a JCRC - Fundraising user.
  */
 @IsTest
 private class PendingTransactionControllerTest {
@@ -281,5 +282,73 @@ private class PendingTransactionControllerTest {
         PendingTransactionController.deleteTransaction(row.Id);
         Test.stopTest();
         System.assertEquals(0, [SELECT COUNT() FROM Pending_Transaction__c WHERE Id = :row.Id]);
+    }
+
+    /** A user who never chose a tab opens on All; a chosen tab comes back on the next load. */
+    @IsTest
+    static void savedQueueRoundTrips() {
+        System.assertEquals('all', PendingTransactionController.getWorkspace().savedQueue);
+
+        Test.startTest();
+        PendingTransactionController.saveQueue('gala');
+        Test.stopTest();
+
+        System.assertEquals('gala', PendingTransactionController.getWorkspace().savedQueue);
+        System.assertEquals(1, [SELECT COUNT() FROM Pending_Transaction_Preference__c
+                                WHERE SetupOwnerId = :UserInfo.getUserId()], 'One record per user');
+    }
+
+    /** Choosing again updates the same record rather than adding another. */
+    @IsTest
+    static void saveQueueUpdatesInPlace() {
+        PendingTransactionController.saveQueue('gala');
+        PendingTransactionController.saveQueue('quickbooks');
+        System.assertEquals('quickbooks', PendingTransactionController.getWorkspace().savedQueue);
+        System.assertEquals(1, [SELECT COUNT() FROM Pending_Transaction_Preference__c
+                                WHERE SetupOwnerId = :UserInfo.getUserId()]);
+    }
+
+    /** Anything that is not one of the tabs is refused. */
+    @IsTest
+    static void saveQueueRejectsUnknownTab() {
+        try {
+            PendingTransactionController.saveQueue('everything');
+            System.assert(false, 'expected an error');
+        } catch (AuraHandledException e) {
+            System.assert(String.isNotBlank(e.getMessage()));
+        }
+        System.assertEquals(0, [SELECT COUNT() FROM Pending_Transaction_Preference__c]);
+    }
+
+    /** An org-wide default is ignored: only a person's own choice decides their tab. */
+    @IsTest
+    static void orgDefaultDoesNotSetEveryonesTab() {
+        insert new Pending_Transaction_Preference__c(SetupOwnerId = UserInfo.getOrganizationId(), Queue__c = 'manual');
+        System.assertEquals('all', PendingTransactionController.getWorkspace().savedQueue);
+    }
+
+    /**
+     * A fundraiser (not an admin) can save their own tab. Guards the profile grant: the org restricts
+     * custom settings to profiles granted them, and without the grant this fails with "Access to
+     * entity 'Pending_Transaction_Preference__c' denied".
+     */
+    @IsTest
+    static void fundraiserCanSaveOwnTab() {
+        Profile p = [SELECT Id FROM Profile WHERE Name = 'JCRC - Fundraising' LIMIT 1];
+        User fundraiser = new User(
+            ProfileId = p.Id, LastName = 'Queuefundraiser', Email = 'pt.queue@example.com',
+            Username = 'pt.queue.' + String.valueOf(System.now().getTime()) + '@example.com.jcrctest',
+            Alias = 'ptqueue', TimeZoneSidKey = 'America/New_York', LocaleSidKey = 'en_US',
+            EmailEncodingKey = 'UTF-8', LanguageLocaleKey = 'en_US');
+        insert fundraiser;
+
+        Test.startTest();
+        System.runAs(fundraiser) {
+            PendingTransactionController.saveQueue('gala');
+            System.assertEquals('gala', PendingTransactionController.getWorkspace().savedQueue);
+        }
+        Test.stopTest();
+        System.assertEquals('all', PendingTransactionController.getWorkspace().savedQueue,
+                            'A fundraiser choosing Gala does not change the admin tab');
     }
 }

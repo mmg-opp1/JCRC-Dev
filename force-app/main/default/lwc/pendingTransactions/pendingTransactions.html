@@ -1,6 +1,7 @@
 <!--
   pendingTransactions - the Pending Transactions work queue (JSI-121). List on the left, editor on the
-  right, selection bar along the bottom. Author: Jason Ott.
+  right, selection bar along the bottom. Source tabs (All / Gala / QuickBooks / Manual) sit above the
+  status tiles. Author: Jason Ott.
 -->
 <template>
     <div class="pt-shell">
@@ -10,7 +11,7 @@
                 <lightning-icon icon-name="custom:custom16" size="medium" class="pt-title-icon"></lightning-icon>
                 <div>
                     <h1 class="pt-h1">Pending Transactions</h1>
-                    <p class="pt-subtitle">ACH, wire and sponsorship money waiting to become gifts or pledge payments</p>
+                    <p class="pt-subtitle">ACH, wire and gala money waiting to become gifts or pledge payments</p>
                 </div>
             </div>
             <div class="pt-header-actions">
@@ -21,7 +22,26 @@
             </div>
         </header>
 
-        <!-- Summary tiles: each one filters the list -->
+        <!-- Source tabs: which stream of money to work. The last one chosen is remembered per user. -->
+        <nav class="pt-queues" aria-label="Transaction sources">
+            <template for:each={queueTabs} for:item="q">
+                <button key={q.key} class={q.cssClass} data-queue={q.key} onclick={handleQueue}
+                    aria-pressed={q.active}>
+                    {q.label}<span class="pt-queue-count">{q.count}</span>
+                </button>
+            </template>
+        </nav>
+        <template lwc:if={showGalaFilters}>
+            <div class="pt-subfilter" role="group" aria-label="Gala source">
+                <span class="pt-subfilter-label">Gala source</span>
+                <template for:each={galaFilters} for:item="f">
+                    <button key={f.key} class={f.cssClass} data-filter={f.key} onclick={handleGalaFilter}
+                        aria-pressed={f.active}>{f.label}</button>
+                </template>
+            </div>
+        </template>
+
+        <!-- Summary tiles for the open tab: each one filters the list -->
         <div class="pt-tiles">
             <template for:each={tiles} for:item="tile">
                 <button key={tile.key} class={tile.cssClass} data-filter={tile.filter} onclick={handleTile}
@@ -77,8 +97,6 @@
                     <lightning-input type="search" label="Search" variant="label-hidden" class="pt-search"
                         placeholder="Search payer, donor, memo, reference, amount…" value={search}
                         onchange={handleSearch}></lightning-input>
-                    <lightning-combobox label="Source" variant="label-hidden" class="pt-source" value={sourceFilter}
-                        options={sourceOptions} onchange={handleSource}></lightning-combobox>
                 </div>
 
                 <div class="pt-list-head">
@@ -117,7 +135,10 @@
                                     <template lwc:else>—</template>
                                 </span>
                                 <span class="pt-col-who">
-                                    <span class="pt-row-payer">{row.payerLabel}</span>
+                                    <span class="pt-row-payer-line">
+                                        <span class="pt-row-payer">{row.payerLabel}</span>
+                                        <span class={row.sourceClass}>{row.sourceLabel}</span>
+                                    </span>
                                     <span class="pt-row-donor">
                                         <span class={row.dotClass} title={row.status}></span>
                                         {row.donorLabel}

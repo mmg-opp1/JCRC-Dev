@@ -16,6 +16,15 @@
     --pt-review-soft: #fef1e0;
     --pt-error: #ba0517;
     --pt-error-soft: #fdeceb;
+    /* Source badges - deliberately not the status greens/ambers/reds, so a badge never reads as a status. */
+    --pt-src-gala-website: #6b3fa0;
+    --pt-src-gala-website-soft: #f3edfb;
+    --pt-src-jcrc-gala: #8a2a5b;
+    --pt-src-jcrc-gala-soft: #fbebf3;
+    --pt-src-quickbooks: #3b5675;
+    --pt-src-quickbooks-soft: #eaf0f6;
+    --pt-src-manual: #5c5c5c;
+    --pt-src-manual-soft: #f0f0f0;
     display: block;
 }
 
@@ -36,6 +45,34 @@
 .pt-header-actions { display: flex; align-items: center; gap: 0.5rem; }
 .pt-h1 { font-size: 1.25rem; font-weight: 700; color: var(--pt-ink); line-height: 1.2; }
 .pt-subtitle { color: var(--pt-muted); font-size: 0.8125rem; }
+
+/* ---- source tabs ---- */
+.pt-queues { display: flex; flex-wrap: wrap; gap: 0.25rem; border-bottom: 1px solid var(--pt-border); }
+.pt-queue {
+    appearance: none; background: none; border: none; border-bottom: 3px solid transparent; margin-bottom: -1px;
+    display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.875rem;
+    font-size: 0.875rem; font-weight: 600; color: var(--pt-muted); cursor: pointer;
+}
+.pt-queue:hover { color: var(--pt-ink); }
+.pt-queue:focus-visible { outline: 2px solid var(--pt-accent); outline-offset: 2px; }
+.pt-queue_active { color: var(--pt-ink); border-bottom-color: var(--pt-accent); }
+.pt-queue-count {
+    min-width: 1.5rem; padding: 0 0.375rem; border-radius: 1rem; text-align: center;
+    font-size: 0.75rem; font-variant-numeric: tabular-nums;
+    background: var(--slds-g-color-neutral-base-90, #e5e5e5); color: var(--pt-ink);
+}
+.pt-queue_active .pt-queue-count { background: var(--pt-accent); color: #fff; }
+
+.pt-subfilter { display: flex; flex-wrap: wrap; align-items: center; gap: 0.375rem; }
+.pt-subfilter-label {
+    margin-right: 0.25rem; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--pt-muted);
+}
+.pt-pill {
+    appearance: none; padding: 0.125rem 0.75rem; border: 1px solid var(--pt-border); border-radius: 1rem;
+    background: var(--pt-surface); color: var(--pt-ink); font-size: 0.8125rem; cursor: pointer;
+}
+.pt-pill:focus-visible { outline: 2px solid var(--pt-accent); outline-offset: 2px; }
+.pt-pill_active { background: var(--pt-accent-soft); border-color: var(--pt-accent); color: var(--pt-accent); font-weight: 600; }
 
 /* ---- tiles ---- */
 .pt-tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.75rem; }
@@ -81,7 +118,6 @@
 .pt-list { display: flex; flex-direction: column; max-height: calc(100vh - 16rem); overflow: hidden; }
 .pt-list-tools { display: flex; gap: 0.5rem; padding: 0.75rem; border-bottom: 1px solid var(--pt-border); }
 .pt-search { flex: 1; }
-.pt-source { width: 10rem; }
 
 .pt-list-head, .pt-row {
     display: grid; grid-template-columns: 1.75rem 4rem minmax(0, 1fr) auto; gap: 0.5rem; align-items: center;
@@ -99,7 +135,19 @@
 .pt-row_active { border-left-color: var(--pt-accent); background: var(--pt-accent-soft); }
 .pt-col-date { font-size: 0.8125rem; color: var(--pt-muted); white-space: nowrap; }
 .pt-col-who { display: flex; flex-direction: column; min-width: 0; }
-.pt-row-payer { font-weight: 600; color: var(--pt-ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pt-row-payer-line { display: flex; align-items: center; gap: 0.375rem; min-width: 0; }
+.pt-row-payer { min-width: 0; font-weight: 600; color: var(--pt-ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* Source badge on each row */
+.pt-src {
+    flex: none; padding: 0 0.375rem; border-radius: 0.25rem; white-space: nowrap;
+    font-size: 0.6875rem; font-weight: 600;
+    background: var(--pt-src-soft, var(--pt-src-manual-soft)); color: var(--pt-src-ink, var(--pt-src-manual));
+}
+.pt-src_gala-website { --pt-src-ink: var(--pt-src-gala-website); --pt-src-soft: var(--pt-src-gala-website-soft); }
+.pt-src_jcrc-gala { --pt-src-ink: var(--pt-src-jcrc-gala); --pt-src-soft: var(--pt-src-jcrc-gala-soft); }
+.pt-src_quickbooks { --pt-src-ink: var(--pt-src-quickbooks); --pt-src-soft: var(--pt-src-quickbooks-soft); }
+.pt-src_manual, .pt-src_other { --pt-src-ink: var(--pt-src-manual); --pt-src-soft: var(--pt-src-manual-soft); }
 .pt-row-donor {
     display: flex; align-items: center; gap: 0.375rem; font-size: 0.8125rem; color: var(--pt-muted);
     overflow: hidden; white-space: nowrap;

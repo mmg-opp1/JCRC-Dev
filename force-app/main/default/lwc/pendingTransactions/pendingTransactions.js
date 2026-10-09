@@ -20,6 +20,10 @@
  * 2026-09-16 - Jason Ott - Initial version (JSI-121 Phase 3).
  * 2026-09-16 - Jason Ott - Phase 4: Add transaction (opens the new row in the editor) and Delete from the
  *                          editor, with a confirmation, landing on the next row.
+ * 2026-10-09 - Jason Ott - Source tabs (All / Gala / QuickBooks / Manual) with counts, a Gala Website /
+ *                          JCRC Website - Gala toggle inside Gala, a source badge on every row, and the
+ *                          user's last tab remembered in Salesforce (saveQueue). Replaces the Source
+ *                          dropdown. The status tiles count only the open tab.
  */
 import { LightningElement, wire } from 'lwc';
 import { CurrentPageReference } from 'lightning/navigation';
@@ -30,6 +34,7 @@ import commitTransactions from '@salesforce/apex/PendingTransactionController.co
 import confirmDonors from '@salesforce/apex/PendingTransactionController.confirmDonors';
 import bulkUpdate from '@salesforce/apex/PendingTransactionController.bulkUpdate';
 import deleteTransaction from '@salesforce/apex/PendingTransactionController.deleteTransaction';
+import saveQueue from '@salesforce/apex/PendingTransactionController.saveQueue';
 import BulkEditModal from 'c/pendingTransactionBulkEdit';
 import AddModal from 'c/pendingTransactionAdd';
 import { errorMessage } from 'c/pendingTransactionUtils';
@@ -37,6 +42,42 @@ import { errorMessage } from 'c/pendingTransactionUtils';
 const STATUS_READY = 'Ready';
 const STATUS_NEEDS_REVIEW = 'Needs Review';
 const STATUS_ERROR = 'Error';
+
+// Source__c values. A blank source is treated as Manual (the trigger stamps Manual on rows added
+// without one).
+const SOURCE_GALA_WEBSITE = 'Gala Website';
+const SOURCE_JCRC_GALA = 'JCRC Website - Gala';
+const SOURCE_QUICKBOOKS = 'QuickBooks';
+const SOURCE_MANUAL = 'Manual';
+
+/** The tabs across the top. Keys must match QUEUES in PendingTransactionController. */
+const QUEUES = [
+    { key: 'all', label: 'All', sources: null },
+    { key: 'gala', label: 'Gala', sources: [SOURCE_GALA_WEBSITE, SOURCE_JCRC_GALA] },
+    { key: 'quickbooks', label: 'QuickBooks', sources: [SOURCE_QUICKBOOKS] },
+    { key: 'manual', label: 'Manual', sources: [SOURCE_MANUAL] }
+];
+
+/** The toggle inside the Gala tab. */
+const GALA_FILTERS = [
+    { key: 'both', label: 'Both' },
+    { key: SOURCE_GALA_WEBSITE, label: SOURCE_GALA_WEBSITE },
+    { key: SOURCE_JCRC_GALA, label: SOURCE_JCRC_GALA }
+];
+
+/** Badge colour per source (see .pt-src_* in the CSS). */
+const SOURCE_BADGE = {
+    [SOURCE_GALA_WEBSITE]: 'gala-website',
+    [SOURCE_JCRC_GALA]: 'jcrc-gala',
+    [SOURCE_QUICKBOOKS]: 'quickbooks',
+    [SOURCE_MANUAL]: 'manual'
+};
+
+const sourceOf = (r) => r.source || SOURCE_MANUAL;
+const inQueue = (r, key) => {
+    const q = QUEUES.find((x) => x.key === key);
+    return !q || !q.sources || q.sources.includes(sourceOf(r));
+};
 
 export default class PendingTransactions extends LightningElement {
     rows = [];
@@ -47,7 +88,9 @@ export default class PendingTransactions extends LightningElement {
     activeRowId;
     checkedIds = new Set();
     statusFilter = 'all';
-    sourceFilter = 'all';
+    queue = 'all';
+    galaFilter = 'both';
+    queueRestored = false;
     search = '';
 
     loading = true;
@@ -78,6 +121,11 @@ export default class PendingTransactions extends LightningElement {
         return getWorkspace()
             .then((ws) => {
                 this.rows = ws.rows || [];
+                // Open on the tab this user last chose - once, so a refresh never moves them.
+                if (!this.queueRestored) {
+                    this.queue = QUEUES.some((q) => q.key === ws.savedQueue) ? ws.savedQueue : 'all';
+                    this.queueRestored = true;
+                }
                 this.truncated = ws.truncated;
                 this.maxPerCommit = ws.maxPerCommit || 20;
                 this.options = {
@@ -103,11 +151,42 @@ export default class PendingTransactions extends LightningElement {
 
     // ---- derived state ------------------------------------------------------------------------
 
+    /** The source tabs, each with how many rows it holds. */
+    get queueTabs() {
+        return QUEUES.map((q) => {
+            const active = this.queue === q.key;
+            return {
+                key: q.key,
+                label: q.label,
+                count: this.rows.filter((r) => inQueue(r, q.key)).length,
+                active,
+                cssClass: `pt-queue${active ? ' pt-queue_active' : ''}`
+            };
+        });
+    }
+
+    get showGalaFilters() { return this.queue === 'gala'; }
+
+    get galaFilters() {
+        return GALA_FILTERS.map((f) => {
+            const active = this.galaFilter === f.key;
+            return { ...f, active, cssClass: `pt-pill${active ? ' pt-pill_active' : ''}` };
+        });
+    }
+
+    /** The rows in the open tab (and, on Gala, the chosen gala source). Tiles and list start here. */
+    get queueRows() {
+        return this.rows
+            .filter((r) => inQueue(r, this.queue))
+            .filter((r) => this.queue !== 'gala' || this.galaFilter === 'both' || sourceOf(r) === this.galaFilter);
+    }
+
     get tiles() {
         const sum = (list) => list.reduce((t, r) => t + (r.amount || 0), 0);
-        const by = (s) => this.rows.filter((r) => r.status === s);
+        const rows = this.queueRows;
+        const by = (s) => rows.filter((r) => r.status === s);
         const defs = [
-            { key: 'all', label: 'Waiting', list: this.rows, tone: 'neutral' },
+            { key: 'all', label: 'Waiting', list: rows, tone: 'neutral' },
             { key: STATUS_READY, label: 'Ready to commit', list: by(STATUS_READY), tone: 'ready' },
             { key: STATUS_NEEDS_REVIEW, label: 'Needs review', list: by(STATUS_NEEDS_REVIEW), tone: 'review' },
             { key: STATUS_ERROR, label: 'Errors', list: by(STATUS_ERROR), tone: 'error' }
@@ -123,16 +202,10 @@ export default class PendingTransactions extends LightningElement {
         }));
     }
 
-    get sourceOptions() {
-        const sources = [...new Set(this.rows.map((r) => r.source).filter(Boolean))].sort();
-        return [{ label: 'All sources', value: 'all' }, ...sources.map((s) => ({ label: s, value: s }))];
-    }
-
     get visibleRows() {
         const term = (this.search || '').trim().toLowerCase();
-        return this.rows
+        return this.queueRows
             .filter((r) => this.statusFilter === 'all' || r.status === this.statusFilter)
-            .filter((r) => this.sourceFilter === 'all' || r.source === this.sourceFilter)
             .filter((r) => !term || this.haystack(r).includes(term))
             .map((r) => this.decorate(r));
     }
@@ -147,8 +220,11 @@ export default class PendingTransactions extends LightningElement {
     decorate(r) {
         const isActive = r.id === this.activeRowId;
         const tone = r.status === STATUS_READY ? 'ready' : r.status === STATUS_ERROR ? 'error' : 'review';
+        const source = sourceOf(r);
         return {
             ...r,
+            sourceLabel: source,
+            sourceClass: `pt-src pt-src_${SOURCE_BADGE[source] || 'other'}`,
             isActive,
             isChecked: this.checkedIds.has(r.id),
             isPledgePayment: r.applyAs === 'Pledge Payment',
@@ -167,13 +243,19 @@ export default class PendingTransactions extends LightningElement {
     get noVisibleRows() { return this.visibleRows.length === 0; }
 
     get emptyTitle() {
-        return this.rows.length === 0 ? 'Nothing waiting' : 'No transactions match';
+        if (this.rows.length === 0) { return 'Nothing waiting'; }
+        if (this.queueRows.length === 0) {
+            const q = QUEUES.find((x) => x.key === this.queue);
+            const where = this.queue === 'gala' && this.galaFilter !== 'both' ? this.galaFilter : q.label;
+            return `Nothing waiting in ${where}`;
+        }
+        return 'No transactions match';
     }
 
     get emptySubtitle() {
-        return this.rows.length === 0
-            ? 'Every transaction has been committed.'
-            : 'Try a different search or filter.';
+        if (this.rows.length === 0) { return 'Every transaction has been committed.'; }
+        if (this.queueRows.length === 0) { return 'Other tabs may have transactions waiting.'; }
+        return 'Try a different search or filter.';
     }
 
     get hasPrev() {
@@ -212,8 +294,35 @@ export default class PendingTransactions extends LightningElement {
         this.statusFilter = this.statusFilter === f && f !== 'all' ? 'all' : f;
     }
 
+    /**
+     * Switches tab and remembers it for next time. The status filter resets because the tiles now
+     * count a different set. A failed save only costs the memory, so it warns rather than blocks.
+     */
+    handleQueue(event) {
+        const key = event.currentTarget.dataset.queue;
+        if (key === this.queue) { return; }
+        this.queue = key;
+        this.galaFilter = 'both';
+        this.statusFilter = 'all';
+        this.openFirstVisibleIfHidden();
+        saveQueue({ queue: key }).catch(() => this.toast('Could not remember this tab for next time', 'warning'));
+    }
+
+    handleGalaFilter(event) {
+        this.galaFilter = event.currentTarget.dataset.filter;
+        this.openFirstVisibleIfHidden();
+    }
+
+    /** After a tab or filter change the open row may no longer be listed - move to the first one that is. */
+    openFirstVisibleIfHidden() {
+        const list = this.visibleRows;
+        if (list.some((r) => r.id === this.activeRowId)) { return; }
+        this.withEditorSaved().then((ok) => {
+            if (ok) { this.activeRowId = list.length ? list[0].id : undefined; }
+        });
+    }
+
     handleSearch(event) { this.search = event.target.value; }
-    handleSource(event) { this.sourceFilter = event.detail.value; }
     stop(event) { event.stopPropagation(); }
 
     handleRowClick(event) {
@@ -277,9 +386,13 @@ export default class PendingTransactions extends LightningElement {
             .then((row) => {
                 if (!row) { return; }
                 this.rows = [row, ...this.rows.filter((r) => r.id !== row.id)];
-                // Make sure filters don't hide the row just added.
+                // Make sure filters don't hide the row just added. The tab change is not saved, so the
+                // user's remembered tab is unchanged next time.
                 this.statusFilter = 'all';
-                this.sourceFilter = 'all';
+                if (!inQueue(row, this.queue)) {
+                    this.queue = 'all';
+                    this.galaFilter = 'both';
+                }
                 this.search = '';
                 this.activeRowId = row.id;
             })

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <description>Per-user preferences for the Pending Transactions screen - which tab (All, Gala, QuickBooks, Manual) a person last used, so it opens there next time on any computer. Written by PendingTransactionController.saveQueue at the user level; nobody needs to edit it by hand. JSI-121 / Jason Ott.</description>
+    <enableFeeds>false</enableFeeds>
+    <label>Pending Transaction Preference</label>
+    <visibility>Public</visibility>
+</CustomObject>
