@@ -8,6 +8,7 @@
     <inlineHelpText>Formula: Concatenated fields used during rollups to locate the most recent opportunity.</inlineHelpText>
     <label>Combined Rollup Fieldset</label>
     <required>false</required>
+    <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>
 </CustomField>

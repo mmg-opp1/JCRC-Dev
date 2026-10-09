@@ -17,6 +17,7 @@ ISBLANK(npe03__Recurring_Donation__c),
     <inlineHelpText>The installment name for inclusion in Opportunity naming. Shows the installment number in parentheses for open ended Recurring Donations, or the installment number out of the total for Recurring Donations with a set number of installments.</inlineHelpText>
     <label>Recurring Donation Installment Name</label>
     <required>false</required>
+    <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>
 </CustomField>

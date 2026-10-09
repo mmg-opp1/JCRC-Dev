@@ -8,7 +8,6 @@
     <relationshipLabel>Pending Transactions</relationshipLabel>
     <relationshipName>Pending_Transactions</relationshipName>
     <required>false</required>
-    <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

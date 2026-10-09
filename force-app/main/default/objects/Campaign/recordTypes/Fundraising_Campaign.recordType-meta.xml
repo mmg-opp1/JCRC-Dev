@@ -37,6 +37,10 @@
             <default>true</default>
         </values>
         <values>
+            <fullName>Fundraising</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Other</fullName>
             <default>false</default>
         </values>

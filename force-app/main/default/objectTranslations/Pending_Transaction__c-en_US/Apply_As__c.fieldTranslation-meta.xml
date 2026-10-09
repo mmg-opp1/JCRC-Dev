@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Create a new gift, or apply this money as a payment on an open pledge or grant. --></help>
+    <label><!-- Apply As --></label>
+    <name>Apply_As__c</name>
+    <picklistValues>
+        <masterLabel>New Gift</masterLabel>
+        <translation><!-- New Gift --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pledge Payment</masterLabel>
+        <translation><!-- Pledge Payment --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

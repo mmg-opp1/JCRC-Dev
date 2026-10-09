@@ -7,5 +7,6 @@
     <inlineHelpText>Indicates whether the Grant is a renewal of a previous Grant.</inlineHelpText>
     <label>Is Grant Renewal</label>
     <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

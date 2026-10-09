@@ -4,8 +4,6 @@
     <description>Why the submission could not be interpreted. Gala sponsorship intake (JSI-121 related) / Jason Ott.</description>
     <label>Error Message</label>
     <length>4000</length>
-    <required>false</required>
-    <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>

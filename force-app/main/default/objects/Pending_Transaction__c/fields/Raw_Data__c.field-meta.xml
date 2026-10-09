@@ -4,8 +4,6 @@
     <description>The source record as received (JSON), kept for troubleshooting. Deleted with the holding record on commit. JSI-121 / Jason Ott.</description>
     <label>Raw Data</label>
     <length>131072</length>
-    <required>false</required>
-    <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>5</visibleLines>

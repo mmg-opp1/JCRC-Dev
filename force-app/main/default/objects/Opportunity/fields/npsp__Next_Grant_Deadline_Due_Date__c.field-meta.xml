@@ -18,5 +18,6 @@
     </summaryFilterItems>
     <summaryForeignKey>npsp__Grant_Deadline__c.npsp__Opportunity__c</summaryForeignKey>
     <summaryOperation>min</summaryOperation>
+    <trackHistory>false</trackHistory>
     <type>Summary</type>
 </CustomField>

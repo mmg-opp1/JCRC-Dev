@@ -4,5 +4,6 @@
     <description>JSI-89: TRUE when the Honoree Contact lookup is populated. Drives record-page visibility (hide the Honoree Name text field once the contact is linked). Reference fields can&apos;t be used directly in component visibility, hence this helper formula. Author: Jason Ott.</description>
     <formula>NOT(ISBLANK(npsp__Honoree_Contact__c))</formula>
     <label>Honoree Contact Set</label>
+    <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

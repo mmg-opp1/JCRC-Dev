@@ -2,10 +2,11 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Gift_Record_Type__c</fullName>
     <description>Developer name of the Opportunity record type for a new gift (blank = Standard Donation). JSI-121 / Jason Ott.</description>
+    <externalId>false</externalId>
     <label>Gift Record Type</label>
     <length>80</length>
     <required>false</required>
-    <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>
+    <unique>false</unique>
 </CustomField>

@@ -39,6 +39,7 @@
     <rtaCaseComment>false</rtaCaseComment>
     <rtaCaseDescFieldAccess>false</rtaCaseDescFieldAccess>
     <showEmailAttachmentsInCaseAttachmentsRL>true</showEmailAttachmentsInCaseAttachmentsRL>
+    <systemUserEmail>automatedcase@00dii00000009mfuai.ext</systemUserEmail>
     <useSystemEmailAddress>true</useSystemEmailAddress>
     <useSystemUserAsDefaultCaseUser>false</useSystemUserAsDefaultCaseUser>
     <visibleInCssCheckbox>false</visibleInCssCheckbox>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Match Status --></label>
+    <name>Match_Status__c</name>
+    <picklistValues>
+        <masterLabel>Confirmed</masterLabel>
+        <translation><!-- Confirmed --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Multiple Matches</masterLabel>
+        <translation><!-- Multiple Matches --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>No Match</masterLabel>
+        <translation><!-- No Match --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Suggested</masterLabel>
+        <translation><!-- Suggested --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

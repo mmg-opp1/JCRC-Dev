@@ -4,8 +4,6 @@
     <description>Anything the QuickBooks import could not settle on its own, e.g. an income account with no fund mapping, or an invoice spanning several funds. JSI-121 / Jason Ott.</description>
     <label>Import Note</label>
     <length>4000</length>
-    <required>false</required>
-    <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>3</visibleLines>

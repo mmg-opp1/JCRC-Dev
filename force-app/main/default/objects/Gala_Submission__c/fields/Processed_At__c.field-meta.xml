@@ -4,7 +4,6 @@
     <description>When it was turned into a record. Gala sponsorship intake (JSI-121 related) / Jason Ott.</description>
     <label>Processed At</label>
     <required>false</required>
-    <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>DateTime</type>
 </CustomField>

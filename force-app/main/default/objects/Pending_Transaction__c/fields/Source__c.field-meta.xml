@@ -5,7 +5,6 @@
     <inlineHelpText>Where this transaction came from.</inlineHelpText>
     <label>Source</label>
     <required>false</required>
-    <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

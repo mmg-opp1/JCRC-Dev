@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Pending Transaction</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Pending Transactions</value>
+    </caseValues>
+    <layouts>
+        <layout>Pending Transaction Layout</layout>
+        <sections>
+            <label><!-- Donor --></label>
+            <section>Donor</section>
+        </sections>
+        <sections>
+            <label><!-- New Gift --></label>
+            <section>New Gift</section>
+        </sections>
+        <sections>
+            <label><!-- Notes --></label>
+            <section>Notes</section>
+        </sections>
+        <sections>
+            <label><!-- Pledge Payment --></label>
+            <section>Pledge Payment</section>
+        </sections>
+        <sections>
+            <label><!-- Raw Data --></label>
+            <section>Raw Data</section>
+        </sections>
+        <sections>
+            <label><!-- Source --></label>
+            <section>Source</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

@@ -6,5 +6,6 @@
     <inlineHelpText>Auto-checked when the tribute contact matcher found multiple possible Contacts. Review and set the Honoree/Notification Recipient lookup manually, then uncheck.</inlineHelpText>
     <label>Tribute Contact Needs Review</label>
     <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

@@ -56,6 +56,10 @@
         <name>Partially_Post_Only_Pledges_With_Payment</name>
     </validationRules>
     <validationRules>
+        <errorMessage><!-- This gift is attributed to a household, but the primary contact is not in the household.  Please update the primary contact. --></errorMessage>
+        <name>Primary_Contact_Out_Of_Household</name>
+    </validationRules>
+    <validationRules>
         <errorMessage><!-- You cannot write-off an opportunity if payments have already been made. Use Partially Posted or remove the payments. --></errorMessage>
         <name>Write_Off_Only_No_Payment_Pledges</name>
     </validationRules>

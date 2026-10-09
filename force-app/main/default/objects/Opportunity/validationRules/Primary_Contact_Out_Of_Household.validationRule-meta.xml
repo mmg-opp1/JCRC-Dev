@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Primary_Contact_Out_Of_Household</fullName>
+    <active>true</active>
+    <errorConditionFormula>IF(Account.RecordType.DeveloperName = &apos;HH_Account&apos; &amp;&amp;  AccountId !=  npsp__Primary_Contact__r.AccountId, TRUE, FALSE)</errorConditionFormula>
+    <errorDisplayField>npsp__Primary_Contact__c</errorDisplayField>
+    <errorMessage>This gift is attributed to a household, but the primary contact is not in the household.  Please update the primary contact.</errorMessage>
+</ValidationRule>

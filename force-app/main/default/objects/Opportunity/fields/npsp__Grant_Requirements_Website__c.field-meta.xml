@@ -7,5 +7,6 @@
     <label>Grant Requirements Website</label>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
     <type>Url</type>
 </CustomField>

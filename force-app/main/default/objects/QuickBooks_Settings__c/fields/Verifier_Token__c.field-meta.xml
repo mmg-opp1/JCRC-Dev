@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Verifier_Token__c</fullName>
-    <description>Webhook verifier token from the Intuit Developer portal (app &gt; Webhooks). The endpoint checks each webhook's intuit-signature header as HMAC-SHA256 of the body keyed with this token. Set per org - never committed. JSI-121 / Jason Ott.</description>
+    <description>Webhook verifier token from the Intuit Developer portal (app &gt; Webhooks). The endpoint checks each webhook&apos;s intuit-signature header as HMAC-SHA256 of the body keyed with this token. Set per org - never committed. JSI-121 / Jason Ott.</description>
     <externalId>false</externalId>
     <label>Verifier Token</label>
     <length>255</length>

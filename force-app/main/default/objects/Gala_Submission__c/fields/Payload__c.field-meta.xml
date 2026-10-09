@@ -4,8 +4,6 @@
     <description>The submission exactly as the website sent it. Never contains card details - the payment runs on Stripe and only its reference is expected here. Gala sponsorship intake (JSI-121 related) / Jason Ott.</description>
     <label>Payload</label>
     <length>131072</length>
-    <required>false</required>
-    <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>
     <visibleLines>10</visibleLines>

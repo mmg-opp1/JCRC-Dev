@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Comma-separated first names that mean the same person, e.g. Robert, Bob, Rob, Bobby. --></help>
+    <label><!-- Names --></label>
+    <name>Names__c</name>
+</CustomFieldTranslation>

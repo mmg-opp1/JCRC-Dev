@@ -7,5 +7,6 @@
     <inlineHelpText>Indicates whether the donor provided the Fair Market Value for this In-Kind Gift.</inlineHelpText>
     <label>In-Kind Donor Declared Value</label>
     <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

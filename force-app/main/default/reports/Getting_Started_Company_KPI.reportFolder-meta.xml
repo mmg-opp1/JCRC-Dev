@@ -5,10 +5,5 @@
         <sharedTo>AllInternalUsers</sharedTo>
         <sharedToType>Organization</sharedToType>
     </folderShares>
-    <folderShares>
-        <accessLevel>Manage</accessLevel>
-        <sharedTo>malchmand@jcrcny.org</sharedTo>
-        <sharedToType>User</sharedToType>
-    </folderShares>
     <name>Getting Started - Company KPI</name>
 </ReportFolder>

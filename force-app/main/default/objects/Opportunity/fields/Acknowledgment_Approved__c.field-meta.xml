@@ -6,5 +6,6 @@
     <inlineHelpText>Check to approve this acknowledgment to be sent/printed (for approval-gated gifts).</inlineHelpText>
     <label>Acknowledgment Approved</label>
     <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
     <type>Checkbox</type>
 </CustomField>

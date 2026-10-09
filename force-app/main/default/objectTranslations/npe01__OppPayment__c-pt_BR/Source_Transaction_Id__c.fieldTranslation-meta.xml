@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- The QuickBooks or Stripe transaction this was created from. --></help>
+    <label><!-- Source Transaction ID --></label>
+    <name>Source_Transaction_Id__c</name>
+</CustomFieldTranslation>

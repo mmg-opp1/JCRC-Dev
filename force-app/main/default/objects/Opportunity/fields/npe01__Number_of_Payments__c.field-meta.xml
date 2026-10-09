@@ -7,5 +7,6 @@
     <label>Number of Payments</label>
     <summaryForeignKey>npe01__OppPayment__c.npe01__Opportunity__c</summaryForeignKey>
     <summaryOperation>count</summaryOperation>
+    <trackHistory>false</trackHistory>
     <type>Summary</type>
 </CustomField>
