@@ -45,6 +45,17 @@
     2026-10-09: Jason - "ignore that for now". Its test is the one known failure (89/90 in the Pending
     Transactions + QuickBooks + payment suites); Pending Transactions deploys run tests separately until fixed.
 
+## Payments (underpayment)
+
+14. **Existing payments have no Original Payment Amount** (field added 2026-10-12, stamped only on new
+    payments), so they can never show an Underpayment. Option: backfill UNPAID payments with their current
+    amount (safe); paid ones can't be known for sure.
+15. **Underpayment also shows on short payments committed from Pending Transactions**, whose remainder the
+    commit already rescheduled as a new unpaid payment (JSI-121 rule 3). Decide whether that is wanted, or
+    whether the remainder logic should become the one place underpayments are handled.
+16. **Nothing yet acts on Underpayment** - spreading the shortfall over the remaining payments was not part
+    of this request.
+
 ## Repo
 
-11. **Unpushed commits** on `main` (17 as of the flowModalLauncher commit).
+11. **Unpushed commits** on `main` (18 as of the underpayment commit).

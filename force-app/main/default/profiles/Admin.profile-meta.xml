@@ -4493,6 +4493,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>npe01__OppPayment__c.Original_Payment_Amount__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>npe01__OppPayment__c.Underpayment__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>npsp__General_Accounting_Unit__c.Gala__c</field>
         <readable>true</readable>
     </fieldPermissions>
