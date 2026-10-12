@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>67.0</apiVersion>
+    <description>Opens any active screen flow in a modal from a URL, so a custom list button (related list or Dynamic Related List - Single) can launch a flow without opening a new window. Configured entirely by the button's URL. Author: Jason Ott.</description>
+    <isExposed>true</isExposed>
+    <masterLabel>Flow Modal Launcher</masterLabel>
+    <targets>
+        <target>lightning__UrlAddressable</target>
+    </targets>
+</LightningComponentBundle>

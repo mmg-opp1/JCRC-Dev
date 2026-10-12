@@ -1,0 +1,44 @@
+<!--
+  flowModalLauncher - any active screen flow in a modal, configured by the button URL that opens it.
+  Author: Jason Ott.
+-->
+<template>
+    <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="fml-heading" class={modalClass}>
+        <div class="slds-modal__container">
+            <button class="slds-button slds-button_icon slds-modal__close fml-close" title="Close"
+                onclick={handleClose}>
+                <lightning-icon icon-name="utility:close" size="small" variant="inverse"
+                    alternative-text="Close"></lightning-icon>
+                <span class="slds-assistive-text">Close</span>
+            </button>
+            <div class="slds-modal__header">
+                <h1 id="fml-heading" class="slds-modal__title slds-hyphenate">{title}</h1>
+            </div>
+            <div class="slds-modal__content slds-p-around_medium fml-body">
+                <template lwc:if={errorMessage}>
+                    <div class="slds-notify slds-notify_alert slds-alert_error" role="alert">
+                        <lightning-icon icon-name="utility:error" size="x-small" variant="inverse"
+                            class="slds-m-right_x-small"></lightning-icon>
+                        <h2>{errorMessage}</h2>
+                    </div>
+                </template>
+                <template lwc:elseif={showFlow}>
+                    <!-- Keyed so a second visit to the same URL starts a fresh interview. -->
+                    <template for:each={flowKeyed} for:item="run">
+                        <lightning-flow key={run.key} flow-api-name={flowApiName} flow-input-variables={flowInputs}
+                            onstatuschange={handleStatusChange}></lightning-flow>
+                    </template>
+                </template>
+                <template lwc:else>
+                    <div class="fml-leaving"><lightning-spinner alternative-text="Closing" size="small"></lightning-spinner></div>
+                </template>
+            </div>
+            <template lwc:if={errorMessage}>
+                <div class="slds-modal__footer">
+                    <lightning-button label="Close" onclick={handleClose}></lightning-button>
+                </div>
+            </template>
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+</template>

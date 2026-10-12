@@ -1,0 +1,6 @@
+/*
+ * flowModalLauncher - the modal sits over its own page (a URL-addressable component is a page of its own),
+ * so the body keeps a sensible minimum height while the flow loads. Author: Jason Ott.
+ */
+.fml-body { min-height: 8rem; }
+.fml-leaving { position: relative; min-height: 6rem; }
