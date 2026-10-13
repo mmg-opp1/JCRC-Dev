@@ -56,6 +56,30 @@
 16. **Nothing yet acts on Underpayment** - spreading the shortfall over the remaining payments was not part
     of this request.
 
+## Flow modal launcher
+
+17. **`flowModalLauncher` buttons are Jason's to set up.** Component built and deployed (`ace40b5`); no
+    list buttons point at it yet. First intended use: `Screen_BulkAddTickets` from Event Registration.
+    Known limit (platform): the record page is not visible behind the modal.
+
+## Board Management (JSI-123)
+
+18. ~~**Manage Members: names not clickable.**~~ DONE 2026-10-13 - committee member names link to the
+    contact record, same as the Roster tab. Client to confirm.
+19. **Same gap elsewhere?** Names on the board-meeting and committee-meeting attendance sheets are still
+    plain text. Not requested; ask the client whether they want those linked too.
+
+## Production / release
+
+20. **Nothing from 2026-10-09 onward is in production.** Needs a prod deploy once tested: `ContactMatcher`
+    + `ContactMatch` + `Nickname_Group__mdt` (83 records); Pending Transactions source tabs / gala rule /
+    Event Registration link (incl. `Gala__c` on Fund and Campaign, `Pending_Transaction_Preference__c`,
+    profile changes); Jason's gala flows; `flowModalLauncher`; Payment Original Amount / Underpayment;
+    Board Management member links. Blocked behind item 10 for the Pending Transactions pieces.
+21. **Gala flags are data, not metadata.** In JCRC-Dev only the fund "Gala Fund" and 4 campaigns ("2027 Gala"
+    x2, "FY27 Gala", "FY26 Gala") are ticked Gala. Production funds/campaigns must be ticked by hand, or QuickBooks
+    gala gifts will land on the general tabs only.
+
 ## Repo
 
-11. **Unpushed commits** on `main` (18 as of the underpayment commit).
+11. **Unpushed commits** on `main` (19 after the board member-link commit).

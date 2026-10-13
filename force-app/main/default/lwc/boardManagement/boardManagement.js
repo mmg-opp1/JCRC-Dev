@@ -22,6 +22,8 @@
  *                          way as board meetings. Manage Meetings on a committee row opens the list;
  *                          from there New Meeting and Take Attendance each take over the screen and
  *                          hand back, so only one modal is ever up.
+ * 2026-10-13 - Jason Ott - Manage Members: member names now link to the contact record, the same way
+ *                          the Roster tab does (client feedback).
  */
 import { LightningElement, wire } from 'lwc';
 import { CurrentPageReference } from 'lightning/navigation';
@@ -70,7 +72,9 @@ const COMMITTEE_MEETING_COLUMNS = [
         { label: 'Delete Meeting', name: 'deleteMeeting' }] } }
 ];
 const ASSIGNMENT_COLUMNS = [
-    { label: 'Member', fieldName: 'contactName' },
+    // Same link as the Roster tab: the name opens the contact record.
+    { label: 'Member', fieldName: 'contactUrl', type: 'url',
+      typeAttributes: { label: { fieldName: 'contactName' }, target: '_self' } },
     { label: 'Role', fieldName: 'role' },
     { label: 'Fiscal Year', fieldName: 'fiscalYearLabel' },
     { label: 'Active', fieldName: 'active', type: 'boolean' },
@@ -317,7 +321,11 @@ export default class BoardManagement extends LightningElement {
     loadAssignments() {
         this.loadingAssignments = true;
         return getAssignments({ committeeId: this.selectedCommitteeId })
-            .then((data) => { this.assignments = data; })
+            .then((data) => {
+                this.assignments = data.map((a) => ({
+                    ...a, contactUrl: a.contactId ? '/' + a.contactId : null
+                }));
+            })
             .catch((err) => this.toast(this.msg(err), 'error'))
             .finally(() => { this.loadingAssignments = false; });
     }
