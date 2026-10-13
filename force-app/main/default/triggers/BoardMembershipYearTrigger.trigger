@@ -8,5 +8,7 @@ trigger BoardMembershipYearTrigger on Board_Membership_Year__c (
         BoardCommitmentService.stampMembershipYears(Trigger.new);
     } else {
         BoardCommitmentService.recomputeFromMembershipYears(Trigger.isDelete ? Trigger.old : Trigger.new);
+        // Keep the term's Board Role (Current) in step with its current year (2026-10-13).
+        BoardTermService.syncRolesFromYears(Trigger.new, Trigger.old);
     }
 }

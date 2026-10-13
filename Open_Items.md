@@ -1,4 +1,4 @@
-# Open Items — things left to revisit
+﻿# Open Items â€” things left to revisit
 
 > Running list kept by Jason Ott. Started 2026-10-09 after the Jotform pivot and the full-org UI refresh
 > (`8ed04a5`). Strike items through (or delete them) as they close; add the date and commit.
@@ -17,17 +17,17 @@
 3. **JCRC - Fundraising: "Edit Read Only Fields" is OFF in JCRC-Dev**, but was granted for NPSP Gift Entry
    in JSI-80 (`d81dc04`). Setup Audit Trail: turned off 2026-10-08 17:07, one minute after Becca Zebovitz
    moved from System Administrator to JCRC - Fundraising. Intentional? See item 12 for what it broke.
-4. **Old Gravity Forms endpoint** — `GalaSponsorReceiver` + `Gala_Submission__c` (`a5044ff`) are live and
+4. **Old Gravity Forms endpoint** â€” `GalaSponsorReceiver` + `Gala_Submission__c` (`a5044ff`) are live and
    public but never used since the move to Jotform. Remove or keep?
-5. **Gala money side not designed.** Jotform Pay Now → Pending Transaction; Pay Later → Pledge. Must also
+5. **Gala money side not designed.** Jotform Pay Now â†’ Pending Transaction; Pay Later â†’ Pledge. Must also
    settle how a Stripe payout that lands in QuickBooks is not double-counted (same risk for website
    donations).
 
 ## Pending Transactions / QuickBooks (JSI-121)
 
-6. **Fund map empty** — `QuickBooks_Fund_Map__mdt` needs Finance's list of QuickBooks income accounts;
+6. **Fund map empty** â€” `QuickBooks_Fund_Map__mdt` needs Finance's list of QuickBooks income accounts;
    funds currently arrive blank.
-7. **Finance's six questions unanswered** (`JSI-121/JSI-121_QuickBooks_Setup_Guide.md` §2). Import currently
+7. **Finance's six questions unanswered** (`JSI-121/JSI-121_QuickBooks_Setup_Guide.md` Â§2). Import currently
    relies on the deposit line's payment method being "Wire-Transfer" (deposit 148 was skipped: no method).
 8. **D12 to confirm:** a short pledge payment's unpaid remainder keeps the original installment's date.
 9. **Sandbox clean-up:** SAMPLE-PT-1..5 and demo deposits PT-00012..15 still on the screen.
@@ -69,6 +69,12 @@
 19. **Same gap elsewhere?** Names on the board-meeting and committee-meeting attendance sheets are still
     plain text. Not requested; ask the client whether they want those linked too.
 
+22. **Board Role sync is one-way (built 2026-10-13).** Roster's Role = Board Term "Board Role (Current)",
+    now copied from the Role on the term's current Board Membership Year (on save + nightly 2 AM).
+    Editing Board Role directly on the term is overwritten by the next sync. Options: make the term
+    field read-only on the JCRC profiles / remove it from the term page, or leave it. Also: the
+    field's picklist values are still the PLACEHOLDER set from client Q7.
+
 ## Production / release
 
 20. **Nothing from 2026-10-09 onward is in production.** Needs a prod deploy once tested: `ContactMatcher`
@@ -82,4 +88,4 @@
 
 ## Repo
 
-11. **Unpushed commits** on `main` (19 after the board member-link commit).
+11. **Unpushed commits** on `main` (20 after the board role-sync commit).

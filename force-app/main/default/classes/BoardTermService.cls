@@ -16,6 +16,10 @@
  * 2026-09-01 - Jason Ott - Roll the Status to "Rolled Off" once a term's End Date has passed. It used
  *                          to sit on "Active" for ever, so an ended term read as active on the record
  *                          even though the roster had correctly dropped it (UAT).
+ * 2026-10-13 - Jason Ott - Board Role (Current) on the term now follows the Role on the term's current
+ *                          Board Membership Year (syncRolesFromYears / syncCurrentRoles), plus a nightly
+ *                          sweep for the July 1 year change. New years seed the current one from the
+ *                          term's role so a role entered on a new term is not reset to Member.
  */
 public with sharing class BoardTermService {
 
@@ -109,12 +113,16 @@ public with sharing class BoardTermService {
 
     /** AFTER insert/update — create the per-fiscal-year Board Membership Year records (idempotent). */
     public static void generateMembershipYears(List<Board_Term__c> terms) {
+        if (syncingRoles) {
+            return;     // only Board Role changed - see syncCurrentRoles
+        }
         Set<Id> termIds = new Set<Id>();
         for (Board_Term__c t : terms) {
             termIds.add(t.Id);
         }
         Map<Id, Board_Term__c> full = new Map<Id, Board_Term__c>([
-            SELECT Id, Contact__c, Start_Date__c, End_Date__c, Member_Type__r.Default_Term_Length_Years__c
+            SELECT Id, Contact__c, Start_Date__c, End_Date__c, Board_Role__c,
+                   Member_Type__r.Default_Term_Length_Years__c
             FROM Board_Term__c WHERE Id IN :termIds]);
 
         Set<String> existing = new Set<String>();
@@ -128,6 +136,9 @@ public with sharing class BoardTermService {
         List<Board_Membership_Year__c> toInsert = new List<Board_Membership_Year__c>();
         Set<Id> contactIds = new Set<Id>();
         Set<Date> fyStarts = new Set<Date>();
+        // Per term, the fiscal-year start that counts as "current" (same rule as syncCurrentRoles).
+        Map<Id, Date> currentStartByTerm = new Map<Id, Date>();
+        Date today = Date.today();
         for (Board_Term__c t : full.values()) {
             if (t.Start_Date__c == null || t.Member_Type__r == null
                     || t.Member_Type__r.Default_Term_Length_Years__c == null) {
@@ -143,6 +154,9 @@ public with sharing class BoardTermService {
                 }
                 contactIds.add(t.Contact__c);
                 fyStarts.add(ys);
+                if (!currentStartByTerm.containsKey(t.Id) || ys <= today) {
+                    currentStartByTerm.put(t.Id, ys);
+                }
                 String label = 'FY' + String.valueOf(ys.year() + 1);
                 String yearKey = String.valueOf(t.Id) + '|' + label;
                 if (existing.contains(yearKey)) {
@@ -152,6 +166,19 @@ public with sharing class BoardTermService {
                     Board_Term__c = t.Id, Contact__c = t.Contact__c, Role__c = 'Member',
                     FY_Start__c = ys, FY_End__c = ys.addYears(1).addDays(-1),
                     Fiscal_Year_Label__c = label, Year_Key__c = yearKey));
+            }
+        }
+        // The year that will be current starts with the term's role, not Member. Without this, the
+        // role sync would copy "Member" back onto a term that was entered as, say, Treasurer.
+        // Only roles the year's restricted picklist accepts (the term keeps a few retired values).
+        Set<String> yearRoles = new Set<String>();
+        for (Schema.PicklistEntry pe : Board_Membership_Year__c.Role__c.getDescribe().getPicklistValues()) {
+            if (pe.isActive()) { yearRoles.add(pe.getValue()); }
+        }
+        for (Board_Membership_Year__c y : toInsert) {
+            Board_Term__c t = full.get(y.Board_Term__c);
+            if (yearRoles.contains(t.Board_Role__c) && currentStartByTerm.get(t.Id) == y.FY_Start__c) {
+                y.Role__c = t.Board_Role__c;
             }
         }
         if (!toInsert.isEmpty()) {
@@ -247,6 +274,101 @@ public with sharing class BoardTermService {
             ids.add(c.Id);      // catches anyone whose last term was deleted outright
         }
         refreshBoardFlags(ids);
+    }
+
+    /**
+     * AFTER insert/update/delete/undelete of Board Membership Year - re-sync the role of every term
+     * whose current year may have changed. On update, only rows whose role, dates or term changed;
+     * both the old and new term when a year is moved between terms.
+     *
+     * @param newRows Trigger.new (null on delete)
+     * @param oldRows Trigger.old (null on insert/undelete)
+     */
+    public static void syncRolesFromYears(List<Board_Membership_Year__c> newRows,
+                                          List<Board_Membership_Year__c> oldRows) {
+        Map<Id, Board_Membership_Year__c> oldById = (oldRows == null)
+            ? new Map<Id, Board_Membership_Year__c>() : new Map<Id, Board_Membership_Year__c>(oldRows);
+        Set<Id> termIds = new Set<Id>();
+        if (newRows == null) {
+            // Delete: the term may now have a different (or no) current year.
+            for (Board_Membership_Year__c o : oldRows) { termIds.add(o.Board_Term__c); }
+        } else {
+            for (Board_Membership_Year__c y : newRows) {
+                Board_Membership_Year__c o = oldById.get(y.Id);
+                if (o == null || o.Role__c != y.Role__c || o.FY_Start__c != y.FY_Start__c
+                        || o.FY_End__c != y.FY_End__c || o.Board_Term__c != y.Board_Term__c) {
+                    termIds.add(y.Board_Term__c);
+                    if (o != null) { termIds.add(o.Board_Term__c); }
+                }
+            }
+        }
+        termIds.remove(null);
+        syncCurrentRoles(termIds);
+    }
+
+    /**
+     * Copies the Role of each term's current Board Membership Year onto Board_Term__c.Board_Role__c.
+     *
+     * "Current" year, in order of preference:
+     *   1. the latest year that has started (FY Start on or before today) - the year in progress for
+     *      a running term, or the last year served for a term that has ended;
+     *   2. otherwise the first year - a term that has not started yet shows the role it starts with.
+     * A term with no membership years, or whose current year has no role, is left alone.
+     *
+     * Only writes terms whose role actually differs. System mode on purpose: this is a backend copy of
+     * a value the user already saved on the year, and the person editing a year must not be blocked
+     * by their access to the term field (the JSI-123 / Pending Transactions lesson in this org).
+     */
+    public static void syncCurrentRoles(Set<Id> termIds) {
+        if (termIds == null || termIds.isEmpty()) {
+            return;
+        }
+        Date today = Date.today();
+        // Ascending by start date: a started year replaces the one before it; future years only fill
+        // an empty slot, so the first year wins only when nothing has started yet.
+        Map<Id, Board_Membership_Year__c> currentByTerm = new Map<Id, Board_Membership_Year__c>();
+        for (Board_Membership_Year__c y : [
+                SELECT Board_Term__c, Role__c, FY_Start__c FROM Board_Membership_Year__c
+                WHERE Board_Term__c IN :termIds AND FY_Start__c != null
+                ORDER BY Board_Term__c, FY_Start__c ASC]) {
+            if (!currentByTerm.containsKey(y.Board_Term__c) || y.FY_Start__c <= today) {
+                currentByTerm.put(y.Board_Term__c, y);
+            }
+        }
+        if (currentByTerm.isEmpty()) {
+            return;
+        }
+        List<Board_Term__c> toUpdate = new List<Board_Term__c>();
+        for (Board_Term__c t : [SELECT Id, Board_Role__c FROM Board_Term__c WHERE Id IN :currentByTerm.keySet()]) {
+            String role = currentByTerm.get(t.Id).Role__c;
+            if (String.isNotBlank(role) && role != t.Board_Role__c) {
+                toUpdate.add(new Board_Term__c(Id = t.Id, Board_Role__c = role));
+            }
+        }
+        if (!toUpdate.isEmpty()) {
+            // A role copy is not a term edit: the term trigger must not regenerate years here, or
+            // deleting a membership year would bring it straight back.
+            syncingRoles = true;
+            try {
+                Database.update(toUpdate, AccessLevel.SYSTEM_MODE);
+            } finally {
+                syncingRoles = false;
+            }
+        }
+    }
+
+    /** True while syncCurrentRoles is saving terms; generateMembershipYears stands down. */
+    private static Boolean syncingRoles = false;
+
+    /** Nightly - every term with membership years, so the July 1 year change is picked up. */
+    public static void syncAllCurrentRoles() {
+        Set<Id> termIds = new Set<Id>();
+        for (AggregateResult ar : [
+                SELECT Board_Term__c FROM Board_Membership_Year__c
+                WHERE Board_Term__c != null GROUP BY Board_Term__c]) {
+            termIds.add((Id) ar.get('Board_Term__c'));
+        }
+        syncCurrentRoles(termIds);
     }
 
     public static Date fyStartFor(Date d) {

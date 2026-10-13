@@ -16,6 +16,7 @@
  * 2026-08-19 - Jason Ott - Created (JSI-87 board letter routing).
  * 2026-09-01 - Jason Ott - Also roll off terms whose End Date has passed (UAT: an ended term still
  *                          read as Active on the record).
+ * 2026-10-13 - Jason Ott - Also re-sync each term's Board Role (Current) from its current year.
  */
 public with sharing class BoardMemberFlagRefresh implements Schedulable {
     public void execute(SchedulableContext sc) {
@@ -23,5 +24,7 @@ public with sharing class BoardMemberFlagRefresh implements Schedulable {
         // for those contacts on the way through. The sweep below then catches everyone else.
         BoardTermService.rollOffExpiredTerms();
         BoardTermService.refreshAllBoardFlags();
+        // On July 1 a new year becomes current with no DML to react to; pick up its role.
+        BoardTermService.syncAllCurrentRoles();
     }
 }
