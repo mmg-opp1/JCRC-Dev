@@ -34,11 +34,9 @@
 10. **Production not started:** Intuit production-keys questionnaire; `hooks` site does not exist in prod;
     QuickBooks credentials + scheduled jobs; website donations also not in prod, and
     `WebDonationProcessor` coverage (62.3%) blocks that deploy.
-23. **Checks now import like ACH/wire (built 2026-10-23).** New setting QuickBooks Settings > Check Payment
-    Methods (blank = "Check"); rows arrive with Payment Method = Check. Open: (a) not yet seen live - enter a check
-    deposit in the sandbox QuickBooks company and confirm the row on the screen; (b) Finance's exact QuickBooks
-    method name(s) for checks, if not "Check"; (c) a deposit of ~25+ earlier check Payments can exceed the
-    100-callouts-per-transaction limit (3-4 QuickBooks reads per line) and the whole deposit fails - not guarded.
+23. **Checks import like ACH/wire (built 2026-10-23).** Default check methods Amazon Smile, Benevity, Check,
+    E-Check (all become Check); large-deposit safeguard built. Open: not yet seen live end to end - enter a check
+    deposit (and a Receive Payment + deposit) in the sandbox QuickBooks company and confirm the rows on the screen.
 
 12. **Fundraisers cannot commit Pending Transactions (JCRC-Dev, since 2026-10-08).**
     `PendingTransactionServiceTest.fundraisingUserCanCommitGiftsAndPaymentsOnPledgesOwnedByOthers` now

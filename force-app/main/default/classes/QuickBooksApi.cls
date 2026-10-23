@@ -2,9 +2,15 @@
  * @description Reads records from the QuickBooks Online Accounting API through the `Quickbooks` Named
  *              Credential (JSI-121 Phase 5b).
  *
- *              Read-only by design: Salesforce never writes to QuickBooks. Every read is for one entity by id
- *              (GET /v3/company/{realm}/{entity}/{id}), and results are cached for the transaction so a
- *              deposit with several lines doesn't fetch the same customer or payment method twice.
+ *              Read-only by design: Salesforce never writes to QuickBooks. Records are read one by id
+ *              (GET /v3/company/{realm}/{entity}/{id}) or many at once by prefetch() (a query with
+ *              "Id in (...)", verified against the sandbox company 2026-10-23), and results are cached for the
+ *              transaction so a deposit with several lines doesn't fetch the same record twice.
+ *
+ *              READ BUDGET: Salesforce allows 100 callouts per transaction, and going over is a LimitException
+ *              no code can catch - the event would stay Received and fail again every run. Every read therefore
+ *              checks the budget first and, when it is spent, throws a normal (not retried) QuickBooksApiException
+ *              saying the transaction is too large to import, so the event is marked Failed with that reason.
  *
  *              Failures are classified so the processor can decide whether to try again later:
  *                - transient (retry): QuickBooks rate limit (429), QuickBooks errors (5xx), an expired or
@@ -20,6 +26,7 @@
  * -----------
  * 2026-09-17 - Jason Ott - Initial version (JSI-121 Phase 5b).
  * 2026-09-23 - Jason Ott - changesSince() for the nightly catch-up (JSI-121 Phase 5c).
+ * 2026-10-23 - Jason Ott - prefetch() reads many records in one query; read budget guard (large check deposits).
  */
 public with sharing class QuickBooksApi {
 
@@ -30,6 +37,18 @@ public with sharing class QuickBooksApi {
     @TestVisible private static final String MINOR_VERSION = '75';
 
     private static final Map<String, Map<String, Object>> CACHE = new Map<String, Map<String, Object>>();
+
+    /** Ids per prefetch query. QuickBooks ids are short numbers, so 100 keeps the request URL small. */
+    @TestVisible private static final Integer IDS_PER_QUERY = 100;
+
+    /** Tests lower the callout budget here; null = the Salesforce limit. */
+    @TestVisible private static Integer calloutBudgetOverride;
+
+    /** Reads made by this class in the transaction (counted here too, so a test's mock callouts count). */
+    private static Integer readsMade = 0;
+
+    public static final String TOO_LARGE_MESSAGE = 'Too large to import automatically: reading it from QuickBooks '
+        + 'needs more callouts than Salesforce allows in one run. Enter it on the Pending Transactions screen by hand.';
 
     public class QuickBooksApiException extends Exception {
         public Integer statusCode;
@@ -52,6 +71,7 @@ public with sharing class QuickBooksApi {
         req.setMethod('GET');
         req.setHeader('Accept', 'application/json');
         req.setTimeout(20000);
+        spendCallout();
         req.setEndpoint('callout:' + NAMED_CREDENTIAL + '/v3/company/' + EncodingUtil.urlEncode(realm, 'UTF-8') + '/'
             + entity.toLowerCase() + '/' + EncodingUtil.urlEncode(id, 'UTF-8') + '?minorversion=' + MINOR_VERSION);
 
@@ -96,6 +116,7 @@ public with sharing class QuickBooksApi {
         req.setMethod('GET');
         req.setHeader('Accept', 'application/json');
         req.setTimeout(60000);
+        spendCallout();
         req.setEndpoint('callout:' + NAMED_CREDENTIAL + '/v3/company/' + EncodingUtil.urlEncode(realm, 'UTF-8')
             + '/cdc?entities=' + EncodingUtil.urlEncode(String.join(entities, ','), 'UTF-8')
             + '&changedSince=' + EncodingUtil.urlEncode(stamp, 'UTF-8') + '&minorversion=' + MINOR_VERSION);
@@ -124,6 +145,81 @@ public with sharing class QuickBooksApi {
             }
         }
         return out;
+    }
+
+    /**
+     * Reads every listed record of one entity into the cache with as few queries as possible, so later get()
+     * calls for them make no callout. Ids already cached are skipped. An id QuickBooks doesn't return (deleted)
+     * is simply not cached - get() then reads it on its own and reports it as not found, as before.
+     */
+    public static void prefetch(String entity, Set<String> ids) {
+        List<String> wanted = new List<String>();
+        for (String id : ids) {
+            // Only plain QuickBooks ids go into the query text; anything else is left to get().
+            if (id != null && Pattern.matches('^[0-9A-Za-z-]+$', id) && !CACHE.containsKey(entity.toLowerCase() + '/' + id)) {
+                wanted.add(id);
+            }
+        }
+        // Loop: one query per IDS_PER_QUERY ids.
+        for (Integer start = 0; start < wanted.size(); start += IDS_PER_QUERY) {
+            List<String> chunk = new List<String>();
+            for (Integer i = start; i < Math.min(start + IDS_PER_QUERY, wanted.size()); i++) {
+                chunk.add('\'' + wanted[i] + '\'');
+            }
+            String q = 'select * from ' + entity + ' where Id in (' + String.join(chunk, ', ') + ') maxresults 1000';
+            for (Object o : query(entity, q)) {
+                Map<String, Object> record = obj(o);
+                if (record != null && record.get('Id') != null) {
+                    CACHE.put(entity.toLowerCase() + '/' + String.valueOf(record.get('Id')), record);
+                }
+            }
+        }
+    }
+
+    /** The record if prefetch() or get() has already read it in this transaction, else null. No callout. */
+    public static Map<String, Object> cached(String entity, String id) {
+        return id == null ? null : CACHE.get(entity.toLowerCase() + '/' + id);
+    }
+
+    /** Runs one QuickBooks query and returns the records of the entity it selects. */
+    private static List<Object> query(String entity, String q) {
+        String realm = realmId();
+        HttpRequest req = new HttpRequest();
+        req.setMethod('GET');
+        req.setHeader('Accept', 'application/json');
+        req.setTimeout(60000);
+        spendCallout();
+        req.setEndpoint('callout:' + NAMED_CREDENTIAL + '/v3/company/' + EncodingUtil.urlEncode(realm, 'UTF-8')
+            + '/query?query=' + EncodingUtil.urlEncode(q, 'UTF-8') + '&minorversion=' + MINOR_VERSION);
+
+        HttpResponse res;
+        try {
+            res = new Http().send(req);
+        } catch (CalloutException e) {
+            QuickBooksApiException ex = new QuickBooksApiException('Could not reach QuickBooks: ' + e.getMessage());
+            ex.isTransient = true;
+            throw ex;
+        }
+        Integer status = res.getStatusCode();
+        if (status != 200) {
+            throw failure(status, 'QuickBooks query for ' + entity + ' returned HTTP ' + status + ': '
+                + (res.getBody() == null ? '' : res.getBody().left(500)), status == 401 || status == 429 || status >= 500, false);
+        }
+        Map<String, Object> root = (Map<String, Object>) JSON.deserializeUntyped(res.getBody());
+        Map<String, Object> qr = obj(root.get('QueryResponse'));
+        return qr == null ? new List<Object>() : items(qr.get(entity));
+    }
+
+    /**
+     * Called before every callout. When the transaction's callouts are used up, throws a not-retried error
+     * instead of letting Salesforce stop the run with an uncatchable limit error.
+     */
+    private static void spendCallout() {
+        Integer budget = calloutBudgetOverride != null ? calloutBudgetOverride : Limits.getLimitCallouts();
+        if (Math.max(readsMade, Limits.getCallouts()) >= budget) {
+            throw failure(null, TOO_LARGE_MESSAGE, false, false);
+        }
+        readsMade++;
     }
 
     public static String realmId() {

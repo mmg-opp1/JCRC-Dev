@@ -304,10 +304,24 @@ receiver 95.2%, catch-up 96.7%, purge 96.4%.
 ### Checks import like ACH/wire ✅ (2026-10-23)
 - **Client decision:** check donations come in from QuickBooks automatically, exactly like ACH/wire - same webhook,
   same Pending Transactions screen; JCRC staff review and commit them.
-- **Setting:** QuickBooks Settings > **Check Payment Methods** (comma-separated; blank = `Check`). A deposit line,
-  payment or sales receipt whose payment method is in this list becomes a pending transaction with
+- **Setting:** QuickBooks Settings > **Check Payment Methods** (comma-separated; blank = `Amazon Smile, Benevity,
+  Check, E-Check` - Jason 2026-10-23: anything with any of these methods is a Check in Salesforce; spellings
+  confirmed). A deposit line, payment or sales receipt with one of these becomes a pending transaction with
   **Payment Method = Check**; one in ACH/Wire Payment Methods gets **ACH/Wire** (a name in both counts as ACH/Wire).
-  The check number arrives in Reference Number (deposit line CheckNum, or the payment's reference number).
-- **Tests:** 48/48 QuickBooks tests pass; processor coverage 91.1%. Cash and other methods are still skipped; a line
-  changed from wire to check keeps its row and is relabelled Check.
-
+  Matching ignores case and surrounding spaces only. The check number arrives in Reference Number.
+- **How Finance enters them (Jason):** a one-time donation is a line on a Bank Deposit; a pledge payment is recorded
+  in Receive Payment and then included on a Bank Deposit. Both shapes were already handled. The fund comes from the
+  invoice a payment is applied to - no invoice, no fund (row note asks staff to choose).
+- **No backfill** (Jason): only deposits created or edited after go-live come in.
+- **Large-deposit safeguard:** a deposit's linked payments, receipts, invoices, customers and id-only payment methods
+  are read up front with `select * from <Entity> where Id in (...)` (100 ids per query; `IN` on Id verified live
+  against company 9341457933630133 on 2026-10-23 - missing ids are simply absent). ~6 callouts for a deposit of
+  any realistic size instead of 3-4 per line. Every read also checks the callout budget; when spent the event is
+  marked **Failed**: "Too large to import automatically ... Enter it on the Pending Transactions screen by hand"
+  instead of Salesforce's uncatchable limit error (which would have left it retrying every 5 minutes). Raw Data now
+  stores the deposit header plus the row's own line (the whole deposit on every row grew with the square of the
+  line count).
+- **Deploy note:** the `QuickBooks Catch-Up` scheduled job holds `QuickBooksApi` - unschedule, deploy, reschedule
+  (`0 0 3 * * ?`, same owner). Production will need the same.
+- **Tests:** 51/51 QuickBooks tests pass; QuickBooksApi 89.1%, processor 91.5%. Includes a 150-check deposit read in
+  <= 12 callouts and a squeezed-budget deposit failing once with the plain reason.

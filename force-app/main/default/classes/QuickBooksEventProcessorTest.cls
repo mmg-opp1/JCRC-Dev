@@ -17,7 +17,8 @@
  * -----------
  * 2026-09-17 - Jason Ott - Initial version (JSI-121 Phase 5b).
  * 2026-09-23 - Jason Ott - Phase 5c: a committed line is never re-created.
- * 2026-10-23 - Jason Ott - Checks are imported like ACH/wire: check line, deposited check payment, setting names,
+ * 2026-10-23 - Jason Ott - Checks are imported like ACH/wire: check line, deposited check payment, default and setting
+ *                          method names, large-deposit bulk reads and callout-budget failure; the mock answers queries;
  *                          and cash still skipped (replaces checkLineIsSkipped).
  */
 @IsTest
@@ -29,8 +30,10 @@ private class QuickBooksEventProcessorTest {
 
     private class MockQuickBooks implements HttpCalloutMock {
         Map<String, String> bodies = new Map<String, String>();
+        Map<String, Map<String, Object>> records = new Map<String, Map<String, Object>>();
         Integer forcedStatus;
         Integer calls = 0;
+        Integer queries = 0;
 
         MockQuickBooks put(String entityPath, Map<String, Object> record) {
             String entity = entityPath.substringBefore('/');
@@ -38,6 +41,7 @@ private class QuickBooksEventProcessorTest {
                 : entity == 'salesreceipt' ? 'SalesReceipt' : entity == 'invoice' ? 'Invoice'
                 : entity == 'customer' ? 'Customer' : entity == 'account' ? 'Account' : 'PaymentMethod';
             bodies.put('/' + entityPath + '?', JSON.serialize(new Map<String, Object>{ root => record }));
+            records.put(entityPath, record);
             return this;
         }
 
@@ -49,6 +53,23 @@ private class QuickBooksEventProcessorTest {
             if (forcedStatus != null) {
                 res.setStatusCode(forcedStatus);
                 res.setBody('{"Fault":{"Error":[{"Message":"Service unavailable"}]}}');
+                return res;
+            }
+            // "select * from Payment where Id in ('146', '147') ..." answers with the stored records it names.
+            if (req.getEndpoint().contains('/query?query=')) {
+                queries++;
+                String q = EncodingUtil.urlDecode(req.getEndpoint().substringAfter('query=').substringBefore('&'), 'UTF-8');
+                String entity = q.substringAfter('from ').substringBefore(' ');
+                List<Object> found = new List<Object>();
+                for (String id : q.substringBetween('(', ')').split(',')) {
+                    Map<String, Object> rec = records.get(entity.toLowerCase() + '/' + id.trim().remove('\''));
+                    if (rec != null) {
+                        found.add(rec);
+                    }
+                }
+                res.setStatusCode(200);
+                res.setBody(JSON.serialize(new Map<String, Object>{
+                    'QueryResponse' => new Map<String, Object>{ entity => found } }));
                 return res;
             }
             for (String key : bodies.keySet()) {
@@ -295,12 +316,98 @@ private class QuickBooksEventProcessorTest {
     }
 
     @IsTest
+    static void defaultCheckMethodsAllImportAsCheck() {
+        // Amazon Smile, Benevity, Check and E-Check are all a Check in Salesforce; Cash is still skipped.
+        QuickBooksEventProcessor.fundMapOverride = new Map<String, String>();
+        List<String> methods = new List<String>{ 'Amazon Smile', 'Benevity', 'Check', 'E-Check', 'Cash' };
+        List<Object> lines = new List<Object>();
+        for (Integer i = 0; i < methods.size(); i++) {
+            lines.add(new Map<String, Object>{ 'Id' => String.valueOf(i + 1), 'Amount' => 10 + i,
+                'DepositLineDetail' => new Map<String, Object>{
+                    'Entity' => new Map<String, Object>{ 'value' => '4', 'name' => 'Diego Rodriguez', 'type' => 'CUSTOMER' },
+                    'AccountRef' => ref('85', null), 'PaymentMethodRef' => ref('pm' + i, methods[i]) } });
+        }
+        MockQuickBooks mock = realSandbox();
+        mock.put('deposit/145', new Map<String, Object>{ 'Id' => '145', 'TxnDate' => '2026-10-23', 'Line' => lines });
+        Test.setMock(HttpCalloutMock.class, mock);
+        QuickBooks_Event__c e = event('deposit', 'created', '145');
+        Test.startTest();
+        QuickBooksEventProcessor.process(e.Id);
+        Test.stopTest();
+        System.assertEquals(4, [SELECT COUNT() FROM Pending_Transaction__c WHERE Payment_Method__c = 'Check']);
+        System.assertEquals(4, [SELECT COUNT() FROM Pending_Transaction__c], 'the cash line is not imported');
+        System.assert(reload(e.Id).Error_Message__c.contains('1 deposit line(s) skipped'), reload(e.Id).Error_Message__c);
+    }
+
+    /** Deposit 900 depositing `count` earlier check Payments, each paying its own invoice for its own customer. */
+    private static MockQuickBooks largeCheckDeposit(Integer count) {
+        MockQuickBooks mock = realSandbox();
+        mock.put('paymentmethod/2', new Map<String, Object>{ 'Id' => '2', 'Name' => 'Check' });
+        List<Object> lines = new List<Object>();
+        for (Integer i = 0; i < count; i++) {
+            String paymentId = String.valueOf(1000 + i);
+            String invoiceId = String.valueOf(5000 + i);
+            String customerId = String.valueOf(2000 + i);
+            lines.add(new Map<String, Object>{ 'Amount' => 100,
+                'LinkedTxn' => new List<Object>{ new Map<String, Object>{ 'TxnId' => paymentId, 'TxnType' => 'Payment' } },
+                'DepositLineDetail' => new Map<String, Object>{ 'PaymentMethodRef' => ref('2', null), 'CheckNum' => 'C' + i } });
+            mock.put('payment/' + paymentId, new Map<String, Object>{ 'Id' => paymentId, 'TxnDate' => '2026-10-20',
+                'TotalAmt' => 100, 'CustomerRef' => ref(customerId, 'Donor ' + i), 'PaymentMethodRef' => ref('2', null),
+                'Line' => new List<Object>{ new Map<String, Object>{ 'Amount' => 100,
+                    'LinkedTxn' => new List<Object>{ new Map<String, Object>{ 'TxnId' => invoiceId, 'TxnType' => 'Invoice' } } } } });
+            mock.put('invoice/' + invoiceId, new Map<String, Object>{ 'Id' => invoiceId,
+                'Line' => new List<Object>{ new Map<String, Object>{ 'Amount' => 100, 'DetailType' => 'SalesItemLineDetail',
+                    'SalesItemLineDetail' => new Map<String, Object>{ 'ItemAccountRef' => ref('85', null) } } } });
+            mock.put('customer/' + customerId, new Map<String, Object>{ 'Id' => customerId, 'DisplayName' => 'Donor ' + i });
+        }
+        mock.put('deposit/900', new Map<String, Object>{ 'Id' => '900', 'TxnDate' => '2026-10-23', 'Line' => lines });
+        return mock;
+    }
+
+    @IsTest
+    static void largeCheckDepositIsReadInAFewQueries() {
+        // 150 deposited check payments would take 450+ single reads; bulk queries keep it to a handful.
+        QuickBooksEventProcessor.fundMapOverride = new Map<String, String>{ '85' => 'QB Test Fund' };
+        MockQuickBooks mock = largeCheckDeposit(150);
+        Test.setMock(HttpCalloutMock.class, mock);
+        QuickBooks_Event__c e = event('deposit', 'created', '900');
+        Test.startTest();
+        QuickBooksEventProcessor.process(e.Id);
+        Test.stopTest();
+        System.assertEquals('Processed', reload(e.Id).Status__c, 'Error: ' + reload(e.Id).Error_Message__c);
+        System.assertEquals(150, [SELECT COUNT() FROM Pending_Transaction__c WHERE Payment_Method__c = 'Check']);
+        System.assert(mock.calls <= 12, 'QuickBooks reads for 150 checks: ' + mock.calls);
+        Pending_Transaction__c p = pendingByExternalId('qbo-deposit-900-payment-1149');
+        System.assertEquals('Donor 149', p.Payer_Name__c);
+        System.assertEquals('C149', p.Reference_Number__c);
+        System.assertEquals('QB Test Fund', p.Fund__r.Name);
+        System.assert(!p.Raw_Data__c.contains('C148'), 'Raw Data holds this line, not every line of the deposit');
+    }
+
+    @IsTest
+    static void depositTooLargeForTheCalloutBudgetFailsWithAClearReason() {
+        // Budget squeezed to 3 reads: the deposit can't be read, so the event fails once with a plain reason
+        // instead of hitting Salesforce's uncatchable callout limit and retrying forever.
+        QuickBooksApi.calloutBudgetOverride = 3;
+        QuickBooksEventProcessor.fundMapOverride = new Map<String, String>();
+        Test.setMock(HttpCalloutMock.class, largeCheckDeposit(5));
+        QuickBooks_Event__c e = event('deposit', 'created', '900');
+        Test.startTest();
+        QuickBooksEventProcessor.process(e.Id);
+        Test.stopTest();
+        QuickBooks_Event__c after = reload(e.Id);
+        System.assertEquals('Failed', after.Status__c, 'not retried');
+        System.assert(after.Error_Message__c.contains('Too large to import automatically'), after.Error_Message__c);
+        System.assertEquals(0, [SELECT COUNT() FROM Pending_Transaction__c], 'nothing half-imported');
+    }
+
+    @IsTest
     static void checkMethodNamesComeFromSettings() {
-        // Finance's own name for checks, set in QuickBooks Settings; plain "Check" then no longer counts.
-        update new QuickBooks_Settings__c(Id = QuickBooks_Settings__c.getOrgDefaults().Id, Check_Payment_Methods__c = 'Paper Check, Cheque');
+        // Finance's own name for checks, set in QuickBooks Settings; it replaces the default list.
+        update new QuickBooks_Settings__c(Id = QuickBooks_Settings__c.getOrgDefaults().Id, Check_Payment_Methods__c = 'Paper Check, Mailed Check');
         QuickBooksEventProcessor.fundMapOverride = new Map<String, String>();
         MockQuickBooks mock = realSandbox();
-        mock.put('deposit/145', deposit145(75, ' cheque '));
+        mock.put('deposit/145', deposit145(75, ' paper check '));
         Test.setMock(HttpCalloutMock.class, mock);
         QuickBooks_Event__c e = event('deposit', 'created', '145');
         Test.startTest();

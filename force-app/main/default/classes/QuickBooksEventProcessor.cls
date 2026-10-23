@@ -9,8 +9,8 @@
  *              WHAT COUNTS AS MONEY IN (decisions 2026-09-17, Jason):
  *                - A BANK DEPOSIT is the trigger. Each deposit line paid by an ACH/wire or check payment method
  *                  (QuickBooks Settings > ACH/Wire Payment Methods, "Wire-Transfer" by default; Check Payment
- *                  Methods, "Check" by default) becomes one pending transaction, its Payment Method set to
- *                  ACH/Wire or Check by the list that matched. Two kinds of line:
+ *                  Methods, "Amazon Smile, Benevity, Check, E-Check" by default) becomes one pending transaction,
+ *                  its Payment Method set to ACH/Wire or Check by the list that matched. Two kinds of line:
  *                    * a direct line - customer, income account, payment method and reference are on the line;
  *                    * a line depositing an earlier Payment or Sales Receipt (LinkedTxn) - the customer comes
  *                      from that payment, and the income account from the invoice(s) it paid (or the sales
@@ -35,7 +35,9 @@
  *
  *              FAILURES: a temporary QuickBooks problem leaves the event Received for the next run (up to 5
  *              attempts); anything else marks it Failed with the reason. No partial writes: callouts all happen
- *              first, then the DML runs inside one savepoint.
+ *              first, then the DML runs inside one savepoint. A deposit's linked records are read in a few bulk
+ *              queries first; one too large for the callouts Salesforce allows is marked Failed with a clear
+ *              reason (QuickBooksApi read budget) rather than retried every run.
  * @author Jason Ott
  * @created 2026-09-17
  *
@@ -46,12 +48,14 @@
  *                          purging old events cannot resurrect committed money.
  * 2026-10-23 - Jason Ott - Checks are imported like ACH/wire (client decision): Check Payment Methods setting,
  *                          and each row's Payment Method comes from the list its QuickBooks method matched.
+ *                          Default check methods Amazon Smile, Benevity, Check, E-Check. Large-deposit safeguard:
+ *                          prefetchForDeposit() bulk reads; Raw Data holds the deposit header, not every line.
  */
 public without sharing class QuickBooksEventProcessor implements Database.Batchable<SObject>, Database.AllowsCallouts {
 
     public static final Integer MAX_ATTEMPTS = 5;
     @TestVisible private static final String DEFAULT_ACH_WIRE_METHODS = 'Wire-Transfer';
-    @TestVisible private static final String DEFAULT_CHECK_METHODS = 'Check';
+    @TestVisible private static final String DEFAULT_CHECK_METHODS = 'Amazon Smile, Benevity, Check, E-Check';
     private static final String ACH_WIRE_VALUE = 'ACH/Wire';
     private static final String CHECK_VALUE = 'Check';
 
@@ -248,6 +252,13 @@ public without sharing class QuickBooksEventProcessor implements Database.Batcha
         Date txnDate = parseDate(dep.get('TxnDate'));
         Integer index = 0;
         Integer skipped = 0;
+        prefetchForDeposit(dep);
+
+        // The deposit without its lines, stored on each row with that row's own line. Repeating the whole
+        // deposit on every row would grow with the square of the line count and exhaust heap on a big deposit.
+        Map<String, Object> depositHeader = dep.clone();
+        depositHeader.remove('Line');
+        String depositJson = JSON.serialize(depositHeader);
 
         // Loop: one candidate per ACH/wire or check line.
         for (Object o : QuickBooksApi.items(dep.get('Line'))) {
@@ -274,7 +285,7 @@ public without sharing class QuickBooksEventProcessor implements Database.Batcha
                     QuickBooksApi.items(line.get('LinkedTxn'))[0]).get('TxnType')) + ', which is not imported.');
                 continue;
             } else if (detail != null) {
-                String methodName = normalise(paymentMethodName(detail.get('PaymentMethodRef')));
+                String methodName = normalize(paymentMethodName(detail.get('PaymentMethodRef')));
                 if (!methods.containsKey(methodName)) {
                     skipped++;
                     continue;
@@ -310,7 +321,7 @@ public without sharing class QuickBooksEventProcessor implements Database.Batcha
             if (c.memo == null) {
                 c.memo = QuickBooksApi.str(line.get('Description'));
             }
-            c.raw = '{"deposit":' + JSON.serialize(dep) + ',"line":' + JSON.serialize(line)
+            c.raw = '{"deposit":' + depositJson + ',"line":' + JSON.serialize(line)
                 + (c.raw != null && linked != null ? ',"source":' + c.raw : '') + '}';
             enrichCustomer(c);
             result.add(c);
@@ -322,6 +333,85 @@ public without sharing class QuickBooksEventProcessor implements Database.Batcha
     }
 
     /**
+     * Reads everything a deposit's lines will need in a handful of queries, before the line loop: the linked
+     * Payments and Sales Receipts, then the invoices those payments paid, the customers and any payment methods
+     * given by id only. The loop then finds them in QuickBooksApi's cache, so a deposit of hundreds of checks
+     * costs about six callouts instead of three or four per line. Anything not found here (deleted in
+     * QuickBooks) is read on its own later, exactly as before.
+     */
+    private static void prefetchForDeposit(Map<String, Object> dep) {
+        Set<String> paymentIds = new Set<String>();
+        Set<String> receiptIds = new Set<String>();
+        Set<String> customerIds = new Set<String>();
+        Set<String> methodIds = new Set<String>();
+
+        // Loop: what each deposit line points at.
+        for (Object o : QuickBooksApi.items(dep.get('Line'))) {
+            Map<String, Object> line = QuickBooksApi.obj(o);
+            if (line == null) {
+                continue;
+            }
+            Map<String, Object> linked = firstLinked(line, new Set<String>{ 'Payment', 'SalesReceipt' });
+            if (linked != null) {
+                (String.valueOf(linked.get('TxnType')) == 'Payment' ? paymentIds : receiptIds)
+                    .add(String.valueOf(linked.get('TxnId')));
+            }
+            Map<String, Object> detail = QuickBooksApi.obj(line.get('DepositLineDetail'));
+            if (detail != null) {
+                addMethodId(methodIds, detail.get('PaymentMethodRef'));
+                Map<String, Object> entityRef = QuickBooksApi.obj(detail.get('Entity'));
+                if (entityRef != null && String.valueOf(entityRef.get('type')) == 'CUSTOMER') {
+                    addIfPresent(customerIds, QuickBooksApi.refValue(entityRef));
+                }
+            }
+        }
+        QuickBooksApi.prefetch('Payment', paymentIds);
+        QuickBooksApi.prefetch('SalesReceipt', receiptIds);
+
+        // Loop: from the payments and receipts just read, their customers, methods and paid invoices.
+        Set<String> invoiceIds = new Set<String>();
+        List<Map<String, Object>> sources = new List<Map<String, Object>>();
+        for (String id : paymentIds) {
+            sources.add(QuickBooksApi.cached('Payment', id));
+        }
+        for (String id : receiptIds) {
+            sources.add(QuickBooksApi.cached('SalesReceipt', id));
+        }
+        for (Map<String, Object> rec : sources) {
+            if (rec == null) {
+                continue;
+            }
+            addIfPresent(customerIds, QuickBooksApi.refValue(rec.get('CustomerRef')));
+            addMethodId(methodIds, rec.get('PaymentMethodRef'));
+            for (Object lo : QuickBooksApi.items(rec.get('Line'))) {
+                Map<String, Object> pl = QuickBooksApi.obj(lo);
+                for (Object to : QuickBooksApi.items(pl == null ? null : pl.get('LinkedTxn'))) {
+                    Map<String, Object> t = QuickBooksApi.obj(to);
+                    if (t != null && String.valueOf(t.get('TxnType')) == 'Invoice') {
+                        addIfPresent(invoiceIds, String.valueOf(t.get('TxnId')));
+                    }
+                }
+            }
+        }
+        QuickBooksApi.prefetch('Invoice', invoiceIds);
+        QuickBooksApi.prefetch('Customer', customerIds);
+        QuickBooksApi.prefetch('PaymentMethod', methodIds);
+    }
+
+    /** A payment method given by id only is looked up by name later, so it is worth prefetching. */
+    private static void addMethodId(Set<String> ids, Object ref) {
+        if (QuickBooksApi.refName(ref) == null) {
+            addIfPresent(ids, QuickBooksApi.refValue(ref));
+        }
+    }
+
+    private static void addIfPresent(Set<String> ids, String id) {
+        if (String.isNotBlank(id)) {
+            ids.add(id);
+        }
+    }
+
+    /**
      * A Payment or Sales Receipt, either deposited by a bank deposit line or deposited straight to a bank.
      * Returns null when its payment method isn't ACH/wire or check.
      */
@@ -329,7 +419,7 @@ public without sharing class QuickBooksEventProcessor implements Database.Batcha
                                              Map<String, Object> depositLineDetail, Outcome out) {
         Object methodRef = depositLineDetail != null && depositLineDetail.get('PaymentMethodRef') != null
             ? depositLineDetail.get('PaymentMethodRef') : rec.get('PaymentMethodRef');
-        String methodName = normalise(paymentMethodName(methodRef));
+        String methodName = normalize(paymentMethodName(methodRef));
         if (!methods.containsKey(methodName)) {
             return null;
         }
@@ -575,7 +665,7 @@ public without sharing class QuickBooksEventProcessor implements Database.Batcha
     private static void addMethods(Map<String, String> out, String commaSeparated, String value) {
         for (String s : commaSeparated.split(',')) {
             if (String.isNotBlank(s)) {
-                out.put(normalise(s), value);
+                out.put(normalize(s), value);
             }
         }
     }
@@ -616,7 +706,7 @@ public without sharing class QuickBooksEventProcessor implements Database.Batcha
         return null;
     }
 
-    private static String normalise(String s) {
+    private static String normalize(String s) {
         return s == null ? '' : s.trim().toLowerCase();
     }
 
