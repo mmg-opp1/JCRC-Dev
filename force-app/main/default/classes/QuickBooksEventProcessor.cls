@@ -11,17 +11,20 @@
  *                  (QuickBooks Settings > ACH/Wire Payment Methods, "Wire-Transfer" by default; Check Payment
  *                  Methods, "Amazon Smile, Benevity, Check, E-Check" by default) becomes one pending transaction,
  *                  its Payment Method set to ACH/Wire or Check by the list that matched. Two kinds of line:
- *                    * a direct line - customer, income account, payment method and reference are on the line;
+ *                    * a direct line - customer, class, payment method and reference are on the line;
  *                    * a line depositing an earlier Payment or Sales Receipt (LinkedTxn) - the customer comes
- *                      from that payment, and the income account from the invoice(s) it paid (or the sales
- *                      receipt's own lines).
+ *                      from that payment, and the class from the invoice(s) it paid (or the sales receipt's
+ *                      own lines).
  *                - A PAYMENT or SALES RECEIPT deposited straight to a bank account also counts. One sitting in
  *                  Undeposited Funds is ignored here - its bank deposit brings it in, so it is never counted twice.
  *              Everything else (customers, invoices, payment methods...) is logged as Ignored.
  *
- *              FUND: the income account maps to an NPSP fund through QuickBooks Fund Map custom metadata. If
- *              the account isn't mapped, or the lines span several funds, Fund is left blank and the reason
- *              goes in Import Note for staff.
+ *              FUND: the QuickBooks CLASS maps to an NPSP fund through QuickBooks Fund Map custom metadata,
+ *              matched on the class's full name ("Development:Dinner"), ignoring case (decision 2026-10-23,
+ *              Jason: income accounts are no longer used). An item line without its own class uses the
+ *              transaction's class. If a line has no class, a class isn't mapped, or the lines span several
+ *              funds, Fund is left blank and the reason goes in Import Note for staff. Dinner maps to Gala Fund,
+ *              so its rows are gala.
  *
  *              UPDATES AND DELETES:
  *                - created/updated: pending rows for the record are refreshed (amount, date, reference, payer,
@@ -51,6 +54,7 @@
  *                          Default check methods Amazon Smile, Benevity, Check, E-Check. Large-deposit safeguard:
  *                          prefetchForDeposit() bulk reads; Raw Data holds the deposit header, not every line.
  * 2026-10-23 - Jason Ott - American spelling (normalized, recognized).
+ * 2026-10-23 - Jason Ott - Fund comes from the QuickBooks class instead of the income account (Dinner -> Gala Fund).
  */
 public without sharing class QuickBooksEventProcessor implements Database.Batchable<SObject>, Database.AllowsCallouts {
 
@@ -60,7 +64,7 @@ public without sharing class QuickBooksEventProcessor implements Database.Batcha
     private static final String ACH_WIRE_VALUE = 'ACH/Wire';
     private static final String CHECK_VALUE = 'Check';
 
-    /** Tests supply the fund mapping here; custom metadata records can't be inserted in a test. */
+    /** Tests supply the fund mapping (class name -> fund name) here; custom metadata can't be inserted in a test. */
     @TestVisible private static Map<String, String> fundMapOverride;
 
     // =============================================================================================
@@ -112,7 +116,8 @@ public without sharing class QuickBooksEventProcessor implements Database.Batcha
         String payerEmail;
         String memo;
         String paymentMethod;
-        Set<String> accountIds = new Set<String>();
+        Set<String> classNames = new Set<String>();
+        Boolean unclassifiedLine = false;
         String raw;
     }
 
@@ -302,10 +307,7 @@ public without sharing class QuickBooksEventProcessor implements Database.Batcha
                     c.customerId = QuickBooksApi.refValue(entityRef);
                     c.payerName = QuickBooksApi.refName(entityRef);
                 }
-                String accountId = QuickBooksApi.refValue(detail.get('AccountRef'));
-                if (accountId != null) {
-                    c.accountIds.add(accountId);
-                }
+                addClass(c, QuickBooksApi.refName(detail.get('ClassRef')));
                 c.memo = QuickBooksApi.str(line.get('Description'));
                 c.raw = JSON.serialize(line);
             } else {
@@ -436,29 +438,46 @@ public without sharing class QuickBooksEventProcessor implements Database.Batcha
         c.raw = JSON.serialize(rec);
 
         if (type == 'Payment') {
-            // Income accounts live on the invoice(s) the payment paid.
+            // Classes live on the invoice(s) the payment paid.
             for (Object lo : QuickBooksApi.items(rec.get('Line'))) {
                 for (Object to : QuickBooksApi.items(QuickBooksApi.obj(lo) == null ? null : QuickBooksApi.obj(lo).get('LinkedTxn'))) {
                     Map<String, Object> t = QuickBooksApi.obj(to);
                     if (t != null && String.valueOf(t.get('TxnType')) == 'Invoice') {
-                        addSalesLineAccounts(QuickBooksApi.get('Invoice', String.valueOf(t.get('TxnId'))), c);
+                        addSalesLineClasses(QuickBooksApi.get('Invoice', String.valueOf(t.get('TxnId'))), c);
                     }
                 }
             }
         } else {
-            addSalesLineAccounts(rec, c);
+            addSalesLineClasses(rec, c);
         }
         return c;
     }
 
-    private static void addSalesLineAccounts(Map<String, Object> rec, Candidate c) {
+    /**
+     * The class of each item line on an invoice or sales receipt. Subtotal, discount and tax lines carry no
+     * class and are passed over. An item line without its own class takes the transaction's class (Finance may
+     * track one class per transaction); with neither, the line is unclassified and the fund is left to staff.
+     */
+    private static void addSalesLineClasses(Map<String, Object> rec, Candidate c) {
+        String headerClass = QuickBooksApi.refName(rec.get('ClassRef'));
+        // Loop: item lines only.
         for (Object lo : QuickBooksApi.items(rec.get('Line'))) {
             Map<String, Object> line = QuickBooksApi.obj(lo);
             Map<String, Object> sales = line == null ? null : QuickBooksApi.obj(line.get('SalesItemLineDetail'));
-            String accountId = sales == null ? null : QuickBooksApi.refValue(sales.get('ItemAccountRef'));
-            if (accountId != null) {
-                c.accountIds.add(accountId);
+            if (sales == null) {
+                continue;
             }
+            String className = QuickBooksApi.refName(sales.get('ClassRef'));
+            addClass(c, className != null ? className : headerClass);
+        }
+    }
+
+    /** Records one line's class by its full name ("Development:Dinner"), or that the line had none. */
+    private static void addClass(Candidate c, String className) {
+        if (String.isBlank(className)) {
+            c.unclassifiedLine = true;
+        } else {
+            c.classNames.add(className.trim());
         }
     }
 
@@ -590,19 +609,21 @@ public without sharing class QuickBooksEventProcessor implements Database.Batcha
             p.Source__c = 'QuickBooks';
         }
 
-        // Fund from the income account(s).
+        // Fund from the QuickBooks class(es) of the lines.
         List<String> notes = new List<String>();
         Set<String> gauNames = new Set<String>();
-        for (String accountId : c.accountIds) {
-            String gau = funds.get(accountId);
+        for (String className : c.classNames) {
+            String gau = funds.get(normalize(className));
             if (gau == null) {
-                notes.add('QuickBooks income account ' + accountId + ' is not mapped to a fund.');
+                notes.add('QuickBooks class "' + className + '" is not mapped to a fund - choose the fund.');
             } else {
                 gauNames.add(gau);
             }
         }
-        if (c.accountIds.isEmpty()) {
-            notes.add('No income account found in QuickBooks - choose the fund.');
+        if (c.classNames.isEmpty()) {
+            notes.add('No QuickBooks class on this transaction - choose the fund.');
+        } else if (c.unclassifiedLine) {
+            notes.add('Some QuickBooks lines have no class - choose the fund.');
         } else if (gauNames.size() > 1) {
             notes.add('The QuickBooks lines span several funds (' + String.join(new List<String>(gauNames), ', ') + ') - choose the fund.');
         } else if (gauNames.size() == 1 && notes.isEmpty()) {
@@ -624,15 +645,18 @@ public without sharing class QuickBooksEventProcessor implements Database.Batcha
     // Lookups
     // =============================================================================================
 
-    /** QuickBooks account id -> fund (GAU) name, from active QuickBooks Fund Map records. */
+    /** QuickBooks class full name (normalized) -> fund (GAU) name, from active QuickBooks Fund Map records. */
     private static Map<String, String> fundMap() {
-        if (fundMapOverride != null) {
-            return fundMapOverride;
-        }
         Map<String, String> out = new Map<String, String>();
+        if (fundMapOverride != null) {
+            for (String className : fundMapOverride.keySet()) {
+                out.put(normalize(className), fundMapOverride.get(className));
+            }
+            return out;
+        }
         for (QuickBooks_Fund_Map__mdt m : QuickBooks_Fund_Map__mdt.getAll().values()) {
-            if (m.Active__c && String.isNotBlank(m.QBO_Account_Id__c) && String.isNotBlank(m.GAU_Name__c)) {
-                out.put(m.QBO_Account_Id__c.trim(), m.GAU_Name__c.trim());
+            if (m.Active__c && String.isNotBlank(m.QBO_Class_Name__c) && String.isNotBlank(m.GAU_Name__c)) {
+                out.put(normalize(m.QBO_Class_Name__c), m.GAU_Name__c.trim());
             }
         }
         return out;

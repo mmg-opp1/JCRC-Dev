@@ -3,8 +3,8 @@
  *
  *              The mock QuickBooks serves the shapes of the real sandbox records captured on 2026-09-17:
  *              deposit 145 (a direct Wire-Transfer line from Diego Rodriguez), payment 146 (in Undeposited
- *              Funds, paying invoice 67) deposited by deposit 147, and invoice 67 whose two lines hit two
- *              different income accounts. Variations cover check and cash lines, a payment deposited straight to the
+ *              Funds, paying invoice 67) deposited by deposit 147, and invoice 67 whose two lines carry two
+ *              different classes (Development:Dinner and Development, as in deposit 151 of 2026-10-23). Variations cover check and cash lines, a payment deposited straight to the
  *              bank, updates, deletes, retries and the customer link.
  *
  *              Each test processes ONE event after Test.startTest(): Salesforce refuses a callout after a
@@ -20,6 +20,9 @@
  * 2026-10-23 - Jason Ott - Checks are imported like ACH/wire: check line, deposited check payment, default and setting
  *                          method names, large-deposit bulk reads and callout-budget failure; the mock answers queries;
  *                          and cash still skipped (replaces checkLineIsSkipped).
+ * 2026-10-23 - Jason Ott - Fund from the QuickBooks class: fixtures carry ClassRef, the fund map is keyed by class
+ *                          name; new tests for case-insensitive matching, a line with no class, the sales
+ *                          receipt's own class and an unclassified item line.
  */
 @IsTest
 private class QuickBooksEventProcessorTest {
@@ -93,7 +96,7 @@ private class QuickBooksEventProcessorTest {
         return m;
     }
 
-    /** Deposit 145: one direct Wire-Transfer line from customer 4, income account 85. */
+    /** Deposit 145: one direct Wire-Transfer line from customer 4, class Development:Dinner. */
     private static Map<String, Object> deposit145(Decimal amount, String methodName) {
         return new Map<String, Object>{
             'Id' => '145', 'TxnDate' => '2026-09-17', 'TotalAmt' => amount, 'DepositToAccountRef' => ref('35', 'Checking'),
@@ -103,6 +106,7 @@ private class QuickBooksEventProcessorTest {
                 'DepositLineDetail' => new Map<String, Object>{
                     'Entity' => new Map<String, Object>{ 'value' => '4', 'name' => 'Diego Rodriguez', 'type' => 'CUSTOMER' },
                     'AccountRef' => ref('85', 'Billable Expense Income'),
+                    'ClassRef' => ref('1000000003', 'Development:Dinner'),
                     'PaymentMethodRef' => ref(methodName == 'Check' ? '2' : '1000000001', methodName),
                     'CheckNum' => '123456' } } } };
     }
@@ -127,9 +131,11 @@ private class QuickBooksEventProcessorTest {
             'Id' => '67', 'CustomerRef' => ref('1', 'Amy\'s Bird Sanctuary'),
             'Line' => new List<Object>{
                 new Map<String, Object>{ 'Amount' => 150, 'DetailType' => 'SalesItemLineDetail',
-                    'SalesItemLineDetail' => new Map<String, Object>{ 'ItemAccountRef' => ref('49', 'Plants and Soil') } },
+                    'SalesItemLineDetail' => new Map<String, Object>{ 'ItemAccountRef' => ref('49', 'Plants and Soil'),
+                        'ClassRef' => ref('1000000003', 'Development:Dinner') } },
                 new Map<String, Object>{ 'Amount' => 275, 'DetailType' => 'SalesItemLineDetail',
-                    'SalesItemLineDetail' => new Map<String, Object>{ 'ItemAccountRef' => ref('48', 'Fountains') } },
+                    'SalesItemLineDetail' => new Map<String, Object>{ 'ItemAccountRef' => ref('48', 'Fountains'),
+                        'ClassRef' => ref('1000000001', 'Development') } },
                 new Map<String, Object>{ 'Amount' => 425, 'DetailType' => 'SubTotalLineDetail' } } });
         m.put('customer/4', new Map<String, Object>{ 'Id' => '4', 'DisplayName' => 'Diego Rodriguez',
             'PrimaryEmailAddr' => new Map<String, Object>{ 'Address' => 'Diego@Rodriguez.com' } });
@@ -194,7 +200,7 @@ private class QuickBooksEventProcessorTest {
 
     @IsTest
     static void directWireLineBecomesPendingTransaction() {
-        QuickBooksEventProcessor.fundMapOverride = new Map<String, String>{ '85' => 'QB Test Fund' };
+        QuickBooksEventProcessor.fundMapOverride = new Map<String, String>{ 'Development:Dinner' => 'QB Test Fund' };
         Test.setMock(HttpCalloutMock.class, realSandbox());
         QuickBooks_Event__c e = event('deposit', 'created', '145');
 
@@ -216,7 +222,7 @@ private class QuickBooksEventProcessorTest {
         System.assertEquals('diego@rodriguez.com', p.Payer_Email__c, 'Salesforce stores email in lower case');
         System.assertEquals('TEST TRANSACTION', p.Memo__c);
         System.assertEquals('4', p.QuickBooks_Customer_Id__c);
-        System.assertEquals('QB Test Fund', p.Fund__r.Name, 'fund from the mapped income account');
+        System.assertEquals('QB Test Fund', p.Fund__r.Name, 'fund from the mapped class');
         System.assertEquals(null, p.Import_Note__c);
         System.assert(p.Raw_Data__c.contains('"deposit"'));
 
@@ -228,9 +234,9 @@ private class QuickBooksEventProcessorTest {
 
 
     @IsTest
-    static void depositOfPaymentUsesThePaymentsCustomerAndInvoiceAccounts() {
+    static void depositOfPaymentUsesThePaymentsCustomerAndInvoiceClasses() {
         // Invoice 67's two lines map to two different funds -> fund left for staff with a note.
-        QuickBooksEventProcessor.fundMapOverride = new Map<String, String>{ '49' => 'QB Test Fund', '48' => 'QB Other Fund' };
+        QuickBooksEventProcessor.fundMapOverride = new Map<String, String>{ 'Development:Dinner' => 'QB Test Fund', 'Development' => 'QB Other Fund' };
         Test.setMock(HttpCalloutMock.class, realSandbox());
         QuickBooks_Event__c depositEvent = event('deposit', 'created', '147');
 
@@ -265,9 +271,14 @@ private class QuickBooksEventProcessorTest {
     }
 
     @IsTest
-    static void unmappedAccountAndCheckLinesAreHandled() {
-        QuickBooksEventProcessor.fundMapOverride = new Map<String, String>();
+    static void unmappedClassLeavesFundBlank() {
+        // Only Development:Dinner is mapped; plain Development (Mark Cho's line in deposit 151) is left to staff.
+        QuickBooksEventProcessor.fundMapOverride = new Map<String, String>{ 'Development:Dinner' => 'QB Test Fund' };
         MockQuickBooks mock = realSandbox();
+        Map<String, Object> dep = deposit145(50, 'Check');
+        Map<String, Object> detail = (Map<String, Object>) ((Map<String, Object>) ((List<Object>) dep.get('Line'))[0]).get('DepositLineDetail');
+        detail.put('ClassRef', ref('1000000001', 'Development'));
+        mock.put('deposit/145', dep);
         Test.setMock(HttpCalloutMock.class, mock);
         QuickBooks_Event__c e = event('deposit', 'created', '145');
         Test.startTest();
@@ -275,12 +286,40 @@ private class QuickBooksEventProcessorTest {
         Test.stopTest();
         Pending_Transaction__c p = pendingByExternalId('qbo-deposit-145-l1');
         System.assertEquals(null, p.Fund__c);
-        System.assert(p.Import_Note__c.contains('not mapped to a fund'), p.Import_Note__c);
+        System.assert(p.Import_Note__c.contains('QuickBooks class "Development" is not mapped to a fund'), p.Import_Note__c);
+    }
+
+    @IsTest
+    static void classIsMatchedIgnoringCase() {
+        QuickBooksEventProcessor.fundMapOverride = new Map<String, String>{ ' development:DINNER ' => 'QB Test Fund' };
+        Test.setMock(HttpCalloutMock.class, realSandbox());
+        QuickBooks_Event__c e = event('deposit', 'created', '145');
+        Test.startTest();
+        QuickBooksEventProcessor.process(e.Id);
+        Test.stopTest();
+        System.assertEquals('QB Test Fund', pendingByExternalId('qbo-deposit-145-l1').Fund__r.Name);
+    }
+
+    @IsTest
+    static void lineWithNoClassLeavesFundBlank() {
+        QuickBooksEventProcessor.fundMapOverride = new Map<String, String>{ 'Development:Dinner' => 'QB Test Fund' };
+        MockQuickBooks mock = realSandbox();
+        Map<String, Object> dep = deposit145(50, 'Check');
+        ((Map<String, Object>) ((Map<String, Object>) ((List<Object>) dep.get('Line'))[0]).get('DepositLineDetail')).remove('ClassRef');
+        mock.put('deposit/145', dep);
+        Test.setMock(HttpCalloutMock.class, mock);
+        QuickBooks_Event__c e = event('deposit', 'created', '145');
+        Test.startTest();
+        QuickBooksEventProcessor.process(e.Id);
+        Test.stopTest();
+        Pending_Transaction__c p = pendingByExternalId('qbo-deposit-145-l1');
+        System.assertEquals(null, p.Fund__c);
+        System.assert(p.Import_Note__c.contains('No QuickBooks class'), p.Import_Note__c);
     }
 
     @IsTest
     static void checkLineBecomesCheckPendingTransaction() {
-        QuickBooksEventProcessor.fundMapOverride = new Map<String, String>{ '85' => 'QB Test Fund' };
+        QuickBooksEventProcessor.fundMapOverride = new Map<String, String>{ 'Development:Dinner' => 'QB Test Fund' };
         MockQuickBooks mock = realSandbox();
         mock.put('deposit/145', deposit145(50, 'Check'));
         Test.setMock(HttpCalloutMock.class, mock);
@@ -357,7 +396,8 @@ private class QuickBooksEventProcessorTest {
                     'LinkedTxn' => new List<Object>{ new Map<String, Object>{ 'TxnId' => invoiceId, 'TxnType' => 'Invoice' } } } } });
             mock.put('invoice/' + invoiceId, new Map<String, Object>{ 'Id' => invoiceId,
                 'Line' => new List<Object>{ new Map<String, Object>{ 'Amount' => 100, 'DetailType' => 'SalesItemLineDetail',
-                    'SalesItemLineDetail' => new Map<String, Object>{ 'ItemAccountRef' => ref('85', null) } } } });
+                    'SalesItemLineDetail' => new Map<String, Object>{ 'ItemAccountRef' => ref('85', null),
+                        'ClassRef' => ref('1000000003', 'Development:Dinner') } } } });
             mock.put('customer/' + customerId, new Map<String, Object>{ 'Id' => customerId, 'DisplayName' => 'Donor ' + i });
         }
         mock.put('deposit/900', new Map<String, Object>{ 'Id' => '900', 'TxnDate' => '2026-10-23', 'Line' => lines });
@@ -367,7 +407,7 @@ private class QuickBooksEventProcessorTest {
     @IsTest
     static void largeCheckDepositIsReadInAFewQueries() {
         // 150 deposited check payments would take 450+ single reads; bulk queries keep it to a handful.
-        QuickBooksEventProcessor.fundMapOverride = new Map<String, String>{ '85' => 'QB Test Fund' };
+        QuickBooksEventProcessor.fundMapOverride = new Map<String, String>{ 'Development:Dinner' => 'QB Test Fund' };
         MockQuickBooks mock = largeCheckDeposit(150);
         Test.setMock(HttpCalloutMock.class, mock);
         QuickBooks_Event__c e = event('deposit', 'created', '900');
@@ -435,7 +475,7 @@ private class QuickBooksEventProcessorTest {
 
     @IsTest
     static void updatedDepositRefreshesButKeepsStaffChoices() {
-        QuickBooksEventProcessor.fundMapOverride = new Map<String, String>{ '85' => 'QB Test Fund' };
+        QuickBooksEventProcessor.fundMapOverride = new Map<String, String>{ 'Development:Dinner' => 'QB Test Fund' };
         MockQuickBooks mock = realSandbox();
         mock.put('deposit/145', deposit145(200.00, 'Wire-Transfer')); // Finance corrected the amount
         Test.setMock(HttpCalloutMock.class, mock);
@@ -538,7 +578,7 @@ private class QuickBooksEventProcessorTest {
 
     @IsTest
     static void paymentDepositedStraightToBankIsImported() {
-        QuickBooksEventProcessor.fundMapOverride = new Map<String, String>{ '49' => 'QB Test Fund', '48' => 'QB Test Fund' };
+        QuickBooksEventProcessor.fundMapOverride = new Map<String, String>{ 'Development:Dinner' => 'QB Test Fund', 'Development' => 'QB Test Fund' };
         MockQuickBooks mock = realSandbox();
         mock.put('payment/900', new Map<String, Object>{
             'Id' => '900', 'TxnDate' => '2026-09-16', 'TotalAmt' => 500, 'PaymentRefNum' => 'WIRE-77',
@@ -560,7 +600,53 @@ private class QuickBooksEventProcessorTest {
         System.assertEquals('annual gift', p.Memo__c);
         System.assertEquals('diego@rodriguez.com', p.Payer_Email__c, 'Salesforce stores email in lower case');
         System.assertEquals(null, p.Deposit_Reference__c);
-        System.assertEquals('QB Test Fund', p.Fund__r.Name, 'both invoice accounts map to one fund');
+        System.assertEquals('QB Test Fund', p.Fund__r.Name, 'both invoice classes map to one fund');
+    }
+
+    /** Sales receipt 902 deposited straight to the bank; one class for the whole transaction, none on its lines. */
+    private static Map<String, Object> salesReceipt902(List<Object> lines) {
+        return new Map<String, Object>{
+            'Id' => '902', 'TxnDate' => '2026-10-23', 'TotalAmt' => 250, 'CustomerRef' => ref('4', 'Diego Rodriguez'),
+            'DepositToAccountRef' => ref('35', null), 'PaymentMethodRef' => ref('1000000001', null),
+            'ClassRef' => ref('1000000003', 'Development:Dinner'), 'Line' => lines };
+    }
+
+    @IsTest
+    static void salesReceiptLinesWithoutClassUseTheTransactionClass() {
+        QuickBooksEventProcessor.fundMapOverride = new Map<String, String>{ 'Development:Dinner' => 'QB Test Fund' };
+        MockQuickBooks mock = realSandbox();
+        mock.put('salesreceipt/902', salesReceipt902(new List<Object>{
+            new Map<String, Object>{ 'Amount' => 250, 'SalesItemLineDetail' => new Map<String, Object>() },
+            new Map<String, Object>{ 'Amount' => 250, 'DetailType' => 'SubTotalLineDetail' } }));
+        Test.setMock(HttpCalloutMock.class, mock);
+        QuickBooks_Event__c e = event('salesreceipt', 'created', '902');
+        Test.startTest();
+        QuickBooksEventProcessor.process(e.Id);
+        Test.stopTest();
+        Pending_Transaction__c p = pendingByExternalId('qbo-salesreceipt-902');
+        System.assertEquals('QB Test Fund', p.Fund__r.Name, 'the subtotal line is passed over');
+        System.assertEquals(null, p.Import_Note__c);
+    }
+
+    @IsTest
+    static void unclassifiedItemLineLeavesFundBlank() {
+        // One line is Dinner, the other has no class at all (and no transaction class): staff decide.
+        QuickBooksEventProcessor.fundMapOverride = new Map<String, String>{ 'Development:Dinner' => 'QB Test Fund' };
+        MockQuickBooks mock = realSandbox();
+        Map<String, Object> receipt = salesReceipt902(new List<Object>{
+            new Map<String, Object>{ 'Amount' => 200, 'SalesItemLineDetail' => new Map<String, Object>{
+                'ClassRef' => ref('1000000003', 'Development:Dinner') } },
+            new Map<String, Object>{ 'Amount' => 50, 'SalesItemLineDetail' => new Map<String, Object>() } });
+        receipt.remove('ClassRef');
+        mock.put('salesreceipt/902', receipt);
+        Test.setMock(HttpCalloutMock.class, mock);
+        QuickBooks_Event__c e = event('salesreceipt', 'created', '902');
+        Test.startTest();
+        QuickBooksEventProcessor.process(e.Id);
+        Test.stopTest();
+        Pending_Transaction__c p = pendingByExternalId('qbo-salesreceipt-902');
+        System.assertEquals(null, p.Fund__c);
+        System.assert(p.Import_Note__c.contains('Some QuickBooks lines have no class'), p.Import_Note__c);
     }
 
     @IsTest

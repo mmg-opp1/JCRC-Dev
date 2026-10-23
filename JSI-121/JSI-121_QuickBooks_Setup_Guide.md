@@ -233,8 +233,9 @@ here; the endpoint also rejects webhooks from any other company.
   PaymentMethodRef **id only**; the customer is on the Payment, which sits in **Undeposited Funds** (account 4); its
   income accounts are on the **Invoice** it paid (ItemAccountRef per line).
 - **Decisions (Jason, 2026-09-17):** ACH/wire = payment method **"Wire-Transfer"** exactly (configurable list in
-  QuickBooks Settings > ACH/Wire Payment Methods); payments inside bank deposits happen; **fund = income account**,
-  mapped to NPSP GAUs by **Custom Metadata** (QuickBooks Fund Map); an invoice spanning several funds → fund blank +
+  QuickBooks Settings > ACH/Wire Payment Methods); payments inside bank deposits happen; **fund = income account**
+  (superseded 2026-10-23: fund = QuickBooks **class**, see below), mapped to NPSP GAUs by **Custom Metadata**
+  (QuickBooks Fund Map); an invoice spanning several funds → fund blank +
   note; **remember QuickBooks customer ↔ donor** on commit; payments/sales receipts deposited straight to a bank
   also count; a line never lacks a customer.
 - **Built:** `QuickBooksApi` (read-only GETs via the `Quickbooks` Named Credential, per-transaction cache, retryable
@@ -259,7 +260,7 @@ here; the endpoint also rejects webhooks from any other company.
 - **Gotchas:** long text fields can't be filtered in SOQL; Salesforce lower-cases Email fields; a test can't make a
   callout after DML in the same transaction — one event per test, history inserted before `Test.startTest()`.
 
-**Still open:** fund mapping records (QuickBooks income account id → GAU name) once Finance lists the accounts;
+**Still open:** ~~fund mapping records (QuickBooks income account id → GAU name)~~ replaced by class mapping 2026-10-23;
 nightly Change Data Capture safety net; production setup (§6).
 
 ### Phase 5c — nightly catch-up + event purge ✅ deployed to JCRC-Dev (2026-09-23)
@@ -311,7 +312,7 @@ receiver 95.2%, catch-up 96.7%, purge 96.4%.
   Matching ignores case and surrounding spaces only. The check number arrives in Reference Number.
 - **How Finance enters them (Jason):** a one-time donation is a line on a Bank Deposit; a pledge payment is recorded
   in Receive Payment and then included on a Bank Deposit. Both shapes were already handled. The fund comes from the
-  invoice a payment is applied to - no invoice, no fund (row note asks staff to choose).
+  class on the invoice a payment is applied to - no invoice, no fund (row note asks staff to choose).
 - **No backfill** (Jason): only deposits created or edited after go-live come in.
 - **Large-deposit safeguard:** a deposit's linked payments, receipts, invoices, customers and id-only payment methods
   are read up front with `select * from <Entity> where Id in (...)` (100 ids per query; `IN` on Id verified live
@@ -325,3 +326,29 @@ receiver 95.2%, catch-up 96.7%, purge 96.4%.
   (`0 0 3 * * ?`, same owner). Production will need the same.
 - **Tests:** 51/51 QuickBooks tests pass; QuickBooksApi 89.1%, processor 91.5%. Includes a 150-check deposit read in
   <= 12 callouts and a squeezed-budget deposit failing once with the plain reason.
+
+### Fund comes from the QuickBooks class ✅ (2026-10-23)
+- **Client decision (Jason):** QuickBooks accounts are no longer used for the fund; the **class** is. The class
+  **Dinner** (a sub-class of **Development**) is the gala: anything with it is GALA and is treated as such in Pending
+  Transactions.
+- **Mapping:** QuickBooks Fund Map custom metadata, field **QuickBooks Class** (`QBO_Class_Name__c`) → **Fund (GAU)
+  Name**. Matched on the class's **full name as QuickBooks sends it, parent included** (`Development:Dinner`),
+  ignoring case and surrounding spaces. Class ids are not used (they differ between sandbox and production). If
+  Finance renames or moves a class, update the record. The account fields (`QBO_Account_Id__c`,
+  `QBO_Account_Name__c`) were deleted - they had no records.
+- **Record:** `Development_Dinner` - `Development:Dinner` → **Gala Fund**. Gala Fund is ticked Gala, so those rows are
+  gala (Gala tab, gala tag, Event Registration link) with no other change.
+- **Where the class is read:** a direct deposit line's own class (verified live, deposit 151); for a deposited or
+  direct payment, the item lines of the invoice(s) it paid; for a sales receipt, its item lines. An item line with
+  no class of its own takes the transaction's class. Subtotal/tax/discount lines are passed over.
+- **Fund left blank with a note** when: no class at all; some item lines have no class; a class isn't mapped (e.g.
+  plain `Development`); the classes map to different funds. A fund already on the row is never overwritten.
+- **Live test (2026-10-23, sandbox deposit 151):** line 1 $100 Diego Rodriguez, class Development:Dinner →
+  **PT-00028 Gala Fund, gala**; line 2 $50 Mark Cho, class Development → **PT-00029** fund blank, note
+  "QuickBooks class "Development" is not mapped to a fund". Both Payment Method Check (first live check import).
+  Not yet seen live: a Receive Payment against an invoice with a class, then deposited.
+- **Tests:** QuickBooksEventProcessorTest 33/33 (new: unmapped class, case-insensitive match, no class, sales
+  receipt transaction class, unclassified item line).
+- **Production:** create fund **Gala Fund**, tick Gala (the Gala field itself is not in production yet - Open Items
+  20/21), turn on class tracking in the production QuickBooks company with the same class names, and deploy the
+  `Development_Dinner` record with the code.

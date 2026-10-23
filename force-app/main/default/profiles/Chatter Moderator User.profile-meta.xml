@@ -5391,12 +5391,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>QuickBooks_Fund_Map__mdt.QBO_Account_Id__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>QuickBooks_Fund_Map__mdt.QBO_Account_Name__c</field>
+        <field>QuickBooks_Fund_Map__mdt.QBO_Class_Name__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>

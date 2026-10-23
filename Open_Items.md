@@ -25,8 +25,9 @@
 
 ## Pending Transactions / QuickBooks (JSI-121)
 
-6. **Fund map empty** â€” `QuickBooks_Fund_Map__mdt` needs Finance's list of QuickBooks income accounts;
-   funds currently arrive blank.
+6. ~~**Fund map empty**~~ REPLACED 2026-10-23 - the fund now comes from the QuickBooks class (Jason: accounts no
+   longer used). One record: `Development:Dinner` → Gala Fund (gala). Other classes arrive with fund blank + note;
+   add records if Finance wants more classes mapped.
 7. **Finance's six questions unanswered** (`JSI-121/JSI-121_QuickBooks_Setup_Guide.md` Â§2). Import currently
    relies on the deposit line's payment method being "Wire-Transfer" (deposit 148 was skipped: no method).
 8. **D12 to confirm:** a short pledge payment's unpaid remainder keeps the original installment's date.
@@ -35,14 +36,19 @@
     QuickBooks credentials + scheduled jobs; website donations also not in prod, and
     `WebDonationProcessor` coverage (62.3%) blocks that deploy.
 23. **Checks import like ACH/wire (built 2026-10-23).** Default check methods Amazon Smile, Benevity, Check,
-    E-Check (all become Check); large-deposit safeguard built. Open: not yet seen live end to end - enter a check
-    deposit (and a Receive Payment + deposit) in the sandbox QuickBooks company and confirm the rows on the screen.
+    E-Check (all become Check); large-deposit safeguard built. Check deposit seen live 2026-10-23 (deposit 151 ->
+    PT-00028/29, Check). Open: a Receive Payment against an invoice with a class, then deposited - confirm the row
+    and its fund.
 24. **Test coverage blocks production deploys of four classes (found 2026-10-23).** WebDonationMappingController 0%,
     ThankYouLetterController 0%, WebDonationConfig 73.8%, WebDonationProcessor 62.3% (also item 10). The spelling
     sweep went to JCRC-Dev with NoTestRun (sandbox only) after 152/152 tests passed; production needs tests first.
 25. **Test Script 03 Word file still says "cheque" / "recognised".** It was open in Word during the American
     spelling sweep, so only its .md was fixed. Rebuild it with `Testing/tools/md_to_docx.py` once closed
     (it has no hand edits; 01/02/08 do, and needed no change).
+26. **Production for fund-from-class (built 2026-10-23).** Create fund "Gala Fund" and tick Gala (needs item 20's
+    `Gala__c` deploy first); turn on class tracking in the production QuickBooks company with the classes
+    Development and Development:Dinner; deploy `QuickBooks_Fund_Map.Development_Dinner` with the code. If the
+    production fund is named differently, change the record's Fund (GAU) Name to match.
 
 12. **Fundraisers cannot commit Pending Transactions (JCRC-Dev, since 2026-10-08).**
     `PendingTransactionServiceTest.fundraisingUserCanCommitGiftsAndPaymentsOnPledgesOwnedByOthers` now
@@ -97,4 +103,4 @@
 
 ## Repo
 
-11. **Unpushed commits** on `main` (23 after the American spelling sweep).
+11. **Unpushed commits** on `main` (24 after fund-from-class).
