@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Event_Id__c</fullName>
     <caseSensitive>false</caseSensitive>
-    <description>CloudEvents id Intuit gives the event. Unique, so a retried delivery is recognised and not stored twice. JSI-121 / Jason Ott.</description>
+    <description>CloudEvents id Intuit gives the event. Unique, so a retried delivery is recognized and not stored twice. JSI-121 / Jason Ott.</description>
     <externalId>true</externalId>
     <label>Event ID</label>
     <length>255</length>

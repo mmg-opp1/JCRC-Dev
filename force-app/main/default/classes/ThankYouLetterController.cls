@@ -19,6 +19,7 @@
  * Change Log:
  * -----------
  * 2026-08-19 - Jason Ott - Created (JSI-87 real client templates).
+ * 2026-10-23 - Jason Ott - American spelling throughout (no behavior change).
  */
 public with sharing class ThankYouLetterController {
 
@@ -73,7 +74,7 @@ public with sharing class ThankYouLetterController {
         }
     }
 
-    /** Addressee line - the contact where there is one, otherwise the organisation. */
+    /** Addressee line - the contact where there is one, otherwise the organization. */
     public String recipientName {
         get {
             Contact c = opp.npsp__Primary_Contact__r;

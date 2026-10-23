@@ -20,6 +20,7 @@
  *                          Board Membership Year (syncRolesFromYears / syncCurrentRoles), plus a nightly
  *                          sweep for the July 1 year change. New years seed the current one from the
  *                          term's role so a role entered on a new term is not reset to Member.
+ * 2026-10-23 - Jason Ott - American spelling throughout (no behavior change).
  */
 public with sharing class BoardTermService {
 
@@ -76,7 +77,7 @@ public with sharing class BoardTermService {
      * requires Status = Active *and* an unexpired date window, so it was already false either way.
      *
      * Runs after setEndDates, which is what fills in an End Date that was left blank; a term entered
-     * with a start date years ago is therefore recognised as historical on the way in.
+     * with a start date years ago is therefore recognized as historical on the way in.
      *
      * "Prospective" is left alone on purpose: that term never began, and calling it rolled off would
      * assert something about it that nobody has said.

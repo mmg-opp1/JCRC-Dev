@@ -68,7 +68,7 @@
 
 The send runs on the ASYNCHRONOUS (after-commit) path deliberately. A failing email inside a synchronous record-triggered flow throws CANNOT_EXECUTE_FLOW_TRIGGER and rolls back the save (proven on JSI-124 while the org-wide address is unverified). Marking a payment Paid must never fail because of email configuration - it drives deposits, reconciliation and the JSI-82 pledge stage automation. Running after commit also guarantees the roll-up summaries are final before the body is built.
 
-Stays silent - by design - when the gift is not one of the three record types, has only one payment, is written off, or has no primary contact (common on organisational pledges).
+Stays silent - by design - when the gift is not one of the three record types, has only one payment, is written off, or has no primary contact (common on organizational pledges).
 
 Deliberately silent too when this payment CLEARS the balance: that case is the plan completing, and the single completion message is sent by Opportunity_Notify_Final_Payment at the Opportunity level. Sending it from here produced one duplicate per payment whenever a deposit batch cleared several installments in one save (verified: two installments in one save produced two &quot;fully paid&quot; emails). JSI-125 / Jason Ott.
 

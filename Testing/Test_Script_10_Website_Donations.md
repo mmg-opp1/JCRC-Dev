@@ -170,7 +170,7 @@ You do not need to stick to the suggestions below.
 
 A donor double-clicks the submit button, or refreshes and submits again. See whether you end up with one gift or two, and which you would want.
 
-### The donor the system half recognises
+### The donor the system half recognizes
 
 Somebody who gives online using a different email from the one you hold, or a nickname, or their work address. See whether they are matched, duplicated, or left in limbo.
 

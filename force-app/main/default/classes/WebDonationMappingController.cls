@@ -24,6 +24,7 @@
  * Change Log:
  * -----------
  * 2026-08-21 - Jason Ott - Created (Website Donations phase 3).
+ * 2026-10-23 - Jason Ott - American spelling throughout (no behavior change).
  */
 public with sharing class WebDonationMappingController {
 
@@ -444,7 +445,7 @@ public with sharing class WebDonationMappingController {
 
         if (s.accountHandling == 'MatchOrganization' && String.isBlank(s.organizationPayloadKey)) {
             throw new AuraHandledException(
-                'Matching an organisation needs the payload key holding the company name.');
+                'Matching an organization needs the payload key holding the company name.');
         }
 
         Metadata.CustomMetadata md = new Metadata.CustomMetadata();

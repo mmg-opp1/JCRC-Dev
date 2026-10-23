@@ -48,6 +48,7 @@
  * 2026-10-09 - Jason Ott - Added Matches JSON output for the UnofficialSF Datatable (Apex-defined
  *                          mode), so a screen can show each match's score and reasons and let the
  *                          user pick one. See matchRow() for the columns.
+ * 2026-10-23 - Jason Ott - American spelling throughout (no behavior change).
  */
 public without sharing class ContactMatcher {
 
@@ -173,15 +174,15 @@ public without sharing class ContactMatcher {
     }
 
     // ------------------------------------------------------------------
-    // Normalised view of one request
+    // Normalized view of one request
     // ------------------------------------------------------------------
 
-    /** A request with every value normalised once, up front, for comparison. */
+    /** A request with every value normalized once, up front, for comparison. */
     @TestVisible
     private class Probe {
         Request source;
-        String first;        // normalised first name (first word only)
-        String last;         // normalised last name
+        String first;        // normalized first name (first word only)
+        String last;         // normalized last name
         String lastRaw;      // trimmed as typed, for the SOQL prefix
         String email;
         String phone;        // last 10 digits
@@ -501,7 +502,7 @@ public without sharing class ContactMatcher {
             why.add('Zip matches');
         }
 
-        // Company: the Contact's primary affiliation or organisation account (households skipped).
+        // Company: the Contact's primary affiliation or organization account (households skipped).
         if (String.isNotBlank(p.company) && companyMatches(p.company, c)) {
             points += W_COMPANY;
             why.add('Company matches');
@@ -573,7 +574,7 @@ public without sharing class ContactMatcher {
     // ------------------------------------------------------------------
 
     /**
-     * @description True when two (normalised) names are close: they share a whole word of three
+     * @description True when two (normalized) names are close: they share a whole word of three
      *              or more letters ("Smith-Jones" / "Smith"), or the spelling differs by no more
      *              than the allowance for their length (see typoAllowance).
      */
@@ -707,7 +708,7 @@ public without sharing class ContactMatcher {
     }
 
     // ------------------------------------------------------------------
-    // Normalisers (shared by request and Contact, so both sides are treated alike)
+    // Normalizers (shared by request and Contact, so both sides are treated alike)
     // ------------------------------------------------------------------
 
     /** Lower case, apostrophes and periods removed (O'Brien = OBrien), hyphens become spaces. */

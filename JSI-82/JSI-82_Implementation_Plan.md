@@ -106,7 +106,7 @@ totals only for **Won** opportunities. Hence:
 | **Pledged** | ✅ | ✅ | Committed → full amount recognized (receivable booked); Remaining Balance = outstanding receivable. |
 | **Posted** | ✅ | ✅ | **All** installments collected. |
 | **Partially Posted** | ✅ | ✅ | Some collected, remainder written off (donor stopped). Final. §6.3. |
-| **Written Off** | ✅ | ✗ | Committed but **zero** collected → removed from gift totals. §6.2. *(Deployed API value/label = "Written Off"; the slash in "Written Off / Cancelled" broke StandardValueSet↔BusinessProcess matching. Display label can be changed to "Written Off / Cancelled" while keeping the API value "Written Off" — pending confirmation.)* |
+| **Written Off** | ✅ | ✗ | Committed but **zero** collected → removed from gift totals. §6.2. *(Deployed API value/label = "Written Off"; the slash in "Written Off / Canceled" broke StandardValueSet↔BusinessProcess matching. Display label can be changed to "Written Off / Canceled" while keeping the API value "Written Off" — pending confirmation.)* |
 
 *"Posted" is shared by both processes (one picklist value, included in both business
 processes). Stages are wired to record types via business processes.*
@@ -136,7 +136,7 @@ per-record exceptions. Pledge/Grant schedules are built **manually** via Schedul
 - **Donations:** no auto-close; fundraiser sets **Posted** manually when collected.
 
 ### 5.6 Write-off & lifecycle automation — **[Flow + Docs]**
-- **Written Off / Cancelled** (zero collected): fundraiser sets the stage → Flow writes off
+- **Written Off / Canceled** (zero collected): fundraiser sets the stage → Flow writes off
   all payments; stage is **Closed/not-Won**, removing the pledge from gift totals.
 - **Partially Posted** (some collected): fundraiser sets the stage → Flow performs the §6.3
   reconciliation (per the chosen Option).
@@ -164,8 +164,8 @@ Rollups can't target Opportunity. **DLRS can.**
 with no record edit. DLRS rollup = **Realtime** (edits) **+ scheduled nightly Full Calculate**
 (date rollover). DLRS docs are explicit that date-relative rollups need this.
 
-### 6.2 Full default → Written Off / Cancelled (zero collected)
-Fundraiser sets stage **Written Off / Cancelled** → Flow writes off all payments. Stage is
+### 6.2 Full default → Written Off / Canceled (zero collected)
+Fundraiser sets stage **Written Off / Canceled** → Flow writes off all payments. Stage is
 **not Won** → the pledge drops out of donor/campaign gift totals (you don't credit a gift never
 paid). Original `Amount` may remain as historical record (it no longer rolls up).
 
@@ -212,12 +212,12 @@ Example: $5,000 pledge, $4,000 collected, $1,000 uncollected.
    *Payment Amount Received*, *Remaining Balance*, *Payment Writeoff Amount*, *Amount Due To
    Date*.
 4. **Lifecycle automation [Flow]:** fully-paid→Posted (Pledge); Partially Posted reconciliation
-   (per §6.3 Option); Written Off/Cancelled write-off-all.
+   (per §6.3 Option); Written Off/Canceled write-off-all.
 5. **Reporting [UI]:** Outstanding Pledges (Remaining Balance > 0), Pledges Due This Fiscal
    Year, Overdue Pledges (Amount Due To Date > 0); optional dashboard.
 6. **Validation, docs, test [CLI/Docs]:** optional validation; runbooks; end-to-end test incl.
    the $1,000 due-to-date example, full pay → Posted, partial default → Partially Posted, zero
-   → Written Off/Cancelled, and confirm rollups. Deploy via source; capture in repo.
+   → Written Off/Canceled, and confirm rollups. Deploy via source; capture in repo.
 
 ---
 
@@ -232,7 +232,7 @@ Example: $5,000 pledge, $4,000 collected, $1,000 uncollected.
 | 5 | Amount Due = expected-to-date unpaid (DLRS, §6.1). Partial-default handling §6.3. |
 | 6 | **7 record types** (Donation default), visible to System Admin + JCRC – Fundraising. |
 | R-Q3 | **Grant** treated like Pledge (manual schedule, exclude auto-create). |
-| R-Stages | **Written Off / Cancelled** stage (Closed/not-Won) for zero-collected defaults. |
+| R-Stages | **Written Off / Canceled** stage (Closed/not-Won) for zero-collected defaults. |
 | R-Partial | Partial defaults → **Partially Posted** (Closed/Won); **Option B** selected (§6.3) — 🚩 **needs client confirmation before go-live**. |
 
 **Verify before/at build:** §6.3 Option B with the **client** (it overwrites `Amount` and skips
@@ -246,11 +246,11 @@ native write-off); Max Payments value behavior in-org; final custom field names
 | Item | Type |
 |------|------|
 | Donation, Pledge, Grant, In-Kind, Major, Matching, Securities | Opportunity Record Types (Donation default; repurpose `NPSP_Default`) |
-| Donation pipeline (Prospecting, Cultivating, Posted, Declined) + Pledge lifecycle (Pledged, Posted, Partially Posted, Written Off/Cancelled) | Stages + business processes |
+| Donation pipeline (Prospecting, Cultivating, Posted, Declined) + Pledge lifecycle (Pledged, Posted, Partially Posted, Written Off/Canceled) | Stages + business processes |
 | RT visibility + default | Profile updates (System Admin, JCRC – Fundraising) |
 | `Amount_Due_To_Date__c` (+ `Pledge_Written_Off__c` if Option B) | Custom field(s) on Opportunity |
 | DLRS rollup + **nightly Full Calculate** | DLRS config + scheduled job |
-| Fully-paid→Posted; Partially-Posted; Written-Off/Cancelled | Record-triggered Flows |
+| Fully-paid→Posted; Partially-Posted; Written-Off/Canceled | Record-triggered Flows |
 | Payment exclusions; Max Payments; **auto-close left blank** | NPSP settings |
 | Pledge reports (3) + optional dashboard; runbooks | Reports + Docs |
 
@@ -389,7 +389,7 @@ profile RT visibility + FLS. DLRS rollup + nightly recalc and payment settings d
 **🚩 Client confirmation before go-live:**
 - [ ] **§6.3 Option B** (Partially Posted overwrites `Amount` to collected; uncollected → custom
   `Pledge_Written_Off__c`, not native write-off). Fallback = Option C.
-- [ ] **"Written Off" stage** display label (kept API value "Written Off"; could show "Written Off / Cancelled").
+- [ ] **"Written Off" stage** display label (kept API value "Written Off"; could show "Written Off / Canceled").
 
 **🚩 Before PROD deploy:**
 - [ ] **Flow hardcoded RecordType IDs** (Pledge `…Dq9QAE`, Grant `…Dq5QAE`) — won't translate to

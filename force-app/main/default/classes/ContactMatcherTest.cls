@@ -14,6 +14,7 @@
  * -----------
  * 2026-10-09 - Jason Ott - Initial version.
  * 2026-10-09 - Jason Ott - Matches JSON output for the Datatable component.
+ * 2026-10-23 - Jason Ott - American spelling throughout (no behavior change).
  */
 @IsTest
 private class ContactMatcherTest {
@@ -196,7 +197,7 @@ private class ContactMatcherTest {
         Assert.isFalse(res.hasMatches);
     }
 
-    /** The flow's minimum score and maximum results are honoured. */
+    /** The flow's minimum score and maximum results are honored. */
     @IsTest
     static void minimumScoreAndMaxResults() {
         ContactMatcher.Request r = new ContactMatcher.Request();
@@ -232,9 +233,9 @@ private class ContactMatcherTest {
         Assert.areEqual('Weak', res.topConfidence);
     }
 
-    /** Normalisers: the comparisons depend on these. */
+    /** Normalizers: the comparisons depend on these. */
     @IsTest
-    static void normalisers() {
+    static void normalizers() {
         Assert.areEqual('123 w 5th st', ContactMatcher.normalizeStreet('123 West 5th Street, Apt. 4B'));
         Assert.areEqual('123 w 5th st', ContactMatcher.normalizeStreet('123 W 5th St #4B'));
         Assert.areEqual('2125551120', ContactMatcher.normalizePhone('1 (212) 555-1120'));

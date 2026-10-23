@@ -8,6 +8,7 @@
  * -----------
  * 2026-09-01 - Jason Ott - Cover the double-click duplicate guards on createMeeting and saveAssignment.
  * 2026-09-02 - Jason Ott - Cover committee meetings and their attendance.
+ * 2026-10-23 - Jason Ott - American spelling throughout (no behavior change).
  */
 @isTest
 private class BoardManagementControllerTest {
@@ -153,7 +154,7 @@ private class BoardManagementControllerTest {
 
     /**
      * The list a committee's member screen reads must reflect a write that just happened. This is the
-     * behaviour that broke when getAssignments was cacheable: the added member was not in the result.
+     * behavior that broke when getAssignments was cacheable: the added member was not in the result.
      */
     @isTest
     static void addedMemberIsInTheNextRead() {

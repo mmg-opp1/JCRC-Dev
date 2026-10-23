@@ -28,6 +28,7 @@
  *                          with a gala fund or campaign, which also stay on the QuickBooks tab and get a
  *                          small Gala tag. The gala toggle gains QuickBooks. Gala fund/campaign ids are
  *                          passed to the editor.
+ * 2026-10-23 - Jason Ott - American spelling throughout (no behavior change).
  */
 import { LightningElement, wire } from 'lwc';
 import { CurrentPageReference } from 'lightning/navigation';
@@ -76,7 +77,7 @@ const GALA_FILTERS = [
     { key: SOURCE_QUICKBOOKS, label: SOURCE_QUICKBOOKS }
 ];
 
-/** Badge colour per source (see .pt-src_* in the CSS). */
+/** Badge color per source (see .pt-src_* in the CSS). */
 const SOURCE_BADGE = {
     [SOURCE_GALA_WEBSITE]: 'gala-website',
     [SOURCE_JCRC_GALA]: 'jcrc-gala',

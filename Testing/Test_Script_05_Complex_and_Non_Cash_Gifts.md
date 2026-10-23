@@ -22,7 +22,7 @@ A few things worth saying plainly:
 
 ## Scope
 
-The gifts that are not simply a cheque, and the tax questions that come with them:
+The gifts that are not simply a check, and the tax questions that come with them:
 
 - Gifts of goods or services rather than money
 - Gifts of stock

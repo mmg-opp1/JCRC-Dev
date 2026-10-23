@@ -29,7 +29,7 @@
  *                  or no longer ACH/wire or check are removed while still pending;
  *                - a line imported before but no longer pending was committed or deleted by staff, so it is
  *                  NOT created again (the event's Imported External IDs are the memory of this, and a line already
- *                  committed is recognised from the source id stamped on the gift or payment - which outlives any
+ *                  committed is recognized from the source id stamped on the gift or payment - which outlives any
  *                  purge of old events);
  *                - deleted/voided: still-pending rows are removed; committed ones are reported on the event.
  *
@@ -50,6 +50,7 @@
  *                          and each row's Payment Method comes from the list its QuickBooks method matched.
  *                          Default check methods Amazon Smile, Benevity, Check, E-Check. Large-deposit safeguard:
  *                          prefetchForDeposit() bulk reads; Raw Data holds the deposit header, not every line.
+ * 2026-10-23 - Jason Ott - American spelling (normalized, recognized).
  */
 public without sharing class QuickBooksEventProcessor implements Database.Batchable<SObject>, Database.AllowsCallouts {
 
@@ -651,7 +652,7 @@ public without sharing class QuickBooksEventProcessor implements Database.Batcha
     }
 
     /**
-     * QuickBooks payment method name (normalised) -> the Pending Transaction Payment Method it imports as.
+     * QuickBooks payment method name (normalized) -> the Pending Transaction Payment Method it imports as.
      * Only lines whose method is in here are imported. A name in both lists counts as ACH/Wire.
      */
     private static Map<String, String> importedMethods(QuickBooks_Settings__c cfg) {

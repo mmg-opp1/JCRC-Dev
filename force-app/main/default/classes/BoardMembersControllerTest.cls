@@ -10,6 +10,7 @@
  * 2026-09-01 - Jason Ott - Cover deleteBoardMember: the attendance block, the Contact surviving,
  *                          and giving summaries surviving.
  * 2026-09-01 - Jason Ott - Cover the Status roll-off once a term's End Date has passed.
+ * 2026-10-23 - Jason Ott - American spelling throughout (no behavior change).
  */
 @isTest
 private class BoardMembersControllerTest {
@@ -367,7 +368,7 @@ private class BoardMembersControllerTest {
             .Current_Board_Member__c, 'and the contact flag is clear');
     }
 
-    /** A historical term entered with dates in the past is recognised as over on the way in. */
+    /** A historical term entered with dates in the past is recognized as over on the way in. */
     @isTest
     static void aTermEnteredWithPastDatesIsBornRolledOff() {
         Board_Member_Type__c mt = new Board_Member_Type__c(Name = 'Historic T',

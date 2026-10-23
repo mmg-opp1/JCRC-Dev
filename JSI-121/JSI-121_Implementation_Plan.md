@@ -383,7 +383,7 @@ controller class + tab **DefaultOn** for System Administrator, JCRC - Fundraisin
   Notes; Discard changes / Save / Commit (saves first, commits only if the saved row is Ready).
 - Selection bar: count · total · ready; **Confirm N suggested donors**, **Set fields…** (bulk Campaign /
   Fund / Approach / Record type, each with its own tick box so leave-alone ≠ clear), **Commit N ready**
-  (confirm dialog summarising gifts vs payments and skipped rows; sent in chunks of 20; results panel with
+  (confirm dialog summarizing gifts vs payments and skipped rows; sent in chunks of 20; results panel with
   links to created gifts/pledges and failures with their reasons).
 - House rules kept: reload on arrival (CurrentPageReference) + refresh button; nothing cacheable; edits sent
   as JSON strings; buttons lock while Apex runs; errors read from wherever Salesforce puts them.

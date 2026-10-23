@@ -61,11 +61,11 @@ export default class WebDonationMapping extends LightningElement {
     ];
     accountOptions = [
         { label: 'Leave to NPSP (household account)', value: 'NPSPDefault' },
-        { label: 'Use the organisation when the form supplies one', value: 'MatchOrganization' },
-        { label: 'Always use an organisation account', value: 'AlwaysOrganization' }
+        { label: 'Use the organization when the form supplies one', value: 'MatchOrganization' },
+        { label: 'Always use an organization account', value: 'AlwaysOrganization' }
     ];
     orgNoMatchOptions = [
-        { label: 'Create the organisation account', value: 'CreateAccount' },
+        { label: 'Create the organization account', value: 'CreateAccount' },
         { label: 'Fall back to the household account', value: 'UseHousehold' },
         { label: 'Fail the submission for review', value: 'Fail' }
     ];

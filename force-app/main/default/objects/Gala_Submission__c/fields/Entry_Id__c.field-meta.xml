@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Entry_Id__c</fullName>
     <caseSensitive>false</caseSensitive>
-    <description>The form entry id. Unique, so a resend of the same submission is recognised rather than stored twice. Gala sponsorship intake (JSI-121 related) / Jason Ott.</description>
+    <description>The form entry id. Unique, so a resend of the same submission is recognized rather than stored twice. Gala sponsorship intake (JSI-121 related) / Jason Ott.</description>
     <externalId>true</externalId>
     <label>Form Entry ID</label>
     <length>255</length>

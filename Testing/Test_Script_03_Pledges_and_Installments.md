@@ -125,7 +125,7 @@ from one to the other, that is worth telling us.
 
 ### Scenario 3: Take a payment
 
-**The situation.** The first installment cheque arrives.
+**The situation.** The first installment check arrives.
 
 **What to do.** Open a pledge, find the payment that is due, and mark it paid with the date it arrived.
 
@@ -139,7 +139,7 @@ from one to the other, that is worth telling us.
 
 **What to do.** Find a pledge with more than one installment left and mark them all paid.
 
-**What you should see.** The pledge is recognised as complete. Importantly, the donor should get **one** completion message, not one per installment. Tell us immediately if you see duplicates.
+**What you should see.** The pledge is recognized as complete. Importantly, the donor should get **one** completion message, not one per installment. Tell us immediately if you see duplicates.
 
 ---
 

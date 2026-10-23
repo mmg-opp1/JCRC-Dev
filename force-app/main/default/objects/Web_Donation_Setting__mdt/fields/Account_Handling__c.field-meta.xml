@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Account_Handling__c</fullName>
-    <description>Where the gift is accounted. NPSP default puts an individual gift on their household account. Match organisation routes the gift to an Organization account when the form supplies a company name, which matters for how corporate gifts are credited. Website Donations / Jason Ott.</description>
+    <description>Where the gift is accounted. NPSP default puts an individual gift on their household account. Match organization routes the gift to an Organization account when the form supplies a company name, which matters for how corporate gifts are credited. Website Donations / Jason Ott.</description>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <label>Account Handling</label>
     <required>false</required>
@@ -18,12 +18,12 @@
             <value>
                 <fullName>MatchOrganization</fullName>
                 <default>false</default>
-                <label>Use the organisation when the form supplies one</label>
+                <label>Use the organization when the form supplies one</label>
             </value>
             <value>
                 <fullName>AlwaysOrganization</fullName>
                 <default>false</default>
-                <label>Always use an organisation account</label>
+                <label>Always use an organization account</label>
             </value>
         </valueSetDefinition>
     </valueSet>

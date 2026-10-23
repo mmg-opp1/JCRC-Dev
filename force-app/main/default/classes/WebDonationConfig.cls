@@ -29,6 +29,7 @@
  *                          context instead of failing on every submission. applyValue no
  *                          longer gates on FLS, which was silently emptying every mapped
  *                          Contact and Opportunity field for the guest user.
+ * 2026-10-23 - Jason Ott - American spelling throughout (no behavior change).
  */
 public without sharing class WebDonationConfig {
 
@@ -149,10 +150,10 @@ public without sharing class WebDonationConfig {
         if (String.isBlank(incomingValue)) {
             return null;
         }
-        String needle = normalise(incomingValue);
+        String needle = normalize(incomingValue);
         Web_Donation_Value_Map__mdt generic;
         for (Web_Donation_Value_Map__mdt v : valueMaps()) {
-            if (normalise(v.Incoming_Value__c) != needle) {
+            if (normalize(v.Incoming_Value__c) != needle) {
                 continue;
             }
             if (String.isBlank(v.Payload_Key__c)) {
@@ -164,7 +165,7 @@ public without sharing class WebDonationConfig {
         return generic;
     }
 
-    public static String normalise(String s) {
+    public static String normalize(String s) {
         return String.isBlank(s) ? '' : s.trim().removeEnd(':').trim().toLowerCase();
     }
 
@@ -212,7 +213,7 @@ public without sharing class WebDonationConfig {
         // is whether the field can be written AT ALL, which is a property of the field and not of
         // the user: a formula or auto-number cannot. put() throws on those, and the catch below
         // already turns that into a skip, which is the "stale mapping must not stop a gift"
-        // behaviour this method was written for.
+        // behavior this method was written for.
         if (d.isCalculated() || d.isAutoNumber()) {
             return false;
         }

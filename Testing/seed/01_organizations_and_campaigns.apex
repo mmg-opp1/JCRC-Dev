@@ -1,14 +1,14 @@
 /**
- * Seed 1 of 4 — organisations and campaigns.
+ * Seed 1 of 4 — organizations and campaigns.
  *
- * Invented data for client testing. Every organisation name is fictional; any resemblance to
+ * Invented data for client testing. Every organization name is fictional; any resemblance to
  * a real foundation is coincidental and unintended. Re-runnable: it skips anything already
  * present, so running it twice does not duplicate.
  *
  * Jason Ott, 2026-08-21.
  */
 
-// ---- organisations ---------------------------------------------------------------------
+// ---- organizations ---------------------------------------------------------------------
 Map<String, String> ORGS = new Map<String, String>{
     'Hartwell Family Foundation'        => 'Foundation',
     'Brightwater Charitable Trust'      => 'Foundation',
@@ -63,7 +63,7 @@ for (String name : ORGS.keySet()) {
     i++;
 }
 if (!newOrgs.isEmpty()) { insert newOrgs; }
-System.debug('organisations created: ' + newOrgs.size());
+System.debug('organizations created: ' + newOrgs.size());
 
 // ---- campaigns ---------------------------------------------------------------------------
 // "FY27 Israel Parade" matters beyond volume: the acknowledgment router picks the parade

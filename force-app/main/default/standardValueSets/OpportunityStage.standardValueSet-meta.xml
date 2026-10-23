@@ -144,7 +144,7 @@
     <standardValue>
         <fullName>Written Off</fullName>
         <default>false</default>
-        <description>Pledge committed but zero collected (written off / cancelled); removed from gift totals. Closed/Not Won. (JSI-82)</description>
+        <description>Pledge committed but zero collected (written off / canceled); removed from gift totals. Closed/Not Won. (JSI-82)</description>
         <label>Written Off</label>
         <closed>true</closed>
         <forecastCategory>Omitted</forecastCategory>

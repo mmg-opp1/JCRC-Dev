@@ -187,12 +187,12 @@ a $1,000 Donation booked to *Ott Family Fund* with Jason Ott as Primary Contact 
 
 **That fourth row is the proof this story is needed.** With today's rules, a DAF gift is
 already queued to receive the **standard general acknowledgement** — the tax-language letter
-the dictation exists to prevent. It is not a theoretical gap; it is the current behaviour.
+the dictation exists to prevent. It is not a theoretical gap; it is the current behavior.
 
 Worth noting the org settings alone would have predicted the *wrong* answer here:
 `npe01__Opportunity_Contact_Role_Default_role__c` is `Donor` and the soft-credit role list is
 `Matched Donor;Household Member;Soft Credit`. NPSP nonetheless assigned `Soft Credit` for the
-organisational gift. Reading the settings would have produced a confident wrong conclusion;
+organizational gift. Reading the settings would have produced a confident wrong conclusion;
 running it produced the right one.
 
 ### 5.2a Side finding — JSI-90 hard-credits what NPSP soft-credits
@@ -204,7 +204,7 @@ $1,000 for the donor, because it takes its hard-credit contact from
 Fund account separately carries the NPSP account hard credit.
 
 **This does not affect JSI-124** (the acknowledgment recipient is the same either way) and it
-may well be the desired behaviour — JSI-90's D5 settled that combined hard + soft qualifies
+may well be the desired behavior — JSI-90's D5 settled that combined hard + soft qualifies
 for a level, and JSI-123's `Board_Commitment_Applied__c` reads `Total_Giving` (hard + soft),
 so totals land correctly in both. It only skews the **hard-vs-soft split** on the Annual
 Giving Summary. Flagging it because JSI-80's original JCRC notes explicitly asked to
@@ -304,7 +304,7 @@ guidance remains on the Priority Guidance Plan.
 > position today. JCRC reported it as enforced, and JCRC is right. Treat this as a live rule,
 > not a forthcoming one.
 
-*How it is enforced in practice — at the sponsor.* The sponsoring organisation is the
+*How it is enforced in practice — at the sponsor.* The sponsoring organization is the
 enforcement point, because its own fund managers carry §4966/§4967 exposure. Fidelity
 Charitable and community foundations decline event-ticket and table grants outright, and
 specifically **will not cover any part of a ticket even where part of the price is
@@ -371,7 +371,7 @@ can already represent the problematic combination today.
 | **D2** | DAF channel + send mode | **✅ SETTLED 2026-08-17 (Jason): `Email` / `Approval-Gated`**, plus a report so staff can see which DAF gifts are awaiting approval. See §5.4. |
 | **D3** | Standard rules blank vs. `No` | **✅ SETTLED 2026-08-17 (Jason): fail closed** — if the DAF rule is deactivated, **no letter goes out**. The five standard rules get `DAF_Gift__c = No`. |
 | **D4** | Which date is the payment date (Q4) | Close Date unless the client reconciles from NPSP Payments |
-| **D5** | Name the sponsoring fund in the letter (Q9) | Yes — it is the sector-standard phrasing, and JCRC's donors will recognise it |
+| **D5** | Name the sponsoring fund in the letter (Q9) | Yes — it is the sector-standard phrasing, and JCRC's donors will recognize it |
 | **D6** | Build the gala/DAF bifurcation guard (Q8) | Ask the client first; do **not** build blind |
 
 ---

@@ -1,6 +1,6 @@
 /*
  * pendingTransactions - layout and look of the work queue (JSI-121). Author: Jason Ott.
- * Colours use SLDS global styling hooks with fallbacks, so the screen follows the org theme.
+ * Colors use SLDS global styling hooks with fallbacks, so the screen follows the org theme.
  */
 :host {
     --pt-radius: 0.75rem;

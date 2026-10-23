@@ -29,7 +29,7 @@ or acknowledgment design, which already exist.
 
 | Fact | State |
 |---|---|
-| Gravity Forms Webhooks add-on | POSTs JSON, supports **custom request headers**, fires conditionally. Needs **Elite or Nonprofit** licence — assumed available. |
+| Gravity Forms Webhooks add-on | POSTs JSON, supports **custom request headers**, fires conditionally. Needs **Elite or Nonprofit** license — assumed available. |
 | **GF cannot refresh an OAuth token** | It sends static header values (or merge tags). This is the single biggest constraint on the auth design. |
 | Salesforce Sites in org | **None.** No public endpoint exists. |
 | Apex REST classes in org | **None.** |
@@ -50,7 +50,7 @@ Conflating these is what makes this kind of integration go wrong.
 |---|---|---|
 | 1 | **Endpoint** — how the POST reaches Salesforce | Public **Salesforce Site + Apex REST** |
 | 2 | **Authentication** — how Salesforce trusts the POST | **Shared secret in a request header**, validated before any work |
-| 3 | **Parsing** — JSON to field values | **Apex** deserialises; hand off to Flow later only if admins need to change behaviour without a deploy |
+| 3 | **Parsing** — JSON to field values | **Apex** deserializes; hand off to Flow later only if admins need to change behavior without a deploy |
 | 4 | **Record shape** — what gets written | **One Opportunity + N GAU Allocations**, plus Contact resolution |
 | 5 | **Mapping maintenance** — how fields are added later | **Custom Metadata driven by an admin LWC**, so adding a field is configuration, not a deploy (§11) |
 
@@ -77,7 +77,7 @@ Gravity Forms (submission)
 Salesforce Site  ->  Apex REST  (@RestResource, guest user)
    |                   1. validate shared secret      <- before ANY work
    |                   2. reject duplicates on GF entry id
-   |                   3. deserialise + validate payload
+   |                   3. deserialize + validate payload
    |                   4. write a staging record      <- durable, always
    |                   5. return 200 fast
    v
@@ -273,7 +273,7 @@ where. That is a genuine privilege-escalation surface, not an admin convenience 
 | Need | Already exists |
 |---|---|
 | Write-in campaign capture + staff review queue | JSI-127 |
-| Tribute / in-honour / notification recipient, with fuzzy contact matching | JSI-89 (`TributeContactResolver`) |
+| Tribute / in-honor / notification recipient, with fuzzy contact matching | JSI-89 (`TributeContactResolver`) |
 | Deductible vs non-deductible split | JSI-86 |
 | Parade campaign letter | JSI-87 (routes on a campaign name containing "Parade") |
 | Integration run logging + reports | JSI-107 (`Integration_Log__c`) |
@@ -284,7 +284,7 @@ where. That is a genuine privilege-escalation surface, not an admin convenience 
 
 | Phase | Work |
 |---|---|
-| **0** | Confirm GF licence; agree the payload contract with whoever owns the form |
+| **0** | Confirm GF license; agree the payload contract with whoever owns the form |
 | **1** | Staging object + Apex REST endpoint + shared secret + Site with a least-privilege guest user. Prove a POST lands and returns 200. |
 | **2** | Async processing: Contact resolution, Opportunity, GAU Allocations |
 | **3** | Mapping tables (field + value) in Custom Metadata, and the Apex that applies them generically |
@@ -301,7 +301,7 @@ where. That is a genuine privilege-escalation surface, not an admin convenience 
 | # | Decision | Recommendation |
 |---|---|---|
 | D1 | Endpoint + auth | Site + Apex REST, shared secret header |
-| D2 | Parsing | Apex, with a Flow hand-off only if admins need to change behaviour |
+| D2 | Parsing | Apex, with a Flow hand-off only if admins need to change behavior |
 | D3 | Designation → GAU mapping, and the missing GAUs | Custom Metadata; JCRC owns the mapping |
 | D4 | Acknowledgment policy for website gifts (§9) | JCRC — likely suppress for small online gifts |
 | D5 | Processing fee — part of the gift, or tracked separately? | JCRC / finance |
@@ -317,7 +317,7 @@ where. That is a genuine privilege-escalation surface, not an admin convenience 
 1. **A public endpoint is a public endpoint.** The controls in §6 are the mitigation; skipping
    any one of them materially weakens it.
 2. **Silent data loss is the worst outcome.** Storing the raw payload before interpretation is
-   what prevents it — do not optimise this away.
+   what prevents it — do not optimize this away.
 3. **Gravity Forms will retry.** Without idempotency on the GF entry id, retries create
    duplicate gifts. This must exist from phase 1, not be added later.
 4. **The form can change without warning.** A new designation or a renamed field should degrade
@@ -332,10 +332,10 @@ where. That is a genuine privilege-escalation surface, not an admin convenience 
 
 ---
 
-## 16. Open, not yet analysed
+## 16. Open, not yet analyzed
 
 - The **exact field list** — the inventory gathered from the public donate page came from a
-  summarising fetch of rendered HTML and is indicative only. It should be confirmed against
+  summarizing fetch of rendered HTML and is indicative only. It should be confirmed against
   the form definition in Gravity Forms admin before the payload contract is fixed.
 - **Recurring donations** — not visible on the public page, and not discussed. If the form
   offers them, that is a materially different record shape (NPSP Recurring Donations) and
@@ -345,7 +345,7 @@ where. That is a genuine privilege-escalation surface, not an admin convenience 
 
 ## 17. Sources
 
-- Gravity Forms Webhooks add-on — capabilities and licence tier:
+- Gravity Forms Webhooks add-on — capabilities and license tier:
   <https://www.gravityforms.com/feature/webhooks/>,
   <https://docs.gravityforms.com/gform_webhooks_request_headers/>
 - Salesforce public Apex REST via Sites: <https://www.salesforceben.com/salesforce-webhooks-deep-dive/>

@@ -34,11 +34,12 @@
  * -----------
  * 2026-08-19 - Jason Ott - Created (Website Donations phase 2).
  * 2026-08-21 - Jason Ott - Now driven by the Web Donation Mapping configuration rather than
- *                          hard-coded field ids, match rules and account behaviour.
+ *                          hard-coded field ids, match rules and account behavior.
  * 2026-09-10 - Jason Ott - Fixed: no website donation had ever processed automatically. Runs
  *                          without sharing so the guest-user context can read its own staging
  *                          record, and the read is now inside the try so a failure lands on the
  *                          record as Failed instead of disappearing.
+ * 2026-10-23 - Jason Ott - American spelling throughout (no behavior change).
  */
 public without sharing class WebDonationProcessor implements Queueable {
 
@@ -237,7 +238,7 @@ public without sharing class WebDonationProcessor implements Queueable {
         }
 
         // The donor is always the primary contact; NPSP derives the household account from it
-        // unless the configuration says to use an organisation instead.
+        // unless the configuration says to use an organization instead.
         o.npsp__Primary_Contact__c = donor.Id;
 
         if (String.isBlank(o.Name)) {
@@ -285,7 +286,7 @@ public without sharing class WebDonationProcessor implements Queueable {
 
     /**
      * Decides where the gift is credited. NPSP default leaves AccountId unset and lets NPSP put
-     * an individual gift on their household account. The organisation options matter because a
+     * an individual gift on their household account. The organization options matter because a
      * corporate gift landing on someone's household account is credited to the wrong donor.
      */
     private static void applyAccountHandling(Opportunity o, Map<String, Object> payload,
@@ -299,7 +300,7 @@ public without sharing class WebDonationProcessor implements Queueable {
         if (String.isBlank(company)) {
             if (cfg.accountHandling == 'AlwaysOrganization') {
                 throw new ProcessingException(
-                    'Account handling is set to always use an organisation, but this submission '
+                    'Account handling is set to always use an organization, but this submission '
                     + 'has no company name.');
             }
             return;   // MatchOrganization with no company supplied: fall through to NPSP
@@ -401,7 +402,7 @@ public without sharing class WebDonationProcessor implements Queueable {
      * and tribute groups and reported "Yes, I want to pay the processing fee" as an unmapped
      * designation.
      *
-     * The consequence of deriving it: a designation the table has never seen is only recognised
+     * The consequence of deriving it: a designation the table has never seen is only recognized
      * once at least one sibling in its group has been mapped. That is the right trade - it means
      * the unmapped list holds real designations rather than every stray checkbox on the form.
      */

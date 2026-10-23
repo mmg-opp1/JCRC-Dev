@@ -37,6 +37,12 @@
 23. **Checks import like ACH/wire (built 2026-10-23).** Default check methods Amazon Smile, Benevity, Check,
     E-Check (all become Check); large-deposit safeguard built. Open: not yet seen live end to end - enter a check
     deposit (and a Receive Payment + deposit) in the sandbox QuickBooks company and confirm the rows on the screen.
+24. **Test coverage blocks production deploys of four classes (found 2026-10-23).** WebDonationMappingController 0%,
+    ThankYouLetterController 0%, WebDonationConfig 73.8%, WebDonationProcessor 62.3% (also item 10). The spelling
+    sweep went to JCRC-Dev with NoTestRun (sandbox only) after 152/152 tests passed; production needs tests first.
+25. **Test Script 03 Word file still says "cheque" / "recognised".** It was open in Word during the American
+    spelling sweep, so only its .md was fixed. Rebuild it with `Testing/tools/md_to_docx.py` once closed
+    (it has no hand edits; 01/02/08 do, and needed no change).
 
 12. **Fundraisers cannot commit Pending Transactions (JCRC-Dev, since 2026-10-08).**
     `PendingTransactionServiceTest.fundraisingUserCanCommitGiftsAndPaymentsOnPledgesOwnedByOthers` now
@@ -91,4 +97,4 @@
 
 ## Repo
 
-11. **Unpushed commits** on `main` (21 after the check-import commit).
+11. **Unpushed commits** on `main` (23 after the American spelling sweep).

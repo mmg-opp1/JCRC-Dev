@@ -84,7 +84,7 @@ that blocks a clean build.
    **Verified in-org the same day** (anon Apex, savepoint → rollback): a gift booked to
    *Ott Family Fund* with Jason Ott as Primary Contact produced exactly one OCR —
    `Role = Soft Credit`, `IsPrimary = true`. Jason's expectation is confirmed by the org's
-   real behaviour, not just by the settings. **Build consequence: the existing
+   real behavior, not just by the settings. **Build consequence: the existing
    acknowledgment email flow already targets `npsp__Primary_Contact__c`, so no recipient
    work is required — that whole phase drops.**
 2. ~~**What is a "Fund" account meant to represent?**~~ **✅ ANSWERED** — a donor's named

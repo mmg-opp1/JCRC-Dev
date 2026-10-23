@@ -26,7 +26,7 @@ Recording an ordinary gift and making sure it lands in the right place:
 
 - Entering a gift from an individual or an organization
 - Splitting one gift across more than one fund
-- Giving somebody credit for a gift they did not personally write the cheque for
+- Giving somebody credit for a gift they did not personally write the check for
 - Seeing a donor's history and what giving society they have reached
 - Entering several gifts in one sitting
 
@@ -96,7 +96,7 @@ from one to the other, that is worth telling us.
 
 ### Scenario 1: Record a gift from an individual
 
-**The situation.** A cheque for $500 arrives from an existing donor.
+**The situation.** A check for $500 arrives from an existing donor.
 
 **What to do.** Open the donor's Contact record and use the **New Contact Donation** button. Set the amount, the date it arrived, and a campaign. Save.
 
@@ -146,7 +146,7 @@ from one to the other, that is worth telling us.
 
 ### Scenario 6: Enter several gifts in one sitting
 
-**The situation.** The morning post has brought a dozen cheques.
+**The situation.** The morning post has brought a dozen checks.
 
 **What to do.** Go to the **Gift Entry** tab, at the end of the row of tabs, and work through entering a few gifts as a batch.
 
@@ -174,7 +174,7 @@ Change the amount. Change the date to last fiscal year. Change the designation a
 
 ### Credit that is not obvious
 
-A gift from a couple's joint account. A gift from a business owned by a donor. A gift where the cheque and the intent come from different people. Try to record those so the right person gets thanked and the right entity gets the receipt.
+A gift from a couple's joint account. A gift from a business owned by a donor. A gift where the check and the intent come from different people. Try to record those so the right person gets thanked and the right entity gets the receipt.
 
 ### The year boundary
 

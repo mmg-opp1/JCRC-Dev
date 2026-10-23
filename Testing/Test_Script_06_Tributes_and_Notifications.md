@@ -22,9 +22,9 @@ A few things worth saying plainly:
 
 ## Scope
 
-Gifts given in honour or in memory of somebody, and telling the right person about them:
+Gifts given in honor or in memory of somebody, and telling the right person about them:
 
-- Recording that a gift is in honour of, or in memory of, someone
+- Recording that a gift is in honor of, or in memory of, someone
 - Handling an honoree who is already in the database, and one who is not
 - Notifying the honoree or the family, and recording that you did
 - Seeing all the gifts connected to one honoree
@@ -37,7 +37,7 @@ Gifts given in honour or in memory of somebody, and telling the right person abo
 |---|---|
 | **Stories covered** | **JSI-89** Tribute gifts and notifications |
 
-A tribute is recorded on the gift itself: the **tribute type**, which is honour or memory,
+A tribute is recorded on the gift itself: the **tribute type**, which is honor or memory,
 and who the tribute is for.
 
 Where the honoree already exists in the database, the gift links to their record, so you can see
@@ -92,11 +92,11 @@ from one to the other, that is worth telling us.
 
 ---
 
-### Scenario 1: Record a gift in honour of someone
+### Scenario 1: Record a gift in honor of someone
 
-**The situation.** A donor gives in honour of a friend's milestone birthday, and the friend is already a JCRC constituent.
+**The situation.** A donor gives in honor of a friend's milestone birthday, and the friend is already a JCRC constituent.
 
-**What to do.** Create a gift and set the tribute type to honour, then connect it to the honoree's existing record.
+**What to do.** Create a gift and set the tribute type to honor, then connect it to the honoree's existing record.
 
 **What you should see.** The tribute recorded against the gift, and visible from the honoree's record too.
 
@@ -128,7 +128,7 @@ from one to the other, that is worth telling us.
 
 **What to do.** Run **Tribute Gifts by Honoree**.
 
-**What you should see.** All the gifts grouped by the person honoured, including ones where the name was typed in rather than linked. Tell us if free-typed names splinter into several groups when they should be one.
+**What you should see.** All the gifts grouped by the person honored, including ones where the name was typed in rather than linked. Tell us if free-typed names splinter into several groups when they should be one.
 
 ---
 
@@ -154,7 +154,7 @@ You do not need to stick to the suggestions below.
 
 ### The honoree who is also the donor
 
-Somebody gives in honour of themselves, or in honour of their own late spouse who is also in the database as a former donor. See what the system does.
+Somebody gives in honor of themselves, or in honor of their own late spouse who is also in the database as a former donor. See what the system does.
 
 ### Names that do not quite match
 

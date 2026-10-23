@@ -164,7 +164,7 @@ Somebody buys a table and adds a donation on top. Somebody sponsors a table for 
 
 ### The guest who is already a donor
 
-Add a guest whose name matches somebody in the database exactly, and another whose name is close but not identical. See which gets flagged and whether you agree with the judgement.
+Add a guest whose name matches somebody in the database exactly, and another whose name is close but not identical. See which gets flagged and whether you agree with the judgment.
 
 ### Cancellations and refunds
 

@@ -36,6 +36,7 @@
  * Change Log:
  * -----------
  * 2026-08-19 - Jason Ott - Created (Website Donations phase 1).
+ * 2026-10-23 - Jason Ott - American spelling throughout (no behavior change).
  */
 @RestResource(urlMapping='/webdonation/*')
 global without sharing class WebDonationReceiver {
@@ -56,7 +57,7 @@ global without sharing class WebDonationReceiver {
         res.addHeader('Content-Type', 'application/json');
 
         // ---- 1. authenticate BEFORE doing anything else ---------------------------------
-        if (!isAuthorised(req)) {
+        if (!isAuthorized(req)) {
             res.statusCode = 401;
             return new Result('unauthorized');
         }
@@ -117,7 +118,7 @@ global without sharing class WebDonationReceiver {
      * timing, and a blank configured secret always fails rather than accidentally allowing
      * everything through before the org has been set up.
      */
-    private static Boolean isAuthorised(RestRequest req) {
+    private static Boolean isAuthorized(RestRequest req) {
         Webhook_Config__c cfg = Webhook_Config__c.getOrgDefaults();
         String expected = (cfg == null) ? null : cfg.Shared_Secret__c;
         if (String.isBlank(expected)) {

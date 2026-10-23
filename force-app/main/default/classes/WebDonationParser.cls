@@ -1,5 +1,5 @@
 /**
- * @description Turns a raw Gravity Forms payload into a normalised structure the processor can
+ * @description Turns a raw Gravity Forms payload into a normalized structure the processor can
  *              use, so record creation never has to know that the donor's first name lives in
  *              field "1.3".
  *
@@ -22,6 +22,7 @@
  * Change Log:
  * -----------
  * 2026-08-19 - Jason Ott - Created (Website Donations phase 2).
+ * 2026-10-23 - Jason Ott - American spelling throughout (no behavior change).
  */
 public with sharing class WebDonationParser {
 

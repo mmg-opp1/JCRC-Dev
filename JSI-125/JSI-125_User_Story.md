@@ -77,7 +77,7 @@
 4. **Who receives it for a corporate / foundation / grant pledge?** DoD #1 explicitly covers
    *corporate, non-profit, grant, individual*. The notification targets
    `Opportunity.npsp__Primary_Contact__c` (the same field the acknowledgment engine uses).
-   For an organisational pledge that field may be blank, in which case nothing sends.
+   For an organizational pledge that field may be blank, in which case nothing sends.
    Should there be a fallback, or is "no primary contact means no notification" acceptable?
 5. **Written-off payments** — a written-off installment must presumably never notify.
    The plan excludes `npe01__Written_Off__c = true`. Confirm.
@@ -95,4 +95,4 @@
 - [`JSI-125_StoryDictationNotes.MD`](./JSI-125_StoryDictationNotes.MD) — Jason's dictation, the intent source.
 - `JSI-82/JSI-82_Implementation_Plan.md` — the pledge + NPSP Payments model this story sits on (DoD #1).
 - `JSI-87/` — the acknowledgment engine; shares the email-sending pattern and the OWEA dependency.
-- `JSI-124/JSI-124_Implementation_Plan.md` — where the OWEA blocking behaviour was discovered.
+- `JSI-124/JSI-124_Implementation_Plan.md` — where the OWEA blocking behavior was discovered.

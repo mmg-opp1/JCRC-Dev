@@ -10,7 +10,7 @@
 
 ## ⏱️ Where we are right now (2026-07-31 — weekend close)
 
-> **💻 Travelling? (added 2026-08-11)** This repo is prepared for laptop transfer. Copy the whole
+> **💻 Traveling? (added 2026-08-11)** This repo is prepared for laptop transfer. Copy the whole
 > folder to an external drive, drop it on the laptop, and run
 > `.\_ClaudeTransfer\Restore-OnThisPC.ps1` — it restores Claude's memory, the conversation
 > transcripts, and the gitignored secrets, then tells you which org logins are still needed

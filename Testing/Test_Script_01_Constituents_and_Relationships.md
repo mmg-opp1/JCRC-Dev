@@ -109,7 +109,7 @@ from one to the other, that is worth telling us.
 
 ### Scenario 2: Add a new individual donor
 
-**The situation.** A cheque arrives from someone who has never given before.
+**The situation.** A check arrives from someone who has never given before.
 
 **What to do.** Go to the **Contacts** tab and click **New**. Fill in a name and a mailing address. Save.
 
@@ -173,7 +173,7 @@ Enter someone who is already in the database, using a slightly different spellin
 
 ### The household that is not a household
 
-Two people at one address who are not a couple. A donor who gives from a personal account and a business account. A family where the cheque comes from one person but the recognition should go to both. Try to model those and see where it fights you.
+Two people at one address who are not a couple. A donor who gives from a personal account and a business account. A family where the check comes from one person but the recognition should go to both. Try to model those and see where it fights you.
 
 ### Someone whose details change
 

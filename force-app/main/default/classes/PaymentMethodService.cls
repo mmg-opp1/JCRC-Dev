@@ -14,6 +14,7 @@
  * 2026-09-03 - Jason Ott - Initial version.
  * 2026-09-03 - Jason Ott - Does not apply to Pledge or Grant.
  * 2026-09-16 - Jason Ott - toPaymentValue made public for PendingTransactionService (JSI-121).
+ * 2026-10-23 - Jason Ott - American spelling throughout (no behavior change).
  */
 public with sharing class PaymentMethodService {
 
@@ -21,7 +22,7 @@ public with sharing class PaymentMethodService {
      * The two picklists are not identical, and the Payment one is UNRESTRICTED - an unmapped value
      * would be written straight in and stored as a value the picklist does not offer, showing up
      * later as a stray entry in every report grouped by payment method. So values are translated
-     * where the two lists disagree, and anything still unrecognised is not written at all.
+     * where the two lists disagree, and anything still unrecognized is not written at all.
      *
      * Today the only disagreement is Opportunity "ACH/Wire" against Payment "ACH".
      */
@@ -73,7 +74,7 @@ public with sharing class PaymentMethodService {
     /**
      * The Opportunity's value expressed as a Payment value, or null when it cannot be represented.
      * Returning null on purpose: writing nothing is better than writing a value the picklist does
-     * not recognise, and it leaves whatever a person entered by hand alone.
+     * not recognize, and it leaves whatever a person entered by hand alone.
      * Public so the JSI-121 Pending Transactions engine translates the same way when it applies money
      * to a pledge installment directly.
      */
@@ -91,7 +92,7 @@ public with sharing class PaymentMethodService {
      * BEFORE insert on Payment - fill the method in from the parent gift.
      *
      * Only fills a blank. A payment created with a method already on it was given one deliberately
-     * (an import, or somebody splitting a pledge across a cheque and a card), and this is meant to
+     * (an import, or somebody splitting a pledge across a check and a card), and this is meant to
      * save data entry, not to overrule it.
      *
      * Runs while NPSP is auto-creating payments inside the Opportunity's own save, which is exactly

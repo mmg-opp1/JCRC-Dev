@@ -220,7 +220,7 @@
                         <lightning-combobox label="Account handling"
                             value={settings.accountHandling} options={accountOptions}
                             data-field="accountHandling" onchange={handleSettingChange}
-                            field-level-help="NPSP default puts an individual gift on their household account. Match organisation routes a gift to an Organization account when the form supplies a company name.">
+                            field-level-help="NPSP default puts an individual gift on their household account. Match organization routes a gift to an Organization account when the form supplies a company name.">
                         </lightning-combobox>
                     </div>
                     <div class="slds-col slds-size_1-of-2 slds-p-bottom_small" if:true={needsOrgKey}>
@@ -230,7 +230,7 @@
                         </lightning-input>
                     </div>
                     <div class="slds-col slds-size_1-of-2 slds-p-bottom_small" if:true={needsOrgKey}>
-                        <lightning-combobox label="When no organisation matches"
+                        <lightning-combobox label="When no organization matches"
                             value={settings.onOrganizationNoMatch} options={orgNoMatchOptions}
                             data-field="onOrganizationNoMatch" onchange={handleSettingChange}>
                         </lightning-combobox>

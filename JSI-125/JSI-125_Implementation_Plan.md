@@ -224,7 +224,7 @@ Profiles, not permission sets, via the additive minimal-profile deploy — **onl
 NPSP ships **no native per-payment donor notification**. It provides the payment *data model*
 (Payments with `npe01__Paid__c`, scheduling, write-offs, and the Opportunity roll-ups above)
 and a native **acknowledgment** feature for the gift itself — which this org has deliberately
-turned off in favour of the JSI-87 custom engine. So a payment-received notification is
+turned off in favor of the JSI-87 custom engine. So a payment-received notification is
 correctly a custom build, and the platform-standard way to build it is a record-triggered
 flow plus an email template, which is what this plan does.
 
@@ -242,12 +242,12 @@ first notification of every pledge.
    `development@jcrcny.org` is verified and Deliverability is set to *All email*. The async
    path (§2) means this degrades to a failed background job rather than a blocked payment,
    but the feature is not live until those are done.
-2. **Organisational pledges may have no primary contact** (Q4). The flow ends quietly in that
+2. **Organizational pledges may have no primary contact** (Q4). The flow ends quietly in that
    case. Quiet is safe, but it is also invisible — consider a report of paid installments on
    qualifying record types with no primary contact, so silent non-delivery is noticeable.
 3. **Bulk payment updates.** Marking many payments Paid at once (a deposit batch) will
    generate one email per payment. That is correct per donor, but worth sanity-checking
-   against the async path's bulk behaviour during build.
+   against the async path's bulk behavior during build.
 4. **Pre-existing: `Opportunity_FullyPaidPledgeToPosted` hardcodes record-type Ids** and
    covers only Grant + Pledge, not Major Gift. Not caused by this story and not in its scope,
    but it means a fully-paid **Major Gift** does not auto-flip to Posted — so if DoD #3 keyed
@@ -280,14 +280,14 @@ first notification of every pledge.
 | **D1** | Record type **AND** >1 payment, or record type alone? | **✅ Both.** A pledge settled in a single payment sends nothing — accepted trade-off, verified as scenario C2. |
 | **D2** | Name the specific payment in the email? | **✅ No.** State that a payment was received, plus **the date**, total paid to date, remaining, and total commitment. Since the date is still required and Payment fields are not mergeable, this became a native **roll-up** rather than a stamped field — see §5.3a. |
 | **D3** | Is DoD #3 (final-payment message) in scope? | **✅ Yes** — built as the second template on the same flow. Also restated in **JSI-126** (§5.6). |
-| **D4** | Fallback recipient for organisational pledges? | **✅ Quiet no-send is fine.** |
+| **D4** | Fallback recipient for organizational pledges? | **✅ Quiet no-send is fine.** |
 | **D5** | Exclude written-off payments? | **✅ Yes** — though NPSP makes it impossible anyway (§11). |
 
 ---
 
 ## 10. Sources
 
-- Verified in-org behaviour, JCRC-Dev, 2026-08-17 (anon Apex, savepoint → rollback) — §3.
+- Verified in-org behavior, JCRC-Dev, 2026-08-17 (anon Apex, savepoint → rollback) — §3.
 - In-repo: `JSI-82/` (pledge + payments model, DoD #1), `JSI-87/` (email pattern + OWEA), `JSI-124/` (the save-blocking email finding).
 
 ---
