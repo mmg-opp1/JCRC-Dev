@@ -7,9 +7,10 @@
  *              administrator - never as the site guest user.
  *
  *              WHAT COUNTS AS MONEY IN (decisions 2026-09-17, Jason):
- *                - A BANK DEPOSIT is the trigger. Each deposit line paid by an ACH/wire payment method
- *                  (QuickBooks Settings > ACH/Wire Payment Methods; "Wire-Transfer" by default) becomes one
- *                  pending transaction. Two kinds of line:
+ *                - A BANK DEPOSIT is the trigger. Each deposit line paid by an ACH/wire or check payment method
+ *                  (QuickBooks Settings > ACH/Wire Payment Methods, "Wire-Transfer" by default; Check Payment
+ *                  Methods, "Check" by default) becomes one pending transaction, its Payment Method set to
+ *                  ACH/Wire or Check by the list that matched. Two kinds of line:
  *                    * a direct line - customer, income account, payment method and reference are on the line;
  *                    * a line depositing an earlier Payment or Sales Receipt (LinkedTxn) - the customer comes
  *                      from that payment, and the income account from the invoice(s) it paid (or the sales
@@ -25,7 +26,7 @@
  *              UPDATES AND DELETES:
  *                - created/updated: pending rows for the record are refreshed (amount, date, reference, payer,
  *                  memo, note - not the donor, routing or fund staff may have chosen); lines no longer present
- *                  or no longer ACH/wire are removed while still pending;
+ *                  or no longer ACH/wire or check are removed while still pending;
  *                - a line imported before but no longer pending was committed or deleted by staff, so it is
  *                  NOT created again (the event's Imported External IDs are the memory of this, and a line already
  *                  committed is recognised from the source id stamped on the gift or payment - which outlives any
@@ -43,12 +44,16 @@
  * 2026-09-17 - Jason Ott - Initial version (JSI-121 Phase 5b).
  * 2026-09-23 - Jason Ott - Phase 5c: a line already committed as a gift or payment is never re-created, so
  *                          purging old events cannot resurrect committed money.
+ * 2026-10-23 - Jason Ott - Checks are imported like ACH/wire (client decision): Check Payment Methods setting,
+ *                          and each row's Payment Method comes from the list its QuickBooks method matched.
  */
 public without sharing class QuickBooksEventProcessor implements Database.Batchable<SObject>, Database.AllowsCallouts {
 
     public static final Integer MAX_ATTEMPTS = 5;
     @TestVisible private static final String DEFAULT_ACH_WIRE_METHODS = 'Wire-Transfer';
-    private static final String PAYMENT_METHOD_VALUE = 'ACH/Wire';
+    @TestVisible private static final String DEFAULT_CHECK_METHODS = 'Check';
+    private static final String ACH_WIRE_VALUE = 'ACH/Wire';
+    private static final String CHECK_VALUE = 'Check';
 
     /** Tests supply the fund mapping here; custom metadata records can't be inserted in a test. */
     @TestVisible private static Map<String, String> fundMapOverride;
@@ -101,6 +106,7 @@ public without sharing class QuickBooksEventProcessor implements Database.Batcha
         String payerName;
         String payerEmail;
         String memo;
+        String paymentMethod;
         Set<String> accountIds = new Set<String>();
         String raw;
     }
@@ -192,7 +198,7 @@ public without sharing class QuickBooksEventProcessor implements Database.Batcha
                 if (dep == null) {
                     removal = true; // deleted in QuickBooks since the event
                 } else {
-                    candidates = depositCandidates(dep, achWireMethods(cfg), out);
+                    candidates = depositCandidates(dep, importedMethods(cfg), out);
                 }
             }
             reconcile(out, ev, prefix, candidates, removal);
@@ -214,7 +220,7 @@ public without sharing class QuickBooksEventProcessor implements Database.Batcha
                         out.notes.add('In Undeposited Funds - it will come in with its bank deposit.');
                         return out;
                     }
-                    Candidate c = linkedCandidate(qbEntity, rec, achWireMethods(cfg), null, out);
+                    Candidate c = linkedCandidate(qbEntity, rec, importedMethods(cfg), null, out);
                     if (c != null) {
                         c.externalId = externalId;
                         c.externalType = entity == 'payment' ? 'Payment' : 'Sales Receipt';
@@ -236,14 +242,14 @@ public without sharing class QuickBooksEventProcessor implements Database.Batcha
     // Reading QuickBooks records into candidates
     // =============================================================================================
 
-    private static List<Candidate> depositCandidates(Map<String, Object> dep, Set<String> methods, Outcome out) {
+    private static List<Candidate> depositCandidates(Map<String, Object> dep, Map<String, String> methods, Outcome out) {
         List<Candidate> result = new List<Candidate>();
         String depositId = QuickBooksApi.str(dep.get('Id'));
         Date txnDate = parseDate(dep.get('TxnDate'));
         Integer index = 0;
         Integer skipped = 0;
 
-        // Loop: one candidate per ACH/wire line.
+        // Loop: one candidate per ACH/wire or check line.
         for (Object o : QuickBooksApi.items(dep.get('Line'))) {
             index++;
             Map<String, Object> line = QuickBooksApi.obj(o);
@@ -268,12 +274,13 @@ public without sharing class QuickBooksEventProcessor implements Database.Batcha
                     QuickBooksApi.items(line.get('LinkedTxn'))[0]).get('TxnType')) + ', which is not imported.');
                 continue;
             } else if (detail != null) {
-                String methodName = paymentMethodName(detail.get('PaymentMethodRef'));
-                if (!methods.contains(normalise(methodName))) {
+                String methodName = normalise(paymentMethodName(detail.get('PaymentMethodRef')));
+                if (!methods.containsKey(methodName)) {
                     skipped++;
                     continue;
                 }
                 c = new Candidate();
+                c.paymentMethod = methods.get(methodName);
                 String lineId = QuickBooksApi.str(line.get('Id'));
                 c.externalId = 'qbo-deposit-' + depositId + '-' + (lineId != null ? 'l' + lineId : 'n' + index);
                 c.externalType = 'Deposit';
@@ -309,23 +316,25 @@ public without sharing class QuickBooksEventProcessor implements Database.Batcha
             result.add(c);
         }
         if (skipped > 0) {
-            out.notes.add(skipped + ' deposit line(s) skipped - payment method is not ACH/wire.');
+            out.notes.add(skipped + ' deposit line(s) skipped - payment method is not ACH/wire or check.');
         }
         return result;
     }
 
     /**
      * A Payment or Sales Receipt, either deposited by a bank deposit line or deposited straight to a bank.
-     * Returns null when its payment method isn't ACH/wire.
+     * Returns null when its payment method isn't ACH/wire or check.
      */
-    private static Candidate linkedCandidate(String type, Map<String, Object> rec, Set<String> methods,
+    private static Candidate linkedCandidate(String type, Map<String, Object> rec, Map<String, String> methods,
                                              Map<String, Object> depositLineDetail, Outcome out) {
         Object methodRef = depositLineDetail != null && depositLineDetail.get('PaymentMethodRef') != null
             ? depositLineDetail.get('PaymentMethodRef') : rec.get('PaymentMethodRef');
-        if (!methods.contains(normalise(paymentMethodName(methodRef)))) {
+        String methodName = normalise(paymentMethodName(methodRef));
+        if (!methods.containsKey(methodName)) {
             return null;
         }
         Candidate c = new Candidate();
+        c.paymentMethod = methods.get(methodName);
         c.customerId = QuickBooksApi.refValue(rec.get('CustomerRef'));
         c.payerName = QuickBooksApi.refName(rec.get('CustomerRef'));
         c.amount = rec.get('TotalAmt') == null ? null : Decimal.valueOf(String.valueOf(rec.get('TotalAmt')));
@@ -459,7 +468,7 @@ public without sharing class QuickBooksEventProcessor implements Database.Batcha
             }
         }
         if (removed > 0) {
-            out.notes.add('Removed ' + removed + ' pending transaction(s) no longer in QuickBooks as ACH/wire.');
+            out.notes.add('Removed ' + removed + ' pending transaction(s) no longer in QuickBooks as ACH/wire or check.');
         }
         if (removal && removed == 0 && !importedBefore.isEmpty()) {
             out.notes.add('Deleted or voided in QuickBooks after it was committed or deleted in Salesforce - check the gift.');
@@ -467,7 +476,7 @@ public without sharing class QuickBooksEventProcessor implements Database.Batcha
         if (out.inserts.isEmpty() && out.updates.isEmpty() && removed == 0 && candidates.isEmpty() && !removal
                 && out.notes.isEmpty()) {
             out.status = 'Ignored';
-            out.notes.add('No ACH/wire money in this transaction.');
+            out.notes.add('No ACH/wire or check money in this transaction.');
         }
     }
 
@@ -479,7 +488,7 @@ public without sharing class QuickBooksEventProcessor implements Database.Batcha
             Transaction_Date__c = c.txnDate,
             Deposit_Date__c = c.depositReference == null ? null : c.txnDate,
             Deposit_Reference__c = c.depositReference,
-            Payment_Method__c = PAYMENT_METHOD_VALUE,
+            Payment_Method__c = c.paymentMethod,
             Reference_Number__c = c.reference == null ? null : c.reference.left(255),
             Payer_Name__c = c.payerName == null ? null : c.payerName.left(255),
             Payer_Email__c = isEmail(c.payerEmail) ? c.payerEmail : null,
@@ -551,15 +560,24 @@ public without sharing class QuickBooksEventProcessor implements Database.Batcha
         return out;
     }
 
-    private static Set<String> achWireMethods(QuickBooks_Settings__c cfg) {
-        String raw = String.isBlank(cfg.ACH_Wire_Payment_Methods__c) ? DEFAULT_ACH_WIRE_METHODS : cfg.ACH_Wire_Payment_Methods__c;
-        Set<String> out = new Set<String>();
-        for (String s : raw.split(',')) {
+    /**
+     * QuickBooks payment method name (normalised) -> the Pending Transaction Payment Method it imports as.
+     * Only lines whose method is in here are imported. A name in both lists counts as ACH/Wire.
+     */
+    private static Map<String, String> importedMethods(QuickBooks_Settings__c cfg) {
+        Map<String, String> out = new Map<String, String>();
+        addMethods(out, String.isBlank(cfg.Check_Payment_Methods__c) ? DEFAULT_CHECK_METHODS : cfg.Check_Payment_Methods__c, CHECK_VALUE);
+        addMethods(out, String.isBlank(cfg.ACH_Wire_Payment_Methods__c) ? DEFAULT_ACH_WIRE_METHODS : cfg.ACH_Wire_Payment_Methods__c, ACH_WIRE_VALUE);
+        return out;
+    }
+
+    /** Adds each name in a comma-separated setting, mapped to one Payment Method value. */
+    private static void addMethods(Map<String, String> out, String commaSeparated, String value) {
+        for (String s : commaSeparated.split(',')) {
             if (String.isNotBlank(s)) {
-                out.add(normalise(s));
+                out.put(normalise(s), value);
             }
         }
-        return out;
     }
 
     /** The payment method's name; the reference on a deposit line often carries only the id. */

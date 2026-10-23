@@ -301,3 +301,13 @@ receiver 95.2%, catch-up 96.7%, purge 96.4%.
 **Scheduled in JCRC-Dev:** `QuickBooks Sweeper 00`–`55` (every 5 min), `QuickBooks Catch-Up` (03:00),
 `QuickBooks Event Purge` (03:30).
 
+### Checks import like ACH/wire ✅ (2026-10-23)
+- **Client decision:** check donations come in from QuickBooks automatically, exactly like ACH/wire - same webhook,
+  same Pending Transactions screen; JCRC staff review and commit them.
+- **Setting:** QuickBooks Settings > **Check Payment Methods** (comma-separated; blank = `Check`). A deposit line,
+  payment or sales receipt whose payment method is in this list becomes a pending transaction with
+  **Payment Method = Check**; one in ACH/Wire Payment Methods gets **ACH/Wire** (a name in both counts as ACH/Wire).
+  The check number arrives in Reference Number (deposit line CheckNum, or the payment's reference number).
+- **Tests:** 48/48 QuickBooks tests pass; processor coverage 91.1%. Cash and other methods are still skipped; a line
+  changed from wire to check keeps its row and is relabelled Check.
+

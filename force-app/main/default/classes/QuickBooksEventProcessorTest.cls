@@ -4,7 +4,7 @@
  *              The mock QuickBooks serves the shapes of the real sandbox records captured on 2026-09-17:
  *              deposit 145 (a direct Wire-Transfer line from Diego Rodriguez), payment 146 (in Undeposited
  *              Funds, paying invoice 67) deposited by deposit 147, and invoice 67 whose two lines hit two
- *              different income accounts. Variations cover a check line, a payment deposited straight to the
+ *              different income accounts. Variations cover check and cash lines, a payment deposited straight to the
  *              bank, updates, deletes, retries and the customer link.
  *
  *              Each test processes ONE event after Test.startTest(): Salesforce refuses a callout after a
@@ -17,6 +17,8 @@
  * -----------
  * 2026-09-17 - Jason Ott - Initial version (JSI-121 Phase 5b).
  * 2026-09-23 - Jason Ott - Phase 5c: a committed line is never re-created.
+ * 2026-10-23 - Jason Ott - Checks are imported like ACH/wire: check line, deposited check payment, setting names,
+ *                          and cash still skipped (replaces checkLineIsSkipped).
  */
 @IsTest
 private class QuickBooksEventProcessorTest {
@@ -256,10 +258,62 @@ private class QuickBooksEventProcessorTest {
     }
 
     @IsTest
-    static void checkLineIsSkipped() {
-        QuickBooksEventProcessor.fundMapOverride = new Map<String, String>();
+    static void checkLineBecomesCheckPendingTransaction() {
+        QuickBooksEventProcessor.fundMapOverride = new Map<String, String>{ '85' => 'QB Test Fund' };
         MockQuickBooks mock = realSandbox();
         mock.put('deposit/145', deposit145(50, 'Check'));
+        Test.setMock(HttpCalloutMock.class, mock);
+        QuickBooks_Event__c e = event('deposit', 'created', '145');
+        Test.startTest();
+        QuickBooksEventProcessor.process(e.Id);
+        Test.stopTest();
+        Pending_Transaction__c p = pendingByExternalId('qbo-deposit-145-l1');
+        System.assertNotEquals(null, p, 'a check is imported like ACH/wire');
+        System.assertEquals('Check', p.Payment_Method__c);
+        System.assertEquals('123456', p.Reference_Number__c, 'check number');
+        System.assertEquals(50, p.Amount__c);
+        System.assertEquals('QB Test Fund', p.Fund__r.Name);
+        System.assertEquals('Processed', reload(e.Id).Status__c);
+    }
+
+    @IsTest
+    static void depositOfCheckPaymentIsImportedAsCheck() {
+        // The deposit line carries the payment method as an id only; QuickBooks names it "Check".
+        QuickBooksEventProcessor.fundMapOverride = new Map<String, String>();
+        MockQuickBooks mock = realSandbox();
+        mock.put('paymentmethod/1000000001', new Map<String, Object>{ 'Id' => '1000000001', 'Name' => 'Check' });
+        Test.setMock(HttpCalloutMock.class, mock);
+        QuickBooks_Event__c e = event('deposit', 'created', '147');
+        Test.startTest();
+        QuickBooksEventProcessor.process(e.Id);
+        Test.stopTest();
+        Pending_Transaction__c p = pendingByExternalId('qbo-deposit-147-payment-146');
+        System.assertNotEquals(null, p);
+        System.assertEquals('Check', p.Payment_Method__c);
+        System.assertEquals('12345', p.Reference_Number__c);
+        System.assertEquals('Amy\'s Bird Sanctuary', p.Payer_Name__c);
+    }
+
+    @IsTest
+    static void checkMethodNamesComeFromSettings() {
+        // Finance's own name for checks, set in QuickBooks Settings; plain "Check" then no longer counts.
+        update new QuickBooks_Settings__c(Id = QuickBooks_Settings__c.getOrgDefaults().Id, Check_Payment_Methods__c = 'Paper Check, Cheque');
+        QuickBooksEventProcessor.fundMapOverride = new Map<String, String>();
+        MockQuickBooks mock = realSandbox();
+        mock.put('deposit/145', deposit145(75, ' cheque '));
+        Test.setMock(HttpCalloutMock.class, mock);
+        QuickBooks_Event__c e = event('deposit', 'created', '145');
+        Test.startTest();
+        QuickBooksEventProcessor.process(e.Id);
+        Test.stopTest();
+        System.assertEquals('Check', pendingByExternalId('qbo-deposit-145-l1').Payment_Method__c);
+    }
+
+    @IsTest
+    static void cashLineIsSkipped() {
+        QuickBooksEventProcessor.fundMapOverride = new Map<String, String>();
+        MockQuickBooks mock = realSandbox();
+        mock.put('deposit/145', deposit145(50, 'Cash'));
         Test.setMock(HttpCalloutMock.class, mock);
         QuickBooks_Event__c e = event('deposit', 'created', '145');
         Test.startTest();
@@ -268,7 +322,7 @@ private class QuickBooksEventProcessorTest {
         System.assertEquals(0, [SELECT COUNT() FROM Pending_Transaction__c]);
         QuickBooks_Event__c after = reload(e.Id);
         System.assertEquals('Processed', after.Status__c);
-        System.assert(after.Error_Message__c.contains('not ACH/wire'), after.Error_Message__c);
+        System.assert(after.Error_Message__c.contains('not ACH/wire or check'), after.Error_Message__c);
     }
 
 
@@ -310,18 +364,34 @@ private class QuickBooksEventProcessorTest {
 
 
     @IsTest
-    static void lineSwitchedToCheckIsRemoved() {
+    static void lineSwitchedToCashIsRemoved() {
         QuickBooksEventProcessor.fundMapOverride = new Map<String, String>();
         MockQuickBooks mock = realSandbox();
-        mock.put('deposit/145', deposit145(180, 'Check'));
+        mock.put('deposit/145', deposit145(180, 'Cash'));
         Test.setMock(HttpCalloutMock.class, mock);
         priorImport('deposit-145', 'qbo-deposit-145-l1', 180.00, true);
         QuickBooks_Event__c changed = event('deposit', 'updated', '145');
         Test.startTest();
         QuickBooksEventProcessor.process(changed.Id);
         Test.stopTest();
-        System.assertEquals(0, [SELECT COUNT() FROM Pending_Transaction__c], 'no longer a wire, so no longer pending');
+        System.assertEquals(0, [SELECT COUNT() FROM Pending_Transaction__c], 'no longer a wire or check, so no longer pending');
         System.assert(reload(changed.Id).Error_Message__c.contains('Removed 1'), reload(changed.Id).Error_Message__c);
+    }
+
+    @IsTest
+    static void lineSwitchedFromWireToCheckIsRelabelled() {
+        QuickBooksEventProcessor.fundMapOverride = new Map<String, String>();
+        MockQuickBooks mock = realSandbox();
+        mock.put('deposit/145', deposit145(180, 'Check'));
+        Test.setMock(HttpCalloutMock.class, mock);
+        Pending_Transaction__c row = priorImport('deposit-145', 'qbo-deposit-145-l1', 180.00, true);
+        update new Pending_Transaction__c(Id = row.Id, Payment_Method__c = 'ACH/Wire');
+        QuickBooks_Event__c changed = event('deposit', 'updated', '145');
+        Test.startTest();
+        QuickBooksEventProcessor.process(changed.Id);
+        Test.stopTest();
+        System.assertEquals(1, [SELECT COUNT() FROM Pending_Transaction__c], 'still pending - the same row');
+        System.assertEquals('Check', [SELECT Payment_Method__c FROM Pending_Transaction__c WHERE Id = :row.Id].Payment_Method__c);
     }
 
     @IsTest
