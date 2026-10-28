@@ -6306,6 +6306,21 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Web_Donation_Setting__mdt.Gala_Payload_Keys__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Web_Donation_Setting__mdt.Gala_To_Pending_Transactions__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Web_Donation_Setting__mdt.Gala_Words__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Web_Donation_Setting__mdt.Multiple_Match_Rule__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -6382,6 +6397,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Web_Donation__c.Payload__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Web_Donation__c.Pending_Transaction__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>

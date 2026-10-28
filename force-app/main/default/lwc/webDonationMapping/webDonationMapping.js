@@ -1,3 +1,16 @@
+/**
+ * @description Web Donation Mapping admin screen - field mappings, value translations, donor and
+ *              account settings, gala gift routing, and a dry run. Backed by
+ *              WebDonationMappingController.
+ * @author Jason Ott
+ * @created 2026-08-21
+ *
+ * Change Log:
+ * -----------
+ * 2026-08-21 - Jason Ott - Created (Website Donations phase 3).
+ * 2026-10-28 - Jason Ott - Gala gifts section: Send gala gifts to Pending Transactions, Gala words,
+ *                          Fields to check. Checkbox settings read event.target.checked.
+ */
 import { LightningElement, track } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import getMappings from '@salesforce/apex/WebDonationMappingController.getMappings';
@@ -24,6 +37,7 @@ const TYPE_OPTIONS = [
  *   Field mapping   - which payload key fills which field, or a static value, or a lookup
  *   Value translation - "Other:" becomes the Website Donation - Other campaign
  *   Donor & account settings - how contacts are matched, and where the gift is accounted
+ *   Gala gifts - which gifts go to Pending Transactions (Gala tab) instead of becoming gifts
  *   Dry run - what a REAL payload would do, without writing anything
  */
 export default class WebDonationMapping extends LightningElement {
@@ -272,7 +286,9 @@ export default class WebDonationMapping extends LightningElement {
 
     handleSettingChange(event) {
         const field = event.target.dataset.field;
-        const value = event.detail?.value ?? event.target.value;
+        const value = event.target.type === 'checkbox'
+            ? event.target.checked
+            : event.detail?.value ?? event.target.value;
         this.settings = { ...this.settings, [field]: value };
     }
 

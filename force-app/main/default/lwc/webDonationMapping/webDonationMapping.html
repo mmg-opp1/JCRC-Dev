@@ -235,6 +235,40 @@
                             data-field="onOrganizationNoMatch" onchange={handleSettingChange}>
                         </lightning-combobox>
                     </div>
+
+                    <!-- Gala gifts (Jason Ott, 2026-10-28) -->
+                    <div class="slds-col slds-size_1-of-1">
+                        <hr/>
+                        <h3 class="slds-text-title_bold slds-p-bottom_x-small">
+                            Gala gifts &mdash; sent to Pending Transactions instead
+                        </h3>
+                        <p class="slds-text-body_small slds-text-color_weak slds-p-bottom_x-small">
+                            A gift whose "What is this for" answers contain one of these words is not
+                            created as a gift. It goes to the Gala tab of Pending Transactions (Source
+                            JCRC Website - Gala) for staff to link the registration, choose the fund and
+                            commit. The donor is still matched or created.
+                        </p>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-p-bottom_small">
+                        <lightning-input type="checkbox" label="Send gala gifts to Pending Transactions"
+                            checked={settings.galaToPending}
+                            data-field="galaToPending" onchange={handleSettingChange}>
+                        </lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-bottom_small">
+                        <lightning-input label="Gala words"
+                            value={settings.galaWords} placeholder="Gala"
+                            data-field="galaWords" onchange={handleSettingChange}
+                            field-level-help="Comma-separated. Matched as whole words, ignoring capitalization. Blank means Gala.">
+                        </lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-bottom_small">
+                        <lightning-input label="Fields to check"
+                            value={settings.galaPayloadKeys} placeholder="28, 23"
+                            data-field="galaPayloadKeys" onchange={handleSettingChange}
+                            field-level-help="Comma-separated payload keys holding the What is this for answers. 28 covers every checkbox in that group (28.1, 28.2 ...); 23 is the Other write-in. Blank means 28, 23.">
+                        </lightning-input>
+                    </div>
                 </div>
             </lightning-tab>
 

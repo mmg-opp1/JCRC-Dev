@@ -2,6 +2,13 @@
  * @description Turns a stored website donation payload into real records: a Contact, an
  *              Opportunity, and one GAU Allocation per designation the donor ticked.
  *
+ *              GALA GIFTS (Jason, 2026-10-28): when the donor's "What is this for" answers contain
+ *              a gala word ("Gala" by default - Web Donation Mapping > Donor & account), the
+ *              donor is still matched or created, but NO gift is created. The submission becomes
+ *              a Pending Transaction instead, Source "JCRC Website - Gala", so it waits on the
+ *              Gala tab for staff to link the registration, choose the fund and commit it. Gala
+ *              plus another designation goes there too, with the fund left to staff.
+ *
  *              Runs ASYNCHRONOUSLY, off the back of the staging record rather than the HTTP
  *              request. The endpoint has already answered the website by the time this runs,
  *              so a slow donor match or a failure here can never make Gravity Forms think the
@@ -40,6 +47,8 @@
  *                          record, and the read is now inside the try so a failure lands on the
  *                          record as Failed instead of disappearing.
  * 2026-10-23 - Jason Ott - American spelling throughout (no behavior change).
+ * 2026-10-28 - Jason Ott - Gala gifts go to Pending Transactions (JCRC Website - Gala) instead of
+ *                          becoming gifts; designation translation shared by both paths.
  */
 public without sharing class WebDonationProcessor implements Queueable {
 
@@ -93,6 +102,24 @@ public without sharing class WebDonationProcessor implements Queueable {
                 insert incoming;
                 donor = incoming;
                 created = true;
+            }
+
+            // ---- gala gifts wait in Pending Transactions instead ------------------------------
+            List<String> answers = galaAnswers(payload, cfg.galaPayloadKeys);
+            if (cfg.galaToPending == true && mentionsGala(answers, cfg.galaWords)) {
+                List<String> unmappedGala = new List<String>();
+                Id pendingId = createGalaPending(wd, payload, donor, answers, unmappedGala);
+                update new Web_Donation__c(
+                    Id                       = wd.Id,
+                    Status__c                = 'Processed',
+                    Processed_At__c          = System.now(),
+                    Contact__c               = donor.Id,
+                    Contact_Was_Created__c   = created,
+                    Pending_Transaction__c   = pendingId,
+                    Unmapped_Designations__c = unmappedGala.isEmpty() ? null : String.join(unmappedGala, '\n'),
+                    Error_Message__c         = null
+                );
+                return;
             }
 
             // ---- gift ---------------------------------------------------------------------
@@ -347,15 +374,43 @@ public without sharing class WebDonationProcessor implements Queueable {
             Map<String, Object> payload, Opportunity opp, List<String> unmapped) {
 
         List<npsp__Allocation__c> out = new List<npsp__Allocation__c>();
+        List<Id> targets = designationFunds(payload, unmapped, new List<String>());
+
+        if (targets.isEmpty() || opp.Amount == null) {
+            return out;
+        }
+        Decimal each = (opp.Amount / targets.size()).setScale(2, System.RoundingMode.DOWN);
+        Decimal running = 0;
+        for (Integer i = 0; i < targets.size(); i++) {
+            Decimal amt = (i == targets.size() - 1) ? (opp.Amount - running) : each;
+            running += amt;
+            out.add(new npsp__Allocation__c(
+                npsp__Opportunity__c             = opp.Id,
+                npsp__General_Accounting_Unit__c = targets[i],
+                npsp__Amount__c                  = amt));
+        }
+        return out;
+    }
+
+    /**
+     * Translates each designation the donor ticked into a fund (GAU), one entry per designation.
+     * Every ticked designation is added to `ticked`; one that translates to nothing, or to a fund
+     * that doesn't exist, goes in `unmapped` rather than being lost silently. A translation to a
+     * Campaign is not a fund and is skipped here (the gift's campaign handles it).
+     */
+    private static List<Id> designationFunds(Map<String, Object> payload, List<String> unmapped,
+                                             List<String> ticked) {
+        List<Id> targets = new List<Id>();
         Map<String, Id> gauByName = gauMap();
         Set<String> desigGroups = designationGroups();
-        List<Id> targets = new List<Id>();
 
-        for (String key : payload.keySet()) {
+        // Loop: every non-blank answer under a designation key.
+        for (String key : sortedKeys(payload)) {
             String val = str(payload, key);
             if (String.isBlank(val) || !isDesignationKey(key, desigGroups)) {
                 continue;
             }
+            ticked.add(val);
             Web_Donation_Value_Map__mdt t = WebDonationConfig.translate(key, val);
             if (t == null) {
                 // A designation nothing knows about - record it rather than lose it silently.
@@ -376,21 +431,116 @@ public without sharing class WebDonationProcessor implements Queueable {
                 targets.add(gau);
             }
         }
+        return targets;
+    }
 
-        if (targets.isEmpty() || opp.Amount == null) {
-            return out;
+    // ---- gala gifts --------------------------------------------------------------------------
+
+    /**
+     * The donor's "What is this for" answers: every non-blank value under the configured keys.
+     * "28" covers the whole checkbox group (28.1, 28.2 ...) as well as a field numbered exactly 28.
+     */
+    @TestVisible
+    private static List<String> galaAnswers(Map<String, Object> payload, String keysSetting) {
+        Set<String> wanted = new Set<String>();
+        for (String k : (String.isBlank(keysSetting) ? '' : keysSetting).split(',')) {
+            if (String.isNotBlank(k)) {
+                wanted.add(k.trim());
+            }
         }
-        Decimal each = (opp.Amount / targets.size()).setScale(2, System.RoundingMode.DOWN);
-        Decimal running = 0;
-        for (Integer i = 0; i < targets.size(); i++) {
-            Decimal amt = (i == targets.size() - 1) ? (opp.Amount - running) : each;
-            running += amt;
-            out.add(new npsp__Allocation__c(
-                npsp__Opportunity__c             = opp.Id,
-                npsp__General_Accounting_Unit__c = targets[i],
-                npsp__Amount__c                  = amt));
+        List<String> out = new List<String>();
+        // Loop: payload keys in a stable order, so the memo reads the same on every replay.
+        for (String key : sortedKeys(payload)) {
+            String keyGroup = key.contains('.') ? key.substringBefore('.') : key;
+            String val = str(payload, key);
+            if (String.isNotBlank(val) && (wanted.contains(key) || wanted.contains(keyGroup))) {
+                out.add(val);
+            }
         }
         return out;
+    }
+
+    /** True when any answer contains one of the gala words as a whole word, ignoring case. */
+    @TestVisible
+    private static Boolean mentionsGala(List<String> answers, String wordsSetting) {
+        for (String w : (String.isBlank(wordsSetting) ? '' : wordsSetting).split(',')) {
+            if (String.isBlank(w)) {
+                continue;
+            }
+            Pattern p = Pattern.compile('(?i)\\b' + Pattern.quote(w.trim()) + '\\b');
+            for (String a : answers) {
+                if (p.matcher(a).find()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * The Pending Transaction a gala gift waits in. Fund: set only when the donor ticked a single
+     * designation and it translates to a fund; gala plus anything else (or an untranslated
+     * answer) leaves it blank with a note so staff decide. A replay never adds a second row.
+     */
+    private static Id createGalaPending(Web_Donation__c wd, Map<String, Object> payload, Contact donor,
+                                        List<String> answers, List<String> unmapped) {
+        String entryId = String.isNotBlank(wd.GF_Entry_Id__c) ? wd.GF_Entry_Id__c : str(payload, 'id');
+        String externalId = 'gf-' + entryId;
+
+        // Already waiting (a replay) - point at it rather than adding another.
+        List<Pending_Transaction__c> existing = [
+            SELECT Id FROM Pending_Transaction__c WHERE External_Id__c = :externalId LIMIT 1];
+        if (!existing.isEmpty()) {
+            return existing[0].Id;
+        }
+        // Already committed - the gift carries the id; creating the row again would count it twice.
+        List<Opportunity> committed = [
+            SELECT Name FROM Opportunity WHERE Source_Transaction_Id__c = :externalId LIMIT 1];
+        if (!committed.isEmpty()) {
+            throw new ProcessingException('This gala gift was already committed as "'
+                + committed[0].Name + '" - not sent to Pending Transactions again.');
+        }
+
+        // The amount, from the same mapping the gift would have used.
+        Opportunity scratch = new Opportunity();
+        for (WebDonationConfig.Mapping m : WebDonationConfig.mappingsFor('Opportunity')) {
+            if (m.targetField != null && m.targetField.equalsIgnoreCase('Amount')) {
+                WebDonationConfig.applyValue(scratch, 'Amount', valueFor(m, payload));
+            }
+        }
+        if (scratch.Amount == null || scratch.Amount <= 0) {
+            throw new ProcessingException(
+                'No usable gift amount. Check the mapping for Opportunity.Amount.');
+        }
+
+        List<String> ticked = new List<String>();
+        List<Id> funds = designationFunds(payload, unmapped, ticked);
+        String donorName = ((donor.FirstName == null ? '' : donor.FirstName) + ' '
+                          + (donor.LastName == null ? '' : donor.LastName)).trim();
+
+        Pending_Transaction__c row = new Pending_Transaction__c(
+            Source__c           = 'JCRC Website - Gala',
+            External_Id__c      = externalId,
+            External_Type__c    = 'Website Donation',
+            Amount__c           = scratch.Amount,
+            Transaction_Date__c = submittedDate(payload),
+            Payment_Method__c   = 'Credit Card',
+            Contact__c          = donor.Id,
+            Payer_Name__c       = String.isBlank(donorName) ? null : donorName.left(255),
+            Payer_Email__c      = donor.Email,
+            Campaign__c         = campaignFromTranslations(payload),
+            Memo__c             = ('What is this for: ' + String.join(answers, '; ')).left(4000),
+            Raw_Data__c         = wd.Payload__c == null ? null : wd.Payload__c.left(131072));
+
+        // Fund only when exactly one designation was ticked and it translates to a fund.
+        if (ticked.size() == 1 && funds.size() == 1 && unmapped.isEmpty()) {
+            row.Fund__c = funds[0];
+        } else {
+            row.Import_Note__c = ('Website gift for the gala - choose the fund. The donor ticked: '
+                + (ticked.isEmpty() ? '(nothing)' : String.join(ticked, '; ')) + '.').left(4000);
+        }
+        insert row;
+        return row.Id;
     }
 
     /**
@@ -408,11 +558,12 @@ public without sharing class WebDonationProcessor implements Queueable {
      */
     private static Set<String> designationGroups() {
         Set<String> groups = new Set<String>();
-        for (Web_Donation_Value_Map__mdt v : [
-                SELECT Payload_Key__c FROM Web_Donation_Value_Map__mdt
-                WHERE Active__c = true AND Payload_Key__c != null]) {
+        // The same active translations translate() reads (getAll, cached) - not a separate query.
+        for (Web_Donation_Value_Map__mdt v : WebDonationConfig.valueMaps()) {
             String k = v.Payload_Key__c;
-            groups.add(k.contains('.') ? k.substringBefore('.') : k);
+            if (String.isNotBlank(k)) {
+                groups.add(k.contains('.') ? k.substringBefore('.') : k);
+            }
         }
         return groups;
     }
@@ -441,6 +592,12 @@ public without sharing class WebDonationProcessor implements Queueable {
         }
         Object v = m.get(key);
         return (v == null) ? null : String.valueOf(v).trim();
+    }
+
+    private static List<String> sortedKeys(Map<String, Object> payload) {
+        List<String> keys = new List<String>(payload.keySet());
+        keys.sort();
+        return keys;
     }
 
     private static Date submittedDate(Map<String, Object> payload) {

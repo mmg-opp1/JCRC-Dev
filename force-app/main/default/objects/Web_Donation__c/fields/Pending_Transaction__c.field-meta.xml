@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Pending_Transaction__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>For a gala gift: the Pending Transaction it was sent to instead of creating a gift. Blank again once staff commit it (the holding row is deleted; the gift then carries the id gf-entry). Website Donations / Jason Ott, 2026-10-28.</description>
+    <label>Pending Transaction</label>
+    <referenceTo>Pending_Transaction__c</referenceTo>
+    <relationshipLabel>Web Donations</relationshipLabel>
+    <relationshipName>Web_Donations</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

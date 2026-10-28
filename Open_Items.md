@@ -42,6 +42,8 @@
 24. **Test coverage blocks production deploys of four classes (found 2026-10-23).** WebDonationMappingController 0%,
     ThankYouLetterController 0%, WebDonationConfig 73.8%, WebDonationProcessor 62.3% (also item 10). The spelling
     sweep went to JCRC-Dev with NoTestRun (sandbox only) after 152/152 tests passed; production needs tests first.
+    **2026-10-28: three fixed** - WebDonationMappingController 93.8%, WebDonationConfig 96.5%, WebDonationProcessor
+    89.7%. Still open: ThankYouLetterController 0%.
 25. **Test Script 03 Word file still says "cheque" / "recognised".** It was open in Word during the American
     spelling sweep, so only its .md was fixed. Rebuild it with `Testing/tools/md_to_docx.py` once closed
     (it has no hand edits; 01/02/08 do, and needed no change).
@@ -49,6 +51,19 @@
     `Gala__c` deploy first); turn on class tracking in the production QuickBooks company with the classes
     Development and Development:Dinner; deploy `QuickBooks_Fund_Map.Development_Dinner` with the code. If the
     production fund is named differently, change the record's Fund (GAU) Name to match.
+27. **Website gala gifts -> Pending Transactions (built 2026-10-28).** Open: (a) a gala + other row arrives
+    **Ready** with Fund blank, so it can be committed without a fund - the screen already treats a blank fund as
+    committable; decide whether the fund should be required. (b) Test rows WD-00031/32 -> PT-00030/31 (replays of
+    WD-00019) are on the Gala tab; delete when done. (c) Production: needs the Pending Transactions work there
+    first (items 10, 20).
+28. **"Match organization" + "create the account" is broken (found 2026-10-28, not in use).** The new account
+    takes the default Account record type (Household), so NPSP refuses the gift ("attributed to a household, but
+    the primary contact is not in the household"). Live settings use NPSP default, so no gifts are affected. Fix
+    (create it as an Organization account) if JCRC ever turns that option on.
+29. **Test Script 10, Website Donations - the "Unmapped Designations" scenario is out of date.** It says designations
+    are deliberately unmapped pending JCRC's choice; General JCRC-NY / 50th Anniversary Gala / Israel Affairs now map
+    to General / Gala / Israel Fund, and gala gifts go to Pending Transactions. Update the script (and its .docx)
+    when Jason says.
 
 12. **Fundraisers cannot commit Pending Transactions (JCRC-Dev, since 2026-10-08).**
     `PendingTransactionServiceTest.fundraisingUserCanCommitGiftsAndPaymentsOnPledgesOwnedByOthers` now
@@ -103,4 +118,4 @@
 
 ## Repo
 
-11. **Unpushed commits** on `main` (24 after fund-from-class).
+11. **Unpushed commits** on `main` (25 after website gala gifts).

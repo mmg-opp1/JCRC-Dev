@@ -5,6 +5,7 @@
 >
 > **Change Log:**
 > - 2026-08-19 — Jason Ott — Initial analysis and recommended approach.
+> - 2026-10-28 — Jason Ott — §18: gala gifts go to Pending Transactions instead of becoming gifts (built).
 
 ---
 
@@ -352,3 +353,39 @@ where. That is a genuine privilege-escalation surface, not an admin convenience 
 - Live org verification 2026-08-19 — Sites, Apex REST, Connected Apps, GAUs, Allocations settings.
 - In-repo: `JSI-127/` (write-in), `JSI-89/` (tribute matching), `JSI-86/` (deductible split),
   `JSI-87/` (acknowledgments), `JSI-107/` (integration logging).
+
+---
+
+## 18. Gala gifts go to Pending Transactions ✅ built 2026-10-28
+
+**Decision (Jason, 2026-10-28):** a website gift whose "What is this for" answers contain the word **Gala**
+is **not** created as a gift. It goes to the **Gala tab of Pending Transactions** instead, Source
+**JCRC Website - Gala**, so staff link the Event Registration, choose the fund and commit it like any other
+gala row. Gala plus another designation goes there too, with the fund left to staff.
+
+- **Configurable** on Web Donation Mapping > Donor & account > *Gala gifts* (stored on
+  `Web_Donation_Setting__mdt`): **Send gala gifts to Pending Transactions** (on), **Gala words**
+  (`Gala`; comma-separated, whole words, any capitalization), **Fields to check** (`28, 23` - the form's
+  "What is this for" checkboxes, where `28` covers 28.1, 28.2 ..., and the Other write-in).
+- **Donor:** matched or created exactly as for a gift (address and phone saved). The row carries the
+  donor (Match Status Confirmed).
+- **The row:** amount from the same Amount mapping the gift uses, date submitted, Payment Method
+  Credit Card, Memo "What is this for: ...", Raw Data = the submission, Campaign from a translation (e.g.
+  Other → Website Donation - Other), External ID `gf-<entry id>`.
+- **Fund:** set only when the donor ticked exactly one designation and it translates to a fund (gala only →
+  Gala Fund). Otherwise blank with the note "Website gift for the gala - choose the fund. The donor ticked: ...".
+- **Replays:** a second run finds the waiting row instead of adding another; one already committed (its gift
+  carries `gf-<entry id>`) fails with "already committed" instead of counting it twice.
+- **Web Donation record:** Processed, no Opportunity, new lookup **Pending Transaction** (on the record page;
+  Admin / JCRC - Development / JCRC - Fundraising read+edit). It goes blank once staff commit the row (the
+  holding row is deleted on commit).
+- **Translations:** the old `Web_Donation_Designation__mdt` table is no longer read by any code - designations
+  translate through **Value Maps**. Added: General JCRC-NY → General Fund, 50th Anniversary Gala → Gala Fund,
+  Israel Affairs → Israel Fund. Until then those showed as unmapped and NPSP's default allocation put every
+  such gift in General Fund.
+- **Live test (JCRC-Dev):** WD-00019's real payload replayed as WD-00031 (General + Gala) → **PT-00030**, fund
+  blank + note; gala-only copy WD-00032 → **PT-00031**, Gala Fund, gala. Both Saul Zebovitz, $54, Credit Card.
+- **Tests:** 57/57 web donation tests; coverage WebDonationProcessor 89.7%, WebDonationMappingController 93.8%,
+  WebDonationConfig 96.5% (new `WebDonationMappingControllerTest`, `WebDonationConfigTest`).
+- **Deploy note:** the 12 `Web Donation Sweeper` jobs hold the web donation classes (even for a validation) -
+  unschedule, deploy, reschedule (`0 m * * * ?` for m = 0..55, `new WebDonationSweeper()`).

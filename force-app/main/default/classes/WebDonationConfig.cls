@@ -30,6 +30,9 @@
  *                          longer gates on FLS, which was silently emptying every mapped
  *                          Contact and Opportunity field for the guest user.
  * 2026-10-23 - Jason Ott - American spelling throughout (no behavior change).
+ * 2026-10-28 - Jason Ott - Gala routing settings (Send gala gifts to Pending Transactions, Gala
+ *                          words, Fields to check). The caches are @TestVisible so tests can
+ *                          supply settings and translations without depending on the org's rows.
  */
 public without sharing class WebDonationConfig {
 
@@ -43,9 +46,19 @@ public without sharing class WebDonationConfig {
         public String organizationPayloadKey;
         public String onOrganizationNoMatch  = 'UseHousehold';
         public String contactRole;
+        // Gala gifts (Jason, 2026-10-28): a gift whose "What is this for" answers contain one of
+        // these words goes to Pending Transactions (Gala tab) instead of becoming a gift.
+        public Boolean galaToPending         = true;
+        public String galaWords              = DEFAULT_GALA_WORDS;
+        public String galaPayloadKeys        = DEFAULT_GALA_PAYLOAD_KEYS;
     }
 
-    private static Settings cachedSettings;
+    /** "Gala", whole word, any capitalization. */
+    public static final String DEFAULT_GALA_WORDS = 'Gala';
+    /** The current form's "What is this for" checkboxes (28) and its Other write-in (23). */
+    public static final String DEFAULT_GALA_PAYLOAD_KEYS = '28, 23';
+
+    @TestVisible private static Settings cachedSettings;
 
     /**
      * The active settings record, or the defaults. Defaults deliberately match what the
@@ -70,6 +83,9 @@ public without sharing class WebDonationConfig {
             if (String.isNotBlank(m.On_Organization_No_Match__c)) s.onOrganizationNoMatch = m.On_Organization_No_Match__c;
             s.organizationPayloadKey = m.Organization_Payload_Key__c;
             s.contactRole            = m.Contact_Role__c;
+            s.galaToPending          = m.Gala_To_Pending_Transactions__c == true;
+            if (String.isNotBlank(m.Gala_Words__c))         s.galaWords       = m.Gala_Words__c;
+            if (String.isNotBlank(m.Gala_Payload_Keys__c))  s.galaPayloadKeys = m.Gala_Payload_Keys__c;
             break;
         }
         cachedSettings = s;
@@ -86,7 +102,7 @@ public without sharing class WebDonationConfig {
         public String targetField;
     }
 
-    private static List<Mapping> cachedMappings;
+    @TestVisible private static List<Mapping> cachedMappings;
 
     public static List<Mapping> mappings() {
         if (cachedMappings != null) {
@@ -124,9 +140,10 @@ public without sharing class WebDonationConfig {
 
     // ---- value translations ----------------------------------------------------------------
 
-    private static List<Web_Donation_Value_Map__mdt> cachedValueMaps;
+    @TestVisible private static List<Web_Donation_Value_Map__mdt> cachedValueMaps;
 
-    private static List<Web_Donation_Value_Map__mdt> valueMaps() {
+    /** Active value translations (cached). */
+    public static List<Web_Donation_Value_Map__mdt> valueMaps() {
         if (cachedValueMaps == null) {
             cachedValueMaps = new List<Web_Donation_Value_Map__mdt>();
             for (Web_Donation_Value_Map__mdt v : Web_Donation_Value_Map__mdt.getAll().values()) {
@@ -143,7 +160,7 @@ public without sharing class WebDonationConfig {
      * only applies to that key; a row with none applies to any key, which suits the designation
      * checkbox group where every ticked option arrives under its own key.
      *
-     * Matching ignores capitalisation and a trailing colon, because Gravity Forms sends values
+     * Matching ignores capitalization and a trailing colon, because Gravity Forms sends values
      * like "Other:".
      */
     public static Web_Donation_Value_Map__mdt translate(String payloadKey, String incomingValue) {

@@ -19,8 +19,20 @@
         <value xsi:nil="true"/>
     </values>
     <values>
+        <field>Gala_Payload_Keys__c</field>
+        <value xsi:type="xsd:string">28, 23</value>
+    </values>
+    <values>
+        <field>Gala_To_Pending_Transactions__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Gala_Words__c</field>
+        <value xsi:type="xsd:string">Gala</value>
+    </values>
+    <values>
         <field>Multiple_Match_Rule__c</field>
-        <value xsi:type="xsd:string">Oldest</value>
+        <value xsi:type="xsd:string">Fail</value>
     </values>
     <values>
         <field>On_No_Match__c</field>

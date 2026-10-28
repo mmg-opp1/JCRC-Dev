@@ -25,6 +25,8 @@
  * -----------
  * 2026-08-21 - Jason Ott - Created (Website Donations phase 3).
  * 2026-10-23 - Jason Ott - American spelling throughout (no behavior change).
+ * 2026-10-28 - Jason Ott - Gala gift settings (Send gala gifts to Pending Transactions, Gala
+ *                          words, Fields to check) read and saved with the other settings.
  */
 public with sharing class WebDonationMappingController {
 
@@ -81,6 +83,9 @@ public with sharing class WebDonationMappingController {
         @AuraEnabled public String organizationPayloadKey;
         @AuraEnabled public String onOrganizationNoMatch;
         @AuraEnabled public String contactRole;
+        @AuraEnabled public Boolean galaToPending;
+        @AuraEnabled public String galaWords;
+        @AuraEnabled public String galaPayloadKeys;
     }
 
     public class FieldOption {
@@ -414,7 +419,7 @@ public with sharing class WebDonationMappingController {
         List<Web_Donation_Setting__mdt> rows = [
             SELECT DeveloperName, Contact_Match_Rule__c, On_No_Match__c, Multiple_Match_Rule__c,
                    Account_Handling__c, Organization_Payload_Key__c, On_Organization_No_Match__c,
-                   Contact_Role__c
+                   Contact_Role__c, Gala_To_Pending_Transactions__c, Gala_Words__c, Gala_Payload_Keys__c
             FROM Web_Donation_Setting__mdt WHERE Active__c = true LIMIT 1];
         if (rows.isEmpty()) {
             // Defaults match what the processor does today, so an org with no setting record
@@ -424,6 +429,9 @@ public with sharing class WebDonationMappingController {
             s.multipleMatchRule      = 'Oldest';
             s.accountHandling        = 'NPSPDefault';
             s.onOrganizationNoMatch  = 'UseHousehold';
+            s.galaToPending          = true;
+            s.galaWords              = WebDonationConfig.DEFAULT_GALA_WORDS;
+            s.galaPayloadKeys        = WebDonationConfig.DEFAULT_GALA_PAYLOAD_KEYS;
         } else {
             Web_Donation_Setting__mdt m = rows[0];
             s.developerName          = m.DeveloperName;
@@ -434,6 +442,9 @@ public with sharing class WebDonationMappingController {
             s.organizationPayloadKey = m.Organization_Payload_Key__c;
             s.onOrganizationNoMatch  = m.On_Organization_No_Match__c;
             s.contactRole            = m.Contact_Role__c;
+            s.galaToPending          = m.Gala_To_Pending_Transactions__c;
+            s.galaWords              = m.Gala_Words__c;
+            s.galaPayloadKeys        = m.Gala_Payload_Keys__c;
         }
         return s;
     }
@@ -459,6 +470,10 @@ public with sharing class WebDonationMappingController {
         md.values.add(field('Organization_Payload_Key__c', s.organizationPayloadKey));
         md.values.add(field('On_Organization_No_Match__c', s.onOrganizationNoMatch));
         md.values.add(field('Contact_Role__c',             s.contactRole));
+        // Gala gifts (see WebDonationProcessor): saved with the rest of the settings.
+        md.values.add(field('Gala_To_Pending_Transactions__c', s.galaToPending == true));
+        md.values.add(field('Gala_Words__c',               s.galaWords));
+        md.values.add(field('Gala_Payload_Keys__c',        s.galaPayloadKeys));
         md.values.add(field('Active__c',                   true));
 
         Metadata.DeployContainer container = new Metadata.DeployContainer();
