@@ -424,3 +424,33 @@ deleted, so the feed must only fetch transactions **new since its last run** (a 
 a deleted non-donation would reappear on the next sync. If Finance can't guarantee that, add a small
 "dismissed source ids" list the sync checks.
 
+### Gala — unpaid registrations + readable registration picker ✅ deployed to JCRC-Dev (2026-11-06)
+Client feedback: the Event Registration picker showed only the EVR number. **Decisions (Jason, 2026-11-06):**
+mark a registration Paid only when it is paid in full (a pledge: when the whole pledge is paid off); offer only
+registrations whose **Event name contains the word Gala**.
+- **Editor table.** On a gala row with no registration and a saved contact, the contact's unpaid gala
+  registrations are listed - "Unpaid Registrations found for this Contact. Is this money payment for one of these
+  registrations?" (Registration, Event, Level, Tickets, Amount, Chose to pay by, Submitted; a "Pledge – $X still
+  owed" tag) with **Use this** per row and **None of these**. Re-fetched whenever the contact changes
+  (`PendingTransactionController.getUnpaidRegistrations`). Left out: paid, non-Gala events (whole word - "Galaxy"
+  is not Gala), registrations claimed by another pending transaction (either lookup), and registrations whose gift
+  is not an open pledge/grant with money owed.
+- **Choosing one** sets the registration; one with an open pledge also switches the row to *Payment on a pledge*
+  for that pledge, so the money pays it down instead of creating a second gift.
+- **Commit.** New gift: linked both ways as before, and **Paid** when the gift covers `Sponsorship_Donation_Amount__c`
+  (or the registration has no amount); otherwise unpaid and the result says what is still owed. Pledge payment
+  (any - chosen from the table or not): registrations linked to the pledge either way, plus the row's, are marked
+  **Paid** only when this payment pays the pledge off; otherwise the result says how much is still owed. A pledge
+  payment naming a registration that belongs to a different gift fails the row.
+- **Readable picker / lookup.** New formula `Event_Registration__c.Registration_Summary__c` (e.g. "Bob Smith ·
+  2027 Gala · Advocate · $15,000 · Unpaid"; contact name, else the donor names) is the picker's main line and
+  what it searches; the EVR number sits under it. Event Registration search layouts (lookup dialog + search
+  results) show Summary, Contact, Event, Level, Amount, Paid. Read access on Admin / JCRC - Development /
+  JCRC - Fundraising.
+- **Tests:** new controller test (what is offered) and four service tests (paid in full vs short on a new gift,
+  pledge paid off vs partly paid, another gift's registration). 56/57 in the two classes - the one failure is the
+  known Open Items #12. Coverage PendingTransactionService 95.1%, PendingTransactionController 94.5%.
+  Deployed with NoTestRun because of #12.
+- **Live (JCRC-Dev):** the table offers Travis (EVR-0), Eric (EVR-8), Ryan (EVR-14, with his $6,000 pledge) and
+  Bob (EVR-15). PT-00032 Bob $15,000 -> new gift, EVR-15 **Paid**. PT-00033 Ryan $1,000 on his pledge -> EVR-14
+  stays unpaid, "$5,000.00 still owed". Test records listed in Open Items #30.

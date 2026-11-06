@@ -64,6 +64,12 @@
     are deliberately unmapped pending JCRC's choice; General JCRC-NY / 50th Anniversary Gala / Israel Affairs now map
     to General / Gala / Israel Fund, and gala gifts go to Pending Transactions. Update the script (and its .docx)
     when Jason says.
+30. **Unpaid gala registrations on Pending Transactions (built 2026-11-06).** Live test in JCRC-Dev made real
+    records - delete when done: **PT-00032** -> gift "Bob Smith $15000 Standard Donation 11/06/2026" and EVR-15
+    now **Paid** (set it back to unpaid); **PT-00033** -> a $1,000 paid payment on "Ryan O'Reily $6000 Pledge
+    10/16/2026" (EVR-14 correctly still unpaid, $5,000 owed). Production: needs items 10/20 first, plus the new
+    field `Event_Registration__c.Registration_Summary__c`, its read access (Admin / JCRC - Development /
+    JCRC - Fundraising) and the Event Registration search layout.
 
 12. **Fundraisers cannot commit Pending Transactions (JCRC-Dev, since 2026-10-08).**
     `PendingTransactionServiceTest.fundraisingUserCanCommitGiftsAndPaymentsOnPledgesOwnedByOthers` now
@@ -74,6 +80,9 @@
     Fix options: make the commit Writer's DML explicitly SYSTEM_MODE, or re-enable the permission.
     2026-10-09: Jason - "ignore that for now". Its test is the one known failure (89/90 in the Pending
     Transactions + QuickBooks + payment suites); Pending Transactions deploys run tests separately until fixed.
+    2026-11-06: still failing (56/57 in the two Pending Transactions test classes); the debug log shows
+    `UserModeFLSDMLException` from the plain `insert gift` inside the `without sharing` Writer - the classes are
+    API 67.0, which runs plain DML in user mode. Item 30 went to JCRC-Dev with NoTestRun because of it.
 
 ## Payments (underpayment)
 
@@ -118,4 +127,4 @@
 
 ## Repo
 
-11. **Unpushed commits** on `main` (25 after website gala gifts).
+11. **Unpushed commits** on `main` (26 after unpaid gala registrations).

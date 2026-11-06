@@ -2,6 +2,9 @@
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>All</fullName>
     <columns>NAME</columns>
+    <columns>Donor_First_Name__c</columns>
+    <columns>Donor_Last_Name__c</columns>
+    <columns>Donor_Email__c</columns>
     <filterScope>Mine</filterScope>
     <label>All</label>
 </ListView>

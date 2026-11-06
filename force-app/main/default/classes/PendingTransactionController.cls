@@ -26,6 +26,8 @@
  * 2026-10-09 - Jason Ott - Gala: rows carry isGala (Is_Gala__c) and their Event Registration, which the
  *                          editor may set on gala rows only; the workspace lists gala funds and campaigns
  *                          so the editor can tell when a fund/campaign choice makes a row gala.
+ * 2026-11-06 - Jason Ott - getUnpaidRegistrations: the contact's unpaid gala Event Registrations, for the
+ *                          editor's "is this money payment for one of these?" table.
  */
 public with sharing class PendingTransactionController {
 
@@ -69,6 +71,12 @@ public with sharing class PendingTransactionController {
     /** What the Add form may set on a new manual row; the rest is done in the editor afterwards. */
     private static final Set<String> CREATE_KEYS = new Set<String>{ 'amount', 'transactionDate', 'paymentMethod',
         'referenceNumber', 'depositDate', 'depositReference', 'contactId', 'accountId', 'payerName', 'notes' };
+
+    /** An event is a gala when the word Gala is in its name (whole word, any capitalization). */
+    private static final Pattern GALA_EVENT = Pattern.compile('(?i)\\bgala\\b');
+
+    /** Most unpaid registrations offered for one contact - a safety net, real donors have one or two. */
+    @TestVisible private static final Integer MAX_REGISTRATIONS = 50;
 
     /** The subset bulk edit may change. */
     private static final Set<String> BULK_EDITABLE = new Set<String>{ 'campaignId', 'fundId', 'approach', 'giftRecordType' };
@@ -179,6 +187,22 @@ public with sharing class PendingTransactionController {
         @AuraEnabled public String message;
     }
 
+    /** One unpaid gala registration offered in the editor. pledge* is set when it already has a pledge. */
+    public class RegistrationInfo {
+        @AuraEnabled public Id id;
+        @AuraEnabled public String name;
+        @AuraEnabled public String summary;
+        @AuraEnabled public String eventName;
+        @AuraEnabled public String level;
+        @AuraEnabled public Decimal tickets;
+        @AuraEnabled public Decimal amount;
+        @AuraEnabled public String paymentChoice;
+        @AuraEnabled public Date submitted;
+        @AuraEnabled public Id pledgeId;
+        @AuraEnabled public String pledgeName;
+        @AuraEnabled public Decimal pledgeOutstanding;
+    }
+
     public class ContactResult {
         @AuraEnabled public Id contactId;
         @AuraEnabled public String contactName;
@@ -284,6 +308,84 @@ public with sharing class PendingTransactionController {
                     ii.scheduledDate = i.scheduledDate;
                     info.unpaid.add(ii);
                 }
+                out.add(info);
+            }
+            return out;
+        } catch (Exception e) {
+            throw auraError(e);
+        }
+    }
+
+    /**
+     * @description The contact's gala Event Registrations that are still unpaid, newest first, for the
+     *              editor to offer as "is this money payment for one of these?". Left out:
+     *                - events without the word Gala in their name;
+     *                - registrations already claimed by a different pending transaction (either lookup),
+     *                  so the same money is never matched twice;
+     *                - registrations linked to a gift that is not an open pledge/grant with money owed -
+     *                  new money can't be attached to those (commit would refuse it).
+     *              A registration with an open pledge comes back with that pledge, so the editor can apply
+     *              the money as a payment on it instead of a second gift.
+     * @param rowId     the pending transaction being edited (its own claim does not hide a registration)
+     * @param contactId the donor on that transaction
+     */
+    @AuraEnabled
+    public static List<RegistrationInfo> getUnpaidRegistrations(Id rowId, Id contactId) {
+        try {
+            List<RegistrationInfo> out = new List<RegistrationInfo>();
+            if (contactId == null) {
+                return out;
+            }
+            // LIKE narrows to candidate events; the whole-word test below makes the final call.
+            List<Event_Registration__c> regs = [
+                SELECT Id, Name, Registration_Summary__c, Event__r.Name, Sponsorship_Level__c, Number_of_Tickets__c,
+                       Sponsorship_Donation_Amount__c, toLabel(Payment_Method__c), CreatedDate,
+                       Pending_Transaction__c, Opportunity__c, Opportunity__r.Name,
+                       Opportunity__r.RecordType.DeveloperName, Opportunity__r.IsClosed, Opportunity__r.IsWon,
+                       Opportunity__r.npe01__Amount_Outstanding__c
+                FROM Event_Registration__c
+                WHERE Contact__c = :contactId AND Paid__c = false AND Event__r.Name LIKE '%gala%'
+                WITH USER_MODE
+                ORDER BY CreatedDate DESC
+                LIMIT :MAX_REGISTRATIONS
+            ];
+            Set<Id> regIds = new Map<Id, Event_Registration__c>(regs).keySet();
+            Set<Id> claimed = new Set<Id>();
+            for (Pending_Transaction__c pt : [SELECT Event_Registration__c FROM Pending_Transaction__c
+                                              WHERE Event_Registration__c IN :regIds AND Id != :rowId
+                                              WITH USER_MODE]) {
+                claimed.add(pt.Event_Registration__c);
+            }
+
+            // Loop: drop what can't take this money, shape the rest for the table.
+            for (Event_Registration__c r : regs) {
+                if (!GALA_EVENT.matcher(r.Event__r.Name).find() || claimed.contains(r.Id)
+                        || (r.Pending_Transaction__c != null && r.Pending_Transaction__c != rowId)) {
+                    continue;
+                }
+                RegistrationInfo info = new RegistrationInfo();
+                // IF: already has a gift - only an open pledge/grant with money owed can take a payment.
+                if (r.Opportunity__c != null) {
+                    Opportunity p = r.Opportunity__r;
+                    Boolean payable = PendingTransactionService.PAYABLE_RECORD_TYPES.contains(p.RecordType.DeveloperName)
+                        && !(p.IsClosed && !p.IsWon)
+                        && p.npe01__Amount_Outstanding__c != null && p.npe01__Amount_Outstanding__c > 0;
+                    if (!payable) {
+                        continue;
+                    }
+                    info.pledgeId = p.Id;
+                    info.pledgeName = p.Name;
+                    info.pledgeOutstanding = p.npe01__Amount_Outstanding__c;
+                }
+                info.id = r.Id;
+                info.name = r.Name;
+                info.summary = r.Registration_Summary__c;
+                info.eventName = r.Event__r.Name;
+                info.level = r.Sponsorship_Level__c;
+                info.tickets = r.Number_of_Tickets__c;
+                info.amount = r.Sponsorship_Donation_Amount__c;
+                info.paymentChoice = r.Payment_Method__c;
+                info.submitted = r.CreatedDate.date();
                 out.add(info);
             }
             return out;

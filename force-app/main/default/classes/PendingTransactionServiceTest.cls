@@ -19,6 +19,8 @@
  * 2026-09-17 - Jason Ott - Phase 5b: QuickBooks customer link on commit.
  * 2026-10-09 - Jason Ott - Gala: Event Registration linked both ways on a new gift; never on a pledge
  *                          payment; a registration already linked to another gift fails the row.
+ * 2026-11-06 - Jason Ott - Registrations marked Paid on commit: in full only (new gift covering the amount,
+ *                          pledge paid off); partial money leaves them unpaid.
  */
 @IsTest
 private class PendingTransactionServiceTest {
@@ -669,9 +671,116 @@ private class PendingTransactionServiceTest {
         System.assertEquals(reg.Id, gift.Event_Registration__c, 'Gift -> registration');
         System.assertEquals(gift.Id, [SELECT Opportunity__c FROM Event_Registration__c WHERE Id = :reg.Id].Opportunity__c,
             'Registration -> gift');
+        System.assert([SELECT Paid__c FROM Event_Registration__c WHERE Id = :reg.Id].Paid__c,
+            'No amount on the registration - the money settles it');
+        System.assert(results[0].message.contains('marked Paid'), results[0].message);
     }
 
-    /** A pledge payment is never linked, even when the row carries a registration. */
+    /** A new gift for the full registration amount marks it Paid; less than that leaves it unpaid. */
+    @IsTest
+    static void newGiftMarksRegistrationPaidOnlyWhenCoveredInFull() {
+        Event_Registration__c full = registration();
+        Event_Registration__c part = new Event_Registration__c(Event__c = [SELECT Event__c FROM Event_Registration__c
+            WHERE Id = :full.Id].Event__c, Donor_Last_Name__c = 'Parttest', Sponsorship_Donation_Amount__c = 6000);
+        insert part;
+        update new Event_Registration__c(Id = full.Id, Sponsorship_Donation_Amount__c = 5000);
+        Pending_Transaction__c fullRow = readyRow(donor(), 5000);
+        fullRow.Source__c = 'Gala Website';
+        fullRow.Event_Registration__c = full.Id;
+        Pending_Transaction__c partRow = readyRow(donor(), 5000);
+        partRow.Source__c = 'Gala Website';
+        partRow.Event_Registration__c = part.Id;
+        insert new List<Pending_Transaction__c>{ fullRow, partRow };
+
+        Test.startTest();
+        List<PendingTransactionService.CommitResult> results =
+            PendingTransactionService.commitTransactions(new List<Id>{ fullRow.Id, partRow.Id });
+        Test.stopTest();
+
+        for (PendingTransactionService.CommitResult r : results) {
+            System.assert(r.success, r.message);
+        }
+        System.assert([SELECT Paid__c FROM Event_Registration__c WHERE Id = :full.Id].Paid__c, 'Covered in full');
+        Event_Registration__c shortReg = [SELECT Paid__c, Opportunity__c FROM Event_Registration__c WHERE Id = :part.Id];
+        System.assert(!shortReg.Paid__c, 'Short by $1,000 - stays unpaid');
+        System.assertNotEquals(null, shortReg.Opportunity__c, 'Still linked to its gift');
+        String partMessage = results[0].rowId == partRow.Id ? results[0].message : results[1].message;
+        System.assert(partMessage.contains('$1,000.00 of $6,000.00 is still owed'), partMessage);
+    }
+
+    /** The payment that pays a pledge off marks its registration Paid - found from the pledge's own link. */
+    @IsTest
+    static void pledgePaidOffMarksItsRegistrationPaid() {
+        Contact c = donor();
+        Opportunity p = pledge(c);
+        Event_Registration__c reg = registration();
+        update new Opportunity(Id = p.Id, Event_Registration__c = reg.Id);
+        Pending_Transaction__c row = readyRow(c, 15000);
+        row.Apply_As__c = 'Pledge Payment';
+        row.Pledge__c = p.Id;
+        insert row;
+
+        Test.startTest();
+        List<PendingTransactionService.CommitResult> results =
+            PendingTransactionService.commitTransactions(new List<Id>{ row.Id });
+        Test.stopTest();
+
+        System.assert(results[0].success, results[0].message);
+        System.assert([SELECT Paid__c FROM Event_Registration__c WHERE Id = :reg.Id].Paid__c, 'Pledge paid off');
+        System.assert(results[0].message.contains('marked Paid'), results[0].message);
+    }
+
+    /** A payment that leaves money owed on the pledge leaves its registration unpaid. */
+    @IsTest
+    static void pledgePartlyPaidLeavesRegistrationUnpaid() {
+        Contact c = donor();
+        Opportunity p = pledge(c);
+        Event_Registration__c reg = registration();
+        update new Event_Registration__c(Id = reg.Id, Opportunity__c = p.Id);
+        Pending_Transaction__c row = readyRow(c, 3750);
+        row.Apply_As__c = 'Pledge Payment';
+        row.Pledge__c = p.Id;
+        row.Event_Registration__c = reg.Id;
+        insert row;
+
+        Test.startTest();
+        List<PendingTransactionService.CommitResult> results =
+            PendingTransactionService.commitTransactions(new List<Id>{ row.Id });
+        Test.stopTest();
+
+        System.assert(results[0].success, results[0].message);
+        System.assert(![SELECT Paid__c FROM Event_Registration__c WHERE Id = :reg.Id].Paid__c, 'Pledge not paid off');
+        System.assert(results[0].message.contains('$11,250.00 still owed'), results[0].message);
+    }
+
+    /** A pledge payment naming a registration that belongs to a different gift fails; nothing is paid. */
+    @IsTest
+    static void pledgePaymentWithAnotherGiftsRegistrationFails() {
+        Contact c = donor();
+        Opportunity p = pledge(c);
+        Event_Registration__c reg = registration();
+        Opportunity other = new Opportunity(Name = 'Other gift', StageName = 'Posted', CloseDate = Date.today(),
+            Amount = 100, AccountId = c.AccountId);
+        insert other;
+        update new Event_Registration__c(Id = reg.Id, Opportunity__c = other.Id);
+        Pending_Transaction__c row = readyRow(c, 3750);
+        row.Apply_As__c = 'Pledge Payment';
+        row.Pledge__c = p.Id;
+        row.Event_Registration__c = reg.Id;
+        insert row;
+
+        Test.startTest();
+        List<PendingTransactionService.CommitResult> results =
+            PendingTransactionService.commitTransactions(new List<Id>{ row.Id });
+        Test.stopTest();
+
+        System.assert(!results[0].success, 'Expected the row to fail');
+        System.assert(results[0].message.contains('belongs to the gift'), results[0].message);
+        System.assertEquals(0, [SELECT COUNT() FROM npe01__OppPayment__c WHERE npe01__Opportunity__c = :p.Id
+                                AND npe01__Paid__c = true], 'The payment was rolled back');
+    }
+
+    /** A pledge payment does not link the registration to the pledge, even when the row carries one. */
     @IsTest
     static void pledgePaymentDoesNotLinkEventRegistration() {
         Contact c = donor();

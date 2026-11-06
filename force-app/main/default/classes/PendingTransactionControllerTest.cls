@@ -11,6 +11,7 @@
  * 2026-09-16 - Jason Ott - Phase 4: createTransaction and deleteTransaction.
  * 2026-10-09 - Jason Ott - Source tabs: saveQueue / savedQueue, incl. a JCRC - Fundraising user.
  * 2026-10-09 - Jason Ott - Gala: isGala from source or a gala fund; Event Registration on gala rows only.
+ * 2026-11-06 - Jason Ott - getUnpaidRegistrations: which of a contact's registrations are offered.
  */
 @IsTest
 private class PendingTransactionControllerTest {
@@ -422,5 +423,65 @@ private class PendingTransactionControllerTest {
         Test.stopTest();
         System.assert(info.isGala, 'QuickBooks + gala fund is gala');
         System.assertEquals(reg.Id, info.eventRegistrationId);
+    }
+
+    /**
+     * Only the contact's unpaid registrations for a Gala event that can still take money are offered:
+     * not paid ones, not other events (Galaxy is not Gala), not one claimed by another pending
+     * transaction, not one whose gift is already settled. One with an open pledge carries the pledge.
+     */
+    @IsTest
+    static void unpaidRegistrationsOffersOnlyWhatCanTakeThisMoney() {
+        Contact c = donor();
+        Event__c gala = new Event__c(Name = '2027 Gala');
+        Event__c dinner = new Event__c(Name = 'Annual Dinner');
+        Event__c galaxy = new Event__c(Name = 'Galaxy Night');
+        insert new List<Event__c>{ gala, dinner, galaxy };
+        Opportunity p = pledge(c);
+        Opportunity settled = new Opportunity(Name = 'Settled gift', StageName = 'Posted', CloseDate = Date.today(),
+            Amount = 100, AccountId = c.AccountId);
+        insert settled;
+        Pending_Transaction__c row = stage(500);
+        Pending_Transaction__c other = stage(600);
+
+        Event_Registration__c open = new Event_Registration__c(Event__c = gala.Id, Contact__c = c.Id,
+            Sponsorship_Level__c = 'Friend', Number_of_Tickets__c = 1, Sponsorship_Donation_Amount__c = 1500);
+        Event_Registration__c withPledge = new Event_Registration__c(Event__c = gala.Id, Contact__c = c.Id,
+            Opportunity__c = p.Id, Sponsorship_Donation_Amount__c = 6000);
+        Event_Registration__c ownClaim = new Event_Registration__c(Event__c = gala.Id, Contact__c = c.Id,
+            Pending_Transaction__c = row.Id);
+        Event_Registration__c paid = new Event_Registration__c(Event__c = gala.Id, Contact__c = c.Id, Paid__c = true);
+        Event_Registration__c notGala = new Event_Registration__c(Event__c = dinner.Id, Contact__c = c.Id);
+        Event_Registration__c galaxyReg = new Event_Registration__c(Event__c = galaxy.Id, Contact__c = c.Id);
+        Event_Registration__c giftSettled = new Event_Registration__c(Event__c = gala.Id, Contact__c = c.Id,
+            Opportunity__c = settled.Id);
+        Event_Registration__c claimedByOther = new Event_Registration__c(Event__c = gala.Id, Contact__c = c.Id);
+        Event_Registration__c claimedOnRegistration = new Event_Registration__c(Event__c = gala.Id, Contact__c = c.Id,
+            Pending_Transaction__c = other.Id);
+        insert new List<Event_Registration__c>{ open, withPledge, ownClaim, paid, notGala, galaxyReg, giftSettled,
+            claimedByOther, claimedOnRegistration };
+        update new Pending_Transaction__c(Id = other.Id, Source__c = 'Gala Website', Event_Registration__c = claimedByOther.Id);
+
+        Test.startTest();
+        List<PendingTransactionController.RegistrationInfo> offered =
+            PendingTransactionController.getUnpaidRegistrations(row.Id, c.Id);
+        List<PendingTransactionController.RegistrationInfo> nobody =
+            PendingTransactionController.getUnpaidRegistrations(row.Id, null);
+        Test.stopTest();
+
+        Map<Id, PendingTransactionController.RegistrationInfo> byId = new Map<Id, PendingTransactionController.RegistrationInfo>();
+        for (PendingTransactionController.RegistrationInfo r : offered) {
+            byId.put(r.id, r);
+        }
+        System.assertEquals(new Set<Id>{ open.Id, withPledge.Id, ownClaim.Id }, byId.keySet());
+        PendingTransactionController.RegistrationInfo o = byId.get(open.Id);
+        System.assertEquals('2027 Gala', o.eventName);
+        System.assertEquals('Friend', o.level);
+        System.assertEquals(1500, o.amount);
+        System.assertEquals(null, o.pledgeId, 'No gift yet - a new gift');
+        System.assert(o.summary.contains('2027 Gala') && o.summary.endsWith('Unpaid'), o.summary);
+        System.assertEquals(p.Id, byId.get(withPledge.Id).pledgeId, 'Open pledge - pay it instead');
+        System.assertEquals(6000, byId.get(withPledge.Id).pledgeOutstanding);
+        System.assert(nobody.isEmpty(), 'No contact, nothing to offer');
     }
 }

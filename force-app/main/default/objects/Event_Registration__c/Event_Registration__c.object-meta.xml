@@ -167,7 +167,20 @@
         <type>AutoNumber</type>
     </nameField>
     <pluralLabel>Event Registrations</pluralLabel>
-    <searchLayouts></searchLayouts>
+    <searchLayouts>
+        <lookupDialogsAdditionalFields>Registration_Summary__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Contact__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Event__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Sponsorship_Level__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Sponsorship_Donation_Amount__c</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Paid__c</lookupDialogsAdditionalFields>
+        <searchResultsAdditionalFields>Registration_Summary__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Contact__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Event__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Sponsorship_Level__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Sponsorship_Donation_Amount__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Paid__c</searchResultsAdditionalFields>
+    </searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <startsWith>Vowel</startsWith>
     <visibility>Public</visibility>

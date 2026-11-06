@@ -117,6 +117,18 @@
 .ed-delete { margin-right: auto; }
 .ed-saving { position: relative; width: 2rem; height: 2rem; }
 
+/* ---- unpaid registrations (gala card) ---- */
+.ed-regs { border: 1px solid var(--ed-accent); background: var(--ed-accent-soft); border-radius: 0.5rem; padding: 0.75rem; margin-bottom: 0.75rem; }
+.ed-regs-ask { display: flex; gap: 0.5rem; align-items: flex-start; font-weight: 600; color: var(--ed-ink); margin-bottom: 0.5rem; }
+.ed-regs-scroll { overflow-x: auto; background: var(--slds-g-color-neutral-base-100, #fff); border: 1px solid var(--ed-border); border-radius: 0.375rem; margin-bottom: 0.25rem; }
+.ed-regs-table { width: 100%; border-collapse: collapse; font-size: 0.8125rem; }
+.ed-regs-table th { text-align: left; font-weight: 600; color: var(--ed-muted); font-size: 0.75rem; padding: 0.375rem 0.5rem; border-bottom: 1px solid var(--ed-border); white-space: nowrap; }
+.ed-regs-table td { padding: 0.375rem 0.5rem; border-bottom: 1px solid var(--ed-border); vertical-align: middle; }
+.ed-regs-table tr:last-child td { border-bottom: none; }
+.ed-regs-name { display: block; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.ed-num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ed-badge_pledge { display: inline-block; margin-top: 0.125rem; background: var(--ed-review-soft); color: #6d4102; white-space: nowrap; }
+
 @media (max-width: 40em) {
     .ed-grid, .ed-facts { grid-template-columns: minmax(0, 1fr); }
 }

@@ -47,6 +47,11 @@
  *                          ways (Opportunity.Event_Registration__c and Event_Registration__c.Opportunity__c).
  *                          Pledge payments are never linked. A registration already linked to a different
  *                          gift fails that row instead of being moved.
+ * 2026-11-06 - Jason Ott - Gala registrations are marked Paid on commit: a new gift when it covers the
+ *                          registration amount; a pledge payment (any - chosen from the unpaid list or not)
+ *                          when it pays the pledge off. Partial money leaves the registration unpaid and the
+ *                          result says what is still owed. A registration chosen on a pledge payment that
+ *                          belongs to a different gift fails the row.
  */
 public with sharing class PendingTransactionService {
 
@@ -895,22 +900,92 @@ public with sharing class PendingTransactionService {
 
         /**
          * Points the row's Event Registration at the gift just created (the gift already points back at
-         * it). New gifts only - pledge payments never call this. A registration that already belongs to a
-         * different gift is an error rather than silently moved, so one sponsorship never ends up claimed
-         * by two gifts; the row's savepoint undoes the gift.
+         * it). New gifts only. A registration that already belongs to a different gift is an error rather
+         * than silently moved, so one sponsorship never ends up claimed by two gifts; the row's savepoint
+         * undoes the gift.
+         *
+         * The registration is marked Paid when the gift covers its full amount (or it has no amount);
+         * otherwise it stays unpaid and the result says what is still owed. Returns that sentence, or ''
+         * when the row has no registration.
          */
-        public void linkEventRegistration(Pending_Transaction__c row, Id giftId) {
+        public String linkEventRegistration(Pending_Transaction__c row, Id giftId) {
             if (row.Event_Registration__c == null) {
-                return;
+                return '';
             }
-            Event_Registration__c reg = [SELECT Id, Name, Opportunity__c, Opportunity__r.Name
+            Event_Registration__c reg = [SELECT Id, Name, Opportunity__c, Opportunity__r.Name, Paid__c,
+                                                Sponsorship_Donation_Amount__c
                                          FROM Event_Registration__c WHERE Id = :row.Event_Registration__c];
             if (reg.Opportunity__c != null && reg.Opportunity__c != giftId) {
                 throw new PendingTransactionException('Event Registration ' + reg.Name
                     + ' is already linked to the gift ' + reg.Opportunity__r.Name
                     + '. Clear the registration on this transaction, or unlink it from that gift first.');
             }
-            update new Event_Registration__c(Id = reg.Id, Opportunity__c = giftId);
+            Event_Registration__c upd = new Event_Registration__c(Id = reg.Id, Opportunity__c = giftId);
+            String note = ' Linked to Event Registration ' + reg.Name + '.';
+            Decimal owed = reg.Sponsorship_Donation_Amount__c;
+            // IF: already paid - nothing to settle. Covered (or no amount to cover) - mark Paid.
+            // Short - leave it unpaid and say how much is missing.
+            if (reg.Paid__c) {
+                note = ' Linked to Event Registration ' + reg.Name + ' (already paid).';
+            } else if (owed == null || owed <= 0 || row.Amount__c >= owed) {
+                upd.Paid__c = true;
+                note = ' Event Registration ' + reg.Name + ' marked Paid.';
+            } else {
+                note = ' Event Registration ' + reg.Name + ' stays unpaid: ' + money(owed - row.Amount__c)
+                    + ' of ' + money(owed) + ' is still owed.';
+            }
+            update upd;
+            return note;
+        }
+
+        /**
+         * After a pledge payment: settles the Event Registrations that belong to the pledge - those linked
+         * to it either way (Event_Registration__c.Opportunity__c, Opportunity.Event_Registration__c) plus
+         * the one chosen on the row. They are marked Paid only when this payment pays the pledge off;
+         * until then they stay unpaid and the result says so. This runs for every pledge payment, so the
+         * installment that finishes a gala pledge marks its registration Paid even if nobody chose it.
+         *
+         * A registration chosen on the row that belongs to a DIFFERENT gift fails the row (savepoint undoes
+         * the payment), the same rule new gifts follow.
+         */
+        public String settlePledgeRegistrations(Pending_Transaction__c row, Opportunity pledge, Decimal stillOwed) {
+            Set<Id> regIds = new Set<Id>();
+            if (pledge.Event_Registration__c != null) {
+                regIds.add(pledge.Event_Registration__c);
+            }
+            if (row.Event_Registration__c != null) {
+                Event_Registration__c chosen = [SELECT Id, Name, Opportunity__c, Opportunity__r.Name
+                                                FROM Event_Registration__c WHERE Id = :row.Event_Registration__c];
+                if (chosen.Opportunity__c != null && chosen.Opportunity__c != pledge.Id) {
+                    throw new PendingTransactionException('Event Registration ' + chosen.Name
+                        + ' belongs to the gift ' + chosen.Opportunity__r.Name + ', not to ' + pledge.Name
+                        + '. Clear the registration on this transaction, or choose that gift\'s pledge.');
+                }
+                regIds.add(chosen.Id);
+            }
+            List<Event_Registration__c> regs = [SELECT Id, Name FROM Event_Registration__c
+                                                WHERE Paid__c = false
+                                                AND (Opportunity__c = :pledge.Id OR Id IN :regIds)
+                                                ORDER BY Name];
+            if (regs.isEmpty()) {
+                return '';
+            }
+            List<String> names = new List<String>();
+            for (Event_Registration__c r : regs) {
+                names.add(r.Name);
+            }
+            String label = (regs.size() == 1 ? ' Event Registration ' : ' Event Registrations ')
+                + String.join(names, ', ');
+            // IF: pledge still has money owed - leave the registration(s) unpaid until it is paid off.
+            if (stillOwed > 0) {
+                return label + ' stays unpaid until ' + pledge.Name + ' is paid in full (' + money(stillOwed)
+                    + ' still owed).';
+            }
+            for (Event_Registration__c r : regs) {
+                r.Paid__c = true;
+            }
+            update regs;
+            return label + ' marked Paid.';
         }
 
         public void deleteRow(Pending_Transaction__c row) {
@@ -940,7 +1015,7 @@ public with sharing class PendingTransactionService {
                 Event_Registration__c = row.Event_Registration__c
             );
             insert gift;
-            linkEventRegistration(row, gift.Id);
+            String registrationNote = linkEventRegistration(row, gift.Id);
 
             if (String.isNotBlank(row.Gift_Name__c)) {
                 Opportunity named = [SELECT Name FROM Opportunity WHERE Id = :gift.Id];
@@ -970,12 +1045,12 @@ public with sharing class PendingTransactionService {
             Opportunity saved = [SELECT Id, Name FROM Opportunity WHERE Id = :gift.Id];
             result.recordId = saved.Id;
             result.recordName = saved.Name;
-            result.message = 'Created gift ' + saved.Name + '.';
+            result.message = 'Created gift ' + saved.Name + '.' + registrationNote;
         }
 
         /** Pledge payment: lock the installments, apply the rules, stamp the paid installment. */
         public void applyPledgePayment(Pending_Transaction__c row, CommitResult result) {
-            Opportunity pledge = [SELECT Id, Name, npe01__Amount_Outstanding__c FROM Opportunity
+            Opportunity pledge = [SELECT Id, Name, npe01__Amount_Outstanding__c, Event_Registration__c FROM Opportunity
                                   WHERE Id = :row.Pledge__c FOR UPDATE];
             PaymentPlan plan = planPledgePayment(row.Amount__c, pledge.npe01__Amount_Outstanding__c,
                                                  unpaidInstallments(pledge.Id, true));
@@ -1025,9 +1100,13 @@ public with sharing class PendingTransactionService {
                 insert plan.remainder;
             }
 
+            // The plan refuses more than the outstanding balance, so what is left is simply B - R.
+            String registrationNote = settlePledgeRegistrations(row, pledge,
+                pledge.npe01__Amount_Outstanding__c - row.Amount__c);
+
             result.recordId = pledge.Id;
             result.recordName = pledge.Name;
-            result.message = String.join(plan.steps, ' ');
+            result.message = String.join(plan.steps, ' ') + registrationNote;
         }
     }
 

@@ -28,6 +28,11 @@
  *                          or a gala fund/campaign chosen in this draft (options.galaFundIds/galaCampaignIds).
  *                          Still shown when a registration is set on a row that is no longer gala, so it
  *                          can be cleared (the server refuses to save that combination).
+ * 2026-11-06 - Jason Ott - Unpaid registrations: on a gala row with no registration, the saved contact's
+ *                          unpaid gala registrations are listed ("is this money payment for one of these?")
+ *                          and re-fetched whenever the contact changes. Choosing one sets the registration;
+ *                          one that already has a pledge also switches the row to a payment on that pledge.
+ *                          The picker now shows Registration_Summary__c instead of only the EVR number.
  */
 import { LightningElement, api } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
@@ -35,6 +40,7 @@ import saveTransaction from '@salesforce/apex/PendingTransactionController.saveT
 import confirmDonor from '@salesforce/apex/PendingTransactionController.confirmDonor';
 import getOpenPledges from '@salesforce/apex/PendingTransactionController.getOpenPledges';
 import previewPledgePayment from '@salesforce/apex/PendingTransactionController.previewPledgePayment';
+import getUnpaidRegistrations from '@salesforce/apex/PendingTransactionController.getUnpaidRegistrations';
 import NewContactModal from 'c/pendingTransactionNewContact';
 import { errorMessage, formatMoney, formatDate } from 'c/pendingTransactionUtils';
 
@@ -64,12 +70,18 @@ export default class PendingTransactionEditor extends LightningElement {
     previewSteps;
     previewRefusal;
     previewTimer;
+    loadingRegistrations = false;
+    registrations = [];
+    registrationsFor;
+    /** The rowId|contactId whose unpaid registrations the user answered "None of these" to. */
+    registrationsDismissedFor;
 
     contactDisplayInfo = { additionalFields: ['Email'] };
     contactMatchingInfo = { primaryField: { fieldPath: 'Name' }, additionalFields: [{ fieldPath: 'Email' }] };
     campaignFilter = { criteria: [{ fieldPath: 'IsActive', operator: 'eq', value: true }] };
-    registrationDisplayInfo = { additionalFields: ['Donor_Last_Name__c'] };
-    registrationMatchingInfo = { primaryField: { fieldPath: 'Name' }, additionalFields: [{ fieldPath: 'Donor_Last_Name__c' }] };
+    // The summary (donor · event · level · amount · paid) is the main line; the EVR number sits under it.
+    registrationDisplayInfo = { primaryField: 'Registration_Summary__c', additionalFields: ['Name'] };
+    registrationMatchingInfo = { primaryField: { fieldPath: 'Registration_Summary__c' }, additionalFields: [{ fieldPath: 'Name' }] };
 
     // ---- row in / draft ------------------------------------------------------------------------
 
@@ -86,6 +98,7 @@ export default class PendingTransactionEditor extends LightningElement {
             this.previewRefusal = undefined;
         }
         this.loadPledgesIfNeeded();
+        this.loadRegistrationsIfNeeded();
         this.schedulePreview();
     }
 
@@ -255,6 +268,64 @@ export default class PendingTransactionEditor extends LightningElement {
                 this.dispatchEvent(new CustomEvent('commit', { detail: { rowId: current.id } }));
             })
             .catch(() => {});
+    }
+
+    // ---- unpaid registrations ------------------------------------------------------------------
+
+    /**
+     * Loads the SAVED contact's unpaid gala registrations whenever the row or its contact changes. Choosing
+     * a contact saves straight away, so a new contact arrives here through the row setter and is looked up
+     * again. Loaded for every row with a contact; the table itself only shows on gala rows with no
+     * registration (showUnpaidRegistrations).
+     */
+    loadRegistrationsIfNeeded() {
+        if (!this._row) { return; }
+        const key = `${this._row.id}|${this._row.contactId || ''}`;
+        if (key === this.registrationsFor) { return; }
+        this.registrationsFor = key;
+        this.registrations = [];
+        if (!this._row.contactId) { return; }
+        this.loadingRegistrations = true;
+        getUnpaidRegistrations({ rowId: this._row.id, contactId: this._row.contactId })
+            .then((list) => {
+                if (this.registrationsFor === key) { this.registrations = list; }
+            })
+            .catch((err) => this.toast(errorMessage(err), 'error'))
+            .finally(() => { this.loadingRegistrations = false; });
+    }
+
+    /**
+     * One registration chosen from the table. One with an open pledge turns the row into a payment on that
+     * pledge (a second gift would count the sponsorship twice); one without makes sure it is a new gift.
+     */
+    handlePickRegistration(event) {
+        const reg = (this.registrations || []).find((r) => r.id === event.currentTarget.dataset.id);
+        if (!reg) { return; }
+        this.draft = reg.pledgeId
+            ? { ...this.draft, eventRegistrationId: reg.id, applyAs: 'Pledge Payment', pledgeId: reg.pledgeId }
+            : { ...this.draft, eventRegistrationId: reg.id, applyAs: 'New Gift', pledgeId: null };
+        this.loadPledgesIfNeeded();
+        this.schedulePreview();
+    }
+
+    handleNoRegistration() {
+        this.registrationsDismissedFor = this.registrationsFor;
+    }
+
+    get showUnpaidRegistrations() {
+        return this.isGalaDraft && !this.draft.eventRegistrationId && !!this._row && !!this._row.contactId
+            && !this.loadingRegistrations && this.registrations && this.registrations.length > 0
+            && this.registrationsDismissedFor !== this.registrationsFor;
+    }
+
+    get registrationRows() {
+        return (this.registrations || []).map((r) => ({
+            ...r,
+            amountDisplay: r.amount === null || r.amount === undefined ? '' : formatMoney(r.amount),
+            submittedDisplay: r.submitted ? formatDate(r.submitted) : '',
+            pledgeLabel: r.pledgeId ? `Pledge – ${formatMoney(r.pledgeOutstanding)} still owed` : '',
+            ariaLabel: `Use ${r.name}${r.summary ? ', ' + r.summary : ''}`
+        }));
     }
 
     // ---- pledges & preview --------------------------------------------------------------------

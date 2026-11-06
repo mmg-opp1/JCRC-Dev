@@ -3477,6 +3477,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Event_Registration__c.Registration_Summary__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Event_Registration__c.Sponsor_Paid_Processing_Fee__c</field>
         <readable>true</readable>

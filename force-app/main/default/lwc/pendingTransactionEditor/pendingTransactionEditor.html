@@ -209,6 +209,56 @@
             <template lwc:if={showGalaCard}>
                 <section class="ed-card">
                     <h2 class="ed-card-title">Gala</h2>
+                    <!-- The donor's unpaid gala registrations: is this money for one of them? -->
+                    <template lwc:if={showUnpaidRegistrations}>
+                        <div class="ed-regs">
+                            <p class="ed-regs-ask">
+                                <lightning-icon icon-name="utility:ticket" size="x-small"></lightning-icon>
+                                <span>Unpaid Registrations found for this Contact. Is this money payment for one of these registrations?</span>
+                            </p>
+                            <div class="ed-regs-scroll">
+                                <table class="ed-regs-table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col"><span class="slds-assistive-text">Choose</span></th>
+                                            <th scope="col">Registration</th>
+                                            <th scope="col">Event</th>
+                                            <th scope="col">Level</th>
+                                            <th scope="col" class="ed-num">Tickets</th>
+                                            <th scope="col" class="ed-num">Amount</th>
+                                            <th scope="col">Chose to pay by</th>
+                                            <th scope="col">Submitted</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <template for:each={registrationRows} for:item="r">
+                                            <tr key={r.id}>
+                                                <td>
+                                                    <lightning-button label="Use this" variant="brand-outline" size="small"
+                                                        data-id={r.id} onclick={handlePickRegistration} disabled={locked}
+                                                        title={r.ariaLabel}></lightning-button>
+                                                </td>
+                                                <td>
+                                                    <span class="ed-regs-name">{r.name}</span>
+                                                    <template lwc:if={r.pledgeLabel}>
+                                                        <span class="ed-badge ed-badge_pledge">{r.pledgeLabel}</span>
+                                                    </template>
+                                                </td>
+                                                <td>{r.eventName}</td>
+                                                <td>{r.level}</td>
+                                                <td class="ed-num">{r.tickets}</td>
+                                                <td class="ed-num">{r.amountDisplay}</td>
+                                                <td>{r.paymentChoice}</td>
+                                                <td>{r.submittedDisplay}</td>
+                                            </tr>
+                                        </template>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <lightning-button label="None of these" variant="base" onclick={handleNoRegistration}
+                                disabled={locked}></lightning-button>
+                        </div>
+                    </template>
                     <lightning-record-picker label="Event Registration" placeholder="Search registrations…"
                         object-api-name="Event_Registration__c" value={draft.eventRegistrationId}
                         display-info={registrationDisplayInfo} matching-info={registrationMatchingInfo}
@@ -218,10 +268,11 @@
                             Clear it, or choose a gala fund or campaign.</p>
                     </template>
                     <template lwc:elseif={isPledgePayment}>
-                        <p class="ed-hint">Pledge payments are not linked to the registration - only new gifts are.</p>
+                        <p class="ed-hint">On commit, the registration is marked Paid once this payment pays the pledge off.</p>
                     </template>
                     <template lwc:else>
-                        <p class="ed-hint">On commit, the new gift and this registration are linked to each other.</p>
+                        <p class="ed-hint">On commit, the new gift and this registration are linked to each other, and the
+                            registration is marked Paid if the gift covers its full amount.</p>
                     </template>
                 </section>
             </template>
