@@ -52,6 +52,10 @@
  *                          when it pays the pledge off. Partial money leaves the registration unpaid and the
  *                          result says what is still owed. A registration chosen on a pledge payment that
  *                          belongs to a different gift fails the row.
+ * 2026-11-06 - Jason Ott - Open Items #12: the class is API 67.0, where plain SOQL/DML run in USER mode, so a
+ *                          JCRC - Fundraising user's commit was refused (fields they hold read-only, e.g. Source
+ *                          Transaction ID, Status). The Writer, the failed-row stamp and confirmDonors now say
+ *                          SYSTEM mode explicitly (as system / WITH SYSTEM_MODE), as this header always intended.
  */
 public with sharing class PendingTransactionService {
 
@@ -525,7 +529,7 @@ public with sharing class PendingTransactionService {
             row.Match_Status__c = MATCH_CONFIRMED;
         }
         // Normal save path: the trigger re-evaluates status now the donor is confirmed.
-        update rows;
+        update as system rows;
     }
 
     // =============================================================================================
@@ -848,7 +852,7 @@ public with sharing class PendingTransactionService {
         if (!failed.isEmpty()) {
             suppressTrigger = true;
             try {
-                update failed;
+                update as system failed;
             } finally {
                 suppressTrigger = false;
             }
@@ -886,14 +890,14 @@ public with sharing class PendingTransactionService {
                 return;
             }
             if (row.Contact__c != null) {
-                Contact c = [SELECT Id, QuickBooks_Customer_Id__c FROM Contact WHERE Id = :row.Contact__c];
+                Contact c = [SELECT Id, QuickBooks_Customer_Id__c FROM Contact WHERE Id = :row.Contact__c WITH SYSTEM_MODE];
                 if (String.isBlank(c.QuickBooks_Customer_Id__c)) {
-                    update new Contact(Id = c.Id, QuickBooks_Customer_Id__c = row.QuickBooks_Customer_Id__c);
+                    update as system new Contact(Id = c.Id, QuickBooks_Customer_Id__c = row.QuickBooks_Customer_Id__c);
                 }
             } else if (row.Account__c != null) {
-                Account a = [SELECT Id, QuickBooks_Customer_Id__c FROM Account WHERE Id = :row.Account__c];
+                Account a = [SELECT Id, QuickBooks_Customer_Id__c FROM Account WHERE Id = :row.Account__c WITH SYSTEM_MODE];
                 if (String.isBlank(a.QuickBooks_Customer_Id__c)) {
-                    update new Account(Id = a.Id, QuickBooks_Customer_Id__c = row.QuickBooks_Customer_Id__c);
+                    update as system new Account(Id = a.Id, QuickBooks_Customer_Id__c = row.QuickBooks_Customer_Id__c);
                 }
             }
         }
@@ -914,7 +918,8 @@ public with sharing class PendingTransactionService {
             }
             Event_Registration__c reg = [SELECT Id, Name, Opportunity__c, Opportunity__r.Name, Paid__c,
                                                 Sponsorship_Donation_Amount__c
-                                         FROM Event_Registration__c WHERE Id = :row.Event_Registration__c];
+                                         FROM Event_Registration__c WHERE Id = :row.Event_Registration__c
+                                         WITH SYSTEM_MODE];
             if (reg.Opportunity__c != null && reg.Opportunity__c != giftId) {
                 throw new PendingTransactionException('Event Registration ' + reg.Name
                     + ' is already linked to the gift ' + reg.Opportunity__r.Name
@@ -934,7 +939,7 @@ public with sharing class PendingTransactionService {
                 note = ' Event Registration ' + reg.Name + ' stays unpaid: ' + money(owed - row.Amount__c)
                     + ' of ' + money(owed) + ' is still owed.';
             }
-            update upd;
+            update as system upd;
             return note;
         }
 
@@ -955,7 +960,8 @@ public with sharing class PendingTransactionService {
             }
             if (row.Event_Registration__c != null) {
                 Event_Registration__c chosen = [SELECT Id, Name, Opportunity__c, Opportunity__r.Name
-                                                FROM Event_Registration__c WHERE Id = :row.Event_Registration__c];
+                                                FROM Event_Registration__c WHERE Id = :row.Event_Registration__c
+                                                WITH SYSTEM_MODE];
                 if (chosen.Opportunity__c != null && chosen.Opportunity__c != pledge.Id) {
                     throw new PendingTransactionException('Event Registration ' + chosen.Name
                         + ' belongs to the gift ' + chosen.Opportunity__r.Name + ', not to ' + pledge.Name
@@ -966,7 +972,7 @@ public with sharing class PendingTransactionService {
             List<Event_Registration__c> regs = [SELECT Id, Name FROM Event_Registration__c
                                                 WHERE Paid__c = false
                                                 AND (Opportunity__c = :pledge.Id OR Id IN :regIds)
-                                                ORDER BY Name];
+                                                WITH SYSTEM_MODE ORDER BY Name];
             if (regs.isEmpty()) {
                 return '';
             }
@@ -984,12 +990,13 @@ public with sharing class PendingTransactionService {
             for (Event_Registration__c r : regs) {
                 r.Paid__c = true;
             }
-            update regs;
+            update as system regs;
             return label + ' marked Paid.';
         }
 
         public void deleteRow(Pending_Transaction__c row) {
-            delete new Pending_Transaction__c(Id = row.Id);
+            // USER mode on purpose: removing the holding row needs Delete on Pending Transactions (see commitTransactions).
+            delete as user new Pending_Transaction__c(Id = row.Id);
         }
 
         /** New gift: Opportunity (Posted), then details on NPSP's auto-created payment, then the fund. */
@@ -1014,35 +1021,35 @@ public with sharing class PendingTransactionService {
                 Source_Transaction_Id__c = String.isBlank(row.External_Id__c) ? null : row.External_Id__c,
                 Event_Registration__c = row.Event_Registration__c
             );
-            insert gift;
+            insert as system gift;
             String registrationNote = linkEventRegistration(row, gift.Id);
 
             if (String.isNotBlank(row.Gift_Name__c)) {
-                Opportunity named = [SELECT Name FROM Opportunity WHERE Id = :gift.Id];
+                Opportunity named = [SELECT Name FROM Opportunity WHERE Id = :gift.Id WITH SYSTEM_MODE];
                 if (named.Name != row.Gift_Name__c) {
-                    update new Opportunity(Id = gift.Id, Name = row.Gift_Name__c);
+                    update as system new Opportunity(Id = gift.Id, Name = row.Gift_Name__c);
                 }
             }
 
             // NPSP created the payment during the insert; add the bank details to it.
             List<npe01__OppPayment__c> payments = [
-                SELECT Id FROM npe01__OppPayment__c WHERE npe01__Opportunity__c = :gift.Id
+                SELECT Id FROM npe01__OppPayment__c WHERE npe01__Opportunity__c = :gift.Id WITH SYSTEM_MODE
             ];
             if (String.isNotBlank(row.Reference_Number__c) || String.isNotBlank(row.Deposit_Reference__c)) {
                 for (npe01__OppPayment__c p : payments) {
                     p.npe01__Check_Reference_Number__c = row.Reference_Number__c;
                     p.npsp__Batch_Number__c = row.Deposit_Reference__c;
                 }
-                update payments;
+                update as system payments;
             }
 
             if (row.Fund__c != null) {
                 // A 100% allocation replaces NPSP's default-fund allocation (verified in JCRC-Dev).
-                insert new npsp__Allocation__c(npsp__Opportunity__c = gift.Id,
+                insert as system new npsp__Allocation__c(npsp__Opportunity__c = gift.Id,
                     npsp__General_Accounting_Unit__c = row.Fund__c, npsp__Percent__c = 100);
             }
 
-            Opportunity saved = [SELECT Id, Name FROM Opportunity WHERE Id = :gift.Id];
+            Opportunity saved = [SELECT Id, Name FROM Opportunity WHERE Id = :gift.Id WITH SYSTEM_MODE];
             result.recordId = saved.Id;
             result.recordName = saved.Name;
             result.message = 'Created gift ' + saved.Name + '.' + registrationNote;
@@ -1051,7 +1058,7 @@ public with sharing class PendingTransactionService {
         /** Pledge payment: lock the installments, apply the rules, stamp the paid installment. */
         public void applyPledgePayment(Pending_Transaction__c row, CommitResult result) {
             Opportunity pledge = [SELECT Id, Name, npe01__Amount_Outstanding__c, Event_Registration__c FROM Opportunity
-                                  WHERE Id = :row.Pledge__c FOR UPDATE];
+                                  WHERE Id = :row.Pledge__c WITH SYSTEM_MODE FOR UPDATE];
             PaymentPlan plan = planPledgePayment(row.Amount__c, pledge.npe01__Amount_Outstanding__c,
                                                  unpaidInstallments(pledge.Id, true));
             if (!plan.allowed) {
@@ -1081,23 +1088,23 @@ public with sharing class PendingTransactionService {
                 for (npe01__OppPayment__c x : plan.removed) {
                     toDelete.add(new npe01__OppPayment__c(Id = x.Id));
                 }
-                delete toDelete;
+                delete as system toDelete;
             }
             if (!plan.reduced.isEmpty()) {
                 List<npe01__OppPayment__c> toReduce = new List<npe01__OppPayment__c>();
                 for (npe01__OppPayment__c x : plan.reduced) {
                     toReduce.add(new npe01__OppPayment__c(Id = x.Id, npe01__Payment_Amount__c = x.npe01__Payment_Amount__c));
                 }
-                update toReduce;
+                update as system toReduce;
             }
             if (paid.Id != null) {
-                update paid;
+                update as system paid;
             } else {
-                insert paid;
+                insert as system paid;
             }
             if (plan.remainder != null) {
                 plan.remainder.npe01__Opportunity__c = pledge.Id;
-                insert plan.remainder;
+                insert as system plan.remainder;
             }
 
             // The plan refuses more than the outstanding balance, so what is left is simply B - R.

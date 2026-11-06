@@ -21,6 +21,7 @@
  *                          payment; a registration already linked to another gift fails the row.
  * 2026-11-06 - Jason Ott - Registrations marked Paid on commit: in full only (new gift covering the amount,
  *                          pledge paid off); partial money leaves them unpaid.
+ * 2026-11-06 - Jason Ott - Open Items #12: a fundraiser confirms a suggested donor (system-mode write).
  */
 @IsTest
 private class PendingTransactionServiceTest {
@@ -209,6 +210,22 @@ private class PendingTransactionServiceTest {
         row = [SELECT Match_Status__c, Status__c FROM Pending_Transaction__c WHERE Id = :row.Id];
         System.assertEquals('Confirmed', row.Match_Status__c);
         System.assertEquals('Ready', row.Status__c);
+    }
+
+    /** A JCRC - Fundraising user confirms a suggestion although they hold Match Status read-only (#12). */
+    @IsTest
+    static void fundraisingUserConfirmsSuggestedDonor() {
+        Pending_Transaction__c row = new Pending_Transaction__c(Source__c = 'QuickBooks', External_Id__c = 'QBO-FR',
+            Payer_Name__c = 'R PENDINGTEST', Payer_Email__c = DONOR_EMAIL, Amount__c = 100,
+            Transaction_Date__c = Date.today());
+        insert row;
+        User u = userWithProfile('JCRC - Fundraising', 'ptconf');
+        Test.startTest();
+        System.runAs(u) {
+            PendingTransactionService.confirmDonors(new Set<Id>{ row.Id });
+        }
+        Test.stopTest();
+        System.assertEquals('Confirmed', [SELECT Match_Status__c FROM Pending_Transaction__c WHERE Id = :row.Id].Match_Status__c);
     }
 
     @IsTest

@@ -71,7 +71,11 @@
     field `Event_Registration__c.Registration_Summary__c`, its read access (Admin / JCRC - Development /
     JCRC - Fundraising) and the Event Registration search layout.
 
-12. **Fundraisers cannot commit Pending Transactions (JCRC-Dev, since 2026-10-08).**
+12. ~~**Fundraisers cannot commit Pending Transactions (JCRC-Dev, since 2026-10-08).**~~ **FIXED 2026-11-06** -
+    the commit Writer, the failed-row stamp and `confirmDonors` now run SYSTEM mode explicitly (`as system` /
+    `WITH SYSTEM_MODE`); removing the holding row stays USER mode (needs Delete). 154/154 in the Pending
+    Transactions, QuickBooks, payment, gala sponsor and web donation suites; new test: a fundraiser confirms a
+    suggested donor. Other API 67.0 classes with plain DML that non-admin users run could hit the same thing.
     `PendingTransactionServiceTest.fundraisingUserCanCommitGiftsAndPaymentsOnPledgesOwnedByOthers` now
     fails: as a JCRC - Fundraising user, the commit's plain `insert`/`update` on Opportunity, Payment and
     Pending Transaction are refused ("fields being inaccessible"). Passed 2026-09-16 (52/52); the only
@@ -127,4 +131,4 @@
 
 ## Repo
 
-11. **Unpushed commits** on `main` (26 after unpaid gala registrations).
+11. **Unpushed commits** on `main` (27 after the #12 fix).
