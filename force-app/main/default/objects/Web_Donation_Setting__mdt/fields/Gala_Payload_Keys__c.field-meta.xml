@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Gala_Payload_Keys__c</fullName>
-    <description>Comma-separated payload keys searched for the gala words - the form's "What is this for" answers. A group number (28) covers all its options (28.1, 28.2 ...). Blank means "28, 23" (the checkboxes and the Other write-in). Website Donations / Jason Ott, 2026-10-28.</description>
+    <description>Comma-separated payload keys searched for the gala words - the form&apos;s &quot;What is this for&quot; answers. A group number (28) covers all its options (28.1, 28.2 ...). Blank means &quot;28, 23&quot; (the checkboxes and the Other write-in). Website Donations / Jason Ott, 2026-10-28.</description>
     <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <label>Gala Payload Keys</label>

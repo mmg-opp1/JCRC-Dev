@@ -31,6 +31,12 @@
                 <default>false</default>
                 <label>JCRC Website - Gala</label>
             </value>
+            <value>
+                <fullName>Gala Sponsor (Stripe)</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Gala Sponsor (Stripe)</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

@@ -16,6 +16,10 @@
     <nameFieldLabel>Numéro de paiement</nameFieldLabel>
     <startsWith>Consonant</startsWith>
     <webLinks>
+        <label><!-- New --></label>
+        <name>New</name>
+    </webLinks>
+    <webLinks>
         <label><!-- Schedule_Payments --></label>
         <name>npe01__Schedule_Payments</name>
     </webLinks>

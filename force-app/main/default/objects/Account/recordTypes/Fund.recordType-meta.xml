@@ -2,7 +2,7 @@
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Fund</fullName>
     <active>true</active>
-    <description>DAFs / Benevity</description>
+    <description>Accounts that donate via Individual, Famiily, Organization and Company Foundations</description>
     <label>Fund</label>
     <picklistValues>
         <picklist>AccountSource</picklist>

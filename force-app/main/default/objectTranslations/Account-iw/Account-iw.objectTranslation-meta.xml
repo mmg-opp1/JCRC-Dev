@@ -24,7 +24,7 @@
         <name>Child_Account</name>
     </quickActions>
     <recordTypes>
-        <description><!-- DAFs / Benevity --></description>
+        <description><!-- Accounts that donate via Individual, Famiily, Organization and Company Foundations --></description>
         <label><!-- Fund --></label>
         <name>Fund</name>
     </recordTypes>
@@ -34,7 +34,7 @@
         <name>HH_Account</name>
     </recordTypes>
     <recordTypes>
-        <description><!-- An Account representing an organization --></description>
+        <description><!-- Non-profit, Grantor, Company, Synagogue, business details - not Foundations --></description>
         <label><!-- Organization --></label>
         <name>Organization</name>
     </recordTypes>

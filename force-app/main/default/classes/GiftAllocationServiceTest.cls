@@ -10,6 +10,7 @@
  * -----------
  * 2026-07-01 - Jason Ott - Initial version (JSI-90 Phase 3).
  * 2026-07-01 - Jason Ott - Added reconcile/delete scenario tests. JSI-90 Phase 3.
+ * 2026-11-23 - Jason Ott - testDonorChange also moves the gift to the new donor's household (household validation rule).
  */
 @isTest
 private class GiftAllocationServiceTest {
@@ -156,7 +157,8 @@ private class GiftAllocationServiceTest {
         resync(o.Id);
         System.assertEquals(6000, ags(a.Id, FY27).Total_Hard_Credit__c, 'A credited first');
         Test.startTest();
-        o.npsp__Primary_Contact__c = b.Id; update o;
+        // the gift moves to B's household too (Primary_Contact_Out_Of_Household blocks a contact outside the gift's household)
+        o.npsp__Primary_Contact__c = b.Id; o.AccountId = b.AccountId; update o;
         resync(o.Id);
         Test.stopTest();
         System.assertEquals(0, [SELECT COUNT() FROM Gift_Allocation__c WHERE Contact__c=:a.Id], 'A allocation removed');

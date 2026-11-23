@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Company__c</fullName>
+    <description>Company name as entered on the person&apos;s profile in eTapestry (eTap &quot;Company&quot; field). Loaded as is by the eTapestry migration; JCRC cleans up. Separate from Affiliations and from Employed By. Jason Ott, 2026-11-11.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Company or organization name as recorded in eTapestry.</inlineHelpText>
+    <label>Company</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

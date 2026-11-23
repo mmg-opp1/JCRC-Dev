@@ -15,6 +15,10 @@
         <translation><!-- Employment --></translation>
     </picklistValues>
     <picklistValues>
+        <masterLabel>Gala</masterLabel>
+        <translation><!-- Gala --></translation>
+    </picklistValues>
+    <picklistValues>
         <masterLabel>General</masterLabel>
         <translation><!-- General --></translation>
     </picklistValues>
@@ -31,6 +35,10 @@
         <translation><!-- Interest --></translation>
     </picklistValues>
     <picklistValues>
+        <masterLabel>JCRC Board</masterLabel>
+        <translation><!-- JCRC Board --></translation>
+    </picklistValues>
+    <picklistValues>
         <masterLabel>Other</masterLabel>
         <translation><!-- Other --></translation>
     </picklistValues>
@@ -41,5 +49,9 @@
     <picklistValues>
         <masterLabel>Skills</masterLabel>
         <translation><!-- Skills --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>eTapestry Group</masterLabel>
+        <translation><!-- eTapestry Group --></translation>
     </picklistValues>
 </CustomFieldTranslation>

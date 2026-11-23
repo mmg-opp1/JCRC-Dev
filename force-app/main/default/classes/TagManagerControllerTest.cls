@@ -8,6 +8,8 @@
  * Change Log:
  * -----------
  * 2026-06-24 - Jason Ott - Initial version (JSI-122 phase 3).
+ * 2026-11-16 - Jason Ott - Inactive tags: hidden from search, not reused by create-and-add, blocked by
+ *                          the Tag_Must_Be_Active rule; existing assignments survive deactivation.
  */
 @isTest
 private class TagManagerControllerTest {
@@ -19,7 +21,8 @@ private class TagManagerControllerTest {
             new Tag__c(Name = 'Board Member', Category__c = 'General'),
             new Tag__c(Name = 'Board Chair', Category__c = 'General'),
             new Tag__c(Name = 'Volunteer', Category__c = 'Skills'),
-            new Tag__c(Name = 'Major Donor', Category__c = 'General')
+            new Tag__c(Name = 'Major Donor', Category__c = 'General'),
+            new Tag__c(Name = 'Board Alumni', Category__c = 'General', Active__c = false)
         };
         insert new Account(Name = 'Test Org');
         insert new Contact(LastName = 'Tester');
@@ -146,6 +149,58 @@ private class TagManagerControllerTest {
             threw = true;
         }
         System.assert(threw, 'Unsupported object should throw');
+    }
+
+    @isTest
+    static void testInactiveTag_hiddenFromSearch() {
+        // "board" matches Board Member, Board Chair and the inactive Board Alumni; only the active two return.
+        Test.startTest();
+        List<TagManagerController.TagDTO> results = TagManagerController.searchTags('board', contactId(), 'Contact');
+        Test.stopTest();
+        System.assertEquals(2, results.size(), 'The inactive tag must not be offered');
+        for (TagManagerController.TagDTO t : results) {
+            System.assertNotEquals('Board Alumni', t.name);
+        }
+    }
+
+    @isTest
+    static void testInactiveTag_cannotBeApplied() {
+        Boolean blocked = false;
+        Test.startTest();
+        try {
+            TagManagerController.addTag(tagId('Board Alumni'), contactId(), 'Contact');
+        } catch (AuraHandledException e) {
+            blocked = true;
+        }
+        Test.stopTest();
+        System.assert(blocked, 'Applying an inactive tag should be blocked by Tag_Must_Be_Active');
+        System.assertEquals(0, [SELECT COUNT() FROM Tag_Assignment__c]);
+    }
+
+    @isTest
+    static void testInactiveTag_notReusedByCreate() {
+        Integer before = [SELECT COUNT() FROM Tag__c];
+        Boolean blocked = false;
+        Test.startTest();
+        try {
+            TagManagerController.createAndAddTag('board alumni', 'General', contactId(), 'Contact');
+        } catch (AuraHandledException e) {
+            blocked = true;
+        }
+        Test.stopTest();
+        System.assert(blocked, 'Creating a tag that matches an inactive one should be refused');
+        System.assertEquals(before, [SELECT COUNT() FROM Tag__c], 'No new tag should be created');
+    }
+
+    @isTest
+    static void testDeactivation_keepsExistingAssignments() {
+        Id cId = contactId();
+        TagManagerController.addTag(tagId('Volunteer'), cId, 'Contact');
+        Test.startTest();
+        update new Tag__c(Id = tagId('Volunteer'), Active__c = false);
+        Test.stopTest();
+        List<TagManagerController.AssignmentDTO> current = TagManagerController.getAssignments(cId, 'Contact');
+        System.assertEquals(1, current.size(), 'Retiring a tag must not remove it from records that have it');
     }
 
     @isTest

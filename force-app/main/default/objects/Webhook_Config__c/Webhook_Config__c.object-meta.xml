@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
     <customSettingsType>Hierarchy</customSettingsType>
-    <description>Holds the shared secret the website webhook must present. Deliberately a PROTECTED CUSTOM SETTING rather than Custom Metadata: a custom setting VALUE is data, so the secret is set per-org and never enters source control, whereas a Custom Metadata record would be committed to git. The definition travels; the secret does not. Website Donations phase 1.</description>
+    <description>Holds the shared secret the website webhook must present. Deliberately a CUSTOM SETTING rather than Custom Metadata: a custom setting VALUE is data, so the secret is set per-org and never enters source control, whereas a Custom Metadata record would be committed to git. The definition travels; the secret does not. Website Donations phase 1. Visibility is Public because production does not allow Protected outside a managed package; the org setting &quot;Restrict access to custom settings&quot; keeps it readable only by admins and system-mode code (Jason Ott, 2026-11-20).</description>
     <enableFeeds>false</enableFeeds>
     <label>Webhook Config</label>
-    <visibility>Protected</visibility>
+    <visibility>Public</visibility>
 </CustomObject>

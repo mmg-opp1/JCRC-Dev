@@ -22,7 +22,6 @@
     &amp; IF(MOD(Sponsorship_Donation_Amount__c, 1) = 0, &quot;&quot;,
         &quot;.&quot; &amp; RIGHT(&quot;0&quot; &amp; TEXT(ROUND(MOD(Sponsorship_Donation_Amount__c, 1) * 100, 0)), 2)))
 &amp; IF(Paid__c, &quot; · Paid&quot;, &quot; · Unpaid&quot;)</formula>
-    <formulaTreatBlanksAs>BlankAsBlank</formulaTreatBlanksAs>
     <inlineHelpText>Donor · Event · Level · Amount · Paid status</inlineHelpText>
     <label>Registration Summary</label>
     <required>false</required>

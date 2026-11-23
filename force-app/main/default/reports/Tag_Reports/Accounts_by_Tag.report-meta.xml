@@ -7,15 +7,6 @@
         <field>Tag_Assignment__c$CreatedDate</field>
     </columns>
     <description>Every account carrying a tag, grouped by tag category then tag. Filter to a specific tag to see all accounts with it. JSI-122.</description>
-    <filter>
-        <criteriaItems>
-            <column>Tag_Assignment__c$Account__c</column>
-            <columnToColumn>false</columnToColumn>
-            <isUnlocked>false</isUnlocked>
-            <operator>notEqual</operator>
-            <value></value>
-        </criteriaItems>
-    </filter>
     <format>Summary</format>
     <groupingsDown>
         <dateGranularity>Day</dateGranularity>
@@ -33,12 +24,12 @@
         <value>1</value>
     </params>
     <reportType>Tag_Assignments_with_Tag__c</reportType>
-    <scope>user</scope>
+    <scope>organization</scope>
     <showDetails>false</showDetails>
     <showGrandTotal>true</showGrandTotal>
     <showSubTotals>true</showSubTotals>
     <timeFrameFilter>
         <dateColumn>Tag_Assignment__c$CreatedDate</dateColumn>
-        <interval>INTERVAL_CURRENT</interval>
+        <interval>INTERVAL_CUSTOM</interval>
     </timeFrameFilter>
 </Report>

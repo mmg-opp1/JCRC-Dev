@@ -348,8 +348,16 @@
             <label>Elevate Recurring Id</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI000000p59Z</field>
+            <label>eTapestry ID</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00NiI000000aEvh</field>
             <label>Event Registration</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI000000b6kn</field>
+            <label>Expected Next Step Date</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBF</field>
@@ -458,6 +466,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DckO</field>
             <label>Membership Start Date</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI000000p59X</field>
+            <label>Migration Batch</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdEd</field>
@@ -578,6 +590,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001A0YH</field>
             <label>ROI Analysis Completed</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI000000p59Y</field>
+            <label>Secondary Campaign Source</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00NiI000000R6J3</field>
@@ -717,7 +733,9 @@
             <field>00Nhk000001A0YG</field>
             <field>00Nhk000001DckK</field>
             <field>00Nhk000001DdBD</field>
+            <field>00NiI000000p59Z</field>
             <field>00NiI000000aEvh</field>
+            <field>00NiI000000b6kn</field>
             <field>00Nhk000001DdBF</field>
             <field>00NiI00000097fM</field>
             <field>00Nhk000001DdBG</field>
@@ -745,6 +763,7 @@
             <field>00Nhk000001DckM</field>
             <field>00Nhk000001DckN</field>
             <field>00Nhk000001DckO</field>
+            <field>00NiI000000p59X</field>
             <field>00Nhk000001DdEd</field>
             <field>00NiI0000000j8P</field>
             <field>00Nhk000001DdBY</field>
@@ -775,6 +794,7 @@
             <field>00Nhk000001DckZ</field>
             <field>00Nhk000001DdBj</field>
             <field>00Nhk000001A0YH</field>
+            <field>00NiI000000p59Y</field>
             <field>00NiI000000R6J3</field>
             <field>00NiI0000000ku7</field>
             <field>00NiI0000000j8Q</field>
@@ -1056,8 +1076,16 @@
             <label>Elevate Recurring Id</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI000000p59Z</field>
+            <label>eTapestry ID</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00NiI000000aEvh</field>
             <label>Event Registration</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI000000b6kn</field>
+            <label>Expected Next Step Date</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBF</field>
@@ -1166,6 +1194,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DckO</field>
             <label>Membership Start Date</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI000000p59X</field>
+            <label>Migration Batch</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdEd</field>
@@ -1286,6 +1318,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001A0YH</field>
             <label>ROI Analysis Completed</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI000000p59Y</field>
+            <label>Secondary Campaign Source</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00NiI000000R6J3</field>
@@ -1425,7 +1461,9 @@
             <field>00Nhk000001A0YG</field>
             <field>00Nhk000001DckK</field>
             <field>00Nhk000001DdBD</field>
+            <field>00NiI000000p59Z</field>
             <field>00NiI000000aEvh</field>
+            <field>00NiI000000b6kn</field>
             <field>00Nhk000001DdBF</field>
             <field>00NiI00000097fM</field>
             <field>00Nhk000001DdBG</field>
@@ -1453,6 +1491,7 @@
             <field>00Nhk000001DckM</field>
             <field>00Nhk000001DckN</field>
             <field>00Nhk000001DckO</field>
+            <field>00NiI000000p59X</field>
             <field>00Nhk000001DdEd</field>
             <field>00NiI0000000j8P</field>
             <field>00Nhk000001DdBY</field>
@@ -1483,6 +1522,7 @@
             <field>00Nhk000001DckZ</field>
             <field>00Nhk000001DdBj</field>
             <field>00Nhk000001A0YH</field>
+            <field>00NiI000000p59Y</field>
             <field>00NiI000000R6J3</field>
             <field>00NiI0000000ku7</field>
             <field>00NiI0000000j8Q</field>
@@ -1768,8 +1808,16 @@
             <label>Elevate Recurring Id</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI000000p59Z</field>
+            <label>eTapestry ID</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00NiI000000aEvh</field>
             <label>Event Registration</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI000000b6kn</field>
+            <label>Expected Next Step Date</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBF</field>
@@ -1878,6 +1926,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DckO</field>
             <label>Membership Start Date</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI000000p59X</field>
+            <label>Migration Batch</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdEd</field>
@@ -1998,6 +2050,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001A0YH</field>
             <label>ROI Analysis Completed</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI000000p59Y</field>
+            <label>Secondary Campaign Source</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00NiI000000R6J3</field>
@@ -2138,7 +2194,9 @@
             <field>00Nhk000001A0YG</field>
             <field>00Nhk000001DckK</field>
             <field>00Nhk000001DdBD</field>
+            <field>00NiI000000p59Z</field>
             <field>00NiI000000aEvh</field>
+            <field>00NiI000000b6kn</field>
             <field>00Nhk000001DdBF</field>
             <field>00NiI00000097fM</field>
             <field>00Nhk000001DdBG</field>
@@ -2166,6 +2224,7 @@
             <field>00Nhk000001DckM</field>
             <field>00Nhk000001DckN</field>
             <field>00Nhk000001DckO</field>
+            <field>00NiI000000p59X</field>
             <field>00Nhk000001DdEd</field>
             <field>00NiI0000000j8P</field>
             <field>00Nhk000001DdBY</field>
@@ -2196,6 +2255,7 @@
             <field>00Nhk000001DckZ</field>
             <field>00Nhk000001DdBj</field>
             <field>00Nhk000001A0YH</field>
+            <field>00NiI000000p59Y</field>
             <field>00NiI000000R6J3</field>
             <field>00NiI0000000ku7</field>
             <field>00NiI0000000j8Q</field>
@@ -2477,8 +2537,16 @@
             <label>Elevate Recurring Id</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI000000p59Z</field>
+            <label>eTapestry ID</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00NiI000000aEvh</field>
             <label>Event Registration</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI000000b6kn</field>
+            <label>Expected Next Step Date</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBF</field>
@@ -2587,6 +2655,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DckO</field>
             <label>Membership Start Date</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI000000p59X</field>
+            <label>Migration Batch</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdEd</field>
@@ -2707,6 +2779,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001A0YH</field>
             <label>ROI Analysis Completed</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI000000p59Y</field>
+            <label>Secondary Campaign Source</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00NiI000000R6J3</field>
@@ -2846,7 +2922,9 @@
             <field>00Nhk000001A0YG</field>
             <field>00Nhk000001DckK</field>
             <field>00Nhk000001DdBD</field>
+            <field>00NiI000000p59Z</field>
             <field>00NiI000000aEvh</field>
+            <field>00NiI000000b6kn</field>
             <field>00Nhk000001DdBF</field>
             <field>00NiI00000097fM</field>
             <field>00Nhk000001DdBG</field>
@@ -2874,6 +2952,7 @@
             <field>00Nhk000001DckM</field>
             <field>00Nhk000001DckN</field>
             <field>00Nhk000001DckO</field>
+            <field>00NiI000000p59X</field>
             <field>00Nhk000001DdEd</field>
             <field>00NiI0000000j8P</field>
             <field>00Nhk000001DdBY</field>
@@ -2904,6 +2983,7 @@
             <field>00Nhk000001DckZ</field>
             <field>00Nhk000001DdBj</field>
             <field>00Nhk000001A0YH</field>
+            <field>00NiI000000p59Y</field>
             <field>00NiI000000R6J3</field>
             <field>00NiI0000000ku7</field>
             <field>00NiI0000000j8Q</field>
@@ -3189,8 +3269,16 @@
             <label>Elevate Recurring Id</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI000000p59Z</field>
+            <label>eTapestry ID</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00NiI000000aEvh</field>
             <label>Event Registration</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI000000b6kn</field>
+            <label>Expected Next Step Date</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBF</field>
@@ -3299,6 +3387,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DckO</field>
             <label>Membership Start Date</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI000000p59X</field>
+            <label>Migration Batch</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdEd</field>
@@ -3419,6 +3511,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001A0YH</field>
             <label>ROI Analysis Completed</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI000000p59Y</field>
+            <label>Secondary Campaign Source</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00NiI000000R6J3</field>
@@ -3559,7 +3655,9 @@
             <field>00Nhk000001A0YG</field>
             <field>00Nhk000001DckK</field>
             <field>00Nhk000001DdBD</field>
+            <field>00NiI000000p59Z</field>
             <field>00NiI000000aEvh</field>
+            <field>00NiI000000b6kn</field>
             <field>00Nhk000001DdBF</field>
             <field>00NiI00000097fM</field>
             <field>00Nhk000001DdBG</field>
@@ -3587,6 +3685,7 @@
             <field>00Nhk000001DckM</field>
             <field>00Nhk000001DckN</field>
             <field>00Nhk000001DckO</field>
+            <field>00NiI000000p59X</field>
             <field>00Nhk000001DdEd</field>
             <field>00NiI0000000j8P</field>
             <field>00Nhk000001DdBY</field>
@@ -3617,6 +3716,7 @@
             <field>00Nhk000001DckZ</field>
             <field>00Nhk000001DdBj</field>
             <field>00Nhk000001A0YH</field>
+            <field>00NiI000000p59Y</field>
             <field>00NiI000000R6J3</field>
             <field>00NiI0000000ku7</field>
             <field>00NiI0000000j8Q</field>
@@ -3898,8 +3998,16 @@
             <label>Elevate Recurring Id</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI000000p59Z</field>
+            <label>eTapestry ID</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00NiI000000aEvh</field>
             <label>Event Registration</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI000000b6kn</field>
+            <label>Expected Next Step Date</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBF</field>
@@ -4008,6 +4116,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DckO</field>
             <label>Membership Start Date</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI000000p59X</field>
+            <label>Migration Batch</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdEd</field>
@@ -4128,6 +4240,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001A0YH</field>
             <label>ROI Analysis Completed</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI000000p59Y</field>
+            <label>Secondary Campaign Source</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00NiI000000R6J3</field>
@@ -4267,7 +4383,9 @@
             <field>00Nhk000001A0YG</field>
             <field>00Nhk000001DckK</field>
             <field>00Nhk000001DdBD</field>
+            <field>00NiI000000p59Z</field>
             <field>00NiI000000aEvh</field>
+            <field>00NiI000000b6kn</field>
             <field>00Nhk000001DdBF</field>
             <field>00NiI00000097fM</field>
             <field>00Nhk000001DdBG</field>
@@ -4295,6 +4413,7 @@
             <field>00Nhk000001DckM</field>
             <field>00Nhk000001DckN</field>
             <field>00Nhk000001DckO</field>
+            <field>00NiI000000p59X</field>
             <field>00Nhk000001DdEd</field>
             <field>00NiI0000000j8P</field>
             <field>00Nhk000001DdBY</field>
@@ -4325,6 +4444,7 @@
             <field>00Nhk000001DckZ</field>
             <field>00Nhk000001DdBj</field>
             <field>00Nhk000001A0YH</field>
+            <field>00NiI000000p59Y</field>
             <field>00NiI000000R6J3</field>
             <field>00NiI0000000ku7</field>
             <field>00NiI0000000j8Q</field>
@@ -4610,8 +4730,16 @@
             <label>Elevate Recurring Id</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI000000p59Z</field>
+            <label>eTapestry ID</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00NiI000000aEvh</field>
             <label>Event Registration</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI000000b6kn</field>
+            <label>Expected Next Step Date</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBF</field>
@@ -4720,6 +4848,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DckO</field>
             <label>Membership Start Date</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI000000p59X</field>
+            <label>Migration Batch</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdEd</field>
@@ -4840,6 +4972,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001A0YH</field>
             <label>ROI Analysis Completed</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI000000p59Y</field>
+            <label>Secondary Campaign Source</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00NiI000000R6J3</field>
@@ -4980,7 +5116,9 @@
             <field>00Nhk000001A0YG</field>
             <field>00Nhk000001DckK</field>
             <field>00Nhk000001DdBD</field>
+            <field>00NiI000000p59Z</field>
             <field>00NiI000000aEvh</field>
+            <field>00NiI000000b6kn</field>
             <field>00Nhk000001DdBF</field>
             <field>00NiI00000097fM</field>
             <field>00Nhk000001DdBG</field>
@@ -5008,6 +5146,7 @@
             <field>00Nhk000001DckM</field>
             <field>00Nhk000001DckN</field>
             <field>00Nhk000001DckO</field>
+            <field>00NiI000000p59X</field>
             <field>00Nhk000001DdEd</field>
             <field>00NiI0000000j8P</field>
             <field>00Nhk000001DdBY</field>
@@ -5038,6 +5177,7 @@
             <field>00Nhk000001DckZ</field>
             <field>00Nhk000001DdBj</field>
             <field>00Nhk000001A0YH</field>
+            <field>00NiI000000p59Y</field>
             <field>00NiI000000R6J3</field>
             <field>00NiI0000000ku7</field>
             <field>00NiI0000000j8Q</field>
@@ -5319,8 +5459,16 @@
             <label>Elevate Recurring Id</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI000000p59Z</field>
+            <label>eTapestry ID</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00NiI000000aEvh</field>
             <label>Event Registration</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI000000b6kn</field>
+            <label>Expected Next Step Date</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBF</field>
@@ -5429,6 +5577,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DckO</field>
             <label>Membership Start Date</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI000000p59X</field>
+            <label>Migration Batch</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdEd</field>
@@ -5549,6 +5701,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001A0YH</field>
             <label>ROI Analysis Completed</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI000000p59Y</field>
+            <label>Secondary Campaign Source</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00NiI000000R6J3</field>
@@ -5688,7 +5844,9 @@
             <field>00Nhk000001A0YG</field>
             <field>00Nhk000001DckK</field>
             <field>00Nhk000001DdBD</field>
+            <field>00NiI000000p59Z</field>
             <field>00NiI000000aEvh</field>
+            <field>00NiI000000b6kn</field>
             <field>00Nhk000001DdBF</field>
             <field>00NiI00000097fM</field>
             <field>00Nhk000001DdBG</field>
@@ -5716,6 +5874,7 @@
             <field>00Nhk000001DckM</field>
             <field>00Nhk000001DckN</field>
             <field>00Nhk000001DckO</field>
+            <field>00NiI000000p59X</field>
             <field>00Nhk000001DdEd</field>
             <field>00NiI0000000j8P</field>
             <field>00Nhk000001DdBY</field>
@@ -5746,6 +5905,7 @@
             <field>00Nhk000001DckZ</field>
             <field>00Nhk000001DdBj</field>
             <field>00Nhk000001A0YH</field>
+            <field>00NiI000000p59Y</field>
             <field>00NiI000000R6J3</field>
             <field>00NiI0000000ku7</field>
             <field>00NiI0000000j8Q</field>
@@ -6031,8 +6191,16 @@
             <label>Elevate Recurring Id</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI000000p59Z</field>
+            <label>eTapestry ID</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00NiI000000aEvh</field>
             <label>Event Registration</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI000000b6kn</field>
+            <label>Expected Next Step Date</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBF</field>
@@ -6141,6 +6309,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DckO</field>
             <label>Membership Start Date</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI000000p59X</field>
+            <label>Migration Batch</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdEd</field>
@@ -6261,6 +6433,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001A0YH</field>
             <label>ROI Analysis Completed</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI000000p59Y</field>
+            <label>Secondary Campaign Source</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00NiI000000R6J3</field>
@@ -6401,7 +6577,9 @@
             <field>00Nhk000001A0YG</field>
             <field>00Nhk000001DckK</field>
             <field>00Nhk000001DdBD</field>
+            <field>00NiI000000p59Z</field>
             <field>00NiI000000aEvh</field>
+            <field>00NiI000000b6kn</field>
             <field>00Nhk000001DdBF</field>
             <field>00NiI00000097fM</field>
             <field>00Nhk000001DdBG</field>
@@ -6429,6 +6607,7 @@
             <field>00Nhk000001DckM</field>
             <field>00Nhk000001DckN</field>
             <field>00Nhk000001DckO</field>
+            <field>00NiI000000p59X</field>
             <field>00Nhk000001DdEd</field>
             <field>00NiI0000000j8P</field>
             <field>00Nhk000001DdBY</field>
@@ -6459,6 +6638,7 @@
             <field>00Nhk000001DckZ</field>
             <field>00Nhk000001DdBj</field>
             <field>00Nhk000001A0YH</field>
+            <field>00NiI000000p59Y</field>
             <field>00NiI000000R6J3</field>
             <field>00NiI0000000ku7</field>
             <field>00NiI0000000j8Q</field>
@@ -6740,8 +6920,16 @@
             <label>Elevate Recurring Id</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI000000p59Z</field>
+            <label>eTapestry ID</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00NiI000000aEvh</field>
             <label>Event Registration</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI000000b6kn</field>
+            <label>Expected Next Step Date</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBF</field>
@@ -6850,6 +7038,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DckO</field>
             <label>Membership Start Date</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI000000p59X</field>
+            <label>Migration Batch</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdEd</field>
@@ -6970,6 +7162,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001A0YH</field>
             <label>ROI Analysis Completed</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI000000p59Y</field>
+            <label>Secondary Campaign Source</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00NiI000000R6J3</field>
@@ -7109,7 +7305,9 @@
             <field>00Nhk000001A0YG</field>
             <field>00Nhk000001DckK</field>
             <field>00Nhk000001DdBD</field>
+            <field>00NiI000000p59Z</field>
             <field>00NiI000000aEvh</field>
+            <field>00NiI000000b6kn</field>
             <field>00Nhk000001DdBF</field>
             <field>00NiI00000097fM</field>
             <field>00Nhk000001DdBG</field>
@@ -7137,6 +7335,7 @@
             <field>00Nhk000001DckM</field>
             <field>00Nhk000001DckN</field>
             <field>00Nhk000001DckO</field>
+            <field>00NiI000000p59X</field>
             <field>00Nhk000001DdEd</field>
             <field>00NiI0000000j8P</field>
             <field>00Nhk000001DdBY</field>
@@ -7167,6 +7366,7 @@
             <field>00Nhk000001DckZ</field>
             <field>00Nhk000001DdBj</field>
             <field>00Nhk000001A0YH</field>
+            <field>00NiI000000p59Y</field>
             <field>00NiI000000R6J3</field>
             <field>00NiI0000000ku7</field>
             <field>00NiI0000000j8Q</field>
@@ -7452,8 +7652,16 @@
             <label>Elevate Recurring Id</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI000000p59Z</field>
+            <label>eTapestry ID</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00NiI000000aEvh</field>
             <label>Event Registration</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI000000b6kn</field>
+            <label>Expected Next Step Date</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBF</field>
@@ -7562,6 +7770,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DckO</field>
             <label>Membership Start Date</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI000000p59X</field>
+            <label>Migration Batch</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdEd</field>
@@ -7682,6 +7894,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001A0YH</field>
             <label>ROI Analysis Completed</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI000000p59Y</field>
+            <label>Secondary Campaign Source</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00NiI000000R6J3</field>
@@ -7822,7 +8038,9 @@
             <field>00Nhk000001A0YG</field>
             <field>00Nhk000001DckK</field>
             <field>00Nhk000001DdBD</field>
+            <field>00NiI000000p59Z</field>
             <field>00NiI000000aEvh</field>
+            <field>00NiI000000b6kn</field>
             <field>00Nhk000001DdBF</field>
             <field>00NiI00000097fM</field>
             <field>00Nhk000001DdBG</field>
@@ -7850,6 +8068,7 @@
             <field>00Nhk000001DckM</field>
             <field>00Nhk000001DckN</field>
             <field>00Nhk000001DckO</field>
+            <field>00NiI000000p59X</field>
             <field>00Nhk000001DdEd</field>
             <field>00NiI0000000j8P</field>
             <field>00Nhk000001DdBY</field>
@@ -7880,6 +8099,7 @@
             <field>00Nhk000001DckZ</field>
             <field>00Nhk000001DdBj</field>
             <field>00Nhk000001A0YH</field>
+            <field>00NiI000000p59Y</field>
             <field>00NiI000000R6J3</field>
             <field>00NiI0000000ku7</field>
             <field>00NiI0000000j8Q</field>
@@ -8161,8 +8381,16 @@
             <label>Elevate Recurring Id</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
+            <field>00NiI000000p59Z</field>
+            <label>eTapestry ID</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
             <field>00NiI000000aEvh</field>
             <label>Event Registration</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI000000b6kn</field>
+            <label>Expected Next Step Date</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdBF</field>
@@ -8271,6 +8499,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DckO</field>
             <label>Membership Start Date</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI000000p59X</field>
+            <label>Migration Batch</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001DdEd</field>
@@ -8391,6 +8623,10 @@
         <opportunityListFieldsLabelMappings>
             <field>00Nhk000001A0YH</field>
             <label>ROI Analysis Completed</label>
+        </opportunityListFieldsLabelMappings>
+        <opportunityListFieldsLabelMappings>
+            <field>00NiI000000p59Y</field>
+            <label>Secondary Campaign Source</label>
         </opportunityListFieldsLabelMappings>
         <opportunityListFieldsLabelMappings>
             <field>00NiI000000R6J3</field>
@@ -8530,7 +8766,9 @@
             <field>00Nhk000001A0YG</field>
             <field>00Nhk000001DckK</field>
             <field>00Nhk000001DdBD</field>
+            <field>00NiI000000p59Z</field>
             <field>00NiI000000aEvh</field>
+            <field>00NiI000000b6kn</field>
             <field>00Nhk000001DdBF</field>
             <field>00NiI00000097fM</field>
             <field>00Nhk000001DdBG</field>
@@ -8558,6 +8796,7 @@
             <field>00Nhk000001DckM</field>
             <field>00Nhk000001DckN</field>
             <field>00Nhk000001DckO</field>
+            <field>00NiI000000p59X</field>
             <field>00Nhk000001DdEd</field>
             <field>00NiI0000000j8P</field>
             <field>00Nhk000001DdBY</field>
@@ -8588,6 +8827,7 @@
             <field>00Nhk000001DckZ</field>
             <field>00Nhk000001DdBj</field>
             <field>00Nhk000001A0YH</field>
+            <field>00NiI000000p59Y</field>
             <field>00NiI000000R6J3</field>
             <field>00NiI0000000ku7</field>
             <field>00NiI0000000j8Q</field>

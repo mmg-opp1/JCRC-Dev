@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Original_Payment_Amount__c</fullName>
     <description>The Payment Amount this payment was created with, copied once by OppPaymentTrigger (PaymentAmountService) and never changed. Compared with the Payment Amount to show an underpayment when a smaller amount is marked Paid. Deliberately kept off page layouts and record pages, and read-only for the JCRC profiles, so it is not overwritten. Author: Jason Ott.</description>
-    <externalId>false</externalId>
     <inlineHelpText>The amount this payment was originally scheduled for. Set automatically when the payment is created.</inlineHelpText>
     <label>Original Payment Amount</label>
     <precision>18</precision>

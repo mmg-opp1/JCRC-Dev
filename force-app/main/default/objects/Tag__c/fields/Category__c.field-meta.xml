@@ -56,6 +56,21 @@
                 <label>General</label>
             </value>
             <value>
+                <fullName>Gala</fullName>
+                <default>false</default>
+                <label>Gala</label>
+            </value>
+            <value>
+                <fullName>JCRC Board</fullName>
+                <default>false</default>
+                <label>JCRC Board</label>
+            </value>
+            <value>
+                <fullName>eTapestry Group</fullName>
+                <default>false</default>
+                <label>eTapestry Group</label>
+            </value>
+            <value>
                 <fullName>Other</fullName>
                 <default>false</default>
                 <label>Other</label>

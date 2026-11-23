@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Migration_Batch__c</fullName>
+    <description>eTapestry migration: the load run that created this record (e.g. ETAP-PILOT), including records NPSP created automatically during the load. Used to find and back out a run. Jason Ott, 2026-11-11.</description>
+    <externalId>true</externalId>
+    <inlineHelpText>Set by the eTapestry data migration. Blank on records entered in Salesforce.</inlineHelpText>
+    <label>Migration Batch</label>
+    <length>40</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

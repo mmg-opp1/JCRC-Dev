@@ -5,6 +5,7 @@
     <description>Tick for a gala fund. A pending transaction with this fund (e.g. a QuickBooks gift to the Gala Fund) shows on the Gala tab of the Pending Transactions screen and can be linked to an Event Registration. JSI-121 / Jason Ott.</description>
     <inlineHelpText>Tick for a gala fund: pending transactions with this fund appear on the Gala tab of the Pending Transactions screen.</inlineHelpText>
     <label>Gala</label>
+    <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

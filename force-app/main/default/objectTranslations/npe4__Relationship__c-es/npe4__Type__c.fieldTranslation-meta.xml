@@ -84,8 +84,24 @@
         <translation>Pareja</translation>
     </picklistValues>
     <picklistValues>
+        <masterLabel>Prospect</masterLabel>
+        <translation><!-- Prospect --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Sibling</masterLabel>
+        <translation><!-- Sibling --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Solicitor</masterLabel>
+        <translation><!-- Solicitor --></translation>
+    </picklistValues>
+    <picklistValues>
         <masterLabel>Son</masterLabel>
         <translation>Hijo</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Spouse</masterLabel>
+        <translation><!-- Spouse --></translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Uncle</masterLabel>

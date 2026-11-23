@@ -127,6 +127,26 @@
                 <default>false</default>
                 <label>Employee</label>
             </value>
+            <value>
+                <fullName>Solicitor</fullName>
+                <default>false</default>
+                <label>Solicitor</label>
+            </value>
+            <value>
+                <fullName>Prospect</fullName>
+                <default>false</default>
+                <label>Prospect</label>
+            </value>
+            <value>
+                <fullName>Spouse</fullName>
+                <default>false</default>
+                <label>Spouse</label>
+            </value>
+            <value>
+                <fullName>Sibling</fullName>
+                <default>false</default>
+                <label>Sibling</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

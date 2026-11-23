@@ -4,8 +4,12 @@
     <label><!-- Source --></label>
     <name>Source__c</name>
     <picklistValues>
-        <masterLabel>Gala Sponsor (Stripe)</masterLabel>
-        <translation><!-- Gala Sponsor (Stripe) --></translation>
+        <masterLabel>Gala Website</masterLabel>
+        <translation><!-- Gala Website --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>JCRC Website - Gala</masterLabel>
+        <translation><!-- JCRC Website - Gala --></translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Manual</masterLabel>

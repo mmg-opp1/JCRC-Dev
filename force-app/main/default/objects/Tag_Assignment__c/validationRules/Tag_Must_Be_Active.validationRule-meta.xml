@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Tag_Must_Be_Active</fullName>
+    <active>true</active>
+    <description>Blocks applying an inactive tag (new assignment, or an existing assignment switched to another tag). Assignments made while the tag was active are untouched, so retired tags keep their history. Jason Ott, 2026-11-16.</description>
+    <errorConditionFormula>(ISNEW() || ISCHANGED(Tag__c)) &amp;&amp; NOT(Tag__r.Active__c)</errorConditionFormula>
+    <errorDisplayField>Tag__c</errorDisplayField>
+    <errorMessage>This tag is inactive. It is kept for history only and can&apos;t be added to records.</errorMessage>
+</ValidationRule>

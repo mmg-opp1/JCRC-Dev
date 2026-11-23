@@ -1676,6 +1676,8 @@
     <tabs>Board_Members</tabs>
     <tabs>standard-report</tabs>
     <tabs>standard-Dashboard</tabs>
+    <tabs>Event__c</tabs>
+    <tabs>Event_Registration__c</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>Development_UtilityBar</utilityBar>
 </CustomApplication>

@@ -13,4 +13,8 @@
         <errorMessage><!-- A tag assignment must link to exactly one Contact or one Account. --></errorMessage>
         <name>Exactly_One_Parent</name>
     </validationRules>
+    <validationRules>
+        <errorMessage><!-- This tag is inactive. It is kept for history only and can&apos;t be added to records. --></errorMessage>
+        <name>Tag_Must_Be_Active</name>
+    </validationRules>
 </CustomObjectTranslation>

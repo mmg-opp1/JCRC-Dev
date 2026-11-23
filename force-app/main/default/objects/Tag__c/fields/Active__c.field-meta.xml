@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Active__c</fullName>
+    <defaultValue>true</defaultValue>
+    <description>Unchecked = the tag is kept for history (its existing assignments stay) but can no longer be applied: Tag Manager hides it and the Tag_Must_Be_Active rule on Tag Assignment blocks new assignments. eTapestry groups that were disabled in eTap migrate as inactive tags. Jason Ott, 2026-11-16.</description>
+    <inlineHelpText>Uncheck to retire this tag. Records that already have it keep it; it can no longer be added to records.</inlineHelpText>
+    <label>Active</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

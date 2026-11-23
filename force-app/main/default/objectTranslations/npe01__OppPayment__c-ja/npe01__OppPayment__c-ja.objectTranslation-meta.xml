@@ -10,6 +10,10 @@
     </fieldSets>
     <nameFieldLabel>支払番号</nameFieldLabel>
     <webLinks>
+        <label><!-- New --></label>
+        <name>New</name>
+    </webLinks>
+    <webLinks>
         <label><!-- Schedule_Payments --></label>
         <name>npe01__Schedule_Payments</name>
     </webLinks>

@@ -163,6 +163,26 @@
                 <identifier>RecordProgram_Listing_Sponsor_Name_cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Opportunity__c</fieldItem>
+                <identifier>RecordOpportunity__cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Pending_Transaction__c</fieldItem>
+                <identifier>RecordPending_Transaction__cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-272429b2-7ef6-4f21-bf2e-5dfaba3261c3</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -195,6 +215,16 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Table_Type__c</fieldItem>
                 <identifier>RecordTable_Type_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Paid__c</fieldItem>
+                <identifier>RecordPaid_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>

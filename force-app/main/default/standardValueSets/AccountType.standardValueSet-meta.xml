@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sorted>false</sorted>
+    <standardValue>
+        <fullName>Analyst</fullName>
+        <default>false</default>
+        <label>Analyst</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Competitor</fullName>
+        <default>false</default>
+        <label>Competitor</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Customer</fullName>
+        <default>false</default>
+        <label>Customer</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Integrator</fullName>
+        <default>false</default>
+        <label>Integrator</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Investor</fullName>
+        <default>false</default>
+        <label>Investor</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Partner</fullName>
+        <default>false</default>
+        <label>Partner</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Press</fullName>
+        <default>false</default>
+        <label>Press</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Prospect</fullName>
+        <default>false</default>
+        <label>Prospect</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Reseller</fullName>
+        <default>false</default>
+        <label>Reseller</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Other</fullName>
+        <default>false</default>
+        <label>Other</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Donor Advised Fund</fullName>
+        <default>false</default>
+        <label>Donor Advised Fund</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Benevity</fullName>
+        <default>false</default>
+        <label>Benevity</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Other Giving Vehicle</fullName>
+        <default>false</default>
+        <label>Other Giving Vehicle</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Synagogue</fullName>
+        <default>false</default>
+        <label>Synagogue</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Foundation</fullName>
+        <default>false</default>
+        <label>Foundation</label>
+    </standardValue>
+    <standardValue>
+        <fullName>DAF Administrator</fullName>
+        <default>false</default>
+        <label>DAF Administrator</label>
+    </standardValue>
+    <standardValue>
+        <fullName>School</fullName>
+        <default>false</default>
+        <label>School</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Community Service Organization</fullName>
+        <default>false</default>
+        <label>Community Service Organization</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Allies</fullName>
+        <default>false</default>
+        <label>Allies</label>
+    </standardValue>
+</StandardValueSet>

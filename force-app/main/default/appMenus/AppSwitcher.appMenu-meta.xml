@@ -128,4 +128,8 @@
         <name>JCRC_Administration</name>
         <type>CustomApplication</type>
     </appMenuItems>
+    <appMenuItems>
+        <name>standard__ScaleTestApp</name>
+        <type>CustomApplication</type>
+    </appMenuItems>
 </AppMenu>

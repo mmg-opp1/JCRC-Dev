@@ -4,6 +4,10 @@
     <category>other</category>
     <deployed>true</deployed>
     <description>Board commitment fulfillment by fiscal year — commitment vs. applied giving, met flag, percent. JSI-123 / Jason Ott.</description>
+    <join>
+        <outerJoin>true</outerJoin>
+        <relationship>Gift_Allocations__r</relationship>
+    </join>
     <label>Board Commitments</label>
     <sections>
         <columns>
@@ -47,5 +51,23 @@
             <table>Annual_Giving_Summary__c</table>
         </columns>
         <masterLabel>Board Commitments</masterLabel>
+    </sections>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Opportunity__c</field>
+            <table>Annual_Giving_Summary__c.Gift_Allocations__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Amount__c</field>
+            <table>Annual_Giving_Summary__c.Gift_Allocations__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Credit_Type__c</field>
+            <table>Annual_Giving_Summary__c.Gift_Allocations__r</table>
+        </columns>
+        <masterLabel>Gifts</masterLabel>
     </sections>
 </ReportType>

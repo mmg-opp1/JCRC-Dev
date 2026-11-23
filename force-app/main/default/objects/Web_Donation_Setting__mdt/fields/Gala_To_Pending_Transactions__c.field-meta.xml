@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Gala_To_Pending_Transactions__c</fullName>
     <defaultValue>true</defaultValue>
-    <description>When ticked, a website gift whose "What is this for" answers contain a gala word becomes a Pending Transaction (Source JCRC Website - Gala, Gala tab) instead of a gift. Website Donations / Jason Ott, 2026-10-28.</description>
+    <description>When ticked, a website gift whose &quot;What is this for&quot; answers contain a gala word becomes a Pending Transaction (Source JCRC Website - Gala, Gala tab) instead of a gift. Website Donations / Jason Ott, 2026-10-28.</description>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <label>Send Gala Gifts to Pending Transactions</label>
     <type>Checkbox</type>

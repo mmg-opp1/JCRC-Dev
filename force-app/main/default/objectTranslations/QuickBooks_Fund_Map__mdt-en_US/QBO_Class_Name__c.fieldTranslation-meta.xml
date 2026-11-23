@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- The QuickBooks class with its parent, separated by a colon, e.g. Development:Dinner. --></help>
     <label><!-- QuickBooks Class --></label>
     <name>QBO_Class_Name__c</name>
 </CustomFieldTranslation>

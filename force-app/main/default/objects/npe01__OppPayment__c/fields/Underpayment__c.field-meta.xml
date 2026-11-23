@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Underpayment__c</fullName>
     <description>How much less than originally scheduled was paid: Original Payment Amount minus Payment Amount, shown only when the payment is Paid and the Payment Amount is below the original. Blank otherwise (not paid yet, paid in full or more, or a payment created before Original Payment Amount existed). A formula, so it stays right if the amount or Paid is corrected later. Author: Jason Ott.</description>
-    <externalId>false</externalId>
     <formula>IF(
     AND(
         npe01__Paid__c,
@@ -13,7 +12,6 @@
     Original_Payment_Amount__c - npe01__Payment_Amount__c,
     NULL
 )</formula>
-    <formulaTreatBlanksAs>BlankAsBlank</formulaTreatBlanksAs>
     <inlineHelpText>How much less than the original amount was paid. Shown once the payment is marked Paid.</inlineHelpText>
     <label>Underpayment</label>
     <precision>18</precision>

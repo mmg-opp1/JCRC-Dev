@@ -7,32 +7,4 @@
         <fullName>Declined</fullName>
         <default>false</default>
     </values>
-    <values>
-        <fullName>Identification</fullName>
-        <default>false</default>
-    </values>
-    <values>
-        <fullName>Partially Posted</fullName>
-        <default>false</default>
-    </values>
-    <values>
-        <fullName>Pledged</fullName>
-        <default>false</default>
-    </values>
-    <values>
-        <fullName>Posted</fullName>
-        <default>false</default>
-    </values>
-    <values>
-        <fullName>Request</fullName>
-        <default>false</default>
-    </values>
-    <values>
-        <fullName>Response</fullName>
-        <default>false</default>
-    </values>
-    <values>
-        <fullName>Written Off</fullName>
-        <default>false</default>
-    </values>
 </BusinessProcess>

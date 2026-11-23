@@ -4,7 +4,6 @@
     <enableAccountsAsCM>false</enableAccountsAsCM>
     <enableAutoCampInfluenceDisabled>false</enableAutoCampInfluenceDisabled>
     <enableCampaignHistoryTrackEnabled>false</enableCampaignHistoryTrackEnabled>
-    <enableCampaignInfluence2>true</enableCampaignInfluence2>
+    <enableCampaignInfluence2>false</enableCampaignInfluence2>
     <enableCampaignMemberTWCF>true</enableCampaignMemberTWCF>
-    <enableSuppressNoValueCI2>false</enableSuppressNoValueCI2>
 </CampaignSettings>

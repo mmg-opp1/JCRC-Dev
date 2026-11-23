@@ -3,15 +3,15 @@
     <label><!-- Account Handling --></label>
     <name>Account_Handling__c</name>
     <picklistValues>
-        <masterLabel>Always use an organisation account</masterLabel>
-        <translation><!-- Always use an organisation account --></translation>
+        <masterLabel>Always use an organization account</masterLabel>
+        <translation><!-- Always use an organization account --></translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Leave to NPSP (household account)</masterLabel>
         <translation><!-- Leave to NPSP (household account) --></translation>
     </picklistValues>
     <picklistValues>
-        <masterLabel>Use the organisation when the form supplies one</masterLabel>
-        <translation><!-- Use the organisation when the form supplies one --></translation>
+        <masterLabel>Use the organization when the form supplies one</masterLabel>
+        <translation><!-- Use the organization when the form supplies one --></translation>
     </picklistValues>
 </CustomFieldTranslation>

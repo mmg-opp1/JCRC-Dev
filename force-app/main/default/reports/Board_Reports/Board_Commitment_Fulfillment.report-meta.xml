@@ -52,6 +52,13 @@
             <operator>equals</operator>
             <value>1</value>
         </criteriaItems>
+        <criteriaItems>
+            <column>Annual_Giving_Summary__c$Fiscal_Year_Label__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>2027</value>
+        </criteriaItems>
     </filter>
     <format>Summary</format>
     <groupingsDown>

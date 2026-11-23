@@ -44,28 +44,10 @@
             <targetReference>Write_Off_All_Payments</targetReference>
         </connector>
         <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
-        <filterLogic>(1 OR 2) AND 3</filterLogic>
-        <filters>
-            <field>RecordTypeId</field>
-            <operator>EqualTo</operator>
-            <value>
-                <stringValue>012iI0000000Dq5QAE</stringValue>
-            </value>
-        </filters>
-        <filters>
-            <field>RecordTypeId</field>
-            <operator>EqualTo</operator>
-            <value>
-                <stringValue>012iI0000000Dq9QAE</stringValue>
-            </value>
-        </filters>
-        <filters>
-            <field>StageName</field>
-            <operator>EqualTo</operator>
-            <value>
-                <stringValue>Written Off</stringValue>
-            </value>
-        </filters>
+        <filterFormula>AND(
+  OR({!$Record.RecordType.DeveloperName} = &quot;Pledge&quot;, {!$Record.RecordType.DeveloperName} = &quot;Grant&quot;),
+  ISPICKVAL({!$Record.StageName}, &quot;Written Off&quot;)
+)</filterFormula>
         <object>Opportunity</object>
         <recordTriggerType>CreateAndUpdate</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>

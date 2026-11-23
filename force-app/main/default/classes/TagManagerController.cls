@@ -9,6 +9,9 @@
  * Change Log:
  * -----------
  * 2026-06-24 - Jason Ott - Initial version (JSI-122 phase 3).
+ * 2026-11-16 - Jason Ott - Inactive tags (Tag__c.Active__c = false, e.g. disabled eTapestry groups) are kept
+ *                          for history but can't be applied: search hides them, create-and-add refuses to
+ *                          reuse one, and the Tag_Must_Be_Active validation rule backstops addTag.
  */
 public with sharing class TagManagerController {
 
@@ -20,8 +23,8 @@ public with sharing class TagManagerController {
     };
 
     /**
-     * @description Type-ahead search for tags whose name matches the term, excluding tags already
-     *              applied to the given record. Results put "starts-with" matches first.
+     * @description Type-ahead search for ACTIVE tags whose name matches the term, excluding tags
+     *              already applied to the given record. Results put "starts-with" matches first.
      * @param term           the text the user has typed
      * @param recordId       the Contact or Account being tagged
      * @param objectApiName  'Contact' or 'Account'
@@ -38,7 +41,7 @@ public with sharing class TagManagerController {
         List<Tag__c> rows = [
             SELECT Id, Name, Category__c
             FROM Tag__c
-            WHERE Name LIKE :pattern AND Id NOT IN :existingTagIds
+            WHERE Name LIKE :pattern AND Id NOT IN :existingTagIds AND Active__c = true
             WITH USER_MODE
             ORDER BY Name
             LIMIT 50
@@ -84,7 +87,8 @@ public with sharing class TagManagerController {
     /**
      * @description Applies an existing tag to a record by creating a Tag Assignment.
      *              Duplicate (same tag already on the record) is guarded both here and by the
-     *              unique Assignment_Key__c backstop.
+     *              unique Assignment_Key__c backstop; an inactive tag is refused by the
+     *              Tag_Must_Be_Active validation rule (its message reaches the user via friendly()).
      */
     @AuraEnabled
     public static AssignmentDTO addTag(Id tagId, Id recordId, String objectApiName) {
@@ -107,7 +111,8 @@ public with sharing class TagManagerController {
 
     /**
      * @description Creates a new tag (reusing an existing one if the same name+category already
-     *              exists, case-insensitively) and applies it to the record.
+     *              exists, case-insensitively) and applies it to the record. An existing tag with that
+     *              name+category that is inactive is not reused: the user is told it is retired.
      */
     @AuraEnabled
     public static AssignmentDTO createAndAddTag(String name, String category, Id recordId, String objectApiName) {
@@ -121,12 +126,17 @@ public with sharing class TagManagerController {
         }
         // Reuse an existing tag if one matches (SOQL = on text is case-insensitive).
         List<Tag__c> existing = [
-            SELECT Id FROM Tag__c
+            SELECT Id, Active__c FROM Tag__c
             WHERE Name = :cleanName AND Category__c = :category
             WITH USER_MODE LIMIT 1
         ];
         Id tagId;
         if (!existing.isEmpty()) {
+            // A retired tag keeps its name (Tag_Key__c is unique), so it can't be re-created either.
+            if (!existing[0].Active__c) {
+                throw new AuraHandledException('"' + cleanName + '" (' + category + ') is an inactive tag, kept for history '
+                    + 'only. Choose an active tag, or ask an administrator to reactivate it.');
+            }
             tagId = existing[0].Id;
         } else {
             Tag__c t = new Tag__c(Name = cleanName, Category__c = category);

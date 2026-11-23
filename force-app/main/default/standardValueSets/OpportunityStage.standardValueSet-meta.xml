@@ -24,7 +24,7 @@
     <standardValue>
         <fullName>Response</fullName>
         <default>false</default>
-        <description>Grant lifecycle: awaiting the funder's decision. JSI-120 / Jason Ott.</description>
+        <description>Grant lifecycle: awaiting the funder&apos;s decision. JSI-120 / Jason Ott.</description>
         <label>Response</label>
         <closed>false</closed>
         <forecastCategory>BestCase</forecastCategory>
@@ -93,7 +93,7 @@
     </standardValue>
     <standardValue>
         <fullName>Prospecting</fullName>
-        <default>true</default>
+        <default>false</default>
         <description>Donation pipeline: identified prospect, open. (JSI-82)</description>
         <label>Prospecting</label>
         <closed>false</closed>

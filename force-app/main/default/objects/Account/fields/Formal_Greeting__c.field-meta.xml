@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Formal_Greeting__c</fullName>
+    <description>JCRC formal greeting for the household or organization. JCRC&apos;s own field; NPSP household naming and its npo02 greeting fields are not used for this. Rules: titled person first (Hon./Judge/Amb. &gt; military &gt; clergy &gt; Dr. &gt; Prof.), &quot;Mr. and Mrs. First and First Last&quot; for same last name, &quot;Drs.&quot; when both are Dr. Jason Ott, 2026-11-12.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Formal greeting for letters and envelopes, e.g. &quot;Mr. and Mrs. Michael and Ruth Slade&quot; or &quot;Dr. Cheryl Saban and Mr. Haim Saban&quot;.</inlineHelpText>
+    <label>Formal Greeting</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

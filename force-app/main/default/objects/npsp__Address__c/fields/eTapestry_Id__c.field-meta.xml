@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>eTapestry_Id__c</fullName>
+    <caseSensitive>false</caseSensitive>
+    <description>eTapestry migration: the internal eTapestry key of the source row (load key for upserts). Jason Ott, 2026-11-11.</description>
+    <externalId>true</externalId>
+    <inlineHelpText>Internal eTapestry key. Set by the data migration; do not edit.</inlineHelpText>
+    <label>eTapestry ID</label>
+    <length>40</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>

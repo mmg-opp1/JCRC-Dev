@@ -5,6 +5,6 @@
     <columns>Donor_First_Name__c</columns>
     <columns>Donor_Last_Name__c</columns>
     <columns>Donor_Email__c</columns>
-    <filterScope>Mine</filterScope>
+    <filterScope>Everything</filterScope>
     <label>All</label>
 </ListView>

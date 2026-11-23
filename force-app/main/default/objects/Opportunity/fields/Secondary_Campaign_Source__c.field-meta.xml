@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Secondary_Campaign_Source__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Second campaign for the gift: the eTapestry approach when it differs from the eTapestry campaign. Jason Ott, 2026-11-11.</description>
+    <inlineHelpText>Another campaign this gift is credited to, besides the Primary Campaign Source.</inlineHelpText>
+    <label>Secondary Campaign Source</label>
+    <referenceTo>Campaign</referenceTo>
+    <relationshipLabel>Donations (Secondary Campaign)</relationshipLabel>
+    <relationshipName>Secondary_Campaign_Donations</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Lookup</type>
+</CustomField>
