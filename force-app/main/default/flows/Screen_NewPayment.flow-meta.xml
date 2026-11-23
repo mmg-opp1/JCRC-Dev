@@ -1,31 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <actionCalls>
-        <name>Back_to_Opp</name>
-        <label>Back to Opp</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <actionName>c:fsc_openUrl</actionName>
-        <actionType>component</actionType>
-        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
-        <inputParameters>
-            <name>mode</name>
-            <value>
-                <inputConfiguratorMode>Resource</inputConfiguratorMode>
-                <stringValue>replace</stringValue>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>url</name>
-            <value>
-                <elementReference>fOpportunityURL</elementReference>
-                <inputConfiguratorMode>Resource</inputConfiguratorMode>
-            </value>
-        </inputParameters>
-        <nameSegment>c:fsc_openUrl</nameSegment>
-        <offset>0</offset>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </actionCalls>
     <apiVersion>68.0</apiVersion>
     <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
     <customProperties>
@@ -39,9 +13,6 @@
         <label>Evaluate Navigation</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
-        <defaultConnector>
-            <targetReference>Back_to_Opp</targetReference>
-        </defaultConnector>
         <defaultConnectorLabel>Cancel</defaultConnectorLabel>
         <rules>
             <name>Save</name>
@@ -68,11 +39,6 @@
         <picklistObject>npe01__OppPayment__c</picklistObject>
     </dynamicChoiceSets>
     <environments>Default</environments>
-    <formulas>
-        <name>fOpportunityURL</name>
-        <dataType>String</dataType>
-        <expression>&quot;/&quot;+{!vOpportunityId}</expression>
-    </formulas>
     <interviewLabel>Screen_NewPayment {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Screen_NewPayment</label>
     <processMetadataValues>
@@ -441,7 +407,7 @@
             <targetReference>screenNewPayment</targetReference>
         </connector>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
     <variables>
         <name>vOpportunityId</name>
         <dataType>String</dataType>

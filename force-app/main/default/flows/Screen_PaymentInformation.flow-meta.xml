@@ -75,9 +75,6 @@
                     <fieldText>Number of Payments</fieldText>
                     <fieldType>InputField</fieldType>
                     <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-                    <isDisabled>
-                        <booleanValue>true</booleanValue>
-                    </isDisabled>
                     <isReadOnly>
                         <booleanValue>true</booleanValue>
                     </isReadOnly>
@@ -101,9 +98,6 @@
                     <fieldText>Payments Made</fieldText>
                     <fieldType>InputField</fieldType>
                     <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-                    <isDisabled>
-                        <booleanValue>true</booleanValue>
-                    </isDisabled>
                     <isReadOnly>
                         <booleanValue>true</booleanValue>
                     </isReadOnly>
@@ -127,9 +121,6 @@
                     <fieldText>Last Payment Date</fieldText>
                     <fieldType>InputField</fieldType>
                     <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-                    <isDisabled>
-                        <booleanValue>true</booleanValue>
-                    </isDisabled>
                     <isReadOnly>
                         <booleanValue>true</booleanValue>
                     </isReadOnly>
@@ -152,9 +143,6 @@
                     <fieldText>Payment Amount Received</fieldText>
                     <fieldType>InputField</fieldType>
                     <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-                    <isDisabled>
-                        <booleanValue>true</booleanValue>
-                    </isDisabled>
                     <isReadOnly>
                         <booleanValue>true</booleanValue>
                     </isReadOnly>
@@ -178,9 +166,6 @@
                     <fieldText>Remaining Balance</fieldText>
                     <fieldType>InputField</fieldType>
                     <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-                    <isDisabled>
-                        <booleanValue>true</booleanValue>
-                    </isDisabled>
                     <isReadOnly>
                         <booleanValue>true</booleanValue>
                     </isReadOnly>
@@ -204,9 +189,6 @@
                     <fieldText>Payment Writeoff Amount</fieldText>
                     <fieldType>InputField</fieldType>
                     <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-                    <isDisabled>
-                        <booleanValue>true</booleanValue>
-                    </isDisabled>
                     <isReadOnly>
                         <booleanValue>true</booleanValue>
                     </isReadOnly>
@@ -230,9 +212,6 @@
                     <fieldText>Amount Due To Date</fieldText>
                     <fieldType>InputField</fieldType>
                     <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-                    <isDisabled>
-                        <booleanValue>true</booleanValue>
-                    </isDisabled>
                     <isReadOnly>
                         <booleanValue>true</booleanValue>
                     </isReadOnly>
@@ -256,9 +235,6 @@
                     <fieldText>Pledge Written Off</fieldText>
                     <fieldType>InputField</fieldType>
                     <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-                    <isDisabled>
-                        <booleanValue>true</booleanValue>
-                    </isDisabled>
                     <isReadOnly>
                         <booleanValue>true</booleanValue>
                     </isReadOnly>
@@ -282,9 +258,6 @@
                     <fieldText>Original Pledge Amount</fieldText>
                     <fieldType>InputField</fieldType>
                     <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-                    <isDisabled>
-                        <booleanValue>true</booleanValue>
-                    </isDisabled>
                     <isReadOnly>
                         <booleanValue>true</booleanValue>
                     </isReadOnly>
@@ -328,7 +301,7 @@
             <targetReference>Get_Opportunity_Details</targetReference>
         </connector>
     </start>
-    <status>Obsolete</status>
+    <status>Active</status>
     <variables>
         <name>vOpportunityId</name>
         <dataType>String</dataType>
